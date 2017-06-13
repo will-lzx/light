@@ -20,7 +20,7 @@ body a { color: black; text-decoration: none; margin: 10px; margin-right: 20px;}
 
 .title{color: darkorchid; font-size: 40px;}
 
-.foot{ background-color: black;}
+.foot{ background-color: rgba(0, 0, 0, 0.7);}
 
 .foot span { color: white; vertical-align: 80%}
 
