@@ -15,41 +15,37 @@
         <div id="logo">
             <a href="/"><img alt="轻拍科技" src="{% static 'images/home/page1_home_03.jpg' %}" border="0"></a>
         </div>
-        <div id="navbar-wrap">
-            <nav id="navbar">
-                <div id="navigation">
-                    <ul class="menu">
-                        <li>
-                            <a href="/"><span class="menutitle">首页</span><span
-                                    class="menudesc"></span></a>
-                        </li>
-                        <li>
-                            <a href="/home/ownpic"><span class="menutitle">自拍神器</span><span
-                                    class="menudesc"></span></a>
-                        </li>
-                        <li>
-                            <a href="/home/about"><span class="menutitle">关于我们</span><span
-                                    class="menudesc"></span></a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
+        <div id="navigation">
+            <ul class="menu">
+                <li>
+                    <a href="/"><span class="menutitle">首页</span><span
+                            class="menudesc"></span></a>
+                </li>
+                <li>
+                    <a href="/home/ownpic"><span class="menutitle">自拍神器</span><span
+                            class="menudesc"></span></a>
+                </li>
+                <li>
+                    <a href="/home/about"><span class="menutitle">关于我们</span><span
+                            class="menudesc"></span></a>
+                </li>
+            </ul>
         </div>
 
 
 {% block content %}
 {% endblock %}
 
-<div>
+<div class="foot">
     <div align="center">
-        <span><img src="{% static 'images/home/page1_home_20.jpg' %}" alt=""/></span>
-        <span><img src="{% static 'images/home/page1_home_22.jpg' %}" alt=""/></span>
-        <span><img src="{% static 'images/home/page1_home_24.jpg' %}" alt=""/></span>
+        <img src="{% static 'images/home/page1_home_20.jpg' %}" alt=""/>
+        <img src="{% static 'images/home/page1_home_22.jpg' %}" alt=""/>
+        <img src="{% static 'images/home/page1_home_24.jpg' %}" alt=""/>
     </div>
     <div align="center">
         <ul class="menu">
-            <span class="menutitle">上海轻拍网络科技有限公司<p>Copyright@2017 浙ICP备237970098号    咨询电话：0571-88809090 / 客服邮箱：kf@relalive.com</p></span>
+            <span>上海轻拍网络科技有限公司 Copyright@2017 浙ICP备237970098号    咨询电话：0571-88809090 / 客服邮箱：kf@relalive.com </span>
         </ul>
     </div>
 </div>

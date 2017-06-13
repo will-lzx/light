@@ -4,13 +4,11 @@ div{margin:0 auto;  text-align:center;}
 
 #logo img {float: left; width:auto; margin-left: 50px; margin-top: 20px;}
 
-#navbar-wrap { padding: 0px; margin:0 0 10px 0; float:right!important}
-
 #navigation ul.menu { float:right}
 
-#navigation .menu { margin: 0; padding: 0; list-style: none;}
+#navigation menu { margin-right: 80%; list-style: none;}
 
-#navigation .menu .icon-angle-right { position: absolute; right: 10px; margin-top: 20px;  color: #aaa; font-size: 12px; }
+#navigation menu .icon-angle-right { position: absolute; right: 10px; margin-top: 20px;  color: #aaa; font-size: 12px; }
 #navigation .menu > li { display: block; float: left; }
 
 #navbar { height: 55px; }
@@ -19,3 +17,15 @@ div{margin:0 auto;  text-align:center;}
 #navigation { padding:0;}
 
 body a { color: black; text-decoration: none; margin: 10px; margin-right: 20px;}
+
+.title{color: darkorchid; font-size: 40px;}
+
+.foot{ background-color: black;}
+
+.foot span { color: white; vertical-align: 80%}
+
+.foot span img {vertical-align: 80%}
+
+.main_content {margin: 0 auto;}
+
+.title_content {text-indent:2em;}
