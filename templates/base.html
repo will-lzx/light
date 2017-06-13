@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Relalive - {% block title %}{% endblock %}</title>
+    <link href="{% static 'favicon.ico' %}" rel="shortcut icon" type="image/vnd.microsoft.icon"/>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css"/>
+
+</head>
+
+<body class="background">
+        <div id="logo">
+            <a href="/"><img alt="轻拍科技" src="{% static 'images/home/page1_home_03.jpg' %}" border="0"></a>
+        </div>
+        <div id="navbar-wrap">
+            <nav id="navbar">
+                <div id="navigation">
+                    <ul class="menu">
+                        <li>
+                            <a href="/"><span class="menutitle">首页</span><span
+                                    class="menudesc"></span></a>
+                        </li>
+                        <li>
+                            <a href="/home/ownpic"><span class="menutitle">自拍神器</span><span
+                                    class="menudesc"></span></a>
+                        </li>
+                        <li>
+                            <a href="/home/about"><span class="menutitle">关于我们</span><span
+                                    class="menudesc"></span></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </div>
+
+
+{% block content %}
+{% endblock %}
+
+<div>
+    <div align="center">
+        <span><img src="{% static 'images/home/page1_home_20.jpg' %}" alt=""/></span>
+        <span><img src="{% static 'images/home/page1_home_22.jpg' %}" alt=""/></span>
+        <span><img src="{% static 'images/home/page1_home_24.jpg' %}" alt=""/></span>
+    </div>
+    <div align="center">
+        <ul class="menu">
+            <span class="menutitle">上海轻拍网络科技有限公司<p>Copyright@2017 浙ICP备237970098号    咨询电话：0571-88809090 / 客服邮箱：kf@relalive.com</p></span>
+        </ul>
+    </div>
+</div>
+
+</body>
