@@ -6,9 +6,9 @@ body {margin:0 auto; padding:0 auto; text-align:center; height: 100%; width: 90%
 #logo a{float: left; width:130px; height: 30px; margin-top: 10px;border: none; background: url("/static/images/logo1.jpg")  }
 #logo a:hover{ background: url("/static/images/logo2.jpg")  }
 
-#navigation ul.menu { float:right; width: 500px;height: 50px;height: 50px;}
+#navigation ul.menu { float:right; width: 500px;height: 50px; text-align: right;}
 #navigation menu { margin-right: 80%; list-style: none;}
-#navigation .menu > li { display: block; float: left;width: 100px;text-align: right; }
+#navigation .menu > li { display: block; float: left;width: 100px;text-align: right;margin-top: 10px; }
 #navigation .menu > li a{color: black; }
 #navigation .menu > li a:hover{color: #9900cc; }
 
