@@ -3,8 +3,9 @@ body {margin:0 auto; padding:0 auto; text-align:center; height: 100%; width: 90%
 
 #head_top{float: left;width: 100%; height: 50px;}
 
-#logo  a{float: left; width:130px; height: 30px; margin-top: 10px;border: none; background: url("/static/images/logo1.jpg")  }
-#logo  a：hover{ background: url("/static/images/logo2.jpg")  }
+#logo a{float: left; width:130px; height: 30px; margin-top: 10px;border: none; background: url("/static/images/logo1.jpg")  }
+#logo a:hover{ background: url("/static/images/logo2.jpg")  }
+
 #navigation ul.menu { float:right}
 
 #navigation menu { margin-right: 80%; list-style: none;}
