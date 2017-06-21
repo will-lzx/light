@@ -52,13 +52,12 @@ body a { color: black; text-decoration: none; }
     width: 50%;
     text-align: left;
     font-size: 18px;
-    line-height:30px;
+    line-height:428px;
 }
 .home_cont_title{
     font-size: 48px;
     color: #9900cc;
     line-height: 80px;
-    margin-top: 180px;
 }
 
 .title_content {text-indent:2em;}
