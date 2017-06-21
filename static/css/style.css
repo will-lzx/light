@@ -43,5 +43,8 @@ z-index:-1;
 #main_home > img{height:auto;
 width:100%;
 border:0;}
+#main_home < img{height:100%;
+width:auto;
+border:0;}
 
 .title_content {text-indent:2em;}
