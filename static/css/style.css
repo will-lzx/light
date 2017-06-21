@@ -33,6 +33,7 @@ body a { color: black; text-decoration: none; }
 
 .home_cont{
     width: 80%;
+    margin: 0px auto;
     clear: both;
     height: 100%;
     text-align: left;
@@ -48,11 +49,12 @@ body a { color: black; text-decoration: none; }
     width: 50%;
     text-align: left;
     font-size: 18px;
-    line-height: 30px;
+    line-height:30px;
 }
 .home_cont_title{
     font-size: 48px;
     color: #9900cc;
+    line-height: 80px;
 }
 
 .title_content {text-indent:2em;}
