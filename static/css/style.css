@@ -31,5 +31,28 @@ body a { color: black; text-decoration: none; }
 .main_content_home{width:100%;height: 600px; margin-top: 5px; background-size:100% 100%; background: url("/static/images/home/home_banner.jpg") center no-repeat; }
 .main_content_home_con{width: 80%;height: 100%;margin: 0px auto;background: url("/static/images/home/home_slogn.png") left no-repeat;}
 
+.home_cont{
+    width: 80%;
+    clear: both;
+    height: 100%;
+    text-align: left;
+}
+.home_cont_img{
+    float: left;
+    width: 50%;
+    height: 428px;
+    border: none;
+}
+.home_cont_text{
+    float: left;
+    width: 50%;
+    text-align: left;
+    font-size: 18px;
+    line-height: 30px;
+}
+.home_cont_title{
+    font-size: 48px;
+    color: #9900cc;
+}
 
 .title_content {text-indent:2em;}
