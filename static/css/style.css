@@ -1,17 +1,16 @@
 {% load static/images %}
-body {margin:0 auto; padding:0 auto; text-align:center; height: 100%; width: 90%;}
+body {margin:0 auto; padding:0 auto; text-align:center; height: 100%; width: 90%;font-size: 14px;}
 
 #head_top{float: left;width: 100%; height: 50px;}
 
 #logo a{float: left; width:130px; height: 30px; margin-top: 10px;border: none; background: url("/static/images/logo1.jpg")  }
 #logo a:hover{ background: url("/static/images/logo2.jpg")  }
 
-#navigation ul.menu { float:right}
-
+#navigation ul.menu { float:right; width: 500px;height: 50px;height: 50px;}
 #navigation menu { margin-right: 80%; list-style: none;}
-
-#navigation menu .icon-angle-right { position: absolute; right: 10px; margin-top: 20px;  color: #aaa; font-size: 12px; }
-#navigation .menu > li { display: block; float: left; }
+#navigation .menu > li { display: block; float: left;width: 100px; background-color: aqua; }
+#navigation .menu > li a{color: black; }
+#navigation .menu > li a:hover{color: #9900cc; }
 
 #navbar { height: 55px; }
 #navbar.row { margin-bottom: 0 }
