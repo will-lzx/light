@@ -43,6 +43,15 @@ body a { color: black; text-decoration: none; }
     line-height:50px;
     margin-top: 100px;
 }
+.rec_rig{
+    float: right;
+    width: 600px;
+    height: 100px;
+    font-size: 36px;
+    color: #9900cc;
+    line-height:50px;
+    margin-top: 100px;
+}
 .cont_big {
     width: 100%;
     height: 220px;
@@ -64,6 +73,16 @@ body a { color: black; text-decoration: none; }
     margin: 30px auto;
     background-color: #eeeeee;
 }
+.cont_big_white {
+    width: 100%;
+    height: 680px;
+    text-align: center;
+    clear: both;
+    font-size: 20px;
+    line-height: 40px;
+    color: #666;
+    margin: 30px auto;
+}
 .home_cont{
     width: 80%;
     height: 100%;
@@ -76,11 +95,25 @@ body a { color: black; text-decoration: none; }
     height: 428px;
     border: none;
 }
+.home_cont_img_rig{
+    float: right;
+    margin-top: 110px;
+    width: 500px;
+    height: 428px;
+    border: none;
+}
 .home_cont_text{
     float: left;
     width: 500px;
     margin-top: 90px;
     text-align: left;
+    height: 400px;
+}
+.home_cont_text_rig{
+    float: right;
+    width: 500px;
+    margin-top: 90px;
+    text-align: right;
     height: 400px;
 }
 
