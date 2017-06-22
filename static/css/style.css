@@ -60,6 +60,7 @@ body a { color: black; text-decoration: none; }
     margin: 60px auto;
     height: 428px;
     text-align: left;
+    background-color: #9900cc;
 }
 .home_cont_img{
     float: left;
