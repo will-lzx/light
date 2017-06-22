@@ -8,7 +8,7 @@ body {margin:0 auto; padding:0 auto; text-align:center; height: 100%;}
 
 #navigation ul.menu { float:right; height: 50px; text-align: right;}
 #navigation menu { margin-right: 80%; list-style: none; }
-#navigation .menu > li { display: block; float: left;width: 120px;text-align: right;margin-top: 5px;font-size: 18px; }
+#navigation .menu > li { display: block; float: left;width: 120px;text-align: right;margin-top: 5px;font-size: 24px; }
 #navigation .menu > li a{color: black;text-decoration: none; }
 #navigation .menu > li a:hover{color: #9900cc; }
 
