@@ -48,7 +48,6 @@ body a { color: black; text-decoration: none; }
     border: none;
 }
 .home_cont_text{
-    float: left;
     margin-left: 510px;
     text-align: left;
     font-size: 18px;
