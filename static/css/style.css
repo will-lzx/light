@@ -35,8 +35,9 @@ body a { color: black; text-decoration: none; }
 .head3{font-size: 24px; color:black;line-height: 60px;}
 .col{color: #9900cc;}
 .rec{
-    font-size: 14px;
-    color: darkgrey;
+    clear: both;
+    font-size: 24px;
+    color: #9900cc;
     margin-bottom: 80px;
 }
 .cont_big {
