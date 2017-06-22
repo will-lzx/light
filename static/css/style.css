@@ -35,13 +35,13 @@ body a { color: black; text-decoration: none; }
 .head3{font-size: 24px; color:black;line-height: 60px;}
 .cont_big {
     width: 100%;
-    height: 300px;
+    height: 220px;
     clear: both;
     font-size: 20px;
     line-height: 50px;
     padding: 50px;
     color: #666;
-    margin: 30px auto;
+    margin: 80px auto;
 }
 .cont_big_gra {
     width: 100%;
