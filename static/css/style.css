@@ -33,6 +33,7 @@ body a { color: black; text-decoration: none; }
     text-align: center;
     border: none;
     float: left;
+    color: #666666;
    }
 .foot_con_img {
     width: 200px;
