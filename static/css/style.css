@@ -115,16 +115,18 @@ body a { color: black; text-decoration: none; }
 .home_cont_img{
     float: left;
     margin-top: 110px;
-    width: 500px;
+    width: 400px;
     height: 428px;
     border: none;
+    text-align: left;
 }
 .home_cont_img_rig{
     float: right;
     margin-top: 110px;
-    width: 500px;
+    width: 400px;
     height: 428px;
     border: none;
+    text-align: right;
 }
 .home_cont_text{
     float: left;
