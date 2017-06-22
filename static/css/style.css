@@ -38,7 +38,7 @@ body a { color: black; text-decoration: none; }
     clear: both;
     font-size: 24px;
     color: #9900cc;
-    margin-bottom: 80px;
+    line-height: 80px;
 }
 .cont_big {
     width: 100%;
