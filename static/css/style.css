@@ -37,9 +37,10 @@ body a { color: black; text-decoration: none; }
     width: 100%;
     clear: both;
     font-size: 20px;
-    line-height: 40px;
+    line-height: 50px;
     padding: 50px;
     color: #666;
+    margin: 30px auto;
 }
 }
 .home_cont{
