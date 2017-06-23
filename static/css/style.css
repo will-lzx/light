@@ -165,3 +165,4 @@ body a { color: black; text-decoration: none; }
 .about_story_img{width: 60px;height: 60px;margin: 10px auto;}
 .about_story_cont{margin: 10px auto;width: 80%; line-height: 26px;font-size: 14px;}
 .about_fg{width: 80%;margin: 0 auto;border-top: dashed 1px #eeeeee;}
+.hig_story{height: 320px;}
