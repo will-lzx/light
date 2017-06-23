@@ -63,7 +63,7 @@ body a { color: black; text-decoration: none; }
     float: left;
     width: 600px;
     height: 100px;
-    font-size: 30px;
+    font-size: 24px;
     color: #9900cc;
     line-height:40px;
     margin-top: 100px;
@@ -72,7 +72,7 @@ body a { color: black; text-decoration: none; }
     float: right;
     width: 600px;
     height: 200px;
-    font-size: 30px;
+    font-size: 24px;
     color: #9900cc;
     line-height:40px;
     margin-top: 96px;
@@ -103,10 +103,10 @@ body a { color: black; text-decoration: none; }
     height: 680px;
     text-align: center;
     clear: both;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 40px;
     color: #666;
-    margin: 30px auto;
+    margin: 10px auto;
 }
 .home_cont{
     width: 80%;
