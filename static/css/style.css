@@ -3,13 +3,13 @@ body {margin:0 auto; padding:0 auto; text-align:center; height: 100%;}
 
 #head_top{width: 80%; height: 50px; margin: 10px auto;}
 
-#logo{float: left; width:160px; height: 40px; }
+#logo{float: left; width:160px; height: 40px; margin-top: 5px;}
 #logo img{width:160px; height: 40px;}
 
 
 #navigation ul.menu { float:right; height: 50px; text-align: right;}
 #navigation menu { margin-right: 80%; list-style: none; }
-#navigation .menu > li { display: block; float: left;width: 120px;text-align: right;margin-top: 5px;font-size: 16px; font-weight: bold;}
+#navigation .menu > li { display: block; float: left;width: 120px;text-align: right;margin-top: 0px;font-size: 16px; font-weight: bold;}
 #navigation .menu > li a{color: black;text-decoration: none; }
 #navigation .menu > li a:hover{color: #9900cc; }
 
