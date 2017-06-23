@@ -3,7 +3,7 @@ body {margin:0 auto; padding:0 auto; text-align:center; height: 100%;}
 
 #head_top{width: 80%; height: 65px; margin: 10px auto;}
 
-#logo{float: left; width:160px; height: 40px; margin-top: 5px;border: none;background-size:100% auto; background-image: url("/static/images/logo1.jpg") ; background-repeat:no-repeat;  }
+#logo{display: block; float: left; width:160px; height: 40px; margin-top: 5px;border: none;background-size:100% auto; background-image: url("/static/images/logo1.jpg") ; background-repeat:no-repeat;  }
 #logo a{width:160px; height: 40px; background-image: url("/static/images/logo1.jpg")  }
 #logo a:hover{ width:160px; height: 40px;background-image: url("/static/images/logo2.jpg")  }
 
