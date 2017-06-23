@@ -166,5 +166,5 @@ body a { color: black; text-decoration: none; }
 .about_story_cont{margin: 10px auto;width: 80%; line-height: 26px;font-size: 14px;}
 .about_fg{width: 80%;margin: 0 auto;border-top: dashed 1px #eeeeee;}
 .hig_story{height: 320px;}
-.about_jx{width: 80%;margin: 0 auto;height: 200px;font-size: 14px;color: #666666}
+.about_jx{width: 80%;margin: 0 auto;height: 200px;font-size: 14px;line-height: 26px;color: #666666}
 .about_jx_con{width: 33%;height: 100%;text-align: center;float: left;padding: 30px;}
