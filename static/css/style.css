@@ -87,6 +87,7 @@ body a { color: black; text-decoration: none; }
     padding: 40px;
     color: #666;
     margin: 20px auto;
+    text-align: center;
 }
 .cont_big_gra {
     width: 100%;
