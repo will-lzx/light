@@ -18,6 +18,6 @@ from home.views import *
 
 urlpatterns = [
     url(r'^$', home, name='home'),
-    url(r'^ownpic$', ownpic, name='ownpic'),
-    url(r'^about', about, name='about'),
+    url(r'^ownpic/$', ownpic, name='ownpic'),
+    url(r'^about/$', about, name='about'),
 ]
