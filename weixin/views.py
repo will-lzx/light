@@ -12,7 +12,6 @@ from light.settings import *
 
 
 @csrf_exempt
-@ensure_csrf_cookie
 def weixin(request):
     if request.method == 'GET':
         signature = request.GET.get('signature', None)
@@ -24,7 +23,7 @@ def weixin(request):
         token = WECHAT_TOKEN
 
         # 把token，timestamp, nonce放在一个序列中，并且按字符排序
-        hashlist = [token, timestamp, nonce]
+        hashlist = [token, str(timestamp), str(nonce)]
         hashlist.sort()
 
         # 将上面的序列合成一个字符串
