@@ -17,5 +17,5 @@ from django.conf.urls import url
 from weixin.views import *
 
 urlpatterns = [
-    url(r'^weixin/', weixin, name='weixin'),
+    url(r'^$', weixin, name='weixin'),
 ]
