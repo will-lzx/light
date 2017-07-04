@@ -22,16 +22,22 @@ h1{font-size: 48px;line-height: 48px;font-weight: 200;padding-left: 20px;padding
 h2{font-size: 30px;color: black;line-height: 30px;text-align: center;}
 h3{font-size: 24px; color:black;line-height: 60px;}
 h4{font-size: 16px;line-height: 16px; font-weight:200;padding-left: 20px;}
-h5{font-size: 14px;line-height: 16px; font-weight:100;text-align: center;margin-bottom: 40px;color: #666666;margin-top: -10px;}
+h5{font-size: 14px;line-height: 16px; font-weight:100;text-align: center;margin-bottom: 40px;color: #666666;margin-top: -15px;}
 h6{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold}
 
 
 .con_white{width: 80%;margin: 50px auto;text-align: center;}
+.con_gray{width: 100%;background-color: #f6f6f6}
+
 .home_ys{float: left;width:31%;height: 400px;margin-right: 3%; text-align: center;}
 .home_ys_img{float:left;width: 100%;overflow: hidden;}
 .ys_imge{width:100%;height: auto; }
 .home_ys_sm{float: left;width: 100%;font-size: 14px;line-height: 22px;color: #666666;margin-top: -40px;font-weight: 100;}
 .ys_right{margin-right: 0;}
+
+.home_sy{width: 1000px; height: 500px; margin: 50px auto;background-size:100% 100%; background: url("/static/images/home/home_sy.jpg") center no-repeat;}
+
+
 
 .star{float: right;width: 80px;height: 26px;font-size: 14px;border: 1px dashed #eeeeee;line-height: 26px;text-align: center;margin-top: 12px;}
 .star a{text-decoration: none;color: white;}
