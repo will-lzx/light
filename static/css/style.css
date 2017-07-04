@@ -7,9 +7,9 @@ body {margin:0 auto; padding:0 auto; height: 100%;}
 
 #navigation ul.menu { float:left; height: 50px; text-align: left; margin-left: 30px;}
 #navigation menu { margin-right: 80%; list-style: none; }
-#navigation .menu > li { display: block; float: left;width: 80px;text-align: right;font-size: 14px; }
+#navigation .menu > li { display: block; float: left;width: 90px;text-align: right;font-size: 16px; }
 #navigation .menu > li a{color: black;text-decoration: none; color: white;}
-#navigation .menu > li a:hover{text-decoration: underline; }
+#navigation .menu > li a:hover{text-decoration: none; }
 
 #navbar { height: 55px; }
 #navbar.row { margin-bottom: 0 }
