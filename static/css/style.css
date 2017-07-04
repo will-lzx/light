@@ -11,8 +11,8 @@ body {margin:0 auto; padding:0 auto; height: 100%;}
 #navigation .menu > li a{color: black;text-decoration: none; color: white;}
 #navigation .menu > li a:hover{text-decoration: none;font-weight: bold; }
 
-.star{float: right;width: 100px;height: 40px;font-size: 14px;color: white;border: 1px dotted #eeeeee;}
-.star a{text-decoration: none;}
+.star{float: right;width: 100px;height: 20px;font-size: 14px;border: 1px dashed #eeeeee;line-height: 20px;text-align: center;}
+.star a{text-decoration: none;color: white;}
 .star a:hover{text-decoration: none;font-weight: bold;}
 
 #navbar { height: 55px; }
