@@ -11,6 +11,10 @@ body {margin:0 auto; padding:0 auto; height: 100%;}
 #navigation .menu > li a{color: black;text-decoration: none; color: white;}
 #navigation .menu > li a:hover{text-decoration: none;font-weight: bold; }
 
+.star{float: right;width: 100px;height: 40px;font-size: 14px;color: white;border: 1px dotted #eeeeee;}
+.star a{text-decoration: none;}
+.star a:hover{text-decoration: none;font-weight: bold;}
+
 #navbar { height: 55px; }
 #navbar.row { margin-bottom: 0 }
 
