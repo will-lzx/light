@@ -1,7 +1,7 @@
 {% load static/images %}
 body {margin:0 auto; padding:0 auto; height: 100%;}
 
-#head_top{width: 80%; height: 50px; margin: 10px auto;}
+#head_top{width: 80%; height: 50px; margin: 10px auto; background-color: #cc3399;}
 
 #logo{float: left; width:160px; height: 40px; margin-top: 5px;}
 #logo img{width:160px; height: 40px;}
