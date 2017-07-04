@@ -31,7 +31,7 @@ h6{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold}
 .con_gray{width: 100%;background-color: #f6f6f6;clear: both;padding-top:50px; padding-bottom: 50px;}
 
 .home_ys{float: left;width:31%;height: 380px;margin-right: 3%; text-align: center;}
-.home_ys_img{float:left;width: 100%;overflow: hidden;}
+.home_ys_img{float:left;width: 100%;overflow: hidden;text-align: center;}
 .ys_imge{width:100%;height: auto; }
 .home_ys_sm{float: left;width: 100%;font-size: 14px;line-height: 22px;color: #666666;margin-top: -40px;font-weight: 100;}
 .ys_right{margin-right: 0;}
@@ -41,6 +41,8 @@ h6{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold}
 .sy2{padding-top: 215px;padding-left: 60px;}
 .sy3{padding-top: 215px;padding-left: 250px;}
 .sy4{padding-top: 235px;padding-left: 675px;}
+
+.icon_img{width: 60px;height: auto;overflow: hidden;}
 
 
 
