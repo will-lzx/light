@@ -2,16 +2,14 @@
 body {margin:0 auto; padding:0 auto; height: 100%;}
 
 #head_top{width: 80%; height: 50px; margin: 10px auto; background-color: #cc3399;}
-
 #logo{float: left; width:180px; height: 45px; margin-top: 0px;}
 #logo img{width:180px; height: 45px;}
 
-
-#navigation ul.menu { float:right; height: 50px; text-align: right;}
+#navigation ul.menu { float:left; height: 50px; text-align: left; margin-left: 50px;}
 #navigation menu { margin-right: 80%; list-style: none; }
 #navigation .menu > li { display: block; float: left;width: 120px;text-align: right;margin-top: 3px;font-size: 16px; font-weight: bold;}
-#navigation .menu > li a{color: black;text-decoration: none; }
-#navigation .menu > li a:hover{color: #9900cc; }
+#navigation .menu > li a{color: black;text-decoration: none; color: white;}
+#navigation .menu > li a:hover{text-decoration: underline; }
 
 #navbar { height: 55px; }
 #navbar.row { margin-bottom: 0 }
