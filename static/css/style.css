@@ -3,8 +3,8 @@ body {margin:0 auto; padding:0 auto; height: 100%;}
 
 #head_top{width: 80%; height: 50px; margin: 10px auto; background-color: #cc3399;}
 
-#logo{float: left; width:150px; height: 50px; margin-top: 0px;}
-#logo img{width:150px; height: 50px;}
+#logo{float: left; width:180px; height: 60px; margin-top: 0px;}
+#logo img{width:180px; height: 60px;}
 
 
 #navigation ul.menu { float:right; height: 50px; text-align: right;}
