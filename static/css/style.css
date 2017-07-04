@@ -28,7 +28,7 @@ h6{font-size: 14px;line-height: 16px; font-weight:200;padding-left: 20px; color:
 
 .con_white{width: 80%;margin: 50px auto;}
 .home_ys{float: left;width:360px;height: 400px;margin-right: 20px; text-align: center;}
-.home_img{float:left;width: 320px;height: 240px;overflow: hidden;}
+.home_ys_img{float:left;width: 320px;height: 240px;overflow: hidden;}
 .home_ys_sm{float: left;width: 100%;font-size: 14px;line-height: 18px;color: #666666;}
 
 .star{float: right;width: 80px;height: 26px;font-size: 14px;border: 1px dashed #eeeeee;line-height: 26px;text-align: center;margin-top: 12px;}
