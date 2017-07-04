@@ -36,7 +36,7 @@ h6{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold}
 .home_ys_sm{float: left;width: 100%;font-size: 14px;line-height: 22px;color: #666666;margin-top: -40px;font-weight: 100;}
 .ys_right{margin-right: 0;}
 
-.home_sy{width: 1000px; height: 500px; margin: 50px auto;background-size:80% 80%; background: url("/static/images/home/home_sy.jpg") center no-repeat;}
+.home_sy{width: 900px; height: 450px; margin: 50px auto;background-size:100% 100%; background: url("/static/images/home/home_sy.jpg") center no-repeat;}
 .sy1{float:left;width: 150px;height: 30px;padding-top: 480px;padding-left: 12px;font-size: 16px; color: #cc3399;font-weight: bold;}
 .sy2{padding-top: 215px;padding-left: 60px;}
 .sy3{padding-top: 215px;padding-left: 250px;}
