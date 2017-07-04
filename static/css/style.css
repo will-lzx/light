@@ -33,7 +33,7 @@ h6{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold}
 .home_ys{float: left;width:31%;height: 380px;margin-right: 3%; text-align: center;}
 .home_ys_img{float:left;width: 100%;overflow: hidden;text-align: center;}
 .ys_imge{width:100%;height: auto; }
-.home_ys_sm{float: left;width: 100%;font-size: 14px;line-height: 22px;color: #666666;margin-top: -40px;font-weight: 100;}
+.home_ys_sm{float: left;width: 100%;font-size: 14px;line-height: 22px;color: #666666;margin-top: -50px;font-weight: 100;}
 .ys_right{margin-right: 0;}
 
 .home_sy{width: 850px; height: 390px; margin: 50px auto;background-size:100% 100%; background: url("/static/images/home/home_sy2.jpg") center no-repeat;}
