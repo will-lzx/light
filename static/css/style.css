@@ -31,6 +31,7 @@ h6{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold}
 .home_ys_img{float:left;width: 100%;overflow: hidden;}
 .ys_imge{width:100%;height: auto; }
 .home_ys_sm{float: left;width: 100%;font-size: 14px;line-height: 22px;color: #666666;margin-top: -40px;font-weight: 100;}
+.ys_right{margin-right: 0;}
 
 .star{float: right;width: 80px;height: 26px;font-size: 14px;border: 1px dashed #eeeeee;line-height: 26px;text-align: center;margin-top: 12px;}
 .star a{text-decoration: none;color: white;}
