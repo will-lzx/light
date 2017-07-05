@@ -54,7 +54,7 @@ h6{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold}
 .icon_h5{margin-bottom: 60px;}
 
 .cp_sylc{width: 900px; height: 200px; margin: 50px auto;background-size:100% 100%; background: url("/static/images/ownpic/cp_sylc.jpg") center no-repeat;}
-.cp_lc_cont{width: 900px;margin: -50px auto;text-align: center;}
+.cp_lc_cont{width: 900px;margin: -100px auto;text-align: center;}
 .cp_lc_li{width: 180px;float: left;margin-right: 50px;text-align: center;}
 .cp_lc_sm{float: left;width: 100%;font-size: 14px;line-height: 22px;color: #666666;margin-top: -50px;font-weight: 100;}
 
