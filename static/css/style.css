@@ -98,7 +98,7 @@ h7{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold;margin-bo
 .yz_left{float: left;width: 30%;height:100%;margin-right:5%;text-align:center;}
 .yz_left_img{width: 170px;height:auto;border: none;}
 .yz_right{float: left;width: 65%;height:100%;text-align: left;font-size: 14px;line-height: 30px;padding-top: 40px;color: #666666}
-.ystc{color: #cc3399}
+.ystc{color: #cc3399;font-weight: bold;}
 
 
 .star{float: right;width: 80px;height: 26px;font-size: 14px;border: 1px dashed #eeeeee;line-height: 26px;text-align: center;margin-top: 12px;}
