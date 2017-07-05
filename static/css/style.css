@@ -64,7 +64,7 @@ h6{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold}
 .zpg_cont_li{width: 30%;height: 100%;float: left;margin-right: 5%;text-align: center;}
 .zpg_cont_li_right{margin-right: 0;}
 .zpg_left{float: right;width: 100%;text-align: right;margin-bottom: 20px;}
-.zpg_left_img{float: right;height: 40px;overflow: hidden;width: 100%;margin-bottom: -100px;}
+.zpg_left_img{float: right;height: 40px;overflow: hidden;width: 100%;margin-bottom: -10px;}
 .zpg_left_sm{float: right;width: 100%;font-size: 14px;line-height: 22px;color: #666666;margin-top: -50px;font-weight: 100;}
 .zpg_img{width: 100%;height: 480px;overflow: hidden;border: 1px dashed #eeeeee;}
 .icon_img_zpg{width: 40px;height: auto;overflow: hidden;}
