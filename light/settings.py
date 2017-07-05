@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'home',
+    'weixin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -128,3 +129,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
 ]
+
+# weixin
+WECHAT_TOKEN = "light"
+WEIXIN_APPID = 'wx7622eda5995971b5 '
+WEIXIN_APPSECRET = '0676dd4fbac0115df4fb4d5820cf9d51'

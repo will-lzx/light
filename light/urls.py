@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', RedirectView.as_view(url='/home/')),
     url(r'^home/', include('home.urls')),
+    url(r'^weixin/', include('weixin.urls')),
 ]
