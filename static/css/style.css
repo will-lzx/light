@@ -76,11 +76,11 @@ h6{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold}
 .jg_img_cont{float: left;width: 45%;text-align: right;}
 .jg_img{width: auto;height: 500px;overflow: hidden;border: none;}
 .jg_sm_cont{float: left;width: 55%;text-align: left;}
-.jg_sm_cont_li{float: left;width: 100%;height: 120px;margin-bottom: 30px;}
+.jg_sm_cont_li{float: left;width: 100%;height: 120px;margin-bottom: 35px;}
 .jg_sm_imgt{float: left;width: 120px;height: 120px;margin-left: 40px;margin-right: 20px;border: none;}
 .jg_sm_img{width: 120px;height: 120px;border: none;overflow: hidden;}
 .jg_sm_text{float: left;font-size: 14px;line-height: 22px;color: #666666;font-weight: 100;}
-.jg_title{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold;width: 300px;}
+.jg_title{font-size: 16px;line-height: 30px; color: #cc3399;font-weight: bold;width: 300px;}
 
 
 
