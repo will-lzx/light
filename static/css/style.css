@@ -103,6 +103,13 @@ h7{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold;margin-bo
 .jx_hight{height: 360px;}
 
 
+.star{float: right;width: 80px;height: 26px;font-size: 14px;border: 1px dashed #eeeeee;line-height: 26px;text-align: center;margin-top: 12px;}
+.star a{text-decoration: none;color: white;}
+.star a:hover{text-decoration: none;font-weight: bold;}
+
+body a { color: black; text-decoration: none; }
+
+
 .foot_con{width: 600px;height: 210px;
     margin: 0 auto;
     text-align: center;
@@ -134,4 +141,5 @@ h7{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold;margin-bo
     background-color: #f6f6f6;
     color: #333333;
 }
+
 
