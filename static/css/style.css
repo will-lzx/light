@@ -68,9 +68,9 @@ h6{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold}
 .zpg_left_sm{float: right;width: 100%;font-size: 14px;line-height: 22px;color: #666666;margin-top: -50px;font-weight: 100;}
 .zpg_img{width: 100%;height: 400px;overflow: hidden;border: 1px dashed #eeeeee;}
 .icon_img_zpg{width: 40px;height: auto;overflow: hidden;}
-.zpg_right{float: right;width: 100%;text-align: right;margin-bottom: 20px;}
-.zpg_right_img{float: right;height: 40px;overflow: hidden;width: 100%;margin-bottom: -10px;}
-.zpg_right_sm{float: right;width: 100%;font-size: 14px;line-height: 22px;color: #666666;margin-top: -50px;font-weight: 100;}
+.zpg_right{float: left;width: 100%;text-align: left;margin-bottom: 20px;}
+.zpg_right_img{float: left;height: 40px;overflow: hidden;width: 100%;margin-bottom: -10px;}
+.zpg_right_sm{float: left;width: 100%;font-size: 14px;line-height: 22px;color: #666666;margin-top: -50px;font-weight: 100;}
 
 
 
