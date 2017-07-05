@@ -84,7 +84,7 @@ h6{font-size: 16px;line-height: 50px; color: #cc3399;font-weight: bold}
 .jg_sm_text{float: left;font-size: 14px;line-height: 22px;color: #666666;font-weight: 100;}
 .jg_title{font-size: 16px;line-height: 40px; color: #cc3399;font-weight: bold;width: 300px;}
 
-.qy_cont_left{float: left;width: 60%;height: 400px;text-align: left;font-size: 14px;line-height: 20px;color: #666666;}
+.qy_cont_left{float: left;width: 60%;height: 400px;text-align: left;font-size: 14px;line-height: 30px;color: #666666;}
 .qy_cont_right{float: left;width: 40%;height: 400px;text-align: right;}
 .qy_img_bg{float: left;width: 120px;height: 120px;margin: 20px;}
 .qy_bg1{background-size:100% 100%; background: url("/static/images/about/qy_shouduan.jpg") center no-repeat;}
