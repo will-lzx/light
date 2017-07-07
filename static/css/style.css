@@ -126,9 +126,10 @@ body a { color: black; text-decoration: none; }
     color: #666666;
    }
 .foot_con_img {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     border: none;
+    padding: 10px;
    }
 .foot_cont_bq{
     clear: both;
