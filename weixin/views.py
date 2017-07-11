@@ -4,11 +4,20 @@ import hashlib
 from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 import time
+
+from io import BytesIO
 from lxml import etree
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import ensure_csrf_cookie
 from light.settings import *
+import random
+from lib.utils import check_code
 # Create your views here.
+
+_letter_cases = "abcdefghjkmnpqrstuvwxy"
+_upper_cases = _letter_cases.upper()
+_numbers = ''.join(map(str, range(3, 10)))
+init_chars = ''.join((_letter_cases, _upper_cases, _numbers))
 
 
 @csrf_exempt
@@ -74,3 +83,29 @@ def checkSignature(request):
         return echostr
     else:
         return None
+
+
+def create_code_img(request):
+    # 直接在内存开辟一点空间存放临时生成的图片
+    f = BytesIO()
+    # 调用check_code生成照片和验证码
+    img, code = check_code.create_validate_code()
+    # 将验证码存在服务器的session中，用于校验
+    request.session['check_code'] = code
+    # 生成的图片放置于开辟的内存中
+    img.save(f, 'PNG')
+    # 将内存的数据读取出来，并以HttpResponse返回
+    return HttpResponse(f.getvalue())
+
+
+def login(request):
+    template_name = 'weixin/login.html'
+    response = render(request, template_name)
+    return response
+
+
+def agreement(request):
+    template_name = 'weixin/agreement.html'
+    response = render(request, template_name)
+    return response
+

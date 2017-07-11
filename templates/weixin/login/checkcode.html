@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <div class="row">
+         <div class="col-xs-7">
+            <input type="text" class="form-control" name="check_code" id="check_code" placeholder="请输入验证码">
+         </div>
+         <div class="col-xs-5">
+            <img id="check_code_img" src="/weixin/create_code_img/" onclick="refresh_check_code(this)">
+         </div>
+    </div>
+</body>
+<script>
+   function refresh_check_code(ths) {
+       ths.src += '?';
+   }
+  </script>
+</html>

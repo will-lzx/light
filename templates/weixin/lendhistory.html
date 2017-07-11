@@ -1,0 +1,45 @@
+{% extends "weixin/login/base.html" %}
+{% load static %}
+
+{% block head %}
+    <div class="weixin-title">
+        <div class="div-back"><a href="/weixin/privatecenter/">&lt;返回</a></div>
+        <span>租借记录</span>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+    <div class="div-content">
+        <span>您共有{% lendtime %}次租借，全球排名{% lendindex %}位</span>
+        {% if lendhistory %}
+            {% for history in lendhistory %}
+                <table>
+                    <tr>
+                        <td colspan="2">订单号：{% history.id %}</td>
+                        <td>{% history.status %}</td>
+                    </tr>
+                    <tr>
+                        <td>用时：
+                            {% if history.return_time %}
+                                {% history.return_time - history.time %}
+                            {% else %}
+                                {% history.time | get_time_long %}
+                            {% endif %}
+                        </td>
+                        <td>费用：{% history.money %}</td>
+                        <td></td>
+                    </tr>
+                    <tr>租：{% history.start_time %}
+                        {% history.site %}
+                    </tr>
+
+                </table>
+            {% endfor %}
+        {% else %}
+            <span>您暂未有租借记录，快去租借一个吧<a href="">借自拍杆</a></span>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

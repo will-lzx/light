@@ -1,0 +1,27 @@
+.weixin-title{
+    background-color: black;
+    color: white;
+    margin:0 auto;
+    text-align:center;
+}
+
+.div-conform {
+    margin:0 auto;
+    text-align:center;
+}
+
+.div-agreement{
+    margin:0 auto;
+    text-align:center;
+}
+
+#tip {
+    font-weight: bold;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    display: none;
+    z-index: 9999;
+    min-width: 200px;
+    text-align: center;
+}

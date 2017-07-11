@@ -1,0 +1,69 @@
+{% extends "weixin/login/base.html" %}
+{% load static %}
+
+{% block head %}
+    <div class="weixin-title">
+        <span>手机验证</span>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+    <div class="form">
+        <div class="div-phone">
+            <input type="text" id="phone" class="infos" placeholder="输入手机号码" />
+       </div>
+        <div class="div-ranks">
+            <input type="text" id="ranks" class="infos" placeholder="输入验证码" /><a href="javascript:;" class="send1" onclick="sends.send();">获取验证码</a>
+       </div>
+        <div class="div-conform">
+            <a href="javascript:;" class="conform" onclick="sends.conform();">开始</a>
+        </div>
+        <div class="div-agreement">
+            <span>点击开始，即表示阅读并同意<a href="/weixin/agreement">自拍杆使用协议</a></span>
+        </div>
+        <div>
+            <span id="tip"></span>
+        </div>
+    </div>
+
+    <script src="/static/js/jquery-3.2.1.js"></script>
+    <script src="/static/js/relalive.js"></script>
+    <script>
+
+        var sends = {
+            checked:1,
+             send:function(){
+              var numbers = /^1\d{10}$/;
+              var val = $('#phone').val().replace(/\s+/g,""); //获取输入手机号码
+              if($('.div-ranks').find('span').length == 0 && $('.div-ranks a').attr('class') == 'send1'){
+              if(!numbers.test(val) || val.length ==0){
+{#               $('.div-ranks').append('<span class=\"error\">手机格式错误</span>');#}
+                    showTip('手机格式错误', 'danger');
+              return false;
+              }
+        }
+      if(numbers.test(val)){
+          var time = 60;
+            $('.div-ranks span').remove();
+            function timeCountDown(){
+                if(time==0){
+                    clearInterval(timer);
+                    $('.div-ranks a').addClass('send1').removeClass('send0').html("发送验证码");
+                 sends.checked = 1;
+                return true;
+            }
+            $('.div-ranks a').html(time+"S");
+            time--;
+            return false;
+            sends.checked = 0;
+        }
+        $('.div-ranks a').addClass('send0').removeClass('send1');
+            timeCountDown();
+            var timer = setInterval(timeCountDown,1000);
+      }
+     }
+    };
+
+    </script>
+{% endblock %}

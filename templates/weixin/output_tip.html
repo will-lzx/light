@@ -1,0 +1,29 @@
+{% extends "weixin/login/base.html" %}
+{% load static %}
+
+{% block head %}
+    <div class="weixin-title">
+        <div class="div-back"><a href="/weixin/privatecenter/">&lt;返回</a></div>
+        <span>出杆提示</span>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+    <div class="div-content">
+        {% if has_opacity %}
+            <span>请注意机柜屏幕信息</span>
+            <span>自拍杆将从闪亮指示灯位置吐出</span>
+            <span>请及时取走</span>
+        {% else %}
+            <span>您很有眼光，这地方拍照人太多</span>
+            <span>自拍杆已被掏空</span>
+            <span>等会儿再来看看吧</span>
+        {% endif %}
+    </div>
+    <div>
+        <span>任何问题，请致电联系客服：<a href="wtai://wp//mc;4008009800">4008009800</a></span>
+        <span>您的满意是我们最大的追求，您的快乐是我们最大的安慰</span>
+    </div>
+
+{% endblock %}
