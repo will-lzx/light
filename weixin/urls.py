@@ -18,7 +18,7 @@ from weixin.views import *
 
 urlpatterns = [
     url(r'^$', weixin, name='weixin'),
-    url(r'^create_code_img', create_code_img, name='create_code_img'),
-    url(r'^login', login, name='login'),
-    url(r'^agreement', agreement, name='agreement')
+    url(r'^create_code_img/', create_code_img, name='create_code_img'),
+    url(r'^login/', login, name='login'),
+    url(r'^agreement/', agreement, name='agreement')
 ]
