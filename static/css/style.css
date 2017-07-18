@@ -16,7 +16,7 @@ body {margin:0 auto; padding:0 auto; height: 100%;}
 
 .head_top{width: 80%; height: 50px; margin: 0 auto; padding-top: 10px;}
 .logo{float: left; width:160px; height: 40px; margin-top: 0;}
-.logo img{width:160px; height: 40px;}
+.logo img{width:160px; height: 40px;margin-top: 2px;}
 
 .navigation ul.menu { float:left; height: 50px; text-align: left; }
 .navigation menu {list-style: none; }
