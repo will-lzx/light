@@ -15,8 +15,8 @@ body {margin:0 auto; padding:0 auto; height: 100%;}
 .wm_slogn{width: 80%;color: white;text-align: center;margin: 100px auto;}
 
 .head_top{width: 80%; height: 50px; margin: 0 auto; padding-top: 10px;}
-.logo{float: left; width:180px; height: 45px; margin-top: 0;}
-.logo img{width:180px; height: 45px;}
+.logo{float: left; width:160px; height: 40px; margin-top: 0;}
+.logo img{width:160px; height: 40px;}
 
 .navigation ul.menu { float:left; height: 50px; text-align: left; }
 .navigation menu {list-style: none; }
