@@ -109,3 +109,15 @@ def agreement(request):
     response = render(request, template_name)
     return response
 
+
+def lend(request):
+    template_name = 'weixin/lend.html'
+    response = render(request, template_name)
+    return response
+
+
+def return_back(request):
+    template_name = 'weixin/return.html'
+    response = render(request, template_name)
+    return response
+

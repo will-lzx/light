@@ -20,5 +20,9 @@ urlpatterns = [
     url(r'^$', weixin, name='weixin'),
     url(r'^create_code_img/', create_code_img, name='create_code_img'),
     url(r'^login/', login, name='login'),
-    url(r'^agreement/', agreement, name='agreement')
+    url(r'^agreement/', agreement, name='agreement'),
+
+    url(r'^lend/$', lend, name='lend'),
+    url(r'^return_back/$', return_back, name='return_back'),
+
 ]
