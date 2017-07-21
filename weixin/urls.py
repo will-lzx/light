@@ -32,4 +32,6 @@ urlpatterns = [
     url(r'^use_help/$', use_help, name='use_help'),
     url(r'^about/$', about, name='about'),
 
+    url(r'^privatecenter/$', privatecenter, name='privatecenter'),
+
 ]

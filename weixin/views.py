@@ -152,5 +152,11 @@ def about(request):
     return response
 
 
+def privatecenter(request):
+    template_name = 'weixin/privatecenter.html'
+    response = render(request, template_name)
+    return response
+
+
 
 
