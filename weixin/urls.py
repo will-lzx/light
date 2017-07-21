@@ -24,5 +24,12 @@ urlpatterns = [
 
     url(r'^lend/$', lend, name='lend'),
     url(r'^return_back/$', return_back, name='return_back'),
+    url(r'^nearby/$', nearby, name='nearby'),
+
+    url(r'^lendhistory/$', lendhistory, name='lendhistory'),
+    url(r'^withdraw/$', withdraw, name='withdraw'),
+
+    url(r'^use_help/$', use_help, name='use_help'),
+    url(r'^about/$', about, name='about'),
 
 ]

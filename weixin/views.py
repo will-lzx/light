@@ -121,3 +121,36 @@ def return_back(request):
     response = render(request, template_name)
     return response
 
+
+def nearby(request):
+    template_name = 'weixin/nearby.html'
+    response = render(request, template_name)
+    return response
+
+
+def lendhistory(request):
+    template_name = 'weixin/lendhistory.html'
+    response = render(request, template_name)
+    return response
+
+
+def withdraw(request):
+    template_name = 'weixin/withdraw.html'
+    response = render(request, template_name)
+    return response
+
+
+def use_help(request):
+    template_name = 'weixin/use_help.html'
+    response = render(request, template_name)
+    return response
+
+
+def about(request):
+    template_name = 'weixin/about.html'
+    response = render(request, template_name)
+    return response
+
+
+
+
