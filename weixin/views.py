@@ -158,5 +158,15 @@ def privatecenter(request):
     return response
 
 
+def wxconfig(request):
+
+
+    return HttpResponse('')
+
+
+def wx(request):
+    return HttpResponse('this is a test')
+
+
 
 

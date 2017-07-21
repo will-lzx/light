@@ -34,4 +34,8 @@ urlpatterns = [
 
     url(r'^privatecenter/$', privatecenter, name='privatecenter'),
 
+    url(r'^wxconfig/$', wxconfig, name='wxconfig'),
+
+    url(r'^wx/$', wx, name='wx'),
+
 ]
