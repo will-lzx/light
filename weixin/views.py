@@ -1,17 +1,17 @@
-from django.shortcuts import render
+from io import BytesIO
+
 from django.http import HttpResponse
-import hashlib
+from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
-import time
-
-from io import BytesIO
 from lxml import etree
-from django.template.loader import render_to_string
-from django.views.decorators.csrf import ensure_csrf_cookie
-from light.settings import *
-import random
+
 from lib.utils import check_code
+from lib.weixin.sign import *
+from light.settings import *
+import json
+
 # Create your views here.
 
 _letter_cases = "abcdefghjkmnpqrstuvwxy"
@@ -159,8 +159,17 @@ def privatecenter(request):
 
 
 def wxconfig(request):
+    sign = Sign('jsapi_ticket', 'http://relalive.com/weixin/wx/')
+    sign_list = sign.sign()
+    result = {}
+    appID = WEIXIN_APPID
+    result['appId'] = appID
 
-    return HttpResponse('')
+    result['signature'] = sign_list['signature']
+    result['nonceStr'] = sign_list['nonceStr']
+    result['timestamp'] = sign_list['timestamp']
+
+    return HttpResponse(json.dumps(result))
 
 
 def wx(request):
@@ -207,6 +216,10 @@ def wx(request):
         rendered = render_to_string('weixin/text.xml',
                                     {'toUser': toUser, 'fromUser': fromUser, 'nowtime': nowtime, 'content': '微信功能正在开发中...'})
         return HttpResponse(rendered)
+
+
+
+
 
 
 
