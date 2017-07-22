@@ -160,7 +160,6 @@ def privatecenter(request):
 
 def wxconfig(request):
 
-
     return HttpResponse('')
 
 
