@@ -9,8 +9,10 @@ from lxml import etree
 
 from lib.utils import check_code
 from lib.weixin.sign import *
+from lib.weixin.weixin_sql import *
 from light.settings import *
 import json
+
 
 # Create your views here.
 
@@ -154,7 +156,17 @@ def about(request):
 
 def privatecenter(request):
     template_name = 'weixin/privatecenter.html'
-    response = render(request, template_name)
+
+    mobile_number = '17621349389'
+    lendtime = get_lendtime(mobile_number)
+
+    money = float(get_money(mobile_number))
+
+    context = {
+        'lendtime': lendtime,
+        'money': money
+    }
+    response = render(request, template_name, context)
     return response
 
 

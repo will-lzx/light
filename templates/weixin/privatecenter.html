@@ -12,11 +12,19 @@
 {% block content %}
     <div class="div-content">
         <span>自拍达人一枚，我自拍所以我存在</span>
+        <br>
 
-        <span><a href="">租借记录({% lendtime %}次)&gt;</a></span>
-        <span><a href="">押金提现({% money %})&gt;</a></span>
-        <span><a href="">使用帮助&gt;</a></span>
-        <span><a href="">关于我们&gt;</a></span>
+        <span>
+            <a href="">租借记录({{ lendtime }}次)&gt;</a>
+        </span>
+        <br>
+        <span>
+            <a href="">押金提现({{ money }})&gt;</a>
+        </span>
+        <br>
+        <span><a href="/weixin/use_help/">使用帮助&gt;</a></span>
+        <br>
+        <span><a href="/weixin/about/">关于我们&gt;</a></span>
     </div>
 
     <script src="/static/js/jquery-3.2.1.js"></script>
