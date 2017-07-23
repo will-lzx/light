@@ -53,12 +53,12 @@
 
         wx.ready(function() {
             alert('10');
-            wx.checkJsApi({  
-         jsApiList : ['scanQRCode'],  
-         success : function(res) {
-                    alert('5');
-         }  
-      }); 
+{#            wx.checkJsApi({  #}
+{#         jsApiList : ['scanQRCode'],  #}
+{#         success : function(res) {#}
+{#                    alert('5');#}
+{#         }  #}
+{#      }); #}
 
             //点击按钮扫描二维码
             document.querySelector('#scanQRCode').onclick = function () {
