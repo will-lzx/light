@@ -11,27 +11,27 @@
 
 {% block content %}
     <div class="div-content">
-        <span>您共有{% lendtime %}次租借，全球排名{% lendindex %}位</span>
+        <span>您共有{{ lendtime }}次租借，全球排名{{ lendindex }}位</span>
         {% if lendhistory %}
             {% for history in lendhistory %}
                 <table>
                     <tr>
-                        <td colspan="2">订单号：{% history.id %}</td>
-                        <td>{% history.status %}</td>
+                        <td colspan="2">订单号：{{ history.id }}</td>
+                        <td>{{ history.status }}</td>
                     </tr>
                     <tr>
                         <td>用时：
                             {% if history.return_time %}
-                                {% history.return_time - history.time %}
+{#                                {{ history.return_time - history.time }}#}
                             {% else %}
-                                {% history.time | get_time_long %}
+                                {{ history.time }}
                             {% endif %}
                         </td>
-                        <td>费用：{% history.money %}</td>
+                        <td>费用：{{ history.money }}</td>
                         <td></td>
                     </tr>
-                    <tr>租：{% history.start_time %}
-                        {% history.site %}
+                    <tr>租：{{ history.start_time }}
+                        {{ history.site }}
                     </tr>
 
                 </table>
