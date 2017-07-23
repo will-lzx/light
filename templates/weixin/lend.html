@@ -53,13 +53,7 @@
 
         wx.ready(function() {
             alert('10');
-            wx.checkJsApi({
-                jsApiList: ['scanQRCode'],
-                success: function (res) {
-                    alert('3');
-                    alert(res);
-                }
-            });
+
 
             //点击按钮扫描二维码
             document.querySelector('#scanQRCode').onclick = function () {
