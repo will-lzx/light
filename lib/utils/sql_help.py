@@ -41,9 +41,14 @@ class MySQL:
         access_token = self.exec_query(sql)[0][0]
         return access_token
 
+    def get_jsapi_ticket(self):
+        sql = 'select token from access_token where id=2'
+        ticket = self.exec_query(sql)[0][0]
+        return ticket
+
 
 if __name__ == '__main__':
     mysql = MySQL()
-    mysql.exec_none_query('insert into light.access_token (token, expire_time) values ({0},{1})'.format("12", 4200))
+    ticket = mysql.get_jsapi_ticket()
     print('')
 

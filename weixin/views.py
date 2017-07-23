@@ -171,7 +171,9 @@ def privatecenter(request):
 
 
 def wxconfig(request):
-    sign = Sign('jsapi_ticket', 'http://relalive.com/weixin/wx/')
+    mysql = MySQL()
+    jsapi_ticket = mysql.get_jsapi_ticket()
+    sign = Sign(jsapi_ticket, 'http://relalive.com/weixin/wx/')
     sign_list = sign.sign()
     result = {}
     appID = WEIXIN_APPID
