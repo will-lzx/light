@@ -319,7 +319,10 @@ input.weui-btn_plain-default{
 .ts_cont{width: 100%;height: 480px;float: left;text-align: center;}
 .zgjs{width: 380px;height: 380px;margin: 50px auto;background: url("/static/images/weixin/zgjs.gif") center no-repeat;}
 .nr_con{padding: 0 15px;}
+.nr_con_all{padding: 0;background-color:#DEDEDE}
 .ts_til{width: 100%;margin: 50px auto;border-bottom: 1px dashed #ececec;color:#999999;text-align: center;}
 .ts_til_test{width: 80px;text-align: center;margin-bottom: -18px;margin-left:auto;margin-right:auto;position: relative;padding: 5px;background-color: white;}
 .sm_cont{width: 100%;float:left;color: #666666;line-height: 30px;}
 .col_z{color: #cc0099;font-weight:bold;}
+
+.tj_til{width: 100%;height: 50px;line-height: 50px;text-align: center;color: #333333;}
