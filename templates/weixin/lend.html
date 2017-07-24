@@ -10,7 +10,7 @@
         <div class="zgjs"></div>
     </div>
     <div class="nr_con">
-            <a href="javascript:;" class="weui-btn weui-btn_primary page__bd_spacing">借自拍杆</a>
+            <a href="#" id="scanQRCode" class="weui-btn weui-btn_primary page__bd_spacing">借自拍杆</a>
             <div class="ts_til page__bd_spacing"><div class="ts_til_test">计费规则</div> </div>
             <div class="sm_cont">
                 1.<span class="col_z">首小时免费，之后1元/小时，每天8元封顶；</span><br>
@@ -27,7 +27,6 @@
         }});
 
         $(document).ready(function () {
-            alert('mm');
             $.ajax({
                 type:"post",
                 url:"/weixin/wxconfig/",//自己填写请求地址
@@ -40,7 +39,7 @@
                         // 必填，公众号的唯一标识
                         appId: res.appId,
                         // 必填，生成签名的时间戳
-                        timestamp:""+res.timestamp,
+                        timestamp:res.timestamp,
                         // 必填，生成签名的随机串
                         nonceStr:res.nonceStr,
                          // 必填，签名，见附录1
