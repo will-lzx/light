@@ -325,7 +325,7 @@ input.weui-btn_plain-default{
 .sm_cont{width: 100%;float:left;color: #666666;line-height: 30px;}
 .col_z{color: #cc0099;font-weight:bold;}
 .tj_til{width: 100%;height: 50px;line-height: 50px;text-align: center;color: #333333;}
-.zjjl_con{width: 100%;border-top: 1px solid #ececec;border-bottom: 1px solid #ececec;margin-bottom: 30px;background-color: white;color: #666666;}
+.zjjl_con{width: 100%;border-top: 1px solid #d2d2d2;border-bottom: 1px solid #d2d2d2;margin-bottom: 30px;background-color: white;color: #666666;}
 .zjjl_h{padding: 10px 15px;border-bottom: 1px solid #eeeeee;height: 30px;line-height: 30px;}
 .zjjl_h_zc{height: 70px;border-bottom: none;}
 .zjjl_h_hr{height: 120px;border-bottom: none;}
