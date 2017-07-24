@@ -327,10 +327,10 @@ input.weui-btn_plain-default{
 .tj_til{width: 100%;height: 50px;line-height: 50px;text-align: center;color: #333333;}
 .zjjl_con{width: 100%;border-top: 1px solid #ececec;border-bottom: 1px solid #ececec;margin-bottom: 30px;background-color: white;color: #666666;}
 .zjjl_h{padding: 10px 15px;border-bottom: 1px solid #eeeeee;}
-.zjjl_dd{width: 60%;float:left;text-align: left;}
-.zjjl_zt{width: 30%;float: right;text-align: right;color: #333333}
-.zjjl_tf{width: 40%;float: left;color: #333333;text-align: left;}
-.zjjl_zj{width: 100%;float:left;line-height: 30px;text-align: left;}
-.zjjl_icon{width: 30px;height: 100%;float: left;margin-right: 10px;}
+.zjjl_dd{width: 60%;float:left;text-align: left;height: 30xp;line-height: 30px;}
+.zjjl_zt{width: 30%;float: right;text-align: right;color: #333333;height: 30xp;line-height: 30px;}
+.zjjl_tf{width: 40%;float: left;color: #333333;text-align: left;height: 30xp;line-height: 30px;}
+.zjjl_zj{width: 100%;float:left;line-height: 30px;text-align: left;height: 50px;}
+.zjjl_icon{width: 30px;height:50px;float: left;margin-right: 10px;}
 .zjjl_icon_img{width: 20px;height: auto;border: none;}
 
