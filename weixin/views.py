@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.encoding import smart_str
@@ -12,6 +12,8 @@ from lib.weixin.sign import *
 from lib.weixin.weixin_sql import *
 from light.settings import *
 import json
+from wechatpy import WeChatClient
+from lib.utils.common import *
 
 
 # Create your views here.
@@ -173,17 +175,29 @@ def privatecenter(request):
 def wxconfig(request):
     mysql = MySQL()
     jsapi_ticket = mysql.get_jsapi_ticket()
-    sign = Sign(jsapi_ticket, 'http://relalive.com/weixin/lend/')
-    sign_list = sign.sign()
-    result = {}
-    appID = WEIXIN_APPID
-    result['appId'] = appID
 
-    result['signature'] = sign_list['signature']
-    result['nonceStr'] = sign_list['nonceStr']
-    result['timestamp'] = sign_list['timestamp']
+    url = request.POST['url']
 
-    return HttpResponse(json.dumps(result))
+    timestamp = int(time.time())
+    noncestr = create_nonce_str()
+    client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
+
+    signature = client.jsapi.get_jsapi_signature(
+        noncestr,
+        jsapi_ticket,
+        timestamp,
+        url
+    )
+
+    ret_dict = {
+        'appid': WEIXIN_APPID,
+        'noncestr': noncestr,
+        'timestamp': timestamp,
+        'url': url,
+        'signature': signature,
+    }
+
+    return JsonResponse(ret_dict)
 
 
 def wx(request):
