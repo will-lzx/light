@@ -8,8 +8,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="nr_con">
-        <div class="tj_til"> 您共有<span class="col_z">{{ lendtime }}</span>次租借，全球排名{{ lendindex }}位</div>
+    <div class="nr_con_all">
+        <div class="tj_til"> 您共借用了<span class="col_z">{{ lendtime }}</span>次，全球排名{{ lendindex }}位</div>
         {% if lendhistory %}
             {% for history in lendhistory %}
                 <table>
@@ -35,7 +35,7 @@
                 </table>
             {% endfor %}
         {% else %}
-            <span>您暂未有租借记录，快去租借一个吧<a href="">借自拍杆</a></span>
+            <span>您竟然还没体验过自拍神器，哇，还等什么～<br><a href="">借自拍杆</a></span>
         {% endif %}
 
     </div>
