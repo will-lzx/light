@@ -204,7 +204,7 @@ a{
 }
 .weui-btn_default{
   color:#000000;
-  background-color:#cc0099;
+  background-color:#F8F8F8;
 }
 .weui-btn_default:not(.weui-btn_disabled):visited{
   color:#000000;
@@ -214,14 +214,14 @@ a{
   background-color:#DEDEDE;
 }
 .weui-btn_primary{
-  background-color:#cc0099;
+  background-color:#F8F8F8;
 }
 .weui-btn_primary:not(.weui-btn_disabled):visited{
   color:#FFFFFF;
 }
 .weui-btn_primary:not(.weui-btn_disabled):active{
   color:rgba(255, 255, 255, 0.6);
-  background-color:#cc0099;
+  background-color:#DEDEDE;
 }
 .weui-btn_warn{
   background-color:#E64340;
