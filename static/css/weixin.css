@@ -315,3 +315,6 @@ input.weui-btn_plain-default{
   line-height:2.3;
   font-size:13px;
 }
+
+.ts_cont{width: 100%;height: 400px;float: left;text-align: center;}
+.zgjs{width: 380px;height: 380px;margin: 40px auto;background: url("/static/images/weixin/zgjs.gif") center no-repeat;}
