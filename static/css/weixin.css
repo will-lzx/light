@@ -322,4 +322,4 @@ input.weui-btn_plain-default{
 .ts_til{width: 100%;margin: 50px auto;border-bottom: 1px dashed #ececec;color:#999999;text-align: center;}
 .ts_til_test{width: 80px;text-align: center;margin-bottom: -18px;margin-left:auto;margin-right:auto;position: relative;padding: 5px;background-color: white;}
 .sm_cont{width: 100%;float:left;color: #666666;line-height: 30px;}
-.col_z{color: #cc0099;font-weight: 400;}
+.col_z{color: #cc0099;font-weight:bold;}
