@@ -29,6 +29,7 @@
             url:"/weixin/wxconfig/",//自己填写请求地址
             data:{},
             success:function(result){
+                debugger
                 var res = JSON.parse(result);
                 wx.config({
                     // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -53,12 +54,11 @@
 
         wx.ready(function() {
             alert('10');
-{#            wx.checkJsApi({  #}
-{#         jsApiList : ['scanQRCode'],  #}
-{#         success : function(res) {#}
-{#                    alert('5');#}
-{#         }  #}
-{#      }); #}
+            wx.checkJsApi({  
+         jsApiList : ['scanQRCode'],  
+         success : function(res) {
+         }  
+      }); 
 
             //点击按钮扫描二维码
             document.querySelector('#scanQRCode').onclick = function () {
