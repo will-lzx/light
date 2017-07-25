@@ -195,6 +195,7 @@ def wxconfig(request):
     return JsonResponse(ret_dict)
 
 
+@csrf_exempt
 def wx(request):
     if request.method == 'GET':
         try:
