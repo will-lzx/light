@@ -1,4 +1,5 @@
 import hashlib
+from http.cookies import SimpleCookie
 from io import BytesIO
 
 from django.http import HttpResponse, JsonResponse
@@ -99,10 +100,18 @@ def agreement(request):
 
 
 def lend(request):
-    auth = WeChatOAuth()
-    usr = auth.get_user_info()
+    c = SimpleCookie()
 
-    template_name = 'weixin/lend.html'
+    openid = c['openid']
+
+    print('open+++++' + openid)
+
+    is_deposit = is_deposit_exist(openid)
+
+    if is_deposit:
+        template_name = 'weixin/lend.html'
+    else:
+        template_name = 'weixin/pay.html'
     response = render(request, template_name)
     return response
 
@@ -205,8 +214,10 @@ def wx(request):
             event = SubscribeEvent(msg)
             if msg.event == event.event:
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
-                print(msg.source)
-                subcribe_save_openid(msg.source)
+                openid = msg.source
+                subcribe_save_openid(openid)
+                c = SimpleCookie()
+                c['openid'] = openid
             else:
                 return 'success'
         else:
