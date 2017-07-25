@@ -9,13 +9,10 @@ from django.views.decorators.csrf import csrf_exempt
 from lxml import etree
 
 from lib.utils import check_code
-from lib.weixin.sign import *
 from lib.weixin.weixin_sql import *
-from light.settings import *
 
 from lib.utils.common import *
-from lib.weixin import receive, reply
-from wechatpy import parse_message, create_reply
+from wechatpy import parse_message, create_reply, WeChatOAuth
 from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
 
@@ -75,24 +72,6 @@ def weixin(request):
         return HttpResponse(rendered)
 
 
-def checkSignature(request):
-    signature=request.GET.get('signature', None)
-    timestamp=request.GET.get('timestamp', None)
-    nonce=request.GET.get('nonce', None)
-    echostr=request.GET.get('echostr', None)
-    #这里的token我放在setting，可以根据自己需求修改
-    token = WECHAT_TOKEN
-
-    tmplist=[token, timestamp, nonce]
-    tmplist.sort()
-    tmpstr = "%s%s%s" % tuple(tmplist)
-    tmpstr = hashlib.sha1(tmpstr).hexdigest()
-    if tmpstr == signature:
-        return echostr
-    else:
-        return None
-
-
 def create_code_img(request):
     # 直接在内存开辟一点空间存放临时生成的图片
     f = BytesIO()
@@ -119,6 +98,9 @@ def agreement(request):
 
 
 def lend(request):
+    auth = WeChatOAuth()
+    usr = auth.get_user_info()
+
     template_name = 'weixin/lend.html'
     response = render(request, template_name)
     return response
@@ -218,6 +200,10 @@ def wx(request):
             reply = create_reply('这是条图片消息', msg)
         elif msg.type == 'voice':
             reply = create_reply('这是条语音消息', msg)
+        elif msg.type == 'event':
+            mscontent = msg.find("Event").text
+            if mscontent == "subscribe":
+                reply = create_reply('欢迎您关注轻拍科技公众号', msg)
         else:
             return 'success'
         response = HttpResponse(reply.render(), content_type="application/xml")
