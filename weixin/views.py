@@ -205,6 +205,8 @@ def wx(request):
             event = SubscribeEvent(msg)
             if msg.event == event.event:
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
+            else:
+                return 'success'
         else:
             return 'success'
         response = HttpResponse(reply.render(), content_type="application/xml")
