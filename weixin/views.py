@@ -218,7 +218,7 @@ def wx(request):
         fromUserName = xml.find('FromUserName').text
         createTime = xml.find('CreateTime').text
         msgType = xml.find('MsgType').text
-        content = xml.find('Content').text
+        content = 'test'
         msgId = xml.find('MsgId').text
 
         return render(request, 'weixin/reply_text.xml',
