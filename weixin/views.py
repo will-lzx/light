@@ -201,7 +201,7 @@ def wx(request):
         elif msg.type == 'voice':
             reply = create_reply('这是条语音消息', msg)
         elif msg.type == 'event':
-            if msg.event == "subscribe":
+            if msg.event.value == "subscribe":
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
         else:
             return 'success'
