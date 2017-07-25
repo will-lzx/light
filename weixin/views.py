@@ -100,9 +100,8 @@ def agreement(request):
 
 
 def lend(request):
-    # openid = request.COOKIES['openid']
-
-    print(request.POST)
+    msg = parse_message(request.body)
+    print(msg.source)
 
     is_deposit = is_deposit_exist('')
 
