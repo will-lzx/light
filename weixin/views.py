@@ -222,6 +222,8 @@ def wx(request):
             return 'success'
         response = HttpResponse(reply.render(), content_type="application/xml")
         return response
+    else:
+        print('erro')
 
 
 
