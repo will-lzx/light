@@ -100,7 +100,7 @@ def agreement(request):
 
 
 def lend(request):
-    c = SimpleCookie()
+    c = SimpleCookie(os.environ["HTTP_COOKIE"])
 
     openid = c['openid'].value
 
