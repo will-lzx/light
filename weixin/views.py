@@ -225,6 +225,7 @@ def wx(request):
             if msg.event == event.event:
                 openid = msg.source
                 response.set_cookie('openid', openid)
+                print('11111111111111111111111111111111111111111111111111111')
         return response
     else:
         print('error')
