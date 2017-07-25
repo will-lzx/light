@@ -100,7 +100,7 @@ def agreement(request):
 
 
 def lend(request):
-    print('openid', request.session.get("openid", None))
+    print('openid', request.session)
     is_deposit = is_deposit_exist('')
 
     if is_deposit:
