@@ -1,3 +1,4 @@
+import hashlib
 from io import BytesIO
 
 from django.http import HttpResponse, JsonResponse
@@ -11,9 +12,9 @@ from lib.utils import check_code
 from lib.weixin.sign import *
 from lib.weixin.weixin_sql import *
 from light.settings import *
-import json
-from wechatpy import WeChatClient
+
 from lib.utils.common import *
+from lib.weixin import receive, reply
 
 
 # Create your views here.
@@ -81,8 +82,8 @@ def checkSignature(request):
 
     tmplist=[token, timestamp, nonce]
     tmplist.sort()
-    tmpstr="%s%s%s"%tuple(tmplist)
-    tmpstr=hashlib.sha1(tmpstr).hexdigest()
+    tmpstr = "%s%s%s" % tuple(tmplist)
+    tmpstr = hashlib.sha1(tmpstr).hexdigest()
     if tmpstr == signature:
         return echostr
     else:
@@ -178,16 +179,10 @@ def wxconfig(request):
 
     url = request.POST['url']
 
-    timestamp = int(time.time())
+    timestamp = create_timestamp()
     noncestr = create_nonce_str()
-    client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
 
-    signature = client.jsapi.get_jsapi_signature(
-        noncestr,
-        jsapi_ticket,
-        timestamp,
-        url
-    )
+    signature = get_signature(noncestr, jsapi_ticket, timestamp, url)
 
     ret_dict = {
         'appid': WEIXIN_APPID,
@@ -224,26 +219,24 @@ def wx(request):
         # 如果相同，就把服务器发过来的echostr字符串返回去
         if hashstr == signature:
             return HttpResponse(echostr)
-
+        else:
+            return HttpResponse('signature fail')
     if request.method == 'POST':
-        # 将程序中字符输出到非 Unicode 环境（比如 HTTP 协议数据）时可以使用 smart_str 方法
-        data = smart_str(request.body)
-        # 将接收到数据字符串转成xml
-        xml = etree.fromstring(data)
+        try:
+            data = smart_str(request.body)
+            recMsg = receive.parse_xml(data)
 
-        # 从xml中读取我们需要的数据。注意这里使用了from接收的to，使用to接收了from，
-        # 这是因为一会我们还要用这些数据来返回消息，这样一会使用看起来更符合逻辑关系
-        fromUser = xml.find('ToUserName').text
-        toUser = xml.find('FromUserName').text
-        content = xml.find('Content').text
-
-        # 这里获取当前时间的秒数，time.time()取得的数字是浮点数，所以有了下面的操作
-        nowtime = str(int(time.time()))
-
-        # 加载text.xml模板,参见render()调用render_to_string()并将结果馈送到 HttpResponse适合从视图返回的快捷方式 。
-        rendered = render_to_string('weixin/text.xml',
-                                    {'toUser': toUser, 'fromUser': fromUser, 'nowtime': nowtime, 'content': '微信功能正在开发中...'})
-        return HttpResponse(rendered)
+            if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
+                toUser = recMsg.FromUserName
+                fromUser = recMsg.ToUserName
+                content = 'test'
+                replyMsg = reply.TextMsg(toUser, fromUser, content)
+                return replyMsg.send()
+            else:
+                print("暂不处理")
+                return 'success'
+        except Exception as ex:
+            return ex
 
 
 
