@@ -100,9 +100,8 @@ def agreement(request):
 
 
 def lend(request):
-    msg = parse_message(request.body)
-    print(msg.source)
-
+    openid = request.POST.get('openid')
+    print(openid)
     is_deposit = is_deposit_exist('')
 
     if is_deposit:
