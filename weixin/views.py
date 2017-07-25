@@ -199,18 +199,16 @@ def wxconfig(request):
 def wx(request):
     if request.method == 'GET':
         signature = request.GET.get('signature', None)
+
         timestamp = request.GET.get('timestamp', None)
         nonce = request.GET.get('nonce', None)
         echostr = request.GET.get('echostr', None)
         token = 'relalive'
         tmpList = [token, timestamp, nonce]
         tmpList.sort()
-        print(tmpList)
-        sha1 = hashlib.sha1()
-        map(sha1.update, tmpList)
-        hashcode = sha1.hexdigest()
-        print(hashcode)
-        if hashcode == signature:
+        tmpstr = "%s%s%s" % tuple(tmpList)
+        tmpstr = hashlib.sha1(tmpstr).hexdigest()
+        if tmpstr == signature:
             return HttpResponse(echostr)
         else:
             return HttpResponse('signature fail')
