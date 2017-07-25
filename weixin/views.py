@@ -102,7 +102,7 @@ def agreement(request):
 def lend(request):
     # openid = request.COOKIES['openid']
 
-    print(request.POST.get('openid'))
+    print(request.POST)
 
     is_deposit = is_deposit_exist('')
 
