@@ -100,7 +100,7 @@ def agreement(request):
 
 
 def lend(request):
-    cookie = SimpleCookie(os.environ["HTTP_COOKIE"])
+    cookie = SimpleCookie()
     print('openid', cookie["session"].value)
     is_deposit = is_deposit_exist('')
 
