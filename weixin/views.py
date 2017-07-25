@@ -100,8 +100,7 @@ def agreement(request):
 
 
 def lend(request):
-    openid = request.POST.get('openid')
-    print(openid)
+    print(request.COOKIES)
     is_deposit = is_deposit_exist('')
 
     if is_deposit:
@@ -222,7 +221,8 @@ def wx(request):
             event = SubscribeEvent(msg)
             if msg.event == event.event:
                 openid = msg.source
-                response.set_cookie('openid', openid)
+                dt = datetime.datetime.now() + datetime.timedelta(hours=int(1))
+                response.set_cookie('openid', openid, dt)
                 print('11111111111111111111111111111111111111111111111111111')
         return response
     else:
