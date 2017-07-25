@@ -205,9 +205,10 @@ def wx(request):
         token = 'relalive'
         tmpList = [token, timestamp, nonce]
         tmpList.sort()
-        tmpstr = '%s%s%s' % tuple(tmpList)
-        tmpstr = hashlib.sha1(tmpstr).hexdigest()
-        if tmpstr == signature:
+        sha1 = hashlib.sha1()
+        map(sha1.update, tmpList)
+        hashcode = sha1.hexdigest()
+        if hashcode == signature:
             return HttpResponse(echostr)
     if request.method == 'POST':
         str_xml = smart_str(request.body)
