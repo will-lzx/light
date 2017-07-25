@@ -198,44 +198,34 @@ def wxconfig(request):
 @csrf_exempt
 def wx(request):
     if request.method == 'GET':
-        try:
-            data = smart_str(request.body)
-            signature = data.signature
-            timestamp = data.timestamp
-            nonce = data.nonce
-            echostr = data.echostr
-
-            # 这里的token需要自己设定，主要是和微信的服务器完成验证使用
-            token = WECHAT_TOKEN
-
-            # 把token，timestamp, nonce放在一个序列中，并且按字符排序
-            token_list = [token, timestamp, nonce]
-            token_list.sort()
-            sha1 = hashlib.sha1()
-            map(sha1.update, token_list)
-            hashcode = sha1.hexdigest()
-            print("handle/GET func: hashcode, signature: ", hashcode, signature)
-            if hashcode == signature:
-                return echostr
-            else:
-                return ""
-        except Exception as ex:
-            return ex
+        signature = request.GET.get('signature', None)
+        timestamp = request.GET.get('timestamp', None)
+        nonce = request.GET.get('nonce', None)
+        echostr = request.GET.get('echostr', None)
+        token = 'relalive'
+        tmpList = [token, timestamp, nonce]
+        tmpList.sort()
+        tmpstr = '%s%s%s' % tuple(tmpList)
+        tmpstr = hashlib.sha1(tmpstr).hexdigest()
+        if tmpstr == signature:
+            return HttpResponse(echostr)
     if request.method == 'POST':
-        try:
-            data = smart_str(request.body)
-            recMsg = receive.parse_xml(data)
-            if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
-                toUser = recMsg.FromUserName
-                fromUser = recMsg.ToUserName
-                content = 'test'
-                replyMsg = reply.TextMsg(toUser, fromUser, content)
-                return replyMsg.send()
-            else:
-                print("暂不处理")
-                return 'success'
-        except Exception as ex:
-            return "will" + ex
+        str_xml = smart_str(request.body)
+        xml = etree.fromstring(str_xml)
+        toUserName = xml.find('ToUserName').text
+        fromUserName = xml.find('FromUserName').text
+        createTime = xml.find('CreateTime').text
+        msgType = xml.find('MsgType').text
+        content = xml.find('Content').text
+        msgId = xml.find('MsgId').text
+
+        return render(request, 'weixin/reply_text.xml',
+                      {'toUserName': toUserName,
+                       'fromUserName': fromUserName,
+                       'createTime': time.time(),
+                       'msgType': msgType,
+                       'content': content,
+                       }, content_type='application/xml')
 
 
 
