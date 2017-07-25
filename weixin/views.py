@@ -219,7 +219,7 @@ def wx(request):
         createTime = xml.find('CreateTime').text
         msgType = xml.find('MsgType').text
         content = 'test'
-        msgId = xml.find('MsgId').text
+        # msgId = xml.find('MsgId').text
 
         return render(request, 'weixin/reply_text.xml',
                       {'toUserName': toUserName,
