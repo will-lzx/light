@@ -197,30 +197,28 @@ def wxconfig(request):
 
 def wx(request):
     if request.method == 'GET':
-        signature = request.GET.get('signature', None)
-        timestamp = request.GET.get('timestamp', None)
-        nonce = request.GET.get('nonce', None)
-        echostr = request.GET.get('echostr', None)
+        try:
+            signature = request.GET.get('signature')
+            timestamp = request.GET.get('timestamp')
+            nonce = request.GET.get('nonce')
+            echostr = request.GET.get('echostr')
 
-        # 这里的token需要自己设定，主要是和微信的服务器完成验证使用
-        token = WECHAT_TOKEN
+            # 这里的token需要自己设定，主要是和微信的服务器完成验证使用
+            token = WECHAT_TOKEN
 
-        # 把token，timestamp, nonce放在一个序列中，并且按字符排序
-        hashlist = [token, str(timestamp), str(nonce)]
-        hashlist.sort()
-
-        # 将上面的序列合成一个字符串
-        hashstr = ''.join([s for s in hashlist])
-
-        # 通过python标准库中的sha1加密算法，处理上面的字符串，形成新的字符串。
-        hashstr = hashlib.sha1(hashstr.encode(encoding='utf-8')).hexdigest()
-
-        # 把我们生成的字符串和微信服务器发送过来的字符串比较，
-        # 如果相同，就把服务器发过来的echostr字符串返回去
-        if hashstr == signature:
-            return HttpResponse(echostr)
-        else:
-            return HttpResponse('signature fail')
+            # 把token，timestamp, nonce放在一个序列中，并且按字符排序
+            token_list = [token, timestamp, nonce]
+            token_list.sort()
+            sha1 = hashlib.sha1()
+            map(sha1.update, token_list)
+            hashcode = sha1.hexdigest()
+            print("handle/GET func: hashcode, signature: ", hashcode, signature)
+            if hashcode == signature:
+                return echostr
+            else:
+                return ""
+        except Exception as ex:
+            return ex
     if request.method == 'POST':
         try:
             data = smart_str(request.body)
