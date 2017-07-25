@@ -100,9 +100,7 @@ def agreement(request):
 
 
 def lend(request):
-    c = SimpleCookie(os.environ["HTTP_COOKIE"])
-
-    openid = c['session'].value
+    openid = request.COOKIES['openid']
 
     print('open+++++' + openid)
 
@@ -216,18 +214,17 @@ def wx(request):
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
-                expiration = datetime.datetime.now() + datetime.timedelta(days=30)
-                cookie = SimpleCookie()
-                cookie["session"] = random.randint(0, 1000000000)
-                cookie["session"]["domain"] = "localhost"
-                cookie["session"]["path"] = "/"
-                cookie["session"]["expires"] = \
-                    expiration.strftime("%a, %d-%b-%Y %H:%M:%S PST")
+
             else:
                 return 'success'
         else:
             return 'success'
         response = HttpResponse(reply.render(), content_type="application/xml")
+        if msg.type == 'event':
+            event = SubscribeEvent(msg)
+            if msg.event == event.event:
+                openid = msg.source
+                response.set_cookie('openid', openid)
         return response
     else:
         print('error')
