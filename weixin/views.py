@@ -210,6 +210,8 @@ def wx(request):
         hashcode = sha1.hexdigest()
         if hashcode == signature:
             return HttpResponse(echostr)
+        else:
+            return HttpResponse('signature fail')
     if request.method == 'POST':
         str_xml = smart_str(request.body)
         xml = etree.fromstring(str_xml)
