@@ -213,7 +213,6 @@ def wx(request):
                 openid = msg.source
                 subcribe_save_openid(openid)
                 request.session['openid'] = openid
-                print(request.session)
             else:
                 return 'success'
         else:
