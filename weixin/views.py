@@ -205,9 +205,11 @@ def wx(request):
         token = 'relalive'
         tmpList = [token, timestamp, nonce]
         tmpList.sort()
+        print(tmpList)
         sha1 = hashlib.sha1()
         map(sha1.update, tmpList)
         hashcode = sha1.hexdigest()
+        print(hashcode)
         if hashcode == signature:
             return HttpResponse(echostr)
         else:
