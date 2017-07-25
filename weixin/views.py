@@ -100,8 +100,8 @@ def agreement(request):
 
 
 def lend(request):
-    cookie = SimpleCookie()
-    print('openid', cookie["session"].value)
+
+    print('openid', request.session.get('openid'))
     is_deposit = is_deposit_exist('')
 
     if is_deposit:
@@ -212,14 +212,8 @@ def wx(request):
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
-                expiration = datetime.datetime.now() + datetime.timedelta(days=30)
-                cookie = SimpleCookie()
-                cookie["session"] = random.randint(0, 1000000000)
-                cookie["session"]["domain"] = "relalive.com"
-                cookie["session"]["path"] = "/"
-                cookie["session"]["expires"] = \
-                    expiration.strftime("%a, %d-%b-%Y %H:%M:%S PST")
-                print(cookie.output())
+                request.session['openid'] = openid
+                print(request.session)
             else:
                 return 'success'
         else:
