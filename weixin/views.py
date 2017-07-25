@@ -102,7 +102,7 @@ def agreement(request):
 def lend(request):
     c = SimpleCookie()
 
-    openid = c['openid']
+    openid = c['openid'].value
 
     print('open+++++' + openid)
 
