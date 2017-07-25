@@ -16,6 +16,8 @@ from light.settings import *
 from lib.utils.common import *
 from lib.weixin import receive, reply
 from wechatpy import parse_message, create_reply
+from wechatpy.utils import check_signature
+from wechatpy.exceptions import InvalidSignatureException
 
 
 # Create your views here.
@@ -203,15 +205,11 @@ def wx(request):
         timestamp = request.GET.get('timestamp', None)
         nonce = request.GET.get('nonce', None)
         echostr = request.GET.get('echostr', None)
-        token = 'relalive'
-        tmpList = [token, timestamp, nonce]
-        tmpList.sort()
-        tmpstr = "%s%s%s" % tuple(tmpList)
-        tmpstr = hashlib.sha1(tmpstr.encode('utf-8')).hexdigest()
-        if tmpstr == signature:
-            return HttpResponse(echostr)
-        else:
-            return HttpResponse('signature fail')
+        try:
+            check_signature(WECHAT_TOKEN, signature, timestamp, nonce)
+        except InvalidSignatureException:
+            echostr = 'error'
+        return HttpResponse(echostr, content_type="text/plain")
     if request.method == 'POST':
         msg = parse_message(request.body)
         if msg.type == 'text':
@@ -220,30 +218,8 @@ def wx(request):
             reply = create_reply('这是条图片消息', msg)
         elif msg.type == 'voice':
             reply = create_reply('这是条语音消息', msg)
-        else:
-            reply = create_reply('这是条其他类型消息', msg)
         response = HttpResponse(reply.render(), content_type="application/xml")
         return response
-        # str_xml = smart_str(request.body)
-        # xml = etree.fromstring(str_xml)
-        # toUserName = xml.find('ToUserName').text
-        # print(toUserName)
-        # fromUserName = xml.find('FromUserName').text
-        #
-        # createTime = xml.find('CreateTime').text
-        # msgType = xml.find('MsgType').text
-        #
-        # content = 'test'
-        # # msgId = xml.find('MsgId').text
-        #
-        # return render(request, 'weixin/reply_text.xml',
-        #               {'toUserName': toUserName,
-        #                'fromUserName': fromUserName,
-        #                'createTime': time.time(),
-        #                'msgType': msgType,
-        #                'content': content,
-        #                }, content_type='application/xml')
-
 
 
 
