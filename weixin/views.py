@@ -198,10 +198,11 @@ def wxconfig(request):
 def wx(request):
     if request.method == 'GET':
         try:
-            signature = request.GET.get('signature')
-            timestamp = request.GET.get('timestamp')
-            nonce = request.GET.get('nonce')
-            echostr = request.GET.get('echostr')
+            data = smart_str(request.body)
+            signature = data.signature
+            timestamp = data.timestamp
+            nonce = data.nonce
+            echostr = data.echostr
 
             # 这里的token需要自己设定，主要是和微信的服务器完成验证使用
             token = WECHAT_TOKEN
