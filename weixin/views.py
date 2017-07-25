@@ -100,11 +100,11 @@ def agreement(request):
 
 
 def lend(request):
-    openid = request.COOKIES['openid']
+    # openid = request.COOKIES['openid']
 
     print('open+++++' + request.COOKIES)
 
-    is_deposit = is_deposit_exist(openid)
+    is_deposit = is_deposit_exist('')
 
     if is_deposit:
         template_name = 'weixin/lend.html'
