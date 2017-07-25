@@ -205,6 +205,7 @@ def wx(request):
             event = SubscribeEvent(msg)
             if msg.event == event.event:
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
+                subcribe_save_openid(msg.source)
             else:
                 return 'success'
         else:
