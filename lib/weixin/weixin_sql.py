@@ -23,7 +23,7 @@ def get_max_id(table_name):
 
 def subcribe_save_openid(openid):
     mysql = MySQL(db='management')
-    results = mysql.exec_none_query('select weixin_number from home_customer where weixin_number={0}'.format(openid))
+    results = mysql.exec_none_query('select weixin_number from home_customer where weixin_number="{0}"'.format(openid))
 
     if not results:
         mysql = MySQL(db='management')
