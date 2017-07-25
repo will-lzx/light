@@ -201,6 +201,7 @@ def wxconfig(request):
 @csrf_exempt
 def wx(request):
     if request.method == 'GET':
+        print('12121'+str(request.GET))
         signature = request.GET.get('signature', '')
         timestamp = request.GET.get('timestamp', '')
         nonce = request.GET.get('nonce', '')
@@ -223,7 +224,7 @@ def wx(request):
         response = HttpResponse(reply.render(), content_type="application/xml")
         return response
     else:
-        print('erro')
+        print('error')
 
 
 
