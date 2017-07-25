@@ -218,6 +218,8 @@ def wx(request):
             reply = create_reply('这是条图片消息', msg)
         elif msg.type == 'voice':
             reply = create_reply('这是条语音消息', msg)
+        else:
+            return 'success'
         response = HttpResponse(reply.render(), content_type="application/xml")
         return response
 
