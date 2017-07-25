@@ -225,7 +225,6 @@ def wx(request):
         try:
             data = smart_str(request.body)
             recMsg = receive.parse_xml(data)
-
             if isinstance(recMsg, receive.Msg) and recMsg.MsgType == 'text':
                 toUser = recMsg.FromUserName
                 fromUser = recMsg.ToUserName
@@ -236,7 +235,7 @@ def wx(request):
                 print("暂不处理")
                 return 'success'
         except Exception as ex:
-            return ex
+            return "will" + ex
 
 
 

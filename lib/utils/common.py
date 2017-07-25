@@ -36,5 +36,6 @@ def get_openid():
 
 
 if __name__ == '__main__':
+    s = create_timestamp()
     get_openid()
     print('')
