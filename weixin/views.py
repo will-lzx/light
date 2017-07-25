@@ -100,7 +100,7 @@ def agreement(request):
 
 
 def lend(request):
-    print(request.COOKIES)
+    print('openid', request.session.get("openid", None))
     is_deposit = is_deposit_exist('')
 
     if is_deposit:
@@ -211,19 +211,13 @@ def wx(request):
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
-
+                request.session["openid"] = openid
             else:
                 return 'success'
         else:
             return 'success'
         response = HttpResponse(reply.render(), content_type="application/xml")
-        if msg.type == 'event':
-            event = SubscribeEvent(msg)
-            if msg.event == event.event:
-                openid = msg.source
-                dt = datetime.datetime.now() + datetime.timedelta(hours=int(1))
-                response.set_cookie('openid', openid, dt)
-                print('11111111111111111111111111111111111111111111111111111')
+
         return response
     else:
         print('error')
