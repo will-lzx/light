@@ -201,10 +201,10 @@ def wxconfig(request):
 @csrf_exempt
 def wx(request):
     if request.method == 'GET':
-        signature = request.GET.get('signature', None)
-        timestamp = request.GET.get('timestamp', None)
-        nonce = request.GET.get('nonce', None)
-        echostr = request.GET.get('echostr', None)
+        signature = request.GET.get('signature', '')
+        timestamp = request.GET.get('timestamp', '')
+        nonce = request.GET.get('nonce', '')
+        echostr = request.GET.get('echostr', '')
         try:
             check_signature(WECHAT_TOKEN, signature, timestamp, nonce)
         except InvalidSignatureException:
