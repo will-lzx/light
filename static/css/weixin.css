@@ -361,9 +361,9 @@ h1{font-size: 18px;font-weight: bold;line-height: 40px;}
 h2{font-size: 16px;font-weight: bold;color: #cc0099;}
 h3{font-size: 14px;font-weight: bold;}
 .ab_txt{padding: 30px 15px;border-bottom: 1px dashed #f8f8f8;text-align:left;line-height: 24px;}
-.ab_txt_img{float:left;width: 100%; padding-top: 20px;}
+.ab_txt_img{float:left;width: 100%;}
 .ab_img_bg{float:left;width:20%;height:20%;margin-right:5%;}
-.ab_bg1{background-size:100% 100%; background: url("/static/images/weixin/qy_shouduan.jpg") center no-repeat;}
+.ab_bg1{background-size:50% 50%; background: url("/static/images/weixin/qy_shouduan.jpg") center no-repeat;}
 .ab_bg2{background-size:100% 100%; background: url("/static/images/weixin/qy_datou.jpg") center no-repeat;}
 .ab_bg3{background-size:100% 100%; background: url("/static/images/weixin/qy_beijing.jpg") center no-repeat;}
 .ab_bg4{background-size:100% 100%; background: url("/static/images/weixin/qy_sheying.jpg") center no-repeat;}
