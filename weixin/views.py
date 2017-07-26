@@ -17,7 +17,7 @@ from lib.utils.common import *
 from wechatpy import parse_message, create_reply, WeChatOAuth
 from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
-
+from wechatpy.session import SessionStorage
 
 # Create your views here.
 
@@ -100,8 +100,8 @@ def agreement(request):
 
 
 def lend(request):
-
-    print('openid', request.session.get('openid'))
+    se = SessionStorage()
+    print('openid', se.get('open', None))
     is_deposit = is_deposit_exist('')
 
     if is_deposit:
@@ -212,7 +212,8 @@ def wx(request):
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
-                request.session['openid'] = openid
+
+                SessionStorage.set('openid', openid)
             else:
                 return 'success'
         else:
