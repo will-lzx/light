@@ -107,7 +107,7 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    openid = request.user.username
+    openid = request.user
     print('openid', openid)
     response = render(request, template_name)
     return response
@@ -237,6 +237,7 @@ def login_openid(request, openid):
         user.save()
     user = authenticate(username=openid, password=tmp_pwd)
     login(request, user)
+    print('login successfully')
 
 
 
