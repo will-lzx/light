@@ -107,7 +107,7 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    print('openid', request.user.is_authenticated)
+    print('openid', request.user.is_authenticated())
     response = render(request, template_name)
     return response
 
@@ -227,7 +227,7 @@ def wx(request):
 
 
 def login_openid(request, openid):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated():
         return
     check_user = User.objects.filter(username=openid)
     print('check!!!!!!!!!!!!!!!')
