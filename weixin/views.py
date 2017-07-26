@@ -105,18 +105,18 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    # code = request.args.get('code', None)
+    code = request.args.get('code', None)
 
-    client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
-    # if not code:
-    #     oauth_url = oauth('http://relalive.com/weixin/lend/')
-    #     url_request = UrlRequest()
-    #     resp = url_request.url_request(oauth_url)
-    #
+    # client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
+    if not code:
+        oauth_url = oauth('http://relalive.com/weixin/lend/')
+        url_request = UrlRequest()
+        resp = url_request.url_request(oauth_url)
+        print('resp', resp)
     # url = client.oauth.authorize_url(request.url)
-
-    user_info = client.get_user_info()
-    print(user_info)
+    #
+    # user_info = client.get_user_info()
+    # print(user_info)
     openid = request.GET.get('openid')
     print('openid', openid)
     response = render(request, template_name)
