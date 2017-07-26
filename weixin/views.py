@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 from lxml import etree
-from wechatpy.events import SubscribeEvent, ViewEvent
+from wechatpy.events import SubscribeEvent, ViewEvent, ClickEvent
 
 from lib.utils import check_code
 from lib.weixin.weixin_sql import *
@@ -201,13 +201,13 @@ def wx(request):
             reply = create_reply('这是条语音消息', msg)
         elif msg.type == 'event':
             subcribe_event = SubscribeEvent(msg)
-            view_event = ViewEvent(msg)
+            view_event = ClickEvent(msg)
             if msg.event == subcribe_event.event:
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
             elif msg.event == view_event.event:
-                print('url', msg.EventKey)
+                print('url', view_event.key)
                 return HttpResponseRedirect(view_event.url + '?openid=' + msg.source)
             else:
                 return 'success'
