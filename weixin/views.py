@@ -1,3 +1,4 @@
+import hashlib
 from io import BytesIO
 
 from django.http import HttpResponse, JsonResponse
@@ -6,14 +7,17 @@ from django.template.loader import render_to_string
 from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 from lxml import etree
+from wechatpy.events import SubscribeEvent
 
 from lib.utils import check_code
-from lib.weixin.sign import *
 from lib.weixin.weixin_sql import *
-from light.settings import *
-import json
-from wechatpy import WeChatClient
+
 from lib.utils.common import *
+from wechatpy import parse_message, create_reply
+from wechatpy.utils import check_signature
+from wechatpy.exceptions import InvalidSignatureException
+
+from lib.utils.url_request import *
 
 
 # Create your views here.
@@ -71,24 +75,6 @@ def weixin(request):
         return HttpResponse(rendered)
 
 
-def checkSignature(request):
-    signature=request.GET.get('signature', None)
-    timestamp=request.GET.get('timestamp', None)
-    nonce=request.GET.get('nonce', None)
-    echostr=request.GET.get('echostr', None)
-    #这里的token我放在setting，可以根据自己需求修改
-    token = WECHAT_TOKEN
-
-    tmplist=[token, timestamp, nonce]
-    tmplist.sort()
-    tmpstr="%s%s%s"%tuple(tmplist)
-    tmpstr=hashlib.sha1(tmpstr).hexdigest()
-    if tmpstr == signature:
-        return echostr
-    else:
-        return None
-
-
 def create_code_img(request):
     # 直接在内存开辟一点空间存放临时生成的图片
     f = BytesIO()
@@ -102,10 +88,10 @@ def create_code_img(request):
     return HttpResponse(f.getvalue())
 
 
-def login(request):
-    template_name = 'weixin/login.html'
-    response = render(request, template_name)
-    return response
+# def login(request):
+#     template_name = 'weixin/login.html'
+#     response = render(request, template_name)
+#     return response
 
 
 def agreement(request):
@@ -116,6 +102,10 @@ def agreement(request):
 
 def lend(request):
     template_name = 'weixin/lend.html'
+
+    oauth_user(request)
+
+    print('openid', request.user.is_authenticated())
     response = render(request, template_name)
     return response
 
@@ -178,16 +168,10 @@ def wxconfig(request):
 
     url = request.POST['url']
 
-    timestamp = int(time.time())
+    timestamp = create_timestamp()
     noncestr = create_nonce_str()
-    client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
 
-    signature = client.jsapi.get_jsapi_signature(
-        noncestr,
-        jsapi_ticket,
-        timestamp,
-        url
-    )
+    signature = get_signature(noncestr, jsapi_ticket, timestamp, url)
 
     ret_dict = {
         'appid': WEIXIN_APPID,
@@ -200,50 +184,66 @@ def wxconfig(request):
     return JsonResponse(ret_dict)
 
 
+@csrf_exempt
 def wx(request):
     if request.method == 'GET':
-        signature = request.GET.get('signature', None)
-        timestamp = request.GET.get('timestamp', None)
-        nonce = request.GET.get('nonce', None)
-        echostr = request.GET.get('echostr', None)
-
-        # 这里的token需要自己设定，主要是和微信的服务器完成验证使用
-        token = WECHAT_TOKEN
-
-        # 把token，timestamp, nonce放在一个序列中，并且按字符排序
-        hashlist = [token, str(timestamp), str(nonce)]
-        hashlist.sort()
-
-        # 将上面的序列合成一个字符串
-        hashstr = ''.join([s for s in hashlist])
-
-        # 通过python标准库中的sha1加密算法，处理上面的字符串，形成新的字符串。
-        hashstr = hashlib.sha1(hashstr.encode(encoding='utf-8')).hexdigest()
-
-        # 把我们生成的字符串和微信服务器发送过来的字符串比较，
-        # 如果相同，就把服务器发过来的echostr字符串返回去
-        if hashstr == signature:
-            return HttpResponse(echostr)
-
+        signature = request.GET.get('signature', '')
+        timestamp = request.GET.get('timestamp', '')
+        nonce = request.GET.get('nonce', '')
+        echostr = request.GET.get('echostr', '')
+        try:
+            check_signature(WECHAT_TOKEN, signature, timestamp, nonce)
+        except InvalidSignatureException:
+            echostr = 'error'
+        return HttpResponse(echostr, content_type="text/plain")
     if request.method == 'POST':
-        # 将程序中字符输出到非 Unicode 环境（比如 HTTP 协议数据）时可以使用 smart_str 方法
-        data = smart_str(request.body)
-        # 将接收到数据字符串转成xml
-        xml = etree.fromstring(data)
+        msg = parse_message(request.body)
+        if msg.type == 'text':
+            reply = create_reply('这是条文字消息', msg)
+        elif msg.type == 'image':
+            reply = create_reply('这是条图片消息', msg)
+        elif msg.type == 'voice':
+            reply = create_reply('这是条语音消息', msg)
+        elif msg.type == 'event':
+            subcribe_event = SubscribeEvent(msg)
+            if msg.event == subcribe_event.event:
+                reply = create_reply('欢迎您关注轻拍科技公众号', msg)
+                openid = msg.source
+                subcribe_save_openid(openid)
+            else:
+                return 'success'
+        else:
+            return 'success'
+        response = HttpResponse(reply.render(), content_type="application/xml")
 
-        # 从xml中读取我们需要的数据。注意这里使用了from接收的to，使用to接收了from，
-        # 这是因为一会我们还要用这些数据来返回消息，这样一会使用看起来更符合逻辑关系
-        fromUser = xml.find('ToUserName').text
-        toUser = xml.find('FromUserName').text
-        content = xml.find('Content').text
+        return response
+    else:
+        print('error')
 
-        # 这里获取当前时间的秒数，time.time()取得的数字是浮点数，所以有了下面的操作
-        nowtime = str(int(time.time()))
 
-        # 加载text.xml模板,参见render()调用render_to_string()并将结果馈送到 HttpResponse适合从视图返回的快捷方式 。
-        rendered = render_to_string('weixin/text.xml',
-                                    {'toUser': toUser, 'fromUser': fromUser, 'nowtime': nowtime, 'content': '微信功能正在开发中...'})
-        return HttpResponse(rendered)
+def oauth_user(request):
+    from wechatpy import WeChatClient
+    from wechatpy.oauth import WeChatOAuth
+
+    print('resu;t', request.path)
+    oauth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, redirect_uri='http://relalive.com/weixin/lend/')
+
+    oauth_url = oauth.authorize_url
+
+    print('oauth_url', oauth_url)
+
+    req = urllib.request.Request(oauth_url)
+    res = urllib.request.urlopen(req)
+    urlResp = res.read()
+
+    print('resp', urlResp)
+
+    client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
+
+    url = client.oauth.authorize_url(request.url)
+
+
+
 
 
 

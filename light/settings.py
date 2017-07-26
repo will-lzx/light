@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+SESSION_SAVE_EVERY_REQUEST = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -130,7 +132,10 @@ STATICFILES_DIRS = [
 
 # weixin
 WECHAT_TOKEN = "relalive"
-WEIXIN_APPID = 'wxe2d133d468969a91 '
+WEIXIN_APPID = 'wxe2d133d468969a91'
 WEIXIN_APPSECRET = '4fa59c6b06441dec0238fbf0df841c63'
 
 APPEND_SLASH = False
+
+tmp_pwd = 'Password'
+tmp_mail = 'tmp_mail@relalive.com'
