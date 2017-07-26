@@ -201,13 +201,13 @@ def wx(request):
             reply = create_reply('这是条语音消息', msg)
         elif msg.type == 'event':
             subcribe_event = SubscribeEvent(msg)
-            view_event = ClickEvent(msg)
+            view_event = ViewEvent(msg)
             if msg.event == subcribe_event.event:
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
             elif msg.event == view_event.event:
-                print('url', view_event.key)
+                print('url', view_event.cls.__getattribute__('EventKey'))
                 return HttpResponseRedirect(view_event.url + '?openid=' + msg.source)
             else:
                 return 'success'
