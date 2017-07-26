@@ -37,18 +37,18 @@ class UrlRequest:
                         {
                             "type": "view",
                             "name": "借自拍杆",
-                            "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d468969a91&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Flend%2F&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect"
+                            "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d468969a91&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Flend%2F&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect"
                         },
                         {
                             "type": "view",
                             "name": "还自拍杆",
-                            "url": "http://relalive.com/weixin/return_back/"
+                            "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d468969a91&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Freturn_back%2F&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect"
                         }]
                 },
                 {
                     "type": "view",
                     "name": "附近网点",
-                    "url": "http://relalive.com/weixin/nearby/"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d468969a91&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Fnearby%2F&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect"
 
                 },
                 {
@@ -57,12 +57,12 @@ class UrlRequest:
                         {
                             "type": "view",
                             "name": "个人中心",
-                            "url": "http://relalive.com/weixin/privatecenter/"
+                            "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d468969a91&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Fprivatecenter%2F&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect"
                         },
                         {
                             "type": "view",
                             "name": "在线客服",
-                            "url": "http://relalive.com/weixin/privatecenter/"
+                            "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d468969a91&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Fprivatecenter%2F&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect"
                         }]
                 }]
         }

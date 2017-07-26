@@ -4,6 +4,7 @@ import time
 
 from wechatpy import WeChatClient, WeChatOAuth
 from light.settings import *
+from lib.utils.url_request import *
 
 
 def create_nonce_str():
@@ -27,12 +28,13 @@ def get_signature(noncestr, jsapi_ticket, timestamp, url):
     return signature
 
 
-def get_openid():
-    client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
+def get_openid(code):
+    url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code'.format(WEIXIN_APPID, WEIXIN_APPSECRET, code)
 
-    usr = client.user.get('openid')
+    url_req = UrlRequest()
+    resp = url_req.url_request(url)
+    return resp
 
-    print(usr)
 
 
 def oauth(url):
