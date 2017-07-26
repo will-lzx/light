@@ -207,7 +207,7 @@ def wx(request):
                 openid = msg.source
                 subcribe_save_openid(openid)
             elif msg.event == 'view':
-                print('url', msg)
+                print('url', msg.get('EventKey'))
                 return HttpResponseRedirect(view_event.url + '?openid=' + msg.source)
             else:
                 return 'success'
