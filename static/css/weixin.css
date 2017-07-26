@@ -350,5 +350,5 @@ input.weui-btn_plain-default{
 .gr_dh{width: 100%;float: left;background-color: white;border-bottom: 1px solid #e5e5e5; height: 50px;line-height: 50px;}
 .gr_dh_top{margin-top: 50px;border-top: 1px solid #e5e5e5; }
 .gr_dh_left{width: 80%;float: left;margin-left: 15px;}
-.gr_dh_right{width: 20px;float: right;margin-right: 15px;padding-top:20px;}
-.dh_jt{width: 10px;height: auto;border: none;}
+.gr_dh_right{width: 20px;float: right;margin-right: 15px;text-align: right;}
+.dh_jt{width: 10px;height: auto;border: none;margin-top: 20px;}
