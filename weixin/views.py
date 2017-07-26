@@ -103,7 +103,6 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    oauth_user(request)
     print('openid', request.GET.get('code'))
     response = render(request, template_name)
     return response
@@ -115,9 +114,6 @@ def lend2(request):
     print('openid', request.GET.get('code'))
     response = render(request, template_name)
     return response
-
-
-
 
 
 def return_back(request):
@@ -216,10 +212,17 @@ def wx(request):
             reply = create_reply('这是条语音消息', msg)
         elif msg.type == 'event':
             subcribe_event = SubscribeEvent(msg)
+
             if msg.event == subcribe_event.event:
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
+            elif msg.event == 'view':
+                oauth_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d468969a91&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Flend%2F&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect'
+
+                req = urllib.request.Request(oauth_url)
+                req.add_header('Content-Type', 'application/json')
+                res = urllib.request.urlopen(req)
             else:
                 return 'success'
         else:
