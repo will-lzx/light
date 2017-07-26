@@ -103,6 +103,7 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
+    oauth('http://relalive.com/weixin/lend/')
     openid = request.GET.get('openid')
     print('openid', openid)
     response = render(request, template_name)

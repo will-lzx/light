@@ -2,7 +2,7 @@ import random
 import string
 import time
 
-from wechatpy import WeChatClient
+from wechatpy import WeChatClient, WeChatOAuth
 from light.settings import *
 
 
@@ -35,6 +35,10 @@ def get_openid():
     print(usr)
 
 
+def oauth(url):
+    oAuth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, url)
+    oauth_url = oAuth.authorize_url()
+    print('oauth', oauth_url)
 
 
 if __name__ == '__main__':
