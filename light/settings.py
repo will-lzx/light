@@ -136,3 +136,6 @@ WEIXIN_APPID = 'wxe2d133d468969a91'
 WEIXIN_APPSECRET = '4fa59c6b06441dec0238fbf0df841c63'
 
 APPEND_SLASH = False
+
+tmp_pwd = 'Password'
+tmp_mail = 'tmp_mail@relalive.com'

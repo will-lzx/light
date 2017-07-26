@@ -3,6 +3,8 @@ from http.cookies import SimpleCookie
 from io import BytesIO
 
 import xmltodict
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -90,10 +92,10 @@ def create_code_img(request):
     return HttpResponse(f.getvalue())
 
 
-def login(request):
-    template_name = 'weixin/login.html'
-    response = render(request, template_name)
-    return response
+# def login(request):
+#     template_name = 'weixin/login.html'
+#     response = render(request, template_name)
+#     return response
 
 
 def agreement(request):
@@ -105,28 +107,8 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    code = request.GET.get('code', None)
-
-    # client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
-    if not code:
-        oauth_url = oauth('http://relalive.com/weixin/lend2/')
-        req = urllib.request.Request(oauth_url)
-        resp = urllib.request.urlopen(req)
-        urlResp = json.dumps(resp.read())
-        print('resp', urlResp)
-    # url = client.oauth.authorize_url(request.url)
-    #
-    # user_info = client.get_user_info()
-    # print(user_info)
-    openid = request.GET.get('openid')
+    openid = request.user.username
     print('openid', openid)
-    response = render(request, template_name)
-    return response
-
-
-def lend2(request):
-    template_name = 'weixin/lend.html'
-
     response = render(request, template_name)
     return response
 
@@ -227,24 +209,37 @@ def wx(request):
             reply = create_reply('这是条语音消息', msg)
         elif msg.type == 'event':
             subcribe_event = SubscribeEvent(msg)
-            view_event = ViewEvent(msg)
             if msg.event == subcribe_event.event:
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
-            elif msg.event == 'view':
-                message = xmltodict.parse(to_text(request.body))['xml']
-                print('url', message.get('EventKey'))
-                return HttpResponseRedirect(message.get('EventKey') + msg.source + '/')
             else:
+                login_openid(request, msg.source)
                 return 'success'
         else:
+            login_openid(request, msg.source)
             return 'success'
+        login_openid(request, msg.source)
         response = HttpResponse(reply.render(), content_type="application/xml")
 
         return response
     else:
         print('error')
+
+
+def login_openid(request, openid):
+    if request.user:
+        return
+    check_user = User.objects.filter(username=openid)
+
+    if not check_user:
+        user = User.objects.create_user(openid, tmp_mail, tmp_pwd)
+        user.save()
+    user = authenticate(username=openid, password=tmp_pwd)
+    login(request, user)
+
+
+
 
 
 
