@@ -228,7 +228,8 @@ def wx(request):
 
 
 def login_openid(request, openid):
-    if request.user:
+    if request.user != 'AnonymousUser':
+        print(request.user)
         return
     check_user = User.objects.filter(username=openid)
     print('check!!!!!!!!!!!!!!!')
