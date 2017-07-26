@@ -2,6 +2,7 @@ import hashlib
 from http.cookies import SimpleCookie
 from io import BytesIO
 
+import xmltodict
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -15,7 +16,7 @@ from lib.weixin.weixin_sql import *
 
 from lib.utils.common import *
 from wechatpy import parse_message, create_reply, WeChatOAuth
-from wechatpy.utils import check_signature
+from wechatpy.utils import check_signature, to_text
 from wechatpy.exceptions import InvalidSignatureException
 from wechatpy.session import SessionStorage
 
@@ -207,7 +208,8 @@ def wx(request):
                 openid = msg.source
                 subcribe_save_openid(openid)
             elif msg.event == 'view':
-                print('url', msg.get('EventKey'))
+                message = xmltodict.parse(to_text(request.body))['xml']
+                print('url', message.get('EventKey'))
                 return HttpResponseRedirect(view_event.url + '?openid=' + msg.source)
             else:
                 return 'success'
