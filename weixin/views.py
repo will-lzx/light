@@ -169,10 +169,19 @@ def about(request):
 def privatecenter(request):
     template_name = 'weixin/privatecenter.html'
 
-    mobile_number = '17621349389'
-    lendtime = get_lendtime(mobile_number)
+    code = request.GET.get('code', None)
 
-    money = float(get_money(mobile_number))
+    if code and not request.session.get('openid', default=None):
+        print('code', code)
+        openid = get_openid(code)
+        request.session['openid'] = openid
+        request.GET.__delitem__('code')
+    else:
+        openid = request.session.get('openid', default=None)
+
+    lendtime = get_lendtime(openid)
+
+    money = float(get_money(openid))
 
     context = {
         'lendtime': lendtime,
