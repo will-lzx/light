@@ -37,7 +37,7 @@ class UrlRequest:
                         {
                             "type": "view",
                             "name": "借自拍杆",
-                            "url": "http://relalive.com/weixin/lend/"
+                            "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d468969a91&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Flend%2F&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect"
                         },
                         {
                             "type": "view",
