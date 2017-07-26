@@ -358,3 +358,6 @@ input.weui-btn_plain-default{
 
 .ab_top{background-color: #cc3399;text-align: center;line-height: 20px;color: white;padding: 30px 15px 30px 15px;}
 .h1{font-size: 18px;font-weight: bold;line-height: 40px;}
+.h2{font-size: 16px;font-weight: bold;color: #cc0099;}
+.h3{font-size: 14px;font-weight: bold;}
+.ab_fg{height: 10px;padding: 20px 15px 30px 15px;border-bottom: 1px dashed #f8f8f8;}
