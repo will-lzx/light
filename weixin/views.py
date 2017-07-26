@@ -234,7 +234,7 @@ def oauth_user(request):
 
     req = urllib.request.Request(oauth_url)
     res = urllib.request.urlopen(req)
-    urlResp = res.read()
+    urlResp = json.loads(res.read())
 
     print('resp', urlResp)
 
