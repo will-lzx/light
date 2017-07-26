@@ -237,12 +237,6 @@ def oauth_user(request):
     res = urllib.request.urlopen(req)
     urlResp = res.read()
 
-    print('resp', urlResp)
-
-    client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
-
-    url = client.oauth.authorize_url(request.url)
-
 
 
 
