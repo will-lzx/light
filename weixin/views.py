@@ -236,7 +236,7 @@ def oauth_user(request):
     req.add_header('Content-Type', 'application/json')
     req.add_header('encoding', 'utf-8')
     res = urllib.request.urlopen(req)
-    urlResp = res.read()
+    urlResp = json.loads(res.read())
 
     print('resp', urlResp)
 
