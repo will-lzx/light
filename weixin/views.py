@@ -107,8 +107,7 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    openid = request.user
-    print('openid', openid)
+    print('openid', request.user.is_authenticated)
     response = render(request, template_name)
     return response
 
