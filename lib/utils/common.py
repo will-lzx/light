@@ -37,7 +37,7 @@ def get_openid():
 
 def oauth(url):
     oAuth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, url)
-    oauth_url = oAuth.authorize_url()
+    oauth_url = oAuth.authorize_url
     print('oauth', oauth_url)
 
 
