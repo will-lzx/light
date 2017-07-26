@@ -102,6 +102,9 @@ def agreement(request):
 
 def lend(request):
     template_name = 'weixin/lend.html'
+
+    openid = request.POST.get('openid')
+    print('openid', openid)
     response = render(request, template_name)
     return response
 
@@ -210,7 +213,7 @@ def wx(request):
             elif msg.event == 'view':
                 message = xmltodict.parse(to_text(request.body))['xml']
                 print('url', message.get('EventKey'))
-                return HttpResponseRedirect(view_event.url + '?openid=' + msg.source)
+                return HttpResponseRedirect(message.get('EventKey') + '?openid=' + msg.source)
             else:
                 return 'success'
         else:
