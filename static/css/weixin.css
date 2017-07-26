@@ -317,7 +317,7 @@ input.weui-btn_plain-default{
 }
 
 .ts_cont{width: 100%;height: 240px;float: left;text-align: center;margin: 20px auto;}
-.zgjs_img{width: 60%;height: 60%;}
+.zgjs_img{width: 60%;height: auto;}
 .nr_con{padding: 0 15px;}
 .nr_con_all{padding: 0;background-color:#DEDEDE}
 .ts_til{width: 100%;margin: 50px auto;border-bottom: 1px dashed #ececec;color:#999999;text-align: center;}
