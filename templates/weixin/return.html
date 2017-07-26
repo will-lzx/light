@@ -1,21 +1,23 @@
 {% extends "weixin/base.html" %}
 {% load static %}
-
+{% block title %}茄子自拍{% endblock %}
 {% block head %}
-    <div class="weixin-title">
-        <span>轻拍</span>
-    </div>
 
 {% endblock %}
 
 {% block content %}
-    <div class="div-content">
-        <input type="button" value="归还自拍杆">
-        <h5>计费规则</h5>
-        <span>1.1小时内免费，之后1元/小时，每天5元封顶；</span><br>
-        <span>2.如5天未归还，默认购买此自拍杆，系统将您押金改为购物款并自动收取；</span><br>
-        <span>1.首次借用需支付49元押金，归还自拍杆后，随时到个人中心快捷提现退还押金。</span>
+    <div class="ts_cont">
+       <img class="zgjs_img" src="{% static '/images/weixin/hgjs.gif' %}" alt="还杆介绍">
     </div>
+    <div class="nr_con">
+            <a href="#"  class="weui-btn weui-btn_primary page__bd_spacing">还自拍杆</a>
+            <div class="ts_til page__bd_spacing"><div class="ts_til_test">温馨提示</div> </div>
+            <div class="sm_cont">
+                第一步：手机扫描机柜二维码，待机柜门自动打开<br>
+                第二步：收好自拍杆放入机柜，手扣朝上
+            </div>
+     </div>
+
 
     <script src="/static/js/jquery-3.2.1.js"></script>
     <script>
