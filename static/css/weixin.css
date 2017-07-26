@@ -319,16 +319,16 @@ input.weui-btn_plain-default{
 }
 
 .ts_cont{width: 100%;height: auto;float: left;text-align: center;margin: 50px auto;}
-.ts_cont_all{background-color: #DEDEDE}
+.ts_cont_all{background-color: #f8f8f8}
 .zgjs_img{width: 45%;height: auto;}
 .nr_con{padding: 0 15px;font-weight: 200;}
-.nr_con_all{padding: 0;background-color:#DEDEDE}
+.nr_con_all{padding: 0;background-color:#f8f8f8}
 .ts_til{width: 100%;margin: 20px auto;border-bottom: 1px dashed #ececec;color:#999999;text-align: center;font-size: 14px;}
 .ts_til_test{width: 80px;text-align: center;margin-bottom: -18px;margin-left:auto;margin-right:auto;position: relative;padding: 5px;background-color: white;}
 .sm_cont{width: 100%;float:left;color: #666666;line-height: 24px;font-size: 14px;}
 .col_z{color: #cc0099;font-weight:bold;}
 .tj_til{width: 100%;height: 50px;line-height: 50px;text-align: center;color: #333333;}
-.zjjl_con{width: 100%;border-top: 1px solid #d2d2d2;border-bottom: 1px solid #d2d2d2;margin-bottom: 30px;background-color: white;color: #666666;}
+.zjjl_con{width: 100%;border-top: 1px solid #e5e5e5;border-bottom: 1px solid #e5e5e5;margin-bottom: 30px;background-color: white;color: #666666;}
 .zjjl_h{padding: 10px 15px;border-bottom: 1px solid #f1f1f1;height: 28px;line-height: 28px;}
 .zjjl_h_zc{height: 50px;border-bottom: none;}
 .zjjl_h_hr{height: 110px;border-bottom: none;}
@@ -343,3 +343,7 @@ input.weui-btn_plain-default{
 .wk_ts{width: 100%;height: 100px;line-height: 28px;text-align: center;border-top: 1px solid #d2d2d2;border-bottom: 1px solid #d2d2d2;background-color: white;padding-top: 20px;padding-bottom: 20px;}
 .wk_ts a{text-decoration: none;color: #cc0099;}
 .zgtk{width: 380px;height: 380px;margin: 50px auto;background: url("/static/images/weixin/tk.jpg") center no-repeat;}
+.gr_cont{width: 100%;height:100%; background-color: #f8f8f8;}
+.gr_top{width:100%;height: auto;border-bottom: 1px solid #e5e5e5;text-align: center;line-height: 30px;}
+.gr_tx{width:100px;height:100px;border-radius:100px;margin: 50px auto;border: none;}
+.gr_nc{font-size: 18px;font-weight: normal;line-height: 20px;width: 100%;}
