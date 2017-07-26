@@ -1,32 +1,25 @@
 import hashlib
-from http.cookies import SimpleCookie
-from imp import reload
 from io import BytesIO
 
-import xmltodict
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 from lxml import etree
-from wechatpy.events import SubscribeEvent, ViewEvent, ClickEvent
+from wechatpy.events import SubscribeEvent
 
 from lib.utils import check_code
 from lib.weixin.weixin_sql import *
 
 from lib.utils.common import *
-from wechatpy import parse_message, create_reply, WeChatOAuth
-from wechatpy.utils import check_signature, to_text
+from wechatpy import parse_message, create_reply
+from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
-from wechatpy.session import SessionStorage
 
 from lib.utils.url_request import *
 
-reload(sys)
-sys.setdefaultencoding('utf8')
+
 # Create your views here.
 
 _letter_cases = "abcdefghjkmnpqrstuvwxy"
@@ -239,7 +232,7 @@ def oauth_user(request):
     print('oauth_url', oauth_url)
     req = urllib.request.Request(oauth_url)
     res = urllib.request.urlopen(req)
-    urlResp = json.loads(res.read())
+    urlResp = json.loads(res.read().dcode('utf-8'))
 
     print('resp', urlResp)
 
