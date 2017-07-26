@@ -229,7 +229,7 @@ def oauth_user(request):
     from wechatpy import WeChatClient
     from wechatpy.oauth import WeChatOAuth
 
-    oauth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, redirect_uri=request.url)
+    oauth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, redirect_uri=request.path)
 
     oauth_url = oauth.authorize_url
 
