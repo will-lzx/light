@@ -235,10 +235,8 @@ def oauth_user(request):
     oauth_url = oauth.authorize_url
     print('oauth_url', oauth_url)
     req = urllib.request.Request(oauth_url)
-    req.add_header('Content-Type', 'application/json')
-    req.add_header('encoding', 'utf-8')
     res = urllib.request.urlopen(req)
-    urlResp = json.dumps(res.read())
+    urlResp = json.loads(res.read())
 
     print('resp', urlResp)
 
