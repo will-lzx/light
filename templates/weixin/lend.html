@@ -66,8 +66,7 @@
             //点击按钮扫描二维码
             document.querySelector('#scanQRCode').onclick = function () {
                 var is_deposit = $('#deposit').val();
-                alert(is_deposit);
-                if (is_deposit == false)
+                if (is_deposit == 'False')
                 {
                     alert(location.href);
                     location.href = '/weixin/pay/';
