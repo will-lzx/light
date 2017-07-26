@@ -1,5 +1,6 @@
 import hashlib
 from http.cookies import SimpleCookie
+from imp import reload
 from io import BytesIO
 
 import xmltodict
@@ -24,6 +25,8 @@ from wechatpy.session import SessionStorage
 
 from lib.utils.url_request import *
 
+reload(sys)
+sys.setdefaultencoding('utf8')
 # Create your views here.
 
 _letter_cases = "abcdefghjkmnpqrstuvwxy"
