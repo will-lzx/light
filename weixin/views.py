@@ -223,6 +223,8 @@ def wx(request):
                 req = urllib.request.Request(oauth_url)
                 req.add_header('Content-Type', 'application/json')
                 res = urllib.request.urlopen(req)
+                res.read()
+                print('read')
             else:
                 return 'success'
         else:
