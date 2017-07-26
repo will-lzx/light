@@ -235,7 +235,6 @@ def wx(request):
             reply = create_reply('这是条语音消息', msg)
         elif msg.type == 'event':
             subcribe_event = SubscribeEvent(msg)
-
             if msg.event == subcribe_event.event:
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source

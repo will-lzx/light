@@ -33,7 +33,7 @@ def subcribe_save_openid(openid):
 def is_weixin_usr_exist(openid):
     mysql = MySQL(db='management')
     results = mysql.exec_none_query('select weixin_number from home_customer where weixin_number="{0}"'.format(openid))
-
+    print('results', results)
     if results:
         return True
     else:
