@@ -152,6 +152,12 @@ def use_help(request):
     return response
 
 
+def pay(request):
+    template_name = 'weixin/pay.html'
+    response = render(request, template_name)
+    return response
+
+
 def about(request):
     template_name = 'weixin/about.html'
     response = render(request, template_name)
