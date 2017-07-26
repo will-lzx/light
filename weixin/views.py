@@ -111,7 +111,7 @@ def lend(request):
     if not code:
         oauth_url = oauth('http://relalive.com/weixin/lend/')
         url_request = UrlRequest()
-        resp = url_request.url_request(oauth_url)
+        resp = url_request.url_request(oauth_url.encode('utf-8'))
         print('resp', resp)
     # url = client.oauth.authorize_url(request.url)
     #
