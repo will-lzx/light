@@ -109,16 +109,26 @@ def lend(request):
 
     # client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
     if not code:
-        oauth_url = oauth('http://relalive.com/weixin/lend/')
-        url_request = UrlRequest()
-        resp = url_request.url_request(oauth_url.encode('utf-8'))
-        print('resp', resp)
+        oauth_url = oauth('http://relalive.com/weixin/lend2/')
+        req = urllib.request.Request(oauth_url)
+        req.add_header('Content-Type', 'application/json')
+        req.add_header('encoding', 'utf-8')
+        resp = urllib.request.urlopen(req)
+        urlResp = json.loads(resp.read())
+        print('resp', urlResp)
     # url = client.oauth.authorize_url(request.url)
     #
     # user_info = client.get_user_info()
     # print(user_info)
     openid = request.GET.get('openid')
     print('openid', openid)
+    response = render(request, template_name)
+    return response
+
+
+def lend2(request):
+    template_name = 'weixin/lend.html'
+
     response = render(request, template_name)
     return response
 

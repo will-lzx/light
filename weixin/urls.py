@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^agreement/', agreement, name='agreement'),
 
     url(r'^lend/$', lend, name='lend'),
+    url(r'^lend2/$', lend2, name='lend2'),
     url(r'^return_back/$', return_back, name='return_back'),
     url(r'^nearby/$', nearby, name='nearby'),
 
