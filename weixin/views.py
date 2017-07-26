@@ -20,6 +20,8 @@ from wechatpy.utils import check_signature, to_text
 from wechatpy.exceptions import InvalidSignatureException
 from wechatpy.session import SessionStorage
 
+from lib.utils.url_request import *
+
 # Create your views here.
 
 _letter_cases = "abcdefghjkmnpqrstuvwxy"
@@ -103,7 +105,18 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    oauth('http://relalive.com/weixin/lend/')
+    # code = request.args.get('code', None)
+
+    client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
+    # if not code:
+    #     oauth_url = oauth('http://relalive.com/weixin/lend/')
+    #     url_request = UrlRequest()
+    #     resp = url_request.url_request(oauth_url)
+    #
+    # url = client.oauth.authorize_url(request.url)
+
+    user_info = client.get_user_info()
+    print(user_info)
     openid = request.GET.get('openid')
     print('openid', openid)
     response = render(request, template_name)
