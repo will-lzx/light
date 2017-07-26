@@ -1,7 +1,7 @@
 import hashlib
 from io import BytesIO
 
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.encoding import smart_str
@@ -220,11 +220,12 @@ def wx(request):
             elif msg.event == 'view':
                 oauth_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d468969a91&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Flend%2F&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect'
 
-                req = urllib.request.Request(oauth_url)
-                req.add_header('Content-Type', 'application/json')
-                res = urllib.request.urlopen(req)
-                res.read()
-                print('read')
+                # req = urllib.request.Request(oauth_url)
+                # req.add_header('Content-Type', 'application/json')
+                # res = urllib.request.urlopen(req)
+                # res.read()
+
+                return HttpResponseRedirect(oauth_url)
             else:
                 return 'success'
         else:
