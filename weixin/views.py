@@ -2,13 +2,13 @@ import hashlib
 from http.cookies import SimpleCookie
 from io import BytesIO
 
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 from lxml import etree
-from wechatpy.events import SubscribeEvent
+from wechatpy.events import SubscribeEvent, ViewEvent
 
 from lib.utils import check_code
 from lib.weixin.weixin_sql import *
@@ -200,11 +200,14 @@ def wx(request):
         elif msg.type == 'voice':
             reply = create_reply('这是条语音消息', msg)
         elif msg.type == 'event':
-            event = SubscribeEvent(msg)
-            if msg.event == event.event:
+            subcribe_event = SubscribeEvent(msg)
+            view_event = ViewEvent(msg)
+            if msg.event == subcribe_event.event:
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
+            if msg.event == view_event.event:
+                return HttpResponseRedirect(view_event.url)
             else:
                 return 'success'
         else:
