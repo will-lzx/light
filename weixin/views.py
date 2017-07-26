@@ -212,8 +212,8 @@ def wx(request):
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
-
-                SessionStorage.set('openid', openid)
+                se = SessionStorage()
+                se.set('openid', openid)
             else:
                 return 'success'
         else:
