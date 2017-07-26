@@ -68,7 +68,9 @@
                 var is_deposit = $('#deposit').val();
                 if (is_deposit == false)
                 {
+                    alert(location.href);
                     location.href = '/weixin/pay/';
+
                 }
                 wx.scanQRCode({
                     needResult: 0, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
