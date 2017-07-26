@@ -230,7 +230,7 @@ def oauth_user(request):
     from wechatpy.oauth import WeChatOAuth
 
     print('resu;t', request.path)
-    oauth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, redirect_uri=request.path)
+    oauth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, redirect_uri='http://relalive.com/weixin/lend/')
 
     oauth_url = oauth.authorize_url
     print('oauth_url', oauth_url)
