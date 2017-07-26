@@ -108,6 +108,17 @@ def lend(request):
     return response
 
 
+def lend2(request):
+    template_name = 'weixin/lend.html'
+
+    print('openid', request.GET.get('code'))
+    response = render(request, template_name)
+    return response
+
+
+
+
+
 def return_back(request):
     template_name = 'weixin/return.html'
     response = render(request, template_name)
@@ -226,9 +237,7 @@ def oauth_user(request):
     print('resu;t', request.path)
     # oauth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, redirect_uri='http://relalive.com/weixin/lend/')
 
-    oauth_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d468969a91&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Flend%2F&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect'
-
-    print('oauth_url', oauth_url)
+    oauth_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d468969a91&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Flend%2F&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect'
 
     req = urllib.request.Request(oauth_url)
     req.add_header('Content-Type', 'application/json')
