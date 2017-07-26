@@ -231,10 +231,12 @@ def login_openid(request, openid):
     if request.user:
         return
     check_user = User.objects.filter(username=openid)
-
+    print('check!!!!!!!!!!!!!!!')
     if not check_user:
         user = User.objects.create_user(openid, tmp_mail, tmp_pwd)
+        print('start save!!!!!!!!!!!!!!')
         user.save()
+        print('save successfully')
     user = authenticate(username=openid, password=tmp_pwd)
     login(request, user)
     print('login successfully')
