@@ -232,10 +232,13 @@ def oauth_user(request):
     oauth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, redirect_uri=request.path)
 
     oauth_url = oauth.authorize_url
-    url_req = UrlRequest()
-    resp = url_req.url_request(oauth_url)
+    req = urllib.request.Request(oauth_url)
+    req.add_header('Content-Type', 'application/json')
+    req.add_header('encoding', 'utf-8')
+    res = urllib.request.urlopen(req)
+    urlResp = json.loads(res.read())
 
-    print('resp', resp)
+    print('resp', urlResp)
 
     client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
 
