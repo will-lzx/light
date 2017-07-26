@@ -316,13 +316,13 @@ input.weui-btn_plain-default{
   font-size:13px;
 }
 
-.ts_cont{width: 100%;height: auto;float: left;text-align: center;margin: 20px auto;}
+.ts_cont{width: 100%;height: auto;float: left;text-align: center;margin: 30px auto;}
 .zgjs_img{width: 60%;height: auto;}
 .nr_con{padding: 0 15px;}
 .nr_con_all{padding: 0;background-color:#DEDEDE}
-.ts_til{width: 100%;margin: 50px auto;border-bottom: 1px dashed #ececec;color:#999999;text-align: center;}
+.ts_til{width: 100%;margin: 20px auto;border-bottom: 1px dashed #ececec;color:#999999;text-align: center;}
 .ts_til_test{width: 80px;text-align: center;margin-bottom: -18px;margin-left:auto;margin-right:auto;position: relative;padding: 5px;background-color: white;}
-.sm_cont{width: 100%;float:left;color: #666666;line-height: 30px;}
+.sm_cont{width: 100%;float:left;color: #666666;line-height: 20px;font-size: 14px;}
 .col_z{color: #cc0099;font-weight:bold;}
 .tj_til{width: 100%;height: 50px;line-height: 50px;text-align: center;color: #333333;}
 .zjjl_con{width: 100%;border-top: 1px solid #d2d2d2;border-bottom: 1px solid #d2d2d2;margin-bottom: 30px;background-color: white;color: #666666;}
