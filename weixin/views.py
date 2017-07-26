@@ -107,6 +107,8 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
+    oauth_user(request)
+
     print('openid', request.user.is_authenticated())
     response = render(request, template_name)
     return response
@@ -213,12 +215,9 @@ def wx(request):
                 openid = msg.source
                 subcribe_save_openid(openid)
             else:
-                login_openid(request, msg.source)
                 return 'success'
         else:
-            login_openid(request, msg.source)
             return 'success'
-        login_openid(request, msg.source)
         response = HttpResponse(reply.render(), content_type="application/xml")
 
         return response
@@ -226,19 +225,22 @@ def wx(request):
         print('error')
 
 
-def login_openid(request, openid):
-    if request.user.is_authenticated():
-        return
-    check_user = User.objects.filter(username=openid)
-    print('check!!!!!!!!!!!!!!!')
-    if not check_user:
-        user = User.objects.create_user(openid, tmp_mail, tmp_pwd)
-        print('start save!!!!!!!!!!!!!!')
-        user.save()
-        print('save successfully')
-    user = authenticate(username=openid, password=tmp_pwd)
-    login(request, user)
-    print('login successfully')
+def oauth_user(request):
+    from wechatpy import WeChatClient
+    from wechatpy.oauth import WeChatOAuth
+
+    oauth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, redirect_uri=request.url)
+
+    oauth_url = oauth.authorize_url
+
+    resp = url_request.url_request(oauth_url)
+
+    print('resp', resp)
+
+    client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
+
+    url = client.oauth.authorize_url(request.url)
+
 
 
 
