@@ -232,7 +232,7 @@ def oauth_user(request):
     print('oauth_url', oauth_url)
     req = urllib.request.Request(oauth_url)
     res = urllib.request.urlopen(req)
-    urlResp = json.loads(res.read().dcode('utf-8'))
+    urlResp = json.loads(res.read().decode('utf-8'))
 
     print('resp', urlResp)
 
