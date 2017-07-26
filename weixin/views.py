@@ -103,7 +103,7 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    openid = request.POST.get('openid')
+    openid = request.POST
     print('openid', openid)
     response = render(request, template_name)
     return response
