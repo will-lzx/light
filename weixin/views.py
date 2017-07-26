@@ -105,7 +105,7 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    code = request.args.get('code', None)
+    code = request.GET.get('code', None)
 
     # client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
     if not code:
