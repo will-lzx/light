@@ -1,23 +1,47 @@
 {% extends "weixin/base.html" %}
 {% load static %}
-
+{% block title %}关于茄子自拍{% endblock %}
 {% block head %}
-    <div class="weixin-title">
-        <span>轻拍</span>
-    </div>
 
 {% endblock %}
 
 {% block content %}
-    <div class="div-content">
-        <h5>茄子自拍</h5>
-        <span>1.怎么样没注意</span><br>
-        <span>2.；</span><br>
-        <span>3 怎么样怎么样。</span>
+    <div class="ab_top">
+        <h1>共享让出游变得轻松</h1>
+      释放沉重的旅行装备，只需带上手机带上好心情，出游去享受美好时光
     </div>
 
-    <script src="/static/js/jquery-3.2.1.js"></script>
-    <script>
+    <div class="ab_txt">
+          <h2>源自有遗憾的出游</h2>
+          没有自拍留影，没有拍照签到，好像没有发生过<br>
+          <h3>经历是</h3>
+              端午节一家到舟山游玩，想拍照留影，记录家人在一起美好。
+可自拍杆是忘了带，不想再买。觉得浪费，且下次还会忘带，因为家里已有2根。
+大家不方便的相互拍照，没有全家人合影记录，也没有满意的自拍照片...<br>
+              <h3>于是想</h3>
+如果这时有租自拍杆的，花几块钱，租用半天，用好了还回去。
+不用每次出游都带自拍杆了，需要时随手借一根，用完既还随借随还。
+这多省事多方便！
+        <div class="ab_txt_img">
+            <div class="ab_img_cont"><img class="img_ab" src="{% static '/images/weixin/qy_shouduan.jpg' %}" alt="手不够长">手不够长</div>
+            <div class="ab_img_cont"><img class="img_ab" src="{% static '/images/weixin/qy_beijing.jpg' %}" alt="背景不全">背景不全</div>
+            <div class="ab_img_cont"><img class="img_ab" src="{% static '/images/weixin/qy_datou.jpg' %}" alt="总是大头照">总是大头照</div>
+            <div class="ab_img_cont"><img class="img_ab" src="{% static '/images/weixin/qy_sheying.jpg' %}" alt="牺牲一人">牺牲一人</div>
+        </div>
+        </div>
+    <div class="ab_txt">
+         <h2>我们要做的事</h2>
+          践行共享新模式，开创经济轻旅行<br>
+        <h3>服务</h3>
+        帮助在景点游玩有拍照需要，但没有或忘带自拍杆的用户。
+通过手机扫码即可租借<span class="col_z">自拍杆</span>，用好可就近机柜归还，实现用户轻装出游随手自拍<br>
+自拍杆集成了<span class="col_z">充电宝</span>，让用户在景点尽情自拍或摄影，提供方便并保障手机电力充足<br>
+<h3>愿景</h3>
+        以景点自拍杆为切入点，横向扩展到其他需要自拍的场景，纵向扩展更多旅行装备<br>
+        通过互联网和智能硬件技术，结合<span class="<br>">共享模式</span>，打造新的经济<span class="<br>">轻旅行</span>方式～
+                </div>
 
-    </script>
+
+    <script src="/static/js/jquery-3.2.1.js"></script>
+
 {% endblock %}

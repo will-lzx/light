@@ -1,34 +1,37 @@
 {% extends "weixin/base.html" %}
 {% load static %}
-
+{% block title %}茄子自拍{% endblock %}
 {% block head %}
-    <div class="weixin-title">
-        <div class="div-back"><a href="">&lt;返回</a></div>
-        <span>轻拍</span>
-    </div>
 
 {% endblock %}
 
 {% block content %}
-    <div class="div-content">
-        <span>自拍达人一枚，我自拍所以我存在</span>
-        <br>
-
-        <span>
-            <a href="/weixin/lendhistory/">租借记录({{ lendtime }}次)&gt;</a>
-        </span>
-        <br>
-        <span>
-            <a href="">押金提现({{ money }})&gt;</a>
-        </span>
-        <br>
-        <span><a href="/weixin/use_help/">使用帮助&gt;</a></span>
-        <br>
-        <span><a href="/weixin/about/">关于我们&gt;</a></span>
-    </div>
+    <div class="nr_con_all">
+       <div class="gr_top">
+           <img class="gr_tx" src="{% static '/images/weixin/touxiang.jpg' %}" alt="微信头像">
+           <div class="gr_nc">reakyzhou</div>
+           于2017/08/29在西江千户苗寨景区成为轻拍一员<br>
+           <span class="col_z">自拍达人一枚，我拍故我在</span>
+       </div>
+        <div class="gr_dh_cont">
+           <div class="gr_dh gr_dh_top"><a href="/weixin/lendhistory/">
+            <div class="gr_dh_left">租借记录（<span class="col_z">{{ lendtime }}</span>）</div>
+            <div class="gr_dh_right"><img class="dh_jt" src="{% static '/images/weixin/rig.png' %}" alt="更多"></div></a>
+           </div>
+           <div class="gr_dh"><a href="">
+            <div class="gr_dh_left">押金提现（<span class="col_z">{{ money }}</span>）</div>
+            <div class="gr_dh_right"><img class="dh_jt" src="{% static '/images/weixin/rig.png' %}" alt="更多"></div></a>
+           </div>
+            <div class="gr_dh"><a href="/weixin/use_help/">
+            <div class="gr_dh_left">使用帮助</div>
+            <div class="gr_dh_right"><img class="dh_jt" src="{% static '/images/weixin/rig.png' %}" alt="更多"></div></a>
+            </div>
+            <div class="gr_dh"><a href="/weixin/about/">
+            <div class="gr_dh_left">关于我们</div>
+            <div class="gr_dh_right"><img class="dh_jt" src="{% static '/images/weixin/rig.png' %}" alt="更多"></div></a>
+             </div>
+        </div>
 
     <script src="/static/js/jquery-3.2.1.js"></script>
-    <script>
-
-    </script>
+    </div>
 {% endblock %}
