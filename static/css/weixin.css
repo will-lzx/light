@@ -361,6 +361,6 @@ h1{font-size: 18px;font-weight: bold;line-height: 40px;}
 h2{font-size: 16px;font-weight: bold;color: #cc0099;}
 h3{font-size: 14px;font-weight: bold;}
 .ab_txt{padding: 30px 15px;border-bottom: 1px dashed #f8f8f8;text-align:left;line-height: 24px;}
-.ab_txt_img{float:left;width: 100%;}
-.ab_img_cont{float:left;width:20%;height:auto;margin-right:5%;font-size: 12px;line-height: 18px;}
+.ab_txt_img{float:left;width: 100%;padding-top: 20px;}
+.ab_img_cont{float:left;width:20%;height:auto;margin-right:5%;font-size: 12px;line-height: 18px;text-align: center;color: #999999;}
 .img_ab{float:left;width: 100%;height: auto;border: none;margin-bottom: 5px;}
