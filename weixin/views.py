@@ -103,9 +103,7 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    oauth_user(request)
-
-    print('openid', request.user.is_authenticated())
+    print('openid', request.POST.get('code'))
     response = render(request, template_name)
     return response
 
@@ -235,7 +233,6 @@ def oauth_user(request):
     req = urllib.request.Request(oauth_url)
     req.add_header('Content-Type', 'application/json')
     res = urllib.request.urlopen(req)
-    urlResp = res.read()
 
 
 
