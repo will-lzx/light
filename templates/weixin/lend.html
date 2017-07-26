@@ -18,6 +18,7 @@
                 3.首次借用需支付49元押金，归还自拍杆后，随时到个人中心快捷提现退还押金。
             </div>
             <input type="hidden" id="deposit" value="{{ is_deposit }}">
+            <input type="hidden" id="openid" value="{{ openid }}">
      </div>
 
 
@@ -66,10 +67,11 @@
             //点击按钮扫描二维码
             document.querySelector('#scanQRCode').onclick = function () {
                 var is_deposit = $('#deposit').val();
+                var openid = $('#openid').val();
                 if (is_deposit == 'False')
                 {
                     alert(location.href);
-                    location.href = '/weixin/pay/';
+                    location.href = '/weixin/pay/?openid='+ openid;
                 }else
                 {
                     wx.scanQRCode({

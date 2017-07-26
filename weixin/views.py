@@ -116,7 +116,8 @@ def lend(request):
     is_deposit = is_deposit_exist(openid)
 
     context = {
-        'is_deposit': is_deposit
+        'is_deposit': is_deposit,
+        'openid': openid
     }
     response = render(request, template_name, context)
     return response
