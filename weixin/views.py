@@ -100,14 +100,7 @@ def agreement(request):
 
 
 def lend(request):
-
-    print('openid', request.openid)
-    is_deposit = is_deposit_exist('')
-
-    if is_deposit:
-        template_name = 'weixin/lend.html'
-    else:
-        template_name = 'weixin/pay.html'
+    template_name = 'weixin/lend.html'
     response = render(request, template_name)
     return response
 
