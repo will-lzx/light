@@ -348,7 +348,7 @@ input.weui-btn_plain-default{
 .gr_top{width:100%;height: auto;border-bottom: 1px solid #e5e5e5;text-align: center;line-height: 30px;background-color: white;padding-bottom: 30px;color: #999999;}
 .gr_tx{width:120px;height:120px;border-radius:120px;margin: 30px auto;border: none;}
 .gr_nc{font-size: 18px;font-weight: normal;width: 100%;margin-top: -20px;color: #333333;}
-.gr_dh{width: 100%;float: left;border-bottom: 1px solid #e5e5e5; height:50px;line-height: 50px;}
+.gr_dh{width: 100%;float: left;border-bottom: 1px solid #e5e5e5; height:50px;line-height: 50px;font-weight: normal;}
 .gr_dh a{text-decoration: none;color: #333333;}
 .gr_dh_top{border-top: 1px solid #e5e5e5; }
 .gr_dh_left{width: 80%;float: left;margin-left: 15px;}
