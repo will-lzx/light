@@ -224,7 +224,7 @@ def wx(request):
                 # req.add_header('Content-Type', 'application/json')
                 # res = urllib.request.urlopen(req)
                 # res.read()
-
+                print('sssssssssssssssssssssss')
                 return HttpResponseRedirect(oauth_url)
             else:
                 return 'success'
