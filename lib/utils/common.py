@@ -33,7 +33,7 @@ def get_openid(code):
 
     url_req = UrlRequest()
     resp = url_req.url_request(url)
-    return resp
+    return resp['openid']
 
 
 
