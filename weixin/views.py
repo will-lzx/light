@@ -213,7 +213,7 @@ def wx(request):
             elif msg.event == 'view':
                 message = xmltodict.parse(to_text(request.body))['xml']
                 print('url', message.get('EventKey'))
-                return HttpResponseRedirect(message.get('EventKey'), context={'openid': msg.source})
+                return HttpResponseRedirect(message.get('EventKey') + msg.source + '/')
             else:
                 return 'success'
         else:
