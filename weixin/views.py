@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.encoding import smart_str
 from django.views.decorators.csrf import csrf_exempt
 from lxml import etree
+from requests import session
 from wechatpy.events import SubscribeEvent
 
 from lib.utils import check_code
@@ -105,7 +106,11 @@ def lend(request):
 
     code = request.GET.get('code', None)
 
-    openid = get_openid(code)
+    if code:
+        openid = get_openid(code)
+        request.session['openid'] = openid
+    else:
+        openid = request.session.get('openid', default=None)
 
     is_deposit = is_deposit_exist(openid)
 
