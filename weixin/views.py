@@ -206,7 +206,7 @@ def wx(request):
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
-            if msg.event == view_event.event:
+            elif msg.event == view_event.event:
                 return HttpResponseRedirect(view_event.url)
             else:
                 return 'success'
