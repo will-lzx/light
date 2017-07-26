@@ -229,10 +229,13 @@ def oauth_user(request):
     oauth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, redirect_uri='http://relalive.com/weixin/lend/')
 
     oauth_url = oauth.authorize_url
-    print('oauth_url', oauth_url)
+    user_info = oauth.get_user_info()
+
+    print('user_info', user_info)
+
     req = urllib.request.Request(oauth_url)
     res = urllib.request.urlopen(req)
-    urlResp = json.loads(res.read().decode('utf-8'))
+    urlResp = json.loads(res.read())
 
     print('resp', urlResp)
 
