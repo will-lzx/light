@@ -107,6 +107,7 @@ def lend(request):
     code = request.GET.get('code', None)
 
     if code:
+        print('code', code)
         openid = get_openid(code)
         request.session['openid'] = openid
     else:
