@@ -3,15 +3,15 @@ import datetime
 from lib.utils.sql_help import *
 
 
-def get_lendtime(mobile_number):
+def get_lendtime(customer_id):
     mysql = MySQL(db='management')
-    rows = mysql.exec_query('select id from home_lendhistory where mobile_number={0}'.format(mobile_number))
-    return len(rows)
+    lendtime = mysql.exec_query('select count(*) from home_lendhistory where customer_id="{0}"'.format(customer_id))[0][0]
+    return lendtime
 
 
-def get_money(mobile_number):
+def get_deposit(weixin_number):
     mysql = MySQL(db='management')
-    deposit = mysql.exec_query('select deposit from home_customer where mobile_number={0} order by create_time desc'.format(mobile_number))[0][0]
+    deposit = mysql.exec_query('select deposit from home_customer where weixin_number="{0}" order by create_time desc'.format(weixin_number))[0][0]
     return deposit
 
 
@@ -32,8 +32,7 @@ def subcribe_save_openid(openid):
 
 def is_weixin_usr_exist(openid):
     mysql = MySQL(db='management')
-    results = mysql.exec_none_query('select weixin_number from home_customer where weixin_number="{0}"'.format(openid))
-    print('results', results)
+    results = mysql.exec_query('select weixin_number from home_customer where weixin_number="{0}"'.format(openid))
     if results:
         return True
     else:
@@ -49,7 +48,14 @@ def is_deposit_exist(openid):
     else:
         return False
 
+
+def get_customer_id_by_openid(openid):
+    mysql = MySQL(db='management')
+    customer_id = mysql.exec_query('select id from home_customer WHERE weixin_number="{0}"'.format(openid))[0][0]
+
+    return customer_id
+
 if __name__ == '__main__':
     #subcribe_save_openid('123')
-    is_esit = is_deposit_exist('oWJUp0XapjayHP5kLqXC3uADC73w')
+    is_esit = get_lendtime('oWJUp0XapjayHP5kLqXC3uADC73w')
     print('')

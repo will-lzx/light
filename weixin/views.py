@@ -181,11 +181,11 @@ def privatecenter(request):
 
     lendtime = get_lendtime(openid)
 
-    money = float(get_money(openid))
+    deposit = float(get_deposit(openid))
 
     context = {
         'lendtime': lendtime,
-        'money': money
+        'deposit': deposit
     }
     response = render(request, template_name, context)
     return response
