@@ -46,6 +46,7 @@ urlpatterns = [
     url(r'^privatecenter/$', privatecenter, name='privatecenter'),
 
     url(r'^pay/$', pay, name='pay'),
+    url(r'^contract/$', contract, name='contract'),
 
     url(r'^wxconfig/$', wxconfig, name='wxconfig'),
 

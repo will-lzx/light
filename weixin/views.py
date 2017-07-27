@@ -210,6 +210,17 @@ def how_charge(request):
 
 def pay(request):
     template_name = 'weixin/pay.html'
+
+    deposit = '49'
+    context = {
+        'deposit': deposit
+    }
+    response = render(request, template_name, context)
+    return response
+
+
+def contract(request):
+    template_name = 'weixin/contract.html'
     response = render(request, template_name)
     return response
 
