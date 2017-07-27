@@ -144,7 +144,13 @@ def lendhistory(request):
 
 def withdraw(request):
     template_name = 'weixin/withdraw.html'
-    response = render(request, template_name)
+    openid = request.session.get('openid', default=None)
+    deposit = get_deposit(openid)
+
+    context = {
+        'deposit': deposit
+    }
+    response = render(request, template_name, context)
     return response
 
 
