@@ -1,15 +1,26 @@
 {% extends "weixin/base.html" %}
 {% load static %}
-
+{% block title %}充值押金{% endblock %}
 {% block head %}
-    <div class="weixin-title">
-        <div class="div-back"><a href="/weixin/privatecenter/">&lt;返回</a></div>
-        <span>自拍神器</span>
-    </div>
 
 {% endblock %}
 
 {% block content %}
+
+     <div class="ts_cont">
+       <img class="zgjs_img" src="{% static '/images/weixin/cz.png' %}" alt="发起提现">
+    </div>
+    <div class="nr_con">
+            <a href="#"  class="weui-btn weui-btn_primary page__bd_spacing">充值{{ deposit }}元</a>
+            <div class="ts_til page__bd_spacing"><div class="ts_til_test">温馨提示</div> </div>
+            <div class="sm_cont">
+                1.归还自拍杆后，随时到个人中心退换押金<br>
+                2.充值即表示已阅读并同意茄子自拍<a href="">租借服务协议</a>
+            </div>
+     </div>
+
+
+
     <div class="div-content">
         <input type="button" value="充值49元" onclick="withdraw()">
         <span>温馨提示</span>
