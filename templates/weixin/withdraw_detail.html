@@ -1,28 +1,29 @@
 {% extends "weixin/base.html" %}
 {% load static %}
-
+{% block title %}提现进度{% endblock %}
 {% block head %}
-    <div class="weixin-title">
-        <div class="div-back"><a href="/weixin/privatecenter/">&lt;返回</a></div>
-        <span>提现详情</span>
-    </div>
 
 {% endblock %}
 
 {% block content %}
-    <div class="div-content">
-        <span>押金金额{% customer.money %}
-            {% ifequal customer.money_status 1 %}
-                <span>正在紧张处理中</span>
-             {% elifequal customer.money_status 2 %}
-                <span>已提现到账</span>
-            {% endifequal %}
-        </span>
-        <input type="button" value="立即提现" onclick="withdraw()">
-        <span>温馨提示</span>
-        <span>申请成功后，预计0-5个工作日退还至您原支付账户</span>
+    <div class="txjd_top">
+        {% ifequal customer.money_status 1 %}
+        <div class="txjd_zt_icon"><img class="txjd_zt_icon_img" src="{% static '/images/weixin/txz.png' %}" alt="紧张处理中"></div>
+        <div class="txjd_zt_sm">提现金额<span class="col_z">49</span>元 &nbsp;&nbsp;<span class="txjd_d">紧张处理中</span></div>
+        {% elifequal customer.money_status 2 %}
+        <div class="txjd_zt_icon"><img class="txjd_zt_icon_img" src="{% static '/images/weixin/txd.png' %}" alt="已成功提现"></div>
+        <div class="txjd_zt_sm">提现金额<span class="col_z">49</span>元 &nbsp;&nbsp;<span class="txjd_d">已成功提现</span></div>
+        {% endifequal %}
+        预计0-5个工作日退还至您充值账号
     </div>
-    <div>
-        <span id="tip"></span>
+    <div class="txjd_xq_cont">
+       <div class="txjd_dd">提现单号：2017082900980</div>
+       <div class="txjd_t"><img class="txjd_img" src="{% static '/images/weixin/txjd.jpg' %}" alt="提现进度"></div>
+       <div class="txjd_right">
+           <div class="txjd_right_l">提现到账<br>退款已原路返回至您的充值账号<br><span class="txjd_t">2017/05/11 20:08:16</span></div>
+           <div class="txjd_right_l">微信处理中<br>您的资金已转至微信处理<br><span class="txjd_t">2017/05/11 19:08:16</span></div>
+           <div class="txjd_right_l">发起提现<br>正将退款体现申请发至平台处理<br><span class="txjd_t">2017/05/11 19:07:16</span></div>
+       </div>
     </div>
+
 {% endblock %}
