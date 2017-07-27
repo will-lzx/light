@@ -368,6 +368,7 @@ h3{font-size: 14px;font-weight: bold;}
 
 .help_dh{width: 100%; float: left;border-bottom: 1px solid #e5e5e5; height:50px;line-height: 50px;font-weight: normal;padding: 0 15px;}
 .help_dh a{text-decoration: none;color: #333333;}
+.help_xq{padding: 20px 15px;line-height: 28px;font-size: 14px;color: #666666;}
 
 .txjd_top{background-color: #f8f8f8;padding: 30px 15px;margin: 0;text-align: center;font-size: 14px;line-height: 30px;color: #999999;}
 .txjd_zt_icon{width: 100%;text-align: center;padding-bottom: 20px;}
@@ -383,4 +384,5 @@ h3{font-size: 14px;font-weight: bold;}
 .txjd_right{float: left;width:80%;text-align: left; }
 .txjd_right_l{float: left;font-size: 14px;line-height: 22px;padding-bottom: 20px;color: #333333;}
 .txjd_time{color: #999999;}
+
 
