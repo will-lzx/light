@@ -196,6 +196,18 @@ def several(request):
     return response
 
 
+def how_pic(request):
+    template_name = 'weixin/help/how_pic.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_charge(request):
+    template_name = 'weixin/help/how_charge.html'
+    response = render(request, template_name)
+    return response
+
+
 def pay(request):
     template_name = 'weixin/pay.html'
     response = render(request, template_name)
@@ -225,9 +237,14 @@ def privatecenter(request):
 
     deposit = float(get_deposit(openid))
 
+    user = get_user_info(openid)
+
     context = {
         'lendtime': lendtime,
-        'deposit': deposit
+        'deposit': deposit,
+        'headimgurl': user['headimgurl'],
+        'nickname': user['nickname'],
+        'subscribe_time': user['subscribe_time'],
     }
     response = render(request, template_name, context)
     return response

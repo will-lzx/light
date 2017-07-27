@@ -1,6 +1,9 @@
 import datetime
 
+from wechatpy import WeChatClient
+
 from lib.utils.sql_help import *
+from light.settings import *
 
 
 def get_lendtime(customer_id):
@@ -55,7 +58,23 @@ def get_customer_id_by_openid(openid):
 
     return customer_id
 
+
+def get_access_token():
+    mysql = MySQL(db='light')
+    access_token = mysql.exec_query('select token from access_token WHERE id=1')[0][0]
+    return access_token
+
+
+def get_user_info(openid):
+    client = WeChatClient(WEIXIN_APPID, WEIXIN_APPSECRET)
+    user = client.user.get(openid)
+    return user
+
+
+
+
 if __name__ == '__main__':
     #subcribe_save_openid('123')
+    get_user_info('oWJUp0aKcITU3A6QbNY-aamzwyF4')
     is_esit = get_lendtime('oWJUp0XapjayHP5kLqXC3uADC73w')
     print('')

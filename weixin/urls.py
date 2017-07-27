@@ -36,6 +36,8 @@ urlpatterns = [
     url(r'^use_help/how_use/$', how_use, name='how_use'),
     url(r'^use_help/lost/$', lost, name='lost'),
     url(r'^use_help/several/$', several, name='several'),
+    url(r'^use_help/how_pic/$', how_pic, name='how_pic'),
+    url(r'^use_help/how_charge/$', how_charge, name='how_charge'),
 
 
 
