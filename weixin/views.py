@@ -196,6 +196,18 @@ def several(request):
     return response
 
 
+def how_pic(request):
+    template_name = 'weixin/help/how_pic.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_charge(request):
+    template_name = 'weixin/help/how_charge.html'
+    response = render(request, template_name)
+    return response
+
+
 def pay(request):
     template_name = 'weixin/pay.html'
     response = render(request, template_name)
