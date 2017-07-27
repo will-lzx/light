@@ -225,9 +225,14 @@ def privatecenter(request):
 
     deposit = float(get_deposit(openid))
 
+    user = get_user_info(openid)
+
     context = {
         'lendtime': lendtime,
-        'deposit': deposit
+        'deposit': deposit,
+        'headimgurl': user['headimgurl'],
+        'nickname': user['nickname'],
+        'subscribe_time': user['subscribe_time'],
     }
     response = render(request, template_name, context)
     return response
