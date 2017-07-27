@@ -71,6 +71,8 @@ def get_user_info(openid):
     return user
 
 
+
+
 if __name__ == '__main__':
     #subcribe_save_openid('123')
     get_user_info('oWJUp0aKcITU3A6QbNY-aamzwyF4')
