@@ -1,18 +1,19 @@
 {% extends "weixin/base.html" %}
 {% load static %}
-
+{% block title %}如何归还自拍杆{% endblock %}
 {% block head %}
-    <div class="weixin-title">
-        <div class="div-back"><a href="/weixin/privatecenter/">&lt;返回</a></div>
-        <span>如何归还自拍杆</span>
-    </div>
 
 {% endblock %}
 
 {% block content %}
-    <div class="div-content">
-        <span>1.打客服电话</span>
-        <span>2.在线客服</span>
+    <div class="help_xq">
+        <h2>如何归还自拍杆</h2>
+        目前规划需要与租借时的渠道一致，即通过微信借需通过微信还，通过支付宝借即需通过支付宝还。归还操作步骤：<br>
+1.微信公众号或支付宝生活号中选择还自拍杆；<br>
+2.进入归还自拍杆确认页面，点击归还按钮，自动唤起手机扫码；<br>
+3.对账机柜二维码，扫码后系统自动检测机柜仓位情况和您的租借时长；<br>
+4.舱门打开，请放入自拍杆，系统自动将自拍杆归位并进行检测；<br>
+5.舱门关闭，请确认订单并支付租金，还杆成功。
     </div>
 
 {% endblock %}
