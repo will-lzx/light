@@ -368,3 +368,10 @@ h3{font-size: 14px;font-weight: bold;}
 
 .help_dh{width: 100%; float: left;border-bottom: 1px solid #e5e5e5; height:50px;line-height: 50px;font-weight: normal;padding: 0 15px;}
 .help_dh a{text-decoration: none;color: #333333;}
+
+.txjd_top{background-color: #f8f8f8;padding: 30px 15px;margin: 0;text-align: center;font-size: 14px;line-height: 30px;color: #999999;}
+.txjd_zt_icon{width: 100%;text-align: center;padding-bottom: 20px;}
+.txjd_zt_icon_img{width: 20%;height: auto;border: none;}
+.txjd_zt_sm{font-size: 16px;font-weight: bold;color: #333333;}
+.txjd_z{color: #179B16;}
+.txjd_d{color: #0099cc;}
