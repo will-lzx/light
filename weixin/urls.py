@@ -28,7 +28,17 @@ urlpatterns = [
     url(r'^lendhistory/$', lendhistory, name='lendhistory'),
     url(r'^withdraw/$', withdraw, name='withdraw'),
 
+    # use help
     url(r'^use_help/$', use_help, name='use_help'),
+    url(r'^use_help/deposit_question/$', deposit_question, name='deposit_question'),
+    url(r'^use_help/get_fail/$', get_fail, name='get_fail'),
+    url(r'^use_help/how_return/$', how_return, name='how_return'),
+    url(r'^use_help/how_use/$', how_use, name='how_use'),
+    url(r'^use_help/lost/$', lost, name='lost'),
+    url(r'^use_help/several/$', several, name='several'),
+
+
+
     url(r'^about/$', about, name='about'),
 
     url(r'^privatecenter/$', privatecenter, name='privatecenter'),
@@ -38,5 +48,7 @@ urlpatterns = [
     url(r'^wxconfig/$', wxconfig, name='wxconfig'),
 
     url(r'^wx/$', wx, name='wx'),
+
+
 
 ]

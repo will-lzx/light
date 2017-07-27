@@ -160,6 +160,42 @@ def use_help(request):
     return response
 
 
+def deposit_question(request):
+    template_name = 'weixin/deposit_question.html'
+    response = render(request, template_name)
+    return response
+
+
+def get_fail(request):
+    template_name = 'weixin/get_fail.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_return(request):
+    template_name = 'weixin/how_return.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_use(request):
+    template_name = 'weixin/how_to_use.html'
+    response = render(request, template_name)
+    return response
+
+
+def lost(request):
+    template_name = 'weixin/lost.html'
+    response = render(request, template_name)
+    return response
+
+
+def several(request):
+    template_name = 'weixin/several.html'
+    response = render(request, template_name)
+    return response
+
+
 def pay(request):
     template_name = 'weixin/pay.html'
     response = render(request, template_name)
