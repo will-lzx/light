@@ -249,8 +249,8 @@ class PayView(View):
                     'body': WECHAT[0]['body'],
                     'out_trade_no': out_trade_no,
                     'total_fee': total_fee,
-                    'spbill_create_ip': request.META['REMOTE_ADDR'],
-                    'notify_url': notify_url, }}
+                    'spbill_create_ip': WEIXIN_IP,
+                    'notify_url': notify_url}}
         print('param', param)
         pay = PayApi()
         pay.set_prepay_id(param)
