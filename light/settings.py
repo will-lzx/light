@@ -34,6 +34,8 @@ SESSION_SAVE_EVERY_REQUEST = True
 INSTALLED_APPS = [
     'home',
     'weixin',
+    'wechat',
+    'wechat_pay',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -135,8 +137,21 @@ STATICFILES_DIRS = [
 WECHAT_TOKEN = "relalive"
 WEIXIN_APPID = 'wxe2d133d468969a91'
 WEIXIN_APPSECRET = '4fa59c6b06441dec0238fbf0df841c63'
+WEIXIN_DEPOSIT = 0.01
+WEIXIN_PAYBACK = 'http://relalive.com/weixin/payback/'
 
 APPEND_SLASH = False
 
 tmp_pwd = 'Password'
 tmp_mail = 'tmp_mail@relalive.com'
+
+WECHAT = [
+    {
+        'appid': 'wxe2d133d468969a91',
+        'appsecret': '4fa59c6b06441dec0238fbf0df841c63',
+        'token': 'relalive',
+        'mch_id': '1486517162',
+        'key': 'qingpaikeji201700000000000000000',
+        'body': 'test',
+    },
+]

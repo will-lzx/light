@@ -1,10 +1,13 @@
 import hashlib
 from io import BytesIO
 
+import xmltodict
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
 from django.utils.encoding import smart_str
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from lxml import etree
 from requests import session
@@ -19,6 +22,7 @@ from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
 
 from lib.utils.url_request import *
+from weixin.api import Pay as PayApi
 
 
 # Create your views here.
@@ -211,12 +215,82 @@ def how_charge(request):
 def pay(request):
     template_name = 'weixin/pay.html'
 
+
     deposit = '49'
     context = {
-        'deposit': deposit
+        'deposit': deposit,
+
     }
     response = render(request, template_name, context)
     return response
+
+
+class PayView(View):
+    """
+    wechat base pay view
+    receive post data: order_id, price, title, notify_url, redirect_url
+    ..remove WxMemberView
+    """
+    def get(self, request, *args, **kwargs):
+        try:
+            order_id = "{0}{1}".format(WEIXIN_APPID, create_timestamp()*100)
+            price = WEIXIN_DEPOSIT
+            notify_url = WEIXIN_PAYBACK
+            redirect_url = '/weixin/contract/'
+            openid = request.GET['openid']
+            print('openid', openid)
+        except KeyError:
+            return HttpResponse("PARAM ERROR")
+
+        out_trade_no = str(int(time.time())) + str(order_id)
+        total_fee = str(int(float(price) * 100))
+        param = {
+            'xml': {'openid': openid,
+                    'body': WECHAT[0]['body'],
+                    'out_trade_no': out_trade_no,
+                    'total_fee': total_fee,
+                    'spbill_create_ip': request.META['REMOTE_ADDR'],
+                    'notify_url': notify_url, }}
+        print('param', param)
+        pay = PayApi()
+        pay.set_prepay_id(param)
+        data = {
+            'data': pay.get_pay_data(),
+            'redirect_uri': redirect_url,
+        }
+        return render(request, 'weixin/pay.html', data)
+
+
+class WxPayNotifyView(View):
+    """
+    Receive wechat service data
+    valid and send order_id, pay_number to notify_url
+    """
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        pay = PayApi()
+        data = request.body
+        data = dict(xmltodict.parse(data)['xml'])
+        result = {}
+        sign = data['sign']
+        del data['sign']
+        if sign:
+            order_id = data['out_trade_no'][10:]
+            pay_number = data['transaction_id']
+            result = self.handle_order(order_id, pay_number)
+        else:
+            result['return_code'] = 'FAIL'
+            result['return_msg'] = 'ERROR'
+
+        result_xml = pay.dict_to_xml(result)
+        return HttpResponse(result_xml)
+
+    def handle_order(self, order_id, pay_number):
+        """ Need user extends, for order """
+        return {'return_code': 'SUCCESS', 'return_msg': 'OK'}
 
 
 def contract(request):
