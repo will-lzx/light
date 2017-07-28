@@ -33,6 +33,14 @@ def subcribe_save_openid(openid):
         mysql.exec_none_query('insert into home_customer (id, weixin_number, mobile_number, alipay, credit_score, deposit, deposit_status, create_time) values({0}, "{1}", "{2}", "{3}", {4}, {5}, {6}, "{7}")'.format(id, openid, '', '', 0, 0, 0, create_time))
 
 
+def update_deposit(openid, deposit):
+    is_usr_exist = is_weixin_usr_exist(openid)
+    if is_usr_exist:
+        mysql = MySQL(db='management')
+        mysql.exec_none_query('update home_customer set deposit={0} where weixin_number="{1}"'.format(deposit, openid))
+
+
+
 def is_weixin_usr_exist(openid):
     mysql = MySQL(db='management')
     results = mysql.exec_query('select weixin_number from home_customer where weixin_number="{0}"'.format(openid))
@@ -71,8 +79,16 @@ def get_user_info(openid):
     return user
 
 
+def save_order(openid, order_no, pay_no):
+    mysql = MySQL(db='management')
+    create_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    mysql.exec_none_query('insert into home_order (weixin_number, order_number, pay_number, create_time) values("{0}", "{1}", "{2}", "{3}")'.format(openid, order_no, pay_no, create_time))
+
+
 if __name__ == '__main__':
     #subcribe_save_openid('123')
-    get_user_info('oWJUp0aKcITU3A6QbNY-aamzwyF4')
-    is_esit = get_lendtime('oWJUp0XapjayHP5kLqXC3uADC73w')
+    #get_user_info('oWJUp0aKcITU3A6QbNY-aamzwyF4')
+    #is_esit = get_lendtime('oWJUp0XapjayHP5kLqXC3uADC73w')
+    #save_order('open', '121', '211')
+    update_deposit('oWJUp0XapjayHP5kLqXC3uADC73w', 0.01)
     print('')

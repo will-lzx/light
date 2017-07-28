@@ -212,19 +212,6 @@ def how_charge(request):
     return response
 
 
-def pay(request):
-    template_name = 'weixin/pay.html'
-
-
-    deposit = '49'
-    context = {
-        'deposit': deposit,
-
-    }
-    response = render(request, template_name, context)
-    return response
-
-
 class PayView(View):
     """
     wechat base pay view
@@ -233,12 +220,10 @@ class PayView(View):
     """
     def get(self, request, *args, **kwargs):
         try:
-            order_id = "{0}{1}".format(WEIXIN_APPID, create_timestamp()*100)
             price = WEIXIN_DEPOSIT
             notify_url = WEIXIN_PAYBACK
-            redirect_url = '/weixin/contract/'
+            redirect_url = '/weixin/lend/'
             openid = request.GET['openid']
-            print('openid', openid)
         except KeyError:
             return HttpResponse("PARAM ERROR")
 
@@ -257,6 +242,7 @@ class PayView(View):
         data = {
             'data': pay.get_pay_data(),
             'redirect_uri': redirect_url,
+            'deposit': price,
         }
         return render(request, 'weixin/pay.html', data)
 
@@ -278,8 +264,13 @@ class WxPayNotifyView(View):
         sign = data['sign']
         del data['sign']
         if sign:
+            price = WEIXIN_DEPOSIT
+            total_fee = str(int(float(price) * 100))
+            openid = request.GET['openid']
+            update_deposit(openid, total_fee)
             order_id = data['out_trade_no'][10:]
             pay_number = data['transaction_id']
+            save_order(openid, order_id, pay_number)
             result = self.handle_order(order_id, pay_number)
         else:
             result['return_code'] = 'FAIL'
