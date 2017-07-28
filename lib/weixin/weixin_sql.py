@@ -80,9 +80,22 @@ def get_user_info(openid):
 
 
 def save_order(openid, order_no, pay_no):
+    is_order = is_order_exist(openid, order_no)
+    if not is_order:
+        mysql = MySQL(db='management')
+        create_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        print('order_number', order_no)
+        mysql.exec_none_query('insert into home_order (weixin_number, order_number, pay_number, create_time) values("{0}", "{1}", "{2}", "{3}")'.format(openid, order_no, pay_no, create_time))
+
+
+def is_order_exist(openid, order_id):
     mysql = MySQL(db='management')
-    create_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    mysql.exec_none_query('insert into home_order (weixin_number, order_number, pay_number, create_time) values("{0}", "{1}", "{2}", "{3}")'.format(openid, order_no, pay_no, create_time))
+    order = mysql.exec_query('select count(*) from home_order WHERE weixin_number="{0}" and order_number="{1}"'.format(openid, order_id))[0][0]
+
+    if order > 0:
+        return True
+    else:
+        return False
 
 
 if __name__ == '__main__':
