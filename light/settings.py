@@ -154,6 +154,6 @@ WECHAT = [
         'token': 'relalive',
         'mch_id': '1486517162',
         'key': 'qingpaikeji201700000000000000000',
-        'body': 'test',
+        'body': '押金支付',
     },
 ]
