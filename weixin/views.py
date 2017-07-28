@@ -266,6 +266,7 @@ class WxPayNotifyView(View):
         if sign:
             price = WEIXIN_DEPOSIT
             total_fee = str(int(float(price) * 100))
+            print('data', data)
             openid = data['openid']
             update_deposit(openid, total_fee)
             order_id = data['out_trade_no'][10:]
