@@ -242,7 +242,7 @@ class PayView(View):
         except KeyError:
             return HttpResponse("PARAM ERROR")
 
-        out_trade_no = str(int(time.time())) + str(order_id)
+        out_trade_no = str(int(time.time()))
         total_fee = str(int(float(price) * 100))
         param = {
             'xml': {'openid': openid,
