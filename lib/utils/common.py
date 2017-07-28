@@ -35,9 +35,6 @@ def get_openid(code):
     return resp['openid']
 
 
-def get_prepare_id(appid, mch_id, nonceStr, sign, body, out_trade_no, total_fee, spbill_create_ip, notify_url, ):
-
-
 def oauth(url):
     oAuth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, url)
     return oAuth.authorize_url
