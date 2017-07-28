@@ -23,7 +23,6 @@
     <script src="/static/js/relalive.js"></script>
     <script>
         $('#deposit').click(function () {
-            alert("123");
             callpay();
         });
 
@@ -32,7 +31,7 @@
             WeixinJSBridge.invoke(
             'getBrandWCPayRequest', {{ data | safe }},
             function(res){
-              WeixinJSBridge.log(res.err_msg);
+              WeixinJSBridge.log('will'+res.err_msg);
               //alert(res.err_code+res.err_desc+res.err_msg);
               window.location.href="{{ redirect_uri }}";
             }
