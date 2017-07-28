@@ -268,8 +268,7 @@ class WxPayNotifyView(View):
             total_fee = price
             openid = data['openid']
             update_deposit(openid, total_fee)
-            order_id = data['out_trade_no'][10:]
-            print('data', data)
+            order_id = data['out_trade_no']
             pay_number = data['transaction_id']
             save_order(openid, order_id, pay_number)
             result = self.handle_order(order_id, pay_number)
