@@ -89,6 +89,7 @@ def save_order(openid, order_no, pay_no):
 
 
 def is_order_exist(openid, order_id):
+    print('order11111', order_id)
     mysql = MySQL(db='management')
     order = mysql.exec_query('select count(*) from home_order WHERE weixin_number="{0}" and order_number="{1}"'.format(openid, order_id))[0][0]
 
