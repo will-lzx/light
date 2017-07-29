@@ -344,7 +344,6 @@ def privatecenter(request):
         print('code', code)
         openid = get_openid(code)
         request.session['openid'] = openid
-        request.GET.__delitem__('code')
     else:
         openid = request.session.get('openid', default=None)
 
