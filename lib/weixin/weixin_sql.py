@@ -104,7 +104,7 @@ def is_order_exist(openid, order_id):
 
 def is_lend_exist(openid):
     mysql = MySQL(db='management')
-    is_lend = mysql.exec_query('select count(*) from home_lendhistory WHERE weixin_number="{0}" and start_time !=NUll and return_time = NULL'.format(openid))[0][0]
+    is_lend = mysql.exec_query('select count(*) from home_lendhistory WHERE customer_id="{0}" and start_time !=NUll and return_time = NULL'.format(openid))[0][0]
 
     if is_lend > 0:
         return True
