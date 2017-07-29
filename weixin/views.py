@@ -18,7 +18,7 @@ from lib.utils import check_code
 from lib.weixin.weixin_sql import *
 
 from lib.utils.common import *
-from wechatpy import parse_message, create_reply
+from wechatpy import parse_message, create_reply, WeChatPay
 from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
 from wechatpy.pay.base import BaseWeChatPayAPI
@@ -167,7 +167,9 @@ def exe_withdraw(request):
     deposit = request.GET.get('deposit')
     deposit_order_id = request.GET.get('deposit_order_id')
     refund_no = str(create_timestamp())
-    refund = WeChatRefund()
+    wechatPay = WeChatPay(WEIXIN_APPID, WECHAT[0]['key'], WECHAT[0]['mch_id'], mch_cert='/root/cert/apiclient_cert.pem', mch_key='/root/cert/apiclient_key.pem')
+
+    refund = WeChatRefund(wechatPay)
 
     resp = refund.apply(deposit, deposit, out_trade_no=deposit_order_id, out_refund_no=refund_no)
     print('resp', resp)
