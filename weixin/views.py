@@ -164,7 +164,7 @@ def withdraw(request):
 
 @method_decorator(csrf_exempt)
 def exe_withdraw(request):
-    deposit = '0.01'
+    deposit = 1
     deposit_order_id = '1501230247'
     print('deposit', deposit)
     print('deposit_order_id', deposit_order_id)
