@@ -162,6 +162,7 @@ def withdraw(request):
     return response
 
 
+@method_decorator(csrf_exempt)
 def exe_withdraw(request):
     deposit = request.GET.get('deposit')
     deposit_order_id = request.GET.get('deposit_order_id')
