@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^$', RedirectView.as_view(url='/home/')),
     url(r'^home/', include('home.urls')),
     url(r'^weixin/', include('weixin.urls')),
+    url(r'^zhifubao/', include('zhifubao.urls')),
 ]

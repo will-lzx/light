@@ -21,11 +21,9 @@ from lib.utils.common import *
 from wechatpy import parse_message, create_reply, WeChatPay
 from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
-from wechatpy.pay.base import BaseWeChatPayAPI
 
 from lib.utils.url_request import *
 from weixin.api import Pay as PayApi
-
 
 
 # Create your views here.

@@ -1,0 +1,28 @@
+{% extends "weixin/base.html" %}
+{% load static %}
+{% block title %}茄子自拍{% endblock %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="ts_cont">
+       <img class="zgjs_img" src="{% static '/images/weixin/hgjs.gif' %}" alt="还杆介绍">
+    </div>
+    <div class="nr_con">
+            <a href="#"  id="scanQRCode" class="weui-btn weui-btn_primary page__bd_spacing">还自拍杆</a>
+            <div class="ts_til page__bd_spacing"><div class="ts_til_test">温馨提示</div> </div>
+            <div class="sm_cont">
+                第一步：手机扫描机柜二维码，待机柜门自动打开<br>
+                第二步：收好自拍杆放入机柜，手扣朝上
+            </div>
+
+     </div>
+
+
+    <script src="/static/js/jquery-3.2.1.js"></script>
+    <script>
+
+
+    </script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "weixin/base.html" %}
+{% load static %}
+{% block title %}茄子自拍{% endblock %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="ts_cont">
+       <img class="zgjs_img" src="{% static '/images/weixin/zgjs.gif' %}" alt="租杆介绍">
+    </div>
+    <div class="nr_con">
+            <a href="#" id="scanQRCode" class="weui-btn weui-btn_primary page__bd_spacing">借自拍杆</a>
+            <div class="ts_til page__bd_spacing"><div class="ts_til_test">计费规则</div> </div>
+            <div class="sm_cont">
+                1.<span class="col_z">首小时免费，之后1元/小时，每天8元封顶；</span><br>
+                2.如5天未归还，默认购买此自拍杆，系统将您押金改为购物款并自动收取；<br>
+                3.首次借用需支付49元押金，归还自拍杆后，随时到个人中心快捷提现退还押金。
+            </div>
+
+     </div>
+
+
+    <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <script>
+
+
+
+    </script>
+{% endblock %}
