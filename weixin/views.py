@@ -164,7 +164,7 @@ def withdraw(request):
 
 @method_decorator(csrf_exempt)
 def exe_withdraw(request):
-    deposit = str(int(request.POST.get('deposit'))*100)
+    deposit = str(float(request.POST.get('deposit'))*100)
     deposit_order_id = request.POST.get('deposit_order_id')
     openid = request.session.get('openid', default=None)
     refund_no = str(create_timestamp())
