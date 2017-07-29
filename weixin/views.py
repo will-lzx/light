@@ -133,7 +133,23 @@ def lend(request):
 
 def return_back(request):
     template_name = 'weixin/return.html'
-    response = render(request, template_name)
+
+    code = request.GET.get('code', None)
+
+    if code and not request.session.get('openid', default=None):
+        openid = get_openid(code)
+        request.session['openid'] = openid
+        request.GET.__delitem__('code')
+    else:
+        openid = request.session.get('openid', default=None)
+
+    is_lend = is_lend_exist(openid)
+    context = {
+        'openid': openid,
+        'is_lend': is_lend
+    }
+
+    response = render(request, template_name, context)
     return response
 
 

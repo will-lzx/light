@@ -102,6 +102,16 @@ def is_order_exist(openid, order_id):
         return False
 
 
+def is_lend_exist(openid):
+    mysql = MySQL(db='management')
+    is_lend = mysql.exec_query('select count(*) from home_lendhistory WHERE weixin_number="{0}" and start_time !=NUll and return_time = NULL'.format(openid))[0][0]
+
+    if is_lend > 0:
+        return True
+    else:
+        return False
+
+
 if __name__ == '__main__':
     #subcribe_save_openid('123')
     #get_user_info('oWJUp0aKcITU3A6QbNY-aamzwyF4')
