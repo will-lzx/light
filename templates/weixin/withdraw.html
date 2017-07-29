@@ -27,22 +27,31 @@
     <script>
         function withdraw(deposit, deposit_order_id)
         {
-            $.ajax({
-                 type: "POST",
-                 url: "/weixin/exe_withdraw/",
-                 data: {deposit:deposit, deposit_order_id:deposit_order_id},
-                 dataType: "html",
-                 success: function(data){
-                     if (data == 'SUCCESS')
-                     {
-                         alert('退款成功');
-                         location.href = '/weixin/privatecenter/'
-                     }
-                     else{
-                         alert('退款失败，请联系客服');
-                     }
-                  }
-             });
+            if(deposit > 0)
+            {
+                $.ajax({
+                     type: "POST",
+                     url: "/weixin/exe_withdraw/",
+                     data: {deposit:deposit, deposit_order_id:deposit_order_id},
+                     dataType: "html",
+                     success: function(data){
+                         if (data == 'SUCCESS')
+                         {
+                             alert('退款成功');
+                             location.href = '/weixin/privatecenter/'
+                         }
+                         else{
+                             alert('退款失败，请联系客服');
+                         }
+                      }
+                 });
+            }
+            else
+            {
+                alert('还没有充值，无法提现');
+                return
+            }
+
         }
     </script>
 {% endblock %}
