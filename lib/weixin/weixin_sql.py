@@ -18,6 +18,12 @@ def get_deposit(weixin_number):
     return deposit
 
 
+def get_order_id(weixin_number):
+    mysql = MySQL(db='management')
+    order_id = mysql.exec_query('select deposit_order_id from home_customer where weixin_number="{0}" order by create_time desc'.format(weixin_number))[0][0]
+    return order_id
+
+
 def get_max_id(table_name):
     mysql = MySQL(db='management')
     max_id = mysql.exec_query('select id from {0} order by id desc'.format(table_name))[0][0]
@@ -33,12 +39,11 @@ def subcribe_save_openid(openid):
         mysql.exec_none_query('insert into home_customer (id, weixin_number, mobile_number, alipay, credit_score, deposit, deposit_status, create_time) values({0}, "{1}", "{2}", "{3}", {4}, {5}, {6}, "{7}")'.format(id, openid, '', '', 0, 0, 0, create_time))
 
 
-def update_deposit(openid, deposit):
+def update_deposit(openid, deposit, order_id):
     is_usr_exist = is_weixin_usr_exist(openid)
     if is_usr_exist:
         mysql = MySQL(db='management')
-        mysql.exec_none_query('update home_customer set deposit={0} where weixin_number="{1}"'.format(deposit, openid))
-
+        mysql.exec_none_query('update home_customer set deposit={0}, deposit_order_id="{1}" where weixin_number="{2}"'.format(deposit, order_id, openid))
 
 
 def is_weixin_usr_exist(openid):

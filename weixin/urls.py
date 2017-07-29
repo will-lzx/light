@@ -27,6 +27,7 @@ urlpatterns = [
 
     url(r'^lendhistory/$', lendhistory, name='lendhistory'),
     url(r'^withdraw/$', withdraw, name='withdraw'),
+    url(r'^exe_withdraw/$', exe_withdraw, name='exe_withdraw'),
 
     # use help
     url(r'^use_help/$', use_help, name='use_help'),

@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from lxml import etree
 from requests import session
 from wechatpy.events import SubscribeEvent
+from wechatpy.pay.api import WeChatRefund
 
 from lib.utils import check_code
 from lib.weixin.weixin_sql import *
@@ -20,9 +21,11 @@ from lib.utils.common import *
 from wechatpy import parse_message, create_reply
 from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
+from wechatpy.pay.base import BaseWeChatPayAPI
 
 from lib.utils.url_request import *
 from weixin.api import Pay as PayApi
+
 
 
 # Create your views here.
@@ -150,12 +153,24 @@ def withdraw(request):
     template_name = 'weixin/withdraw.html'
     openid = request.session.get('openid', default=None)
     deposit = get_deposit(openid)
-
+    deposit_order_id = get_order_id(openid)
     context = {
-        'deposit': deposit
+        'deposit': deposit,
+        'deposit_order_id': deposit_order_id,
     }
     response = render(request, template_name, context)
     return response
+
+
+def exe_withdraw(request):
+    deposit = request.GET.get('deposit')
+    deposit_order_id = request.GET.get('deposit_order_id')
+    refund_no = str(create_timestamp())
+    refund = WeChatRefund()
+
+    resp = refund.apply(deposit, deposit, out_trade_no=deposit_order_id)
+    print('resp', resp)
+    return HttpResponse('Success&' + resp)
 
 
 def use_help(request):
@@ -236,7 +251,6 @@ class PayView(View):
                     'total_fee': total_fee,
                     'spbill_create_ip': WEIXIN_IP,
                     'notify_url': notify_url}}
-        print('param', param)
         pay = PayApi()
         pay.set_prepay_id(param)
         data = {
@@ -267,9 +281,9 @@ class WxPayNotifyView(View):
             price = WEIXIN_DEPOSIT
             total_fee = price
             openid = data['openid']
-            update_deposit(openid, total_fee)
             order_id = data['out_trade_no']
             pay_number = data['transaction_id']
+            update_deposit(openid, total_fee, order_id)
             save_order(openid, order_id, pay_number)
             result = self.handle_order(order_id, pay_number)
         else:
@@ -281,7 +295,7 @@ class WxPayNotifyView(View):
 
     def handle_order(self, order_id, pay_number):
         """ Need user extends, for order """
-        return {'return_code': 'SUCCESS', 'return_msg': 'OK'}
+        return HttpResponse('<xml> <return_code><![CDATA[SUCCESS]]></return_code> <return_msg><![CDATA[OK]]></return_msg> </xml>')
 
 
 def contract(request):
