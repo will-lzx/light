@@ -169,7 +169,7 @@ def exe_withdraw(request):
     refund_no = str(create_timestamp())
     refund = WeChatRefund()
 
-    resp = refund.apply(deposit, deposit, out_trade_no=deposit_order_id)
+    resp = refund.apply(deposit, deposit, out_trade_no=deposit_order_id, out_refund_no=refund_no)
     print('resp', resp)
     return HttpResponse('Success&' + resp)
 
