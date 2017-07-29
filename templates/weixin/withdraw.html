@@ -27,18 +27,20 @@
     <script>
         function withdraw(deposit, deposit_order_id)
         {
+            alert(deposit);
+            alert(deposit_order_id);
             $.ajax({
                  type: "POST",
                  url: "/weixin/exe_withdraw/",
                  data: {deposit:deposit, deposit_order_id:deposit_order_id},
                  dataType: "html",
                  success: function(data){
-                     if (data.split('&')[0] == 'Success')
+                     if (data == 'SUCCESS')
                      {
-                         alert('success');
+                         alert('退款成功');
                      }
                      else{
-                         alert(data.split('&')[1]);
+                         alert('退款失败，请联系客服');
                      }
                   }
              });

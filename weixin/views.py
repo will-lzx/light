@@ -164,10 +164,10 @@ def withdraw(request):
 
 @method_decorator(csrf_exempt)
 def exe_withdraw(request):
-    deposit = 1
-    deposit_order_id = '1501296127'
-    print('deposit', deposit)
-    print('deposit_order_id', deposit_order_id)
+    deposit = request.POST.get('deposit')
+    deposit_order_id = request.POST.get('deposit_order_id')
+    openid = request.session.get('openid', default=None)
+    print('openid', openid)
     refund_no = str(create_timestamp())
     wechatPay = WeChatPay(WEIXIN_APPID,
                           WECHAT[0]['key'],
@@ -178,8 +178,10 @@ def exe_withdraw(request):
     refund = WeChatRefund(wechatPay)
 
     resp = refund.apply(deposit, deposit, out_trade_no=deposit_order_id, out_refund_no=refund_no, op_user_id=WECHAT[0]['mch_id'])
-    print('resp', resp)
-    return HttpResponse('Success&' + resp)
+    print('return code')
+    if resp['return_code'] == 'SUCCESS':
+        update_deposit(openid, 0, 0)
+    return HttpResponse(resp['return_code'])
 
 
 def use_help(request):
