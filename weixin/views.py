@@ -193,7 +193,6 @@ def exe_withdraw(request):
     refund = WeChatRefund(wechatPay)
 
     resp = refund.apply(deposit, deposit, out_trade_no=deposit_order_id, out_refund_no=refund_no, op_user_id=WECHAT[0]['mch_id'])
-    print('code +++++', resp['return_code'])
     if resp['return_code'] == 'SUCCESS':
         update_deposit(openid, 0, 0)
     return HttpResponse(resp['return_code'])

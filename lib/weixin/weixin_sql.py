@@ -40,10 +40,8 @@ def subcribe_save_openid(openid):
 
 
 def update_deposit(openid, deposit, order_id):
-    print('11111111111111111')
     is_usr_exist = is_weixin_usr_exist(openid)
     if is_usr_exist:
-        print('2222222222222222222222')
         mysql = MySQL(db='management')
         mysql.exec_none_query('update home_customer set deposit={0}, deposit_order_id="{1}" where weixin_number="{2}"'.format(deposit, order_id, openid))
 

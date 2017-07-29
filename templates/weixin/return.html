@@ -66,7 +66,7 @@
             document.querySelector('#scanQRCode').onclick = function () {
                 var is_lend = $('#lend').val();
                 var openid = $('#openid').val();
-                if (is_lend == 'False')
+                if (is_lend == 'True')
                 {
                     alert('还没有租自拍杆，先去租一个');
                     location.href = '/weixin/lend/?openid='+ openid;
