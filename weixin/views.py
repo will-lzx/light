@@ -166,6 +166,8 @@ def withdraw(request):
 def exe_withdraw(request):
     deposit = request.GET.get('deposit')
     deposit_order_id = request.GET.get('deposit_order_id')
+    print('deposit', deposit)
+    print('deposit_order_id', deposit_order_id)
     refund_no = str(create_timestamp())
     wechatPay = WeChatPay(WEIXIN_APPID,
                           WECHAT[0]['key'],
