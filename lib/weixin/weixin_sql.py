@@ -117,5 +117,5 @@ if __name__ == '__main__':
     #get_user_info('oWJUp0aKcITU3A6QbNY-aamzwyF4')
     #is_esit = get_lendtime('oWJUp0XapjayHP5kLqXC3uADC73w')
     #save_order('open', '121', '211')
-    update_deposit('oWJUp0XapjayHP5kLqXC3uADC73w', 0.01)
+    update_deposit('oWJUp0XapjayHP5kLqXC3uADC73w', 0, 0)
     print('')
