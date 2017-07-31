@@ -47,7 +47,7 @@ def zfb(request):
     #         echostr = 'error'
     #     return HttpResponse(echostr, content_type="text/plain")
     if request.method == 'POST':
-        msg = json.loads(request.body)
+        msg = request.body
         print(msg)
         return 'success'
     else:
