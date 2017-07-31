@@ -36,16 +36,14 @@ def privatecenter(request):
 
 @csrf_exempt
 def zfb(request):
-    # if request.method == 'GET':
-    #     signature = request.GET.get('signature', '')
-    #     timestamp = request.GET.get('timestamp', '')
-    #     nonce = request.GET.get('nonce', '')
-    #     echostr = request.GET.get('echostr', '')
-    #     try:
-    #         check_signature(WECHAT_TOKEN, signature, timestamp, nonce)
-    #     except InvalidSignatureException:
-    #         echostr = 'error'
-    #     return HttpResponse(echostr, content_type="text/plain")
+    if request.method == 'GET':
+        service = request.GET.get('service', '')
+        sign = request.GET.get('sign', '')
+        sign_type = request.GET.get('sign_type', '')
+        charset = request.GET.get('charset', '')
+        biz_content = request.GET.get('biz_content', '')
+
+        return HttpResponse('', content_type="text/plain")
     if request.method == 'POST':
         msg = request.body
         print(msg)
