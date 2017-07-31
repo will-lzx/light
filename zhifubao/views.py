@@ -1,11 +1,13 @@
 import json
 
 import alipay as alipay
+import xmltodict
 from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
+from wechatpy.utils import to_text
 
 
 def lend(request):
@@ -44,9 +46,9 @@ def zfb(request):
         else:
             print('erroe')
     if request.method == 'POST':
-        data = json.loads(request.body)
+        message = xmltodict.parse(to_text(request.body))['xml']
 
-        if data.verify_notify(**request.params):
-            print(data)
+        if message.verify_notify(**request.params):
+            print(message)
         else:
             print('erroe')
