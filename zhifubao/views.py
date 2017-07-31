@@ -55,7 +55,12 @@ def zfb(request):
         debug=False
     )
 
-    data = request.body
+    data = {}
+    data['sign_type'] = request.POST.get('sign_type')
+    data['service'] = request.POST.get('service')
+    data['charset'] = request.POST.get('charset')
+    data['biz_content'] = request.POST.get('biz_content')
+
     success = alipay.verify(request.body, sign)
     if success:
         print("trade succeed")
