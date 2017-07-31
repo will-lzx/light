@@ -44,7 +44,7 @@ def privatecenter(request):
 
 @csrf_exempt
 def zfb(request):
-    sign = request.GET['sign']
+    sign = request.POST.get('sign', None)
     print('sign', sign)
     alipay = AliPay(
         appid="2017072707914385",
