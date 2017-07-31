@@ -45,7 +45,9 @@ def privatecenter(request):
 def zfb(request):
     data = request.body
     my_json = data.decode('utf8').replace("'", '"')
-    print(my_json)
+    data = json.loads(my_json)
+    s = json.dumps(data, indent=4, sort_keys=True)
+    print(s)
     signature = data.pop("sign")
     print(json.dumps(data))
     print(signature)
