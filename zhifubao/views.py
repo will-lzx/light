@@ -44,12 +44,8 @@ def privatecenter(request):
 
 @csrf_exempt
 def zfb(request):
-    data = request.body
-    data = literal_eval(data.decode('utf8'))
-    s = json.dumps(data, indent=4, sort_keys=True)
-    print(s)
-    signature = data.pop("sign")
-    print(signature)
+    sign = request.GET['sign']
+    print('sign', sign)
     alipay = AliPay(
         appid="2017072707914385",
         app_notify_url="http://relalive.com/zhifubao/alipy_notify/",
