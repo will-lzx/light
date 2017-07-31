@@ -43,8 +43,9 @@ def privatecenter(request):
 
 @csrf_exempt
 def zfb(request):
-    data = request.body.read()
-    print(data)
+    data = request.body.decode('utf8').replace("'", '"')
+    my_json = data.decode('utf8').replace("'", '"')
+    print(my_json)
     signature = data.pop("sign")
     print(json.dumps(data))
     print(signature)
