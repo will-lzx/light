@@ -1,6 +1,7 @@
 import hashlib
 import json
 import types
+from ast import literal_eval
 from collections import OrderedDict
 from xml.etree import ElementTree
 
@@ -44,12 +45,10 @@ def privatecenter(request):
 @csrf_exempt
 def zfb(request):
     data = request.body
-    my_json = data.decode('utf8').replace("'", '"')
-    data = json.loads(my_json)
+    data = literal_eval(data.decode('utf8'))
     s = json.dumps(data, indent=4, sort_keys=True)
     print(s)
     signature = data.pop("sign")
-    print(json.dumps(data))
     print(signature)
     alipay = AliPay(
         appid="2017072707914385",
