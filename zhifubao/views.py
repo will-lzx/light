@@ -54,8 +54,10 @@ def zfb(request):
         sign_type="RSA2",
         debug=False
     )
-    success = alipay.verify(data, signature)
-    if success and data["trade_status"] in ("TRADE_SUCCESS", "TRADE_FINISHED"):
+
+    data = request.body
+    success = alipay.verify(request.body, sign)
+    if success:
         print("trade succeed")
 
 
