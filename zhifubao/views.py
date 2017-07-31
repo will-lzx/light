@@ -1,5 +1,6 @@
 import json
 
+import alipay as alipay
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -37,16 +38,24 @@ def privatecenter(request):
 @csrf_exempt
 def zfb(request):
     if request.method == 'GET':
-        service = request.GET.get('service', '')
-        sign = request.GET.get('sign', '')
-        sign_type = request.GET.get('sign_type', '')
-        charset = request.GET.get('charset', '')
-        biz_content = request.GET.get('biz_content', '')
+        data = request.form.to_dict()
+        signature = data.pop("sign")
 
-        return HttpResponse('', content_type="text/plain")
+        print(json.dumps(data))
+        print(signature)
+
+        # verify
+        success = alipay.Alipay.verify_notify(request.GET['alipay'])
+        if success and data["trade_status"] in ("TRADE_SUCCESS", "TRADE_FINISHED"):
+            print("trade succeed")
     if request.method == 'POST':
-        msg = request.body
-        print(msg)
-        return 'success'
-    else:
-        print('error')
+        data = request.form.to_dict()
+        signature = data.pop("sign")
+
+        print(json.dumps(data))
+        print(signature)
+
+        # verify
+        success = alipay.Alipay.verify_notify(request.GET['alipay'])
+        if success and data["trade_status"] in ("TRADE_SUCCESS", "TRADE_FINISHED"):
+            print("trade succeed")
