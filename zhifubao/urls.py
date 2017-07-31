@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^nearby/$', nearby, name='nearby'),
 
     url(r'^zfb/$', zfb, name='zfb'),
+    url(r'^alipy_notify/$', alipy_notify, name='alipy_notify'),
+
     #
     # url(r'^lendhistory/$', lendhistory, name='lendhistory'),
     # url(r'^withdraw/$', withdraw, name='withdraw'),
