@@ -12,7 +12,6 @@ from django.shortcuts import render
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 from past.types import unicode
-from wechatpy.utils import to_text
 
 
 def lend(request):
@@ -44,7 +43,8 @@ def privatecenter(request):
 
 @csrf_exempt
 def zfb(request):
-    data = request.form.to_dict()
+    data = json.loads(request.body)
+    print(data)
     signature = data.pop("sign")
     print(json.dumps(data))
     print(signature)
