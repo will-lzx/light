@@ -50,7 +50,7 @@ def zfb(request):
         appid="2017072707914385",
         app_notify_url="http://relalive.com/zhifubao/alipy_notify/",
         app_private_key_path="/root/zhifubao/app_private_key",
-        alipay_public_key_path="/root/zhifubao//root/zhifubao/",
+        alipay_public_key_path="/root/zhifubao/alipay_public_key",
         sign_type="RSA2",
         debug=False
     )
