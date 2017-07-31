@@ -44,8 +44,9 @@ def zfb(request):
         else:
             print('erroe')
     if request.method == 'POST':
-        alipay = request.registry['alipay']
-        if alipay.verify_notify(**request.params):
-            print(alipay)
+        data = json.loads(request.body)
+
+        if data.verify_notify(**request.params):
+            print(data)
         else:
             print('erroe')
