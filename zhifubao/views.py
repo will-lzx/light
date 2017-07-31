@@ -62,8 +62,9 @@ def zfb(request):
     data['biz_content'] = request.POST.get('biz_content')
 
     success = alipay.verify(data, sign)
+    print('success', success)
     if success:
-        print("trade succeed")
+        return 'success'
 
 
 def alipy_notify(request):
