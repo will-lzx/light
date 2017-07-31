@@ -38,24 +38,14 @@ def privatecenter(request):
 @csrf_exempt
 def zfb(request):
     if request.method == 'GET':
-        data = request.form.to_dict()
-        signature = data.pop("sign")
-
-        print(json.dumps(data))
-        print(signature)
-
-        # verify
-        success = alipay.Alipay.verify_notify(request.GET['alipay'])
-        if success and data["trade_status"] in ("TRADE_SUCCESS", "TRADE_FINISHED"):
-            print("trade succeed")
+        alipay = request.registry['alipay']
+        if alipay.verify_notify(**request.params):
+            print(alipay)
+        else:
+            print('erroe')
     if request.method == 'POST':
-        data = request.form.to_dict()
-        signature = data.pop("sign")
-
-        print(json.dumps(data))
-        print(signature)
-
-        # verify
-        success = alipay.Alipay.verify_notify(request.GET['alipay'])
-        if success and data["trade_status"] in ("TRADE_SUCCESS", "TRADE_FINISHED"):
-            print("trade succeed")
+        alipay = request.registry['alipay']
+        if alipay.verify_notify(**request.params):
+            print(alipay)
+        else:
+            print('erroe')
