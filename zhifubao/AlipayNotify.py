@@ -39,6 +39,7 @@ class Notify():
             if not self.verify_return_base_data(response_data):
                 return False
         elif method_type == "POST":
+            print('response_data', response_data)
             if not self.verify_notify_base_data(response_data):
                 return False
         # 获取返回回来的待签名数组签名后结果
