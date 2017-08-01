@@ -99,6 +99,7 @@ def notify_verify(post):
     # 初级验证--签名
     _, prestr = params_filter(post)
     mysign = build_mysign(prestr, settings.ALIPAY_KEY, settings.ALIPAY_SIGN_TYPE)
+    print('mysign', mysign)
 
     if mysign != post.get('sign'):
         return False
