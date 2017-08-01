@@ -1,14 +1,14 @@
 class settings:
     # 安全检验码，以数字和字母组成的32位字符
-    ALIPAY_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+    ALIPAY_KEY = 'o0f7yua35rrxa9jj881h63i92f0pvx20'
 
     ALIPAY_INPUT_CHARSET = 'utf-8'
 
     # 合作身份者ID，以2088开头的16位纯数字
-    ALIPAY_PARTNER = 'xxxxxxxxxxxxxxxx'
+    ALIPAY_PARTNER = '2088721367731375'
 
     # 签约支付宝账号或卖家支付宝帐户
-    ALIPAY_SELLER_EMAIL = 'ls@abc.com'
+    ALIPAY_SELLER_EMAIL = '470235676@qq.com'
 
     ALIPAY_SIGN_TYPE = 'MD5'
 
