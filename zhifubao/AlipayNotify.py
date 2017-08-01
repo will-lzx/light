@@ -40,8 +40,8 @@ class Notify():
                 return False
         elif method_type == "POST":
             print('response_data', response_data)
-            if not self.verify_notify_base_data(response_data):
-                return False
+            # if not self.verify_notify_base_data(response_data):
+            #     return False
         # 获取返回回来的待签名数组签名后结果
         mysign = self.get_response_mysign(response_data)
         print('mysign', mysign)
