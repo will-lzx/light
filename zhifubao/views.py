@@ -45,6 +45,7 @@ def privatecenter(request):
 @csrf_exempt
 def zfb(request):
     sign = request.POST.get('sign', None)
+    print('content', request.body)
     print('sign', sign)
     alipay = AliPay(
         appid="2017072707914385",
@@ -65,6 +66,8 @@ def zfb(request):
     print('success', success)
     if success:
         return 'success'
+    else:
+        return 'Fail'
 
 
 def alipy_notify(request):
