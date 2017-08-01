@@ -47,8 +47,10 @@ def privatecenter(request):
 def zfb(request):
     if request.method == 'POST':
         if notify_verify(request.POST):
+            print('success')
             return HttpResponse("success")
         else:
+            print('fail')
             HttpResponse("fail")
     return HttpResponse("fail")
     # sign = request.POST.get('sign', None)
