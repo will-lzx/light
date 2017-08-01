@@ -1,12 +1,6 @@
 import hashlib
-import json
-import types
-from ast import literal_eval
 from collections import OrderedDict
-from xml.etree import ElementTree
 
-from alipay import Alipay
-import xmltodict
 from django.http import HttpResponse
 from django.shortcuts import render
 
