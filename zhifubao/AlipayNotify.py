@@ -44,6 +44,7 @@ class Notify():
                 return False
         # 获取返回回来的待签名数组签名后结果
         mysign = self.get_response_mysign(response_data)
+        print('mysign', mysign)
         # 获取是否是支付宝服务器发来的请求的验证结果
         responseTxt = self.verify_source(response_data['notify_id'])
 
