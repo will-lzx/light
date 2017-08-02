@@ -52,11 +52,14 @@ def zfb(request):
         sign_type="RSA2",
         debug=False
     )
-    print('body', request.body)
+    data = {}
+    data['sign'] = sign
+    data['biz_content'] = request.POST.get('biz_content')
+    data['sign_type'] = request.POST.get('sign_type')
+    data['service'] = request.POST.get('service')
+    data['charset'] = request.POST.get('charset')
 
-    print('message', request.body)
-
-    success = alipay.verify(request.body, sign)
+    success = alipay.verify(data, sign)
 
     if success:
         return 'success'
