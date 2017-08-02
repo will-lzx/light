@@ -50,7 +50,7 @@ def zfb(request):
         debug=False
     )
 
-    data = json.loads(request.body)
+    data = json.loads(request.body.decode("utf-8"))
 
     success = alipay.verify(data, sign)
 
