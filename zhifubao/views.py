@@ -3,12 +3,14 @@ import json
 import re
 from collections import OrderedDict
 
+import xmltodict
 from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 from alipay import AliPay
+from wechatpy.utils import to_text
 
 
 def lend(request):
@@ -50,14 +52,11 @@ def zfb(request):
         sign_type="RSA2",
         debug=False
     )
-    respCmtJson = re.sub(r"(,?)(\w+?)\s+?:", r"\1'\2' :", request.body.decode())
-    respCmtJson = respCmtJson.replace("'", "\"")
+    message = xmltodict.parse(to_text(request.body))['xml']
 
-    data = json.loads(respCmtJson)
+    print('message', message)
 
-    print('data', data)
-
-    success = alipay.verify(data, sign)
+    success = alipay.verify(message, sign)
 
     if success:
         return 'success'
