@@ -53,7 +53,7 @@ def zfb(request):
         debug=False
     )
     data = {}
-    data['sign'] = sign
+    # data['sign'] = sign
     data['biz_content'] = request.POST.get('biz_content')
     data['sign_type'] = request.POST.get('sign_type')
     data['service'] = request.POST.get('service')
