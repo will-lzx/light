@@ -1,7 +1,7 @@
 import hashlib
+import json
 from collections import OrderedDict
 
-from django.core.serializers import json
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -50,8 +50,7 @@ def zfb(request):
         debug=False
     )
 
-    serializer = MySerialiser()
-    data = serializer.serialize(request.body)
+    data = json.loads(request.body)
 
     success = alipay.verify(data, sign)
 
@@ -63,15 +62,6 @@ def zfb(request):
 
 def alipy_notify(request):
     print('notify')
-
-
-from django.core.serializers.python import Serializer
-
-
-class MySerialiser(Serializer):
-    def end_object( self, obj ):
-        self._current['id'] = obj._get_pk_val()
-        self.objects.append( self._current )
 
 
 
