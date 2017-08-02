@@ -52,11 +52,11 @@ def zfb(request):
         sign_type="RSA2",
         debug=False
     )
-    message = xmltodict.parse(to_text(request.body))['xml']
+    print('body', request.body)
 
-    print('message', message)
+    print('message', request.body)
 
-    success = alipay.verify(message, sign)
+    success = alipay.verify(request.body, sign)
 
     if success:
         return 'success'
