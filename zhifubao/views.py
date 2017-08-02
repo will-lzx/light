@@ -50,7 +50,7 @@ def zfb(request):
         sign_type="RSA2",
         debug=False
     )
-    respCmtJson = re.sub(r"(,?)(\w+?)\s+?:", r"\1'\2' :", request.body)
+    respCmtJson = re.sub(r"(,?)(\w+?)\s+?:", r"\1'\2' :", request.body.decode())
     respCmtJson = respCmtJson.replace("'", "\"")
 
     data = json.loads(respCmtJson)
