@@ -115,15 +115,16 @@ def lend(request):
         print('code', code)
         openid = get_openid(code)
         request.session['openid'] = openid
-        request.GET.__delitem__('code')
     else:
         openid = request.session.get('openid', default=None)
 
     is_deposit = is_deposit_exist(openid)
+    is_lend = is_lend_exist(openid)
 
     context = {
         'is_deposit': is_deposit,
-        'openid': openid
+        'openid': openid,
+        'is_lend': is_lend
     }
     response = render(request, template_name, context)
     return response
@@ -147,6 +148,17 @@ def return_back(request):
         'is_lend': is_lend
     }
 
+    response = render(request, template_name, context)
+    return response
+
+
+def output_tip(request):
+    template_name = 'weixin/output_tip.html'
+    has_opacity = False
+
+    context = {
+        'has_opacity': has_opacity
+    }
     response = render(request, template_name, context)
     return response
 
