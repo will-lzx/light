@@ -49,6 +49,8 @@ def zfb(request):
         sign_type="RSA2",
         debug=False
     )
+
+    print('request', request.body)
     dataform = str(request.body).strip("'<>() ").replace('\'', '\"')
     data = json.loads(dataform)
 
