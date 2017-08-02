@@ -1,5 +1,6 @@
 import hashlib
 import json
+import re
 from collections import OrderedDict
 
 from django.http import HttpResponse
@@ -49,10 +50,10 @@ def zfb(request):
         sign_type="RSA2",
         debug=False
     )
-    data_dumps = json.dumps(request.body, ensure_ascii=False)
-    print('data_dumps', data_dumps)
+    respCmtJson = re.sub(r"(,?)(\w+?)\s+?:", r"\1'\2' :", request.body)
+    respCmtJson = respCmtJson.replace("'", "\"")
 
-    data = json.loads(data_dumps.encode())
+    data = json.loads(respCmtJson)
 
     print('data', data)
 
