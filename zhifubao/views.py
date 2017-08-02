@@ -50,9 +50,8 @@ def zfb(request):
         debug=False
     )
 
-    print('request', request.body)
-    dataform = str(request.body).strip("'<>() ").replace('\'', '\"')
-    data = json.loads(dataform)
+    print('request', request.body.decode())
+    data = json.loads(request.body.decode())
 
     success = alipay.verify(data, sign)
 
