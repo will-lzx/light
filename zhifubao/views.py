@@ -49,8 +49,8 @@ def zfb(request):
         sign_type="RSA2",
         debug=False
     )
-
-    data = json.loads(request.body.decode("utf-8"))
+    dataform = str(request.body).strip("'<>() ").replace('\'', '\"')
+    data = json.loads(dataform)
 
     success = alipay.verify(data, sign)
 
