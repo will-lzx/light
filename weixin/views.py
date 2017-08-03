@@ -151,16 +151,24 @@ def return_back(request):
     return response
 
 
-def output_tip(request):
-    template_name = 'weixin/output_tip.html'
-
+def get_opacity(request):
     cabinet_code = request.POST.get('cabinet_code', None)
     print('cabinet_code', cabinet_code)
     has_opacity = is_has_capacity(cabinet_code)
     context = {
         'has_opacity': has_opacity
     }
-    return HttpResponseRedirect('weixin/output_tip.html', context)
+    return HttpResponseRedirect('/weixin/output_tip/', context)
+
+
+def output_tip(request, has_opacity):
+    template_name = 'weixin/output_tip.html'
+
+    context = {
+        'has_opacity': has_opacity
+    }
+    response = render(request, template_name, context)
+    return response
 
 
 def nearby(request):

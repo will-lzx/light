@@ -22,7 +22,10 @@ urlpatterns = [
     url(r'^agreement/', agreement, name='agreement'),
 
     url(r'^lend/$', lend, name='lend'),
-    url(r'^output_tip/$', output_tip, name='output_tip'),
+    url(r'^get_opacity/$', get_opacity, name='get_opacity'),
+    url(r'^output_tip/(?P<has_opacity>.+)/$', output_tip, name='output_tip'),
+
+
 
     url(r'^return_back/$', return_back, name='return_back'),
     url(r'^nearby/$', nearby, name='nearby'),
