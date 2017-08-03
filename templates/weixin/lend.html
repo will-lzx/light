@@ -77,7 +77,7 @@
                     location.href = '/weixin/pay/?openid='+ openid;
                 }else
                 {
-                    if(is_lend)
+                    if(is_lend == 'True')
                     {
                         alert("您还有正在借用的订单，在订单完成前，不能再次借用");
                         return
