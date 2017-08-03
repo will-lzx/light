@@ -27,8 +27,6 @@
                     };
                     socket.onmessage = function (e) {
                         console.log('message: ' + e.data);//打印服务端返回的数据
-                        $('#messagecontainer').prepend('<p><pre>' + e.data + '</pre></p>');
-                        $('#messagecontainer').prepend('<hr />');
                     };
                 })
             </script>
