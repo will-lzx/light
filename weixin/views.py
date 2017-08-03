@@ -160,7 +160,7 @@ def output_tip(request):
     context = {
         'has_opacity': has_opacity
     }
-    return HttpResponseRedirect(template_name,context)
+    return HttpResponseRedirect('weixin/output_tip.html', context)
 
 
 def nearby(request):
