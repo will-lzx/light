@@ -1,24 +1,29 @@
 import hashlib
 from io import BytesIO
 
+import xmltodict
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
 from django.utils.encoding import smart_str
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from lxml import etree
 from requests import session
 from wechatpy.events import SubscribeEvent
+from wechatpy.pay.api import WeChatRefund
 
 from lib.utils import check_code
 from lib.weixin.weixin_sql import *
 
 from lib.utils.common import *
-from wechatpy import parse_message, create_reply
+from wechatpy import parse_message, create_reply, WeChatPay
 from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
 
 from lib.utils.url_request import *
+from weixin.api import Pay as PayApi
 
 
 # Create your views here.
@@ -110,15 +115,16 @@ def lend(request):
         print('code', code)
         openid = get_openid(code)
         request.session['openid'] = openid
-        request.GET.__delitem__('code')
     else:
         openid = request.session.get('openid', default=None)
 
     is_deposit = is_deposit_exist(openid)
+    is_lend = is_lend_exist(openid)
 
     context = {
         'is_deposit': is_deposit,
-        'openid': openid
+        'openid': openid,
+        'is_lend': is_lend
     }
     response = render(request, template_name, context)
     return response
@@ -126,7 +132,33 @@ def lend(request):
 
 def return_back(request):
     template_name = 'weixin/return.html'
-    response = render(request, template_name)
+
+    code = request.GET.get('code', None)
+
+    if code and not request.session.get('openid', default=None):
+        openid = get_openid(code)
+        request.session['openid'] = openid
+    else:
+        openid = request.session.get('openid', default=None)
+
+    is_lend = is_lend_exist(openid)
+    context = {
+        'openid': openid,
+        'is_lend': is_lend
+    }
+
+    response = render(request, template_name, context)
+    return response
+
+
+def output_tip(request):
+    template_name = 'weixin/output_tip.html'
+    has_opacity = False
+
+    context = {
+        'has_opacity': has_opacity
+    }
+    response = render(request, template_name, context)
     return response
 
 
@@ -146,12 +178,33 @@ def withdraw(request):
     template_name = 'weixin/withdraw.html'
     openid = request.session.get('openid', default=None)
     deposit = get_deposit(openid)
-
+    deposit_order_id = get_order_id(openid)
     context = {
-        'deposit': deposit
+        'deposit': deposit,
+        'deposit_order_id': deposit_order_id,
     }
     response = render(request, template_name, context)
     return response
+
+
+@method_decorator(csrf_exempt)
+def exe_withdraw(request):
+    deposit = str(int(float(request.POST.get('deposit')) * 100))
+    deposit_order_id = request.POST.get('deposit_order_id')
+    openid = request.session.get('openid', default=None)
+    refund_no = str(create_timestamp())
+    wechatPay = WeChatPay(WEIXIN_APPID,
+                          WECHAT[0]['key'],
+                          WECHAT[0]['mch_id'],
+                          mch_cert='/root/cert/apiclient_cert.pem',
+                          mch_key='/root/cert/apiclient_key.pem')
+
+    refund = WeChatRefund(wechatPay)
+
+    resp = refund.apply(deposit, deposit, out_trade_no=deposit_order_id, out_refund_no=refund_no, op_user_id=WECHAT[0]['mch_id'])
+    if resp['return_code'] == 'SUCCESS':
+        update_deposit(openid, 0, 0)
+    return HttpResponse(resp['return_code'])
 
 
 def use_help(request):
@@ -208,15 +261,75 @@ def how_charge(request):
     return response
 
 
-def pay(request):
-    template_name = 'weixin/pay.html'
+class PayView(View):
+    """
+    wechat base pay view
+    receive post data: order_id, price, title, notify_url, redirect_url
+    ..remove WxMemberView
+    """
+    def get(self, request, *args, **kwargs):
+        try:
+            price = WEIXIN_DEPOSIT
+            notify_url = WEIXIN_PAYBACK
+            redirect_url = '/weixin/lend/'
+            openid = request.GET['openid']
+        except KeyError:
+            return HttpResponse("PARAM ERROR")
 
-    deposit = '49'
-    context = {
-        'deposit': deposit
-    }
-    response = render(request, template_name, context)
-    return response
+        out_trade_no = str(int(time.time()))
+        total_fee = str(int(float(price) * 100))
+        param = {
+            'xml': {'openid': openid,
+                    'body': WECHAT[0]['body'],
+                    'out_trade_no': out_trade_no,
+                    'total_fee': total_fee,
+                    'spbill_create_ip': WEIXIN_IP,
+                    'notify_url': notify_url}}
+        pay = PayApi()
+        pay.set_prepay_id(param)
+        data = {
+            'data': pay.get_pay_data(),
+            'redirect_uri': redirect_url,
+            'deposit': price,
+        }
+        return render(request, 'weixin/pay.html', data)
+
+
+class WxPayNotifyView(View):
+    """
+    Receive wechat service data
+    valid and send order_id, pay_number to notify_url
+    """
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        pay = PayApi()
+        data = request.body
+        data = dict(xmltodict.parse(data)['xml'])
+        result = {}
+        sign = data['sign']
+        del data['sign']
+        if sign:
+            price = WEIXIN_DEPOSIT
+            total_fee = price
+            openid = data['openid']
+            order_id = data['out_trade_no']
+            pay_number = data['transaction_id']
+            update_deposit(openid, total_fee, order_id)
+            save_order(openid, order_id, pay_number)
+            result = self.handle_order(order_id, pay_number)
+        else:
+            result['return_code'] = 'FAIL'
+            result['return_msg'] = 'ERROR'
+
+        result_xml = pay.dict_to_xml(result)
+        return HttpResponse(result_xml)
+
+    def handle_order(self, order_id, pay_number):
+        """ Need user extends, for order """
+        return HttpResponse('<xml> <return_code><![CDATA[SUCCESS]]></return_code> <return_msg><![CDATA[OK]]></return_msg> </xml>')
 
 
 def contract(request):
@@ -240,7 +353,6 @@ def privatecenter(request):
         print('code', code)
         openid = get_openid(code)
         request.session['openid'] = openid
-        request.GET.__delitem__('code')
     else:
         openid = request.session.get('openid', default=None)
 
@@ -324,7 +436,6 @@ def oauth_user(request):
     from wechatpy import WeChatClient
     from wechatpy.oauth import WeChatOAuth
 
-    print('resu;t', request.path)
     # oauth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, redirect_uri='http://relalive.com/weixin/lend/')
 
     oauth_url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxe2d133d46896991&redirect_uri=http%3A%2F%2Frelalive.com%2Fweixin%2Flend%2F&response_type=code&scope=snsapi_userinfo&state=123&connect_redirect=1#wechat_redirect'

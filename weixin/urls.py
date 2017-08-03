@@ -22,11 +22,14 @@ urlpatterns = [
     url(r'^agreement/', agreement, name='agreement'),
 
     url(r'^lend/$', lend, name='lend'),
+    url(r'^output_tip/$', output_tip, name='output_tip'),
+
     url(r'^return_back/$', return_back, name='return_back'),
     url(r'^nearby/$', nearby, name='nearby'),
 
     url(r'^lendhistory/$', lendhistory, name='lendhistory'),
     url(r'^withdraw/$', withdraw, name='withdraw'),
+    url(r'^exe_withdraw/$', exe_withdraw, name='exe_withdraw'),
 
     # use help
     url(r'^use_help/$', use_help, name='use_help'),
@@ -45,12 +48,14 @@ urlpatterns = [
 
     url(r'^privatecenter/$', privatecenter, name='privatecenter'),
 
-    url(r'^pay/$', pay, name='pay'),
+    url(r'^pay/$', PayView.as_view(), name='pay'),
     url(r'^contract/$', contract, name='contract'),
 
     url(r'^wxconfig/$', wxconfig, name='wxconfig'),
 
     url(r'^wx/$', wx, name='wx'),
+    url(r'^payback/$', WxPayNotifyView.as_view(), name='payback'),
+
 
 
 
