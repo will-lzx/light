@@ -104,7 +104,7 @@ def is_order_exist(openid, order_id):
 
 def is_lend_exist(openid):
     mysql = MySQL(db='management')
-    is_lend = mysql.exec_query('select count(*) from home_lendhistory WHERE customer_id="{0}" and start_time !=NUll and return_time = NULL'.format(openid))[0][0]
+    is_lend = mysql.exec_query('select count(*) from home_lendhistory WHERE customer_id="{0}" and start_time is not NUll and return_time is NULL'.format(openid))[0][0]
 
     if is_lend > 0:
         return True
@@ -117,5 +117,6 @@ if __name__ == '__main__':
     #get_user_info('oWJUp0aKcITU3A6QbNY-aamzwyF4')
     #is_esit = get_lendtime('oWJUp0XapjayHP5kLqXC3uADC73w')
     #save_order('open', '121', '211')
-    update_deposit('oWJUp0XapjayHP5kLqXC3uADC73w', 0, 0)
-    print('')
+    #update_deposit('oWJUp0XapjayHP5kLqXC3uADC73w', 0, 0)
+    is_lend = is_lend_exist('oWJUp0XapjayHP5kLqXC3uADC73w')
+    print(is_lend)

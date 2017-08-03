@@ -138,7 +138,6 @@ def return_back(request):
     if code and not request.session.get('openid', default=None):
         openid = get_openid(code)
         request.session['openid'] = openid
-        request.GET.__delitem__('code')
     else:
         openid = request.session.get('openid', default=None)
 
