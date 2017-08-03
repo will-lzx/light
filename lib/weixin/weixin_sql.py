@@ -36,7 +36,7 @@ def subcribe_save_openid(openid):
         mysql = MySQL(db='management')
         create_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         id = get_max_id('home_customer')
-        mysql.exec_none_query('insert into home_customer (id, weixin_number, mobile_number, alipay, credit_score, deposit, deposit_status, create_time) values({0}, "{1}", "{2}", "{3}", {4}, {5}, {6}, "{7}")'.format(id, openid, '', '', 0, 0, 0, create_time))
+        mysql.exec_none_query('insert into home_customer (id, weixin_number, mobile_number, alipay, credit_score, deposit, deposit_order_id, create_time) values({0}, "{1}", "{2}", "{3}", {4}, {5}, {6}, "{7}")'.format(id, openid, '', '', 0, 0, 0, create_time))
 
 
 def update_deposit(openid, deposit, order_id):
@@ -118,5 +118,5 @@ if __name__ == '__main__':
     #is_esit = get_lendtime('oWJUp0XapjayHP5kLqXC3uADC73w')
     #save_order('open', '121', '211')
     #update_deposit('oWJUp0XapjayHP5kLqXC3uADC73w', 0, 0)
-    is_lend = is_lend_exist('oWJUp0XapjayHP5kLqXC3uADC73w')
+    is_lend = is_deposit_exist('oWJUp0S5BZy3OGR92KIDJWUkD_jQ')
     print(is_lend)
