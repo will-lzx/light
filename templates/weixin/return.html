@@ -19,6 +19,9 @@
             <input type="hidden" id="lend" value="{{ is_lend }}">
             <input type="hidden" id="openid" value="{{ openid }}">
      </div>
+    <div>
+        <span id="tip"></span>
+    </div>
 
 
     <script src="/static/js/jquery-3.2.1.js"></script>
@@ -68,7 +71,7 @@
                 var openid = $('#openid').val();
                 if (is_lend == 'False')
                 {
-                    alert('还没有租自拍杆，先去租一个');
+                    showTip('还没有租自拍杆，先去租一个');
                     location.href = '/weixin/lend/?openid='+ openid;
                 }else
                 {
