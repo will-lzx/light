@@ -23,10 +23,6 @@
 
      </div>
 
-    <div>
-        <span id="tip"></span>
-    </div>
-
     <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
     <script src="{% static '/js/jweixin-1.2.0.js' %}"></script>
     <script src="{% static '/js/relalive.js' %}"></script>
@@ -77,13 +73,13 @@
                 var is_lend = $('#lend').val();
                 if (is_deposit == 'False')
                 {
-                    showTip('还没有充值，请先去充值吧？', 'danger');
+                    alert('还没有充值，请先去充值吧？', 'danger');
                     location.href = '/weixin/pay/?openid='+ openid;
                 }else
                 {
                     if(is_lend == 'True')
                     {
-                        showTip("您还有正在借用的订单，在订单完成前，不能再次借用");
+                        alert("您还有正在借用的订单，在订单完成前，不能再次借用");
                         return
                     }
                     wx.scanQRCode({

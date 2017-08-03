@@ -71,7 +71,7 @@
                 var openid = $('#openid').val();
                 if (is_lend == 'False')
                 {
-                    showTip('还没有租自拍杆，先去租一个');
+                    alert('还没有租自拍杆，先去租一个');
                     location.href = '/weixin/lend/?openid='+ openid;
                 }else
                 {
