@@ -160,8 +160,7 @@ def output_tip(request):
     context = {
         'has_opacity': has_opacity
     }
-    response = render(request, template_name, context)
-    return response
+    return HttpResponseRedirect(template_name,context)
 
 
 def nearby(request):
