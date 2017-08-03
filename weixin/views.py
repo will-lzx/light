@@ -155,7 +155,7 @@ def get_opacity(request):
     cabinet_code = request.POST.get('cabinet_code', None)
     print('cabinet_code', cabinet_code)
     has_opacity = is_has_capacity(cabinet_code)
-    return HttpResponseRedirect('/weixin/output_tip/' + has_opacity + '/')
+    return HttpResponseRedirect('/weixin/output_tip/' + str(has_opacity) + '/')
 
 
 def output_tip(request, has_opacity):
