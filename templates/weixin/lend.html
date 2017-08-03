@@ -79,7 +79,7 @@
                 {
                     if(is_lend)
                     {
-                        showTip("您还有正在借用的订单，在订单完成前，不能再次借用");
+                        alert("您还有正在借用的订单，在订单完成前，不能再次借用");
                         return
                     }
                     wx.scanQRCode({
