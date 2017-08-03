@@ -15,6 +15,23 @@
                 请注意机柜屏幕信息<br>自拍杆将从<span class="col_z">闪亮指示灯位置</span>吐出<br>请及时取走掏空
             </div>
             </div>
+
+            <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+            <script>
+                $(document).ready(function () {
+                    alert('i am ready');
+                    var socket = new WebSocket("ws://" + window.location.host + "/echo_once/");
+                    socket.onopen = function () {
+                        console.log('WebSocket open');//成功连接上Websocket
+                        socket.send($('#backup_all').val());//发送数据到服务端
+                    };
+                    socket.onmessage = function (e) {
+                        console.log('message: ' + e.data);//打印服务端返回的数据
+                        $('#messagecontainer').prepend('<p><pre>' + e.data + '</pre></p>');
+                        $('#messagecontainer').prepend('<hr />');
+                    };
+                })
+            </script>
         {% else %}
             <div class="ts_cont">
                <img class="zgjs_img" src="{% static '/images/weixin/tk.jpg' %}" alt="自拍杆被掏空">
@@ -26,5 +43,7 @@
                 </div>
             </div>
         {% endifequal %}
+
+
 
 {% endblock %}
