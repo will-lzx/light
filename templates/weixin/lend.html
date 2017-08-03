@@ -73,7 +73,7 @@
                 var is_lend = $('#lend').val();
                 if (is_deposit == 'False')
                 {
-                    showTip('还没有充值，请先去充值吧？', 'danger');
+                    alert('还没有充值，请先去充值吧？', 'danger');
                     location.href = '/weixin/pay/?openid='+ openid;
                 }else
                 {
