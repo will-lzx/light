@@ -153,8 +153,9 @@ def return_back(request):
 
 def output_tip(request):
     template_name = 'weixin/output_tip.html'
-    has_opacity = False
 
+    cabinet_code = request.GET.get('cabinet_code', None)
+    has_opacity = is_has_capacity(cabinet_code)
     context = {
         'has_opacity': has_opacity
     }

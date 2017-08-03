@@ -112,11 +112,23 @@ def is_lend_exist(openid):
         return False
 
 
+def is_has_capacity(cabinet_code):
+    mysql = MySQL(db='management')
+
+    capacity = mysql.exec_query('select capacity from home_cabinet where number="{0}"'.format(cabinet_code))[0][0]
+
+    if int(capacity) > 0:
+        return True
+    else:
+        return False
+
+
 if __name__ == '__main__':
     #subcribe_save_openid('123')
     #get_user_info('oWJUp0aKcITU3A6QbNY-aamzwyF4')
     #is_esit = get_lendtime('oWJUp0XapjayHP5kLqXC3uADC73w')
     #save_order('open', '121', '211')
     #update_deposit('oWJUp0XapjayHP5kLqXC3uADC73w', 0, 0)
-    is_lend = is_deposit_exist('oWJUp0S5BZy3OGR92KIDJWUkD_jQ')
-    print(is_lend)
+    #is_lend = is_deposit_exist('oWJUp0S5BZy3OGR92KIDJWUkD_jQ')
+    has_capacity = has_capacity('12-1213-21')
+    print(has_capacity)
