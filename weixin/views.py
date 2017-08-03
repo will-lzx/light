@@ -179,9 +179,13 @@ def withdraw(request):
     openid = request.session.get('openid', default=None)
     deposit = get_deposit(openid)
     deposit_order_id = get_order_id(openid)
+
+    is_lend = is_lend_exist(openid)
+
     context = {
         'deposit': deposit,
         'deposit_order_id': deposit_order_id,
+        'is_lend': is_lend
     }
     response = render(request, template_name, context)
     return response

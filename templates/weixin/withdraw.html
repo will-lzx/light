@@ -16,6 +16,7 @@
             <div class="sm_cont">
                 申请成功后，预计0-5个工作日退还至您原支付账户
             </div>
+            <input type="hidden" id="lend" value="{{ is_lend }}">
      </div>
 
     <div>
@@ -29,6 +30,12 @@
         {
             if(deposit > 0)
             {
+                var is_lend = $('#lend').val();
+                if(is_lend == 'True')
+                {
+                    showTip("您还有正在借用的订单，在订单完成前，不能提现！");
+                    return
+                }
                 $.ajax({
                      type: "POST",
                      url: "/weixin/exe_withdraw/",
