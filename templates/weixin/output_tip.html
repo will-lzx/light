@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-        {% if has_opacity %}
+        {% ifequal has_opacity 'True' %}
             <div class="ts_cont ts_cont_all">
                   <img class="zgjs_img" src="{% static '/images/weixin/cgts.gif' %}" alt="出杆提示">
             </div>
@@ -25,6 +25,6 @@
                 您很有眼光，此处拍照人多，自拍杆已被<span class="col_z">掏空</span>
                 </div>
             </div>
-        {% endif %}
+        {% endifequal %}
 
 {% endblock %}
