@@ -20,9 +20,9 @@
             <script>
                 $(document).ready(function () {
                     alert('i am ready');
-                    var socket = new WebSocket("ws://172.16.0.2：2137/");
+                    var socket = new WebSocket("ws://182.61.58.155：2137/");
                     socket.onopen = function () {
-                        console.log('WebSocket open');//成功连接上Websocket
+                        console.log('WebSocket open');
                         socket.send("test");//发送数据到服务端
                     };
                     socket.onmessage = function (e) {
