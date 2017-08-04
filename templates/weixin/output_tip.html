@@ -22,15 +22,15 @@
             <script>
                $(function () {
                     $('#backup_all').click(function () {
-                        var socket = new WebSocket("ws://182.61.58.155:2137/");
-                        alert(socket);
+                        var socket = new WebSocket("ws://182.61.58.155:2137");
                         socket.onopen = function () {
                             console.log('WebSocket open');//成功连接上Websocket
                             socket.send('test');//发送数据到服务端
-                        };
-                        socket.onmessage = function (e) {
-                            console.log('message: ' + e.data);//打印服务端返回的数据
-                            alert(e.data);
+
+                            socket.onmessage = function (event) {
+                                console.log("message:" + event.data);
+                                alert(event.data);
+                            }
                         };
                     });
                 });
