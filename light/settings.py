@@ -33,7 +33,6 @@ SESSION_SAVE_EVERY_REQUEST = True
 
 INSTALLED_APPS = [
     'home',
-    'weixin',
     'wechat',
     'wechat_pay',
     'zhifubao',
