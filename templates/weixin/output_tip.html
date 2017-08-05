@@ -16,24 +16,41 @@
             </div>
 
             </div>
-            <input type="button" id="backup_all" value="back_all">
             <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
             <script src="{% static 'js/jquery-min.js' %}"></script>
+            <script src="http://182.61.58.155:2136/socket.io/socket.io.js"></script>
             <script>
-               $(function () {
-                    $('#backup_all').click(function () {
-                        var socket = new WebSocket("ws://182.61.58.155:2137");
-                        socket.onopen = function () {
-                            console.log('WebSocket open');//成功连接上Websocket
-                            socket.send('test');//发送数据到服务端
 
-                            socket.onmessage = function (event) {
-                                console.log("message:" + event.data);
-                                alert(event.data);
-                            }
-                        };
-                    });
+                var socket = null;
+
+                $(document).ready(function () {
+                    init_socket();
+
+                    sendmsg('hello, welcome to qingpai keji');
+
+                    logout();
                 });
+
+                function init_socket(){
+                    socket = io.connect('ws://182.61.58.155:2136');
+
+                    socket.emit('join', {username:'will'});
+
+                    socket.on('pmsg', function(from, to, msg){
+                        alert('get private message: from' + from + ' to: ' + to + ' msg:'+ msg);
+                    });
+                }
+
+                function logout()
+                {
+                    socket.emit('disconnect');
+                }
+
+                function sendmsg(msg){
+                    alert('send msg' + msg);
+                    socket.emit('private_message', 'will', 'will', msg);
+                }
+
             </script>
 
         {% else %}
@@ -45,6 +62,7 @@
                 <div class="sm_cont">
                 您很有眼光，此处拍照人多，自拍杆已被<span class="col_z">掏空</span>
                 </div>
+
             </div>
         {% endifequal %}
 

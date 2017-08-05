@@ -23,7 +23,7 @@ from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
 
 from lib.utils.url_request import *
-from weixin.api import Pay as PayApi
+from weixin.wx_api import Pay as PayApi
 
 
 # Create your views here.
