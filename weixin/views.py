@@ -129,8 +129,21 @@ def lend(request):
     return response
 
 
+def generate_lendhistory(request):
+
+    cabinet_code = request.POST.get('cabinet_code', None)
+    openid = request.session.get('openid', default=None)
+
+    rule_id = get_rule_id(cabinet_code)
+
+    result = insert_lendhistory(openid, rule_id)
+
+    return HttpResponse(result)
+
+
 def lend_success(request):
     template_name = 'weixin/lend_success.html'
+
     response = render(request, template_name)
     return response
 
@@ -163,10 +176,11 @@ def get_opacity(request):
     return HttpResponse(str(has_opacity))
 
 
-def output_tip(request, has_opacity):
+def output_tip(request, has_opacity, cabinet_code):
     template_name = 'weixin/output_tip.html'
     context = {
-        'has_opacity': has_opacity
+        'has_opacity': has_opacity,
+        'cabinet_code': cabinet_code
     }
     response = render(request, template_name, context)
     return response

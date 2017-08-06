@@ -1,4 +1,5 @@
 import datetime
+import traceback
 
 from wechatpy import WeChatClient
 
@@ -123,6 +124,19 @@ def is_has_capacity(cabinet_code):
         return False
 
 
+def insert_lendhistory(customer_id, rule_id):
+    mysql = MySQL(db='management')
+    start_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    try:
+        mysql.exec_none_query('insert into home_lendhistory (customer_id, start_time, money, status, rule_id) '
+                          'values("{0}", "{1}", {2}, {3}, "{4}")'.format(customer_id, start_time, 0, 0, rule_id))
+        return True
+    except:
+        print('Customer {0} lend save fail'.format(customer_id))
+        return False
+
+
 if __name__ == '__main__':
     #subcribe_save_openid('123')
     #get_user_info('oWJUp0aKcITU3A6QbNY-aamzwyF4')
@@ -130,5 +144,7 @@ if __name__ == '__main__':
     #save_order('open', '121', '211')
     #update_deposit('oWJUp0XapjayHP5kLqXC3uADC73w', 0, 0)
     #is_lend = is_deposit_exist('oWJUp0S5BZy3OGR92KIDJWUkD_jQ')
-    has_capacity = has_capacity('12-1213-21')
-    print(has_capacity)
+    #has_capacity = has_capacity('12-1213-21')
+
+    result = insert_lendhistory('oWJUp0XapjayHP5kLqXC3uADC73w', "0")
+    print(result)

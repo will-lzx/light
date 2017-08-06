@@ -22,9 +22,11 @@ urlpatterns = [
     url(r'^agreement/', agreement, name='agreement'),
 
     url(r'^lend/$', lend, name='lend'),
+    url(r'^generate_lendhistory/$', generate_lendhistory, name='generate_lendhistory'),
+
     url(r'^lend_success/$', lend_success, name='lend_success'),
     url(r'^get_opacity/$', get_opacity, name='get_opacity'),
-    url(r'^output_tip/(?P<has_opacity>.+)/$', output_tip, name='output_tip'),
+    url(r'^output_tip/(?P<has_opacity>.+)/(?P<cabinet_code>.+)/$', output_tip, name='output_tip'),
 
 
 

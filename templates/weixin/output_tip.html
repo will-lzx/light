@@ -46,7 +46,17 @@
                 }
 
                 function jump() {
-                    location.href = '/weixin/lend_success/';
+                    var cabinet_code = '{{ cabinet_code }}';
+                    alert('cabinet_code' + cabinet_code);
+                    $.ajax({
+                        type:"post",
+                        url:"/weixin/generate_lendhistory/",
+                        data:{cabinet_code: cabinet_code},
+                        success:function(result){
+                            location.href = '/weixin/lend_success/';
+                        }
+                    });
+
                 }
 
                 function logout()
