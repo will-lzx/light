@@ -129,6 +129,7 @@ def lend(request):
     return response
 
 
+@method_decorator(csrf_exempt)
 def generate_lendhistory(request):
 
     cabinet_code = request.POST.get('cabinet_code', None)
