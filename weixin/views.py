@@ -10,7 +10,6 @@ from django.utils.encoding import smart_str
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from lxml import etree
-from requests import session
 from wechatpy.events import SubscribeEvent
 from wechatpy.pay.api import WeChatRefund
 
