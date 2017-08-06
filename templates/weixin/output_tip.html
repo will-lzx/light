@@ -23,13 +23,13 @@
 
                 var socket = null;
 
-                $(document).ready(function () {
+                function lend(){
                     init_socket();
 
                     sendmsg('hello, welcome to qingpai keji');
 
                     logout();
-                });
+                }
 
                 function init_socket(){
                     socket = io.connect('ws://182.61.58.155:2136');
@@ -50,6 +50,8 @@
                     alert('send msg' + msg);
                     socket.emit('private_message', 'will', 'will', msg);
                 }
+
+                window.onload = lend;
 
             </script>
 
