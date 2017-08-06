@@ -134,6 +134,9 @@ def generate_lendhistory(request):
     cabinet_code = request.POST.get('cabinet_code', None)
     openid = request.session.get('openid', default=None)
 
+    print('cabinet_code', cabinet_code)
+    print('openid', openid)
+
     rule_id = get_rule_id(cabinet_code)
 
     result = insert_lendhistory(openid, rule_id)
