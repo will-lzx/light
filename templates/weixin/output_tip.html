@@ -37,8 +37,16 @@
                     socket.emit('join', {username:'will'});
 
                     socket.on('pmsg', function(from, to, msg){
-                        alert('get private message: from' + from + ' to: ' + to + ' msg:'+ msg);
+                        alert(msg);
+                        if(msg=='lend_success')
+                        {
+                            setTimeout("jump();", 2000);
+                        }
                     });
+                }
+
+                function jump() {
+                    location.href = '/weixin/lend_success/';
                 }
 
                 function logout()

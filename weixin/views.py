@@ -129,6 +129,12 @@ def lend(request):
     return response
 
 
+def lend_success(request):
+    template_name = 'weixin/lend_success.html'
+    response = render(request, template_name)
+    return response
+
+
 def return_back(request):
     template_name = 'weixin/return.html'
 
