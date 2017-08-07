@@ -143,6 +143,14 @@ def get_histories(customer_id):
     return histories
 
 
+def get_cabinet_id(cabinet_code):
+    mysql = MySQL(db='management')
+
+    id = mysql.exec_query('select id from home_cabinet where number="{0}"'.format(cabinet_code))[0][0]
+
+    return id
+
+
 
 
 if __name__ == '__main__':
