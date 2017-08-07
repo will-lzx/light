@@ -113,6 +113,16 @@ def is_lend_exist(openid):
         return False
 
 
+def is_pay_finished(openid):
+    mysql = MySQL(db='management')
+    status = mysql.exec_query('select status from home_lendhistory WHERE customer_id="{0}" order by start_time desc'.format(openid))[0][0]
+
+    if status == 2:
+        return True
+    else:
+        return False
+
+
 def is_has_capacity(cabinet_code):
     mysql = MySQL(db='management')
 
@@ -247,5 +257,5 @@ if __name__ == '__main__':
     #history = get_histories('oWJUp0XapjayHP5kLqXC3uADC73w')[1]
     #money = get_money('oWJUp0XapjayHP5kLqXC3uADC73w', 14800)
 
-    result = update_lendhistory('oWJUp0XapjayHP5kLqXC3uADC73w')
+    result = is_pay_finished('oWJUp0XapjayHP5kLqXC3uADC73w')
     print('')
