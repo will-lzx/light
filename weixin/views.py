@@ -1,4 +1,3 @@
-# -coding:gbk--
 import hashlib
 from io import BytesIO
 
@@ -212,7 +211,9 @@ def lendhistory(request):
         'lendhistory': histories,
         'lendtime': lendtime,
         'cabinets': cabinets,
-        'spots': spots
+        'spots': spots,
+        'test': '我是中心'
+
     }
 
     response = render(request, template_name, context)
