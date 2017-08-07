@@ -48,7 +48,17 @@
 
                         <div class="zjjl_zj">
                             <div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/jc.png' %}" alt="借出"></div>
-                                <span>租：{{ history.2 | convert_time }}<br>{{ history.site }}</span>
+                                <span>租：{{ history.2 | convert_time }}<br>
+                                    {% for cabinet in cabinets %}
+                                        {% ifequal cabinet.id history.7 %}
+                                            {% for spot in spots %}
+                                                {% ifequal spot.id cabinet.spot_id %}
+                                                    {{ spot.name }}
+                                                {% endifequal %}
+                                            {% endfor %}
+                                        {% endifequal %}
+                                    {% endfor %}
+                                </span>
                         </div>
                    </div>
                  </div>

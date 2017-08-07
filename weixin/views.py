@@ -201,11 +201,17 @@ def lendhistory(request):
 
     histories = get_histories(openid)
 
+    cabinets = get_cabinets()
+
+    spots = get_spots()
+
     lendtime = len(histories)
 
     context = {
         'lendhistory': histories,
-        'lendtime': lendtime
+        'lendtime': lendtime,
+        'cabinets': cabinets,
+        'spots': spots
     }
 
     response = render(request, template_name, context)

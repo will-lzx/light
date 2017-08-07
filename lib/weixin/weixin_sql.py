@@ -151,6 +151,18 @@ def get_cabinet_id(cabinet_code):
     return id
 
 
+def get_cabinets():
+    mysql = MySQL(db='management')
+    cabinets = mysql.exec_query('select * from home_cabinet')
+    return cabinets
+
+
+def get_spots():
+    mysql = MySQL(db='management')
+    spots = mysql.exec_query('select * from home_spot')
+    return spots
+
+
 
 
 if __name__ == '__main__':
