@@ -177,5 +177,5 @@ if __name__ == '__main__':
     #result = insert_lendhistory('oWJUp0XapjayHP5kLqXC3uADC73w', "0")
 
     #histories = get_histories('oWJUp0XapjayHP5kLqXC3uADC73w')
-    print(datetime.datetime.now())
+    print(get_cabinets())
     print('')
