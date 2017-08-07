@@ -176,6 +176,8 @@ def return_back(request):
 def update_lendhistory(request):
     openid = request.POST.get('openid', None)
 
+    print('openid!!!!!!!!!!!', openid)
+
     result = update_lendhistory(openid)
 
     return HttpResponse(result)
