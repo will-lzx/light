@@ -10,4 +10,10 @@ def datetime_format(timestamp):
     time_str = (current_time + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
     return str(time_str)
 
+
+def get_time_long(start_time, return_time):
+    return return_time -  start_time
+
 register.filter('datetime_format', datetime_format)
+register.filter('get_time_long', get_time_long)
+

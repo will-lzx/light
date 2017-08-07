@@ -137,6 +137,12 @@ def insert_lendhistory(customer_id, rule_id):
         return False
 
 
+def get_histories(customer_id):
+    mysql = MySQL(db='management')
+    histories = mysql.exec_query('select * from home_lendhistory where customer_id="{0}" order by start_time desc'.format(customer_id))
+    return histories
+
+
 if __name__ == '__main__':
     #subcribe_save_openid('123')
     #get_user_info('oWJUp0aKcITU3A6QbNY-aamzwyF4')
@@ -146,5 +152,7 @@ if __name__ == '__main__':
     #is_lend = is_deposit_exist('oWJUp0S5BZy3OGR92KIDJWUkD_jQ')
     #has_capacity = has_capacity('12-1213-21')
 
-    result = insert_lendhistory('oWJUp0XapjayHP5kLqXC3uADC73w', "0")
-    print(result)
+    #result = insert_lendhistory('oWJUp0XapjayHP5kLqXC3uADC73w', "0")
+
+    histories = get_histories('oWJUp0XapjayHP5kLqXC3uADC73w')
+    print(histories)
