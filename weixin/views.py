@@ -178,7 +178,7 @@ def update_lendhistory(request):
 
     print('openid!!!!!!!!!!!', openid)
 
-    result = update_lendhistory(openid)
+    result = update_history(openid)
 
     return HttpResponse(result)
 

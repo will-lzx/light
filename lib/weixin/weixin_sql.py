@@ -148,7 +148,7 @@ def insert_lendhistory(customer_id, rule_id, cabinet_id):
         return False
 
 
-def update_lendhistory(customer_id):
+def update_history(customer_id):
     mysql = MySQL(db='management')
     return_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     status = 1
