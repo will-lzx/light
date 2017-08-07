@@ -124,13 +124,13 @@ def is_has_capacity(cabinet_code):
         return False
 
 
-def insert_lendhistory(customer_id, rule_id):
+def insert_lendhistory(customer_id, rule_id, cabinet_id):
     mysql = MySQL(db='management')
     start_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     try:
-        mysql.exec_none_query('insert into home_lendhistory (customer_id, start_time, money, status, rule_id) '
-                          'values("{0}", "{1}", {2}, {3}, "{4}")'.format(customer_id, start_time, 0, 0, rule_id))
+        mysql.exec_none_query('insert into home_lendhistory (customer_id, start_time, money, status, rule_id, cabinet_id) '
+                          'values("{0}", "{1}", {2}, {3}, "{4}", {5})'.format(customer_id, start_time, 0, 0, rule_id, cabinet_id))
         return True
     except:
         print('Customer {0} lend save fail'.format(customer_id))

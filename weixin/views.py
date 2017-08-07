@@ -137,7 +137,7 @@ def generate_lendhistory(request):
 
     rule_id = get_rule_id(cabinet_code)
 
-    result = insert_lendhistory(openid, rule_id)
+    result = insert_lendhistory(openid, rule_id, cabinet_code)
 
     return HttpResponse(result)
 
