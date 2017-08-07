@@ -28,7 +28,7 @@
                    </div>
                    <div class="zjjl_h">
                        <div class="zjjl_tf">用时：<span class="col_z">
-                           {% if history.return_time %}
+                           {% if history.3 %}
                                 {{ history.2 | get_time_long:history.3 }}
                            {% else %}
                                 {{ history.2 }}
@@ -37,10 +37,16 @@
                        <div class="zjjl_tf">费用：<span class="col_z">{{ history.4 }}元</span></div>
                    </div>
                    <div class="zjjl_h zjjl_h_hr">
-                           <div class="zjjl_zj"><div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/hr.png' %}" alt="借出"></div>
-                           还：2017/08/27  18:30:28<br>西江千户苗寨 西服务区售票大厅</div>
-                            <div class="zjjl_zj"><div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/jc.png' %}" alt="归还"></div>
-                           租：{{ history.2 }}<br>{{ history.site }}</div>
+                           <div class="zjjl_zj">
+                               <div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/hr.png' %}" alt="借出"></div>
+                               {% if history.3 %}
+                                <span>还：2017/08/27  18:30:28<br>西江千户苗寨 西服务区售票大厅</span>
+                               {% endif %}
+                           </div>
+                            <div class="zjjl_zj">
+                                <div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/jc.png' %}" alt="归还"></div>
+                                    <span>租：{{ history.2 }}<br>{{ history.site }}</span>
+                            </div>
                    </div>
                  </div>
 
