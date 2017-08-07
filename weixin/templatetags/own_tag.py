@@ -15,7 +15,7 @@ def get_time_long(start_time, return_time=None):
     if return_time:
         return return_time - start_time
     else:
-        now_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + datetime.timedelta(hours=8)
+        now_time = datetime.datetime.now() + datetime.timedelta(hours=8)
 
         return now_time - start_time
 
