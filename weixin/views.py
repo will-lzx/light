@@ -176,8 +176,6 @@ def return_back(request):
 def update_lendhistory(request):
     openid = request.POST.get('openid', None)
 
-    print('openid!!!!!!!!!!!', openid)
-
     result = update_history(openid)
 
     return HttpResponse(result)
@@ -213,7 +211,7 @@ def return_pay(request):
 
     time_long = (history[3] - history[2]).seconds
     hour = time_long // 3600
-    minute = (time_long / 60) % 60
+    minute = round((time_long / 60) % 60, 0)
 
     lend_time_long = str(hour) + '时' + str(minute) + '分'
 
