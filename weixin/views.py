@@ -1,4 +1,4 @@
-# -*-coding:utf-8 -*-
+# -coding:gbk--
 import hashlib
 from io import BytesIO
 
