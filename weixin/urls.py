@@ -34,6 +34,8 @@ urlpatterns = [
 
 
     url(r'^return_back/$', return_back, name='return_back'),
+    url(r'^return_tip/(?P<has_capacity>.+)/(?P<cabinet_code>.+)/$', return_tip, name='output_tip'),
+
     url(r'^return_pay/$', return_pay, name='return_pay'),
 
     url(r'^nearby/$', nearby, name='nearby'),
