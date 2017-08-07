@@ -159,3 +159,6 @@ WECHAT = [
         'body': '押金支付',
     },
 ]
+
+
+CABINET_CAPACITY = '50'

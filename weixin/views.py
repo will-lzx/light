@@ -172,17 +172,61 @@ def return_back(request):
     return response
 
 
-def get_opacity(request):
+def return_pay(request):
+    template_name = 'weixin/return_pay.html'
+
+    code = request.GET.get('code', None)
+
+    if code and not request.session.get('openid', default=None):
+        openid = get_openid(code)
+        request.session['openid'] = openid
+    else:
+        openid = request.session.get('openid', default=None)
+
+    history = get_histories(openid)[0]
+
+    time_long = (history[3] - history[2]).seconds
+    hour = time_long // 3600
+    minute = (time_long / 60) % 60
+
+    lend_time_long = str(hour) + '时' + str(minute) + '分'
+
+    lend_money = get_money(openid, time_long)
+
+    order_id = history[0]
+
+    context = {
+        'lend_time_long': lend_time_long,
+        'lend_money': lend_money,
+        'order_id': order_id,
+        'return_time': history[3],
+        'lend_time': history[2],
+        'openid': openid,
+        'history': history
+    }
+
+    response = render(request, template_name, context)
+    return response
+
+
+def get_pole(request):
     cabinet_code = request.POST.get('cabinet_code', None)
     print('cabinet_code', cabinet_code)
-    has_opacity = is_has_capacity(cabinet_code)
-    return HttpResponse(str(has_opacity))
+    has_pole = is_has_pole(cabinet_code)
+    return HttpResponse(str(has_pole))
 
 
-def output_tip(request, has_opacity, cabinet_code):
+def get_capacity(request):
+    cabinet_code = request.POST.get('cabinet_code', None)
+    print('cabinet_code', cabinet_code)
+    has_capacity = is_has_capacity(cabinet_code)
+    return HttpResponse(str(has_capacity))
+
+
+def output_tip(request, has_pole, cabinet_code):
     template_name = 'weixin/output_tip.html'
     context = {
-        'has_opacity': has_opacity,
+        'has_pole': has_pole,
         'cabinet_code': cabinet_code
     }
     response = render(request, template_name, context)

@@ -25,12 +25,17 @@ urlpatterns = [
     url(r'^generate_lendhistory/$', generate_lendhistory, name='generate_lendhistory'),
 
     url(r'^lend_success/$', lend_success, name='lend_success'),
-    url(r'^get_opacity/$', get_opacity, name='get_opacity'),
-    url(r'^output_tip/(?P<has_opacity>.+)/(?P<cabinet_code>.+)/$', output_tip, name='output_tip'),
+    url(r'^get_pole/$', get_pole, name='get_pole'),
+
+    url(r'^output_tip/(?P<has_pole>.+)/(?P<cabinet_code>.+)/$', output_tip, name='output_tip'),
+
+    url(r'^get_capacity/$', get_capacity, name='get_capacity'),
 
 
 
     url(r'^return_back/$', return_back, name='return_back'),
+    url(r'^return_pay/$', return_pay, name='return_pay'),
+
     url(r'^nearby/$', nearby, name='nearby'),
 
     url(r'^lendhistory/$', lendhistory, name='lendhistory'),

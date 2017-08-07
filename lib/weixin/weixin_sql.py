@@ -118,6 +118,17 @@ def is_has_capacity(cabinet_code):
 
     capacity = mysql.exec_query('select capacity from home_cabinet where number="{0}"'.format(cabinet_code))[0][0]
 
+    if int(capacity) < int(CABINET_CAPACITY):
+        return True
+    else:
+        return False
+
+
+def is_has_pole(cabinet_code):
+    mysql = MySQL(db='management')
+
+    capacity = mysql.exec_query('select capacity from home_cabinet where number="{0}"'.format(cabinet_code))[0][0]
+
     if int(capacity) > 0:
         return True
     else:
@@ -163,6 +174,31 @@ def get_spots():
     return spots
 
 
+def get_money(customer_id, time_by_seconds):
+    mysql = MySQL(db='management')
+    rule_id = mysql.exec_query('select rule_id from home_lendhistory where customer_id="{0}" order by start_time desc'.format(customer_id))[0][0]
+
+    mysql = MySQL(db='management')
+
+    rule = mysql.exec_query('select start_time_long, unit_price from home_rule where id="{0}"'.format(rule_id))[0]
+
+    start_time_long = rule[0]
+    unit_price = rule[1]
+
+    hour = time_by_seconds // 3600
+
+    time_long = hour - start_time_long
+
+    minute = (time_by_seconds / 60) % 60
+
+    if time_long < 0:
+        return 0
+    else:
+        if minute > 0:
+            return (time_long + 1) * unit_price
+        else:
+            return time_long * unit_price
+
 
 
 if __name__ == '__main__':
@@ -177,5 +213,6 @@ if __name__ == '__main__':
     #result = insert_lendhistory('oWJUp0XapjayHP5kLqXC3uADC73w', "0")
 
     #histories = get_histories('oWJUp0XapjayHP5kLqXC3uADC73w')
-    print(get_cabinets())
+    #history = get_histories('oWJUp0XapjayHP5kLqXC3uADC73w')[1]
+    money = get_money('oWJUp0XapjayHP5kLqXC3uADC73w', 14800)
     print('')
