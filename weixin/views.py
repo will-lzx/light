@@ -199,8 +199,11 @@ def lendhistory(request):
 
     histories = get_histories(openid)
 
+    lendtime = len(histories)
+
     context = {
-        'lendhistory': histories
+        'lendhistory': histories,
+        'lendtime': lendtime
     }
 
     response = render(request, template_name, context)
