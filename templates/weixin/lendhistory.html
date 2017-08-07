@@ -10,7 +10,7 @@
 
 {% block content %}
     <div class="nr_con_all">
-        <div class="tj_til"> 您共借用了{{ test }}<span class="col_z">{{ lendtime }}</span>次，全球排名{{ lendindex }}位</div>
+        <div class="tj_til"> 您共借用了<span class="col_z">{{ lendtime }}</span>次，全球排名{{ lendindex }}位</div>
 
         {% if lendhistory %}
             {% for history in lendhistory %}

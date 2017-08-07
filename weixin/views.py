@@ -212,8 +212,6 @@ def lendhistory(request):
         'lendtime': lendtime,
         'cabinets': cabinets,
         'spots': spots,
-        'test': '我是中心'
-
     }
 
     response = render(request, template_name, context)

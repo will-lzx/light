@@ -9,7 +9,7 @@ class MySQL:
 
     def __init__(self, host='106.14.151.3', usr='root', pwd='Password01?', db='light'):
         try:
-            self.conn = pymysql.connect(host, usr, pwd, db)
+            self.conn = pymysql.connect(host, usr, pwd, db, charset='utf8')
         except Exception as e:
             print(e)
             sys.exit()
