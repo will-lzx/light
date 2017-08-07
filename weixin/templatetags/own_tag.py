@@ -13,11 +13,11 @@ def datetime_format(timestamp):
 
 def get_time_long(start_time, return_time=None):
     if return_time:
-        return (return_time - start_time).min
+        return (return_time - start_time).minute
     else:
         now_time = datetime.datetime.now() + datetime.timedelta(hours=8)
 
-        return (now_time - start_time).min
+        return (now_time - start_time).minute
 
 
 def convert_time(old_time):
