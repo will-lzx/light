@@ -172,6 +172,18 @@ def return_back(request):
     return response
 
 
+def return_tip(request, has_capacity, cabinet_code):
+    template_name = 'weixin/return_tip.html'
+
+    context = {
+        'has_capacity': has_capacity,
+        'cabinet_code': cabinet_code
+    }
+
+    response = render(request, template_name, context)
+    return response
+
+
 def return_pay(request):
     template_name = 'weixin/return_pay.html'
 
