@@ -174,13 +174,7 @@ def return_back(request):
 
 @method_decorator(csrf_exempt)
 def update_lendhistory(request):
-    code = request.GET.get('code', None)
-
-    if code and not request.session.get('openid', default=None):
-        openid = get_openid(code)
-        request.session['openid'] = openid
-    else:
-        openid = request.session.get('openid', default=None)
+    openid = request.POST.get('openid', None)
 
     result = update_lendhistory(openid)
 
@@ -190,9 +184,12 @@ def update_lendhistory(request):
 def return_tip(request, has_capacity, cabinet_code):
     template_name = 'weixin/return_tip.html'
 
+    openid = request.session.get('openid', default=None)
+
     context = {
         'has_capacity': has_capacity,
-        'cabinet_code': cabinet_code
+        'cabinet_code': cabinet_code,
+        'openid': openid
     }
 
     response = render(request, template_name, context)

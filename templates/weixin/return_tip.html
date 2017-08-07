@@ -52,11 +52,11 @@
                 }
 
                 function jump() {
-
+                    var openid = '{{ openid }}';
                     $.ajax({
                         type:"post",
                         url:"/weixin/update_lendhistory/",
-                        data:{},
+                        data:{openid:openid},
                         success:function(result){
                             if(result == 'True')
                             {
