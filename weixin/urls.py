@@ -31,9 +31,8 @@ urlpatterns = [
 
     url(r'^get_capacity/$', get_capacity, name='get_capacity'),
 
-
-
     url(r'^return_back/$', return_back, name='return_back'),
+    url(r'^update_lendhistory/$', update_lendhistory, name='update_lendhistory'),
     url(r'^return_tip/(?P<has_capacity>.+)/(?P<cabinet_code>.+)/$', return_tip, name='output_tip'),
 
     url(r'^return_pay/$', return_pay, name='return_pay'),

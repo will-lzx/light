@@ -172,6 +172,16 @@ def return_back(request):
     return response
 
 
+@method_decorator(csrf_exempt)
+def update_lendhistory(request):
+
+    openid = request.session.get('openid', default=None)
+
+    result = update_lendhistory(openid)
+
+    return HttpResponse(result)
+
+
 def return_tip(request, has_capacity, cabinet_code):
     template_name = 'weixin/return_tip.html'
 
@@ -203,7 +213,7 @@ def return_pay(request):
 
     lend_time_long = str(hour) + '时' + str(minute) + '分'
 
-    lend_money = get_money(openid, time_long)
+    lend_money = history[4]
 
     order_id = history[0]
 

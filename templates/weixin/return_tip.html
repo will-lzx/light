@@ -52,7 +52,24 @@
                 }
 
                 function jump() {
-                    location.href = '/weixin/return_pay/';
+
+                    $.ajax({
+                        type:"post",
+                        url:"/weixin/update_lendhistory/",
+                        data:{},
+                        success:function(result){
+                            if(result == 'True')
+                            {
+                                location.href = '/weixin/return_pay/';
+                            }
+                            else
+                            {
+                                alert('生成订单失败，请联系客服');
+                            }
+
+                        }
+                    });
+
                 }
 
                 function logout()

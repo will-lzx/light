@@ -148,6 +148,25 @@ def insert_lendhistory(customer_id, rule_id, cabinet_id):
         return False
 
 
+def update_lendhistory(customer_id):
+    mysql = MySQL(db='management')
+    return_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    status = 1
+
+    start_time = get_start_time(customer_id)
+    id = get_lendhistory_id(customer_id)
+    time_by_seconds = (datetime.datetime.now() - start_time).seconds
+
+    money = get_money(customer_id, time_by_seconds)
+
+    try:
+        mysql.exec_none_query('update home_lendhistory set return_time="{0}", status={1}, money={2} where id={3}'.format(return_time, status, money, id))
+        return True
+    except:
+        print('Customer {0} return save fail'.format(customer_id))
+        return False
+
+
 def get_histories(customer_id):
     mysql = MySQL(db='management')
     histories = mysql.exec_query('select * from home_lendhistory where customer_id="{0}" order by start_time desc'.format(customer_id))
@@ -172,6 +191,18 @@ def get_spots():
     mysql = MySQL(db='management')
     spots = mysql.exec_query('select * from home_spot')
     return spots
+
+
+def get_start_time(customer_id):
+    mysql = MySQL(db='management')
+    start_time = mysql.exec_query('select start_time from home_lendhistory where customer_id="{0}" order by start_time desc'.format(customer_id))[0][0]
+    return start_time
+
+
+def get_lendhistory_id(customer_id):
+    mysql = MySQL(db='management')
+    id = mysql.exec_query('select id from home_lendhistory where customer_id="{0}" order by start_time desc'.format(customer_id))[0][0]
+    return id
 
 
 def get_money(customer_id, time_by_seconds):
@@ -214,5 +245,7 @@ if __name__ == '__main__':
 
     #histories = get_histories('oWJUp0XapjayHP5kLqXC3uADC73w')
     #history = get_histories('oWJUp0XapjayHP5kLqXC3uADC73w')[1]
-    money = get_money('oWJUp0XapjayHP5kLqXC3uADC73w', 14800)
+    #money = get_money('oWJUp0XapjayHP5kLqXC3uADC73w', 14800)
+
+    result = update_lendhistory('oWJUp0XapjayHP5kLqXC3uADC73w')
     print('')
