@@ -42,7 +42,17 @@
 
                                     <div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/hr.png' %}" alt="归还"></div>
 
-                                    <span>还：{{ history.3 | convert_time }}<br>西江千户苗寨 西服务区售票大厅</span>
+                                    <span>还：{{ history.3 | convert_time }}<br>
+                                        {% for cabinet in cabinets %}
+                                            {% ifequal cabinet.id history.7 %}
+                                                {% for spot in spots %}
+                                                    {% ifequal spot.id cabinet.spot_id %}
+                                                        {{ spot.name }}
+                                                    {% endifequal %}
+                                                {% endfor %}
+                                            {% endifequal %}
+                                        {% endfor %}
+                                    </span>
                             </div>
                         {% endif %}
 
