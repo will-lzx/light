@@ -31,7 +31,7 @@
                            {% if history.3 %}
                                 {{ history.2 | get_time_long:history.3 }}
                            {% else %}
-                                {{ history.2 | convert_time }}
+                                {{ history.2 | get_time_long }}
                            {% endif %}</span>
                        </div>
                        <div class="zjjl_tf">费用：<span class="col_z">{{ history.4 }}元</span></div>
