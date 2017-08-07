@@ -174,8 +174,13 @@ def return_back(request):
 
 @method_decorator(csrf_exempt)
 def update_lendhistory(request):
+    code = request.GET.get('code', None)
 
-    openid = request.session.get('openid', default=None)
+    if code and not request.session.get('openid', default=None):
+        openid = get_openid(code)
+        request.session['openid'] = openid
+    else:
+        openid = request.session.get('openid', default=None)
 
     result = update_lendhistory(openid)
 
