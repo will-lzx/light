@@ -11,7 +11,7 @@ def datetime_format(timestamp):
     return str(time_str)
 
 
-def get_time_long(start_time, return_time):
+def get_time_long(start_time, return_time=None):
     if return_time:
         return return_time - start_time
     else:
