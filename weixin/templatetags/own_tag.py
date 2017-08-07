@@ -12,8 +12,13 @@ def datetime_format(timestamp):
 
 
 def get_time_long(start_time, return_time):
-    return return_time -  start_time
+    return return_time - start_time
+
+
+def convert_time(old_time):
+    return old_time.strftime("%Y-%m-%d %H:%M:%S")
 
 register.filter('datetime_format', datetime_format)
 register.filter('get_time_long', get_time_long)
+register.filter('convert_time', convert_time)
 
