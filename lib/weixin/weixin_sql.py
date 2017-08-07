@@ -143,6 +143,8 @@ def get_histories(customer_id):
     return histories
 
 
+
+
 if __name__ == '__main__':
     #subcribe_save_openid('123')
     #get_user_info('oWJUp0aKcITU3A6QbNY-aamzwyF4')
@@ -154,5 +156,6 @@ if __name__ == '__main__':
 
     #result = insert_lendhistory('oWJUp0XapjayHP5kLqXC3uADC73w', "0")
 
-    histories = get_histories('oWJUp0XapjayHP5kLqXC3uADC73w')
-    print(histories)
+    #histories = get_histories('oWJUp0XapjayHP5kLqXC3uADC73w')
+    print(datetime.datetime.now())
+    print('')
