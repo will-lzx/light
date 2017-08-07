@@ -37,17 +37,19 @@
                        <div class="zjjl_tf">费用：<span class="col_z">{{ history.4 }}元</span></div>
                    </div>
                    <div class="zjjl_h zjjl_h_hr">
+                        {% if history.3 %}
                            <div class="zjjl_zj">
-                                {% if history.3 %}
+
                                     <div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/hr.png' %}" alt="归还"></div>
 
                                     <span>还：{{ history.3 | convert_time }}<br>西江千户苗寨 西服务区售票大厅</span>
-                               {% endif %}
-                           </div>
-                            <div class="zjjl_zj">
-                                <div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/jc.png' %}" alt="借出"></div>
-                                    <span>租：{{ history.2 | convert_time }}<br>{{ history.site }}</span>
                             </div>
+                        {% endif %}
+
+                        <div class="zjjl_zj">
+                            <div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/jc.png' %}" alt="借出"></div>
+                                <span>租：{{ history.2 | convert_time }}<br>{{ history.site }}</span>
+                        </div>
                    </div>
                  </div>
 
