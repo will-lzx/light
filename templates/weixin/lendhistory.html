@@ -21,8 +21,9 @@
                        <div class="zjjl_zt">
                            {% ifequal history.5 0 %}
                                <span>借出</span>
-                           {% else %}
-                               <span>归还</span>
+                           {% endifequal %}
+                           {% ifequal history.5 1 %}
+                               <span>已归还,</span><span><a href="/weixin/return_pay/">去支付</a></span>
                            {% endifequal %}
                        </div>
                    </div>

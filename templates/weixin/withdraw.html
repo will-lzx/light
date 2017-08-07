@@ -27,7 +27,7 @@
             if(deposit > 0)
             {
                 var is_lend = $('#lend').val();
-                var is_pay_finished = {{ is_pay_finished }};
+                var is_pay_finished = '{{ is_pay_finished }}';
                 if(is_lend == 'True')
                 {
                     alert("您还有正在借用的订单，在订单完成前，不能提现！");
