@@ -12,7 +12,10 @@ def datetime_format(timestamp):
 
 
 def get_time_long(start_time, return_time):
-    return return_time - start_time
+    if return_time:
+        return return_time - start_time
+    else:
+        return datetime.datetime.now() - start_time
 
 
 def convert_time(old_time):
