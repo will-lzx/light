@@ -20,13 +20,8 @@
             <input type="hidden" id="deposit" value="{{ is_deposit }}">
             <input type="hidden" id="openid" value="{{ openid }}">
             <input type="hidden" id="lend" value="{{ is_lend }}">
-            <div>
-                <span id="tip"></span>
-            </div>
+
      </div>
-
-
-
 
     <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
     <script src="{% static '/js/jweixin-1.2.0.js' %}"></script>
@@ -76,15 +71,17 @@
                 var is_deposit = $('#deposit').val();
                 var openid = $('#openid').val();
                 var is_lend = $('#lend').val();
+
                 if (is_deposit == 'False')
                 {
-                    showTip('还没有充值，请先去充值吧？', 'danger');
-                    location.href = '/weixin/pay/?openid='+ openid;
+                    alert('还没有充值，请先去充值吧？', 'danger');
+                    location.href = '/weixin/pay/?openid='+ openid + '&is_deposit=' + is_deposit +
+                        '&redrect_url=/weixin/lend/&title=押金支付&notify_url=/weixin/payback/' ;
                 }else
                 {
                     if(is_lend == 'True')
                     {
-                        showTip("您还有正在借用的订单，在订单完成前，不能再次借用");
+                        alert("您还有正在借用的订单，在订单完成前，不能再次借用");
                         return
                     }
                     wx.scanQRCode({
@@ -92,7 +89,18 @@
                         scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
                         success: function (res) {
                             var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-                            location.href = '/weixin/output_tip/';
+                            // call socket server to lend
+                            // step1: push openid, 机柜码
+                            //
+                            var cabinet_code = '12-1213-21';
+                            $.ajax({
+                                type:"post",
+                                url:"/weixin/get_pole/",//自己填写请求地址
+                                data:{cabinet_code:cabinet_code},
+                                success:function(result){
+                                    location.href = '/weixin/output_tip/' + result + '/' + cabinet_code + '/'
+                                }
+                            });
                         }
                     });
                 }

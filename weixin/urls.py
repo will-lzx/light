@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from weixin.views import *
+from .views import *
 
 urlpatterns = [
     url(r'^$', weixin, name='weixin'),
@@ -22,9 +22,19 @@ urlpatterns = [
     url(r'^agreement/', agreement, name='agreement'),
 
     url(r'^lend/$', lend, name='lend'),
-    url(r'^output_tip/$', output_tip, name='output_tip'),
+    url(r'^generate_lendhistory/$', generate_lendhistory, name='generate_lendhistory'),
+
+    url(r'^lend_success/$', lend_success, name='lend_success'),
+    url(r'^get_pole/$', get_pole, name='get_pole'),
+
+    url(r'^output_tip/(?P<has_pole>.+)/(?P<cabinet_code>.+)/$', output_tip, name='output_tip'),
+
+    url(r'^get_capacity/$', get_capacity, name='get_capacity'),
 
     url(r'^return_back/$', return_back, name='return_back'),
+    url(r'^update_lendhistory/$', update_lendhistory, name='update_lendhistory'),
+    url(r'^return_tip/(?P<has_capacity>.+)/(?P<cabinet_code>.+)/$', return_tip, name='output_tip'),
+
     url(r'^nearby/$', nearby, name='nearby'),
 
     url(r'^lendhistory/$', lendhistory, name='lendhistory'),
@@ -42,13 +52,13 @@ urlpatterns = [
     url(r'^use_help/how_pic/$', how_pic, name='how_pic'),
     url(r'^use_help/how_charge/$', how_charge, name='how_charge'),
 
-
-
     url(r'^about/$', about, name='about'),
 
     url(r'^privatecenter/$', privatecenter, name='privatecenter'),
 
     url(r'^pay/$', PayView.as_view(), name='pay'),
+    url(r'^return_pay/$', ReturnPayView.as_view(), name='return_pay'),
+
     url(r'^contract/$', contract, name='contract'),
 
     url(r'^wxconfig/$', wxconfig, name='wxconfig'),

@@ -6,13 +6,13 @@
 {% endblock %}
 
 {% block content %}
-        {% ifequal has_pole 'True' %}
+        {% ifequal has_capacity 'True' %}
             <div class="ts_cont ts_cont_all">
-                  <img class="zgjs_img" src="{% static '/images/weixin/cgts.gif' %}" alt="出杆提示">
+                  <img class="zgjs_img" src="{% static '/images/weixin/cgts.gif' %}" alt="还杆提示">
             </div>
              <div class="nr_con">
                <div class="sm_cont">
-                请注意机柜屏幕信息<br>自拍杆将从<span class="col_z">闪亮指示灯位置</span>吐出<br>请及时取走掏空
+                请注意机柜状态<br><span class="col_z">机柜的入口会打开， 请正确放入自拍杆</span>
             </div>
 
             </div>
@@ -23,12 +23,12 @@
 
                 var socket = null;
 
-                function lend(){
+                function return_back(){
                     init_socket();
 
                     var cabinet_code = '{{ cabinet_code }}';
 
-                    sendmsg(cabinet_code + '&lend');
+                    sendmsg(cabinet_code + '&return');
 
                     logout();
                 }
@@ -40,22 +40,33 @@
 
                     socket.on('pmsg', function(from, to, msg){
                         alert(msg);
-                        if(msg=='lend_success')
+                        if(msg=='return_success')
                         {
-                            setTimeout("jump();", 2000);
+                            setTimeout("jump();", 3000);
+                        }
+                        else if(msg=='return_alert')
+                        {
+                            alert('请注意自拍杆的归还位置，谢谢配合');
                         }
                     });
                 }
 
                 function jump() {
-                    var cabinet_code = '{{ cabinet_code }}';
-                    alert('cabinet_code' + cabinet_code);
+                    var openid = '{{ openid }}';
                     $.ajax({
                         type:"post",
-                        url:"/weixin/generate_lendhistory/",
-                        data:{cabinet_code: cabinet_code},
+                        url:"/weixin/update_lendhistory/",
+                        data:{openid:openid},
                         success:function(result){
-                            location.href = '/weixin/lend_success/';
+                            if(result == 'True')
+                            {
+                                location.href = '/weixin/return_pay/';
+                            }
+                            else
+                            {
+                                alert('生成订单失败，请联系客服');
+                            }
+
                         }
                     });
 
@@ -71,18 +82,18 @@
                     socket.emit('private_message', 'will', 'will', msg);
                 }
 
-                window.onload = lend;
+                window.onload = return_back;
 
             </script>
 
         {% else %}
             <div class="ts_cont">
-               <img class="zgjs_img" src="{% static '/images/weixin/tk.jpg' %}" alt="自拍杆被掏空">
+               <img class="zgjs_img" src="{% static '/images/weixin/tk.jpg' %}" alt="该机柜已没有空间">
             </div>
             <div class="nr_con">
-                <a href="/weixin/nearby/" id="nearby" class="weui-btn weui-btn_default weui-btn_primary page__bd_spacing">查看附近可借自拍杆</a>
+                <a href="/weixin/nearby/" id="nearby" class="weui-btn weui-btn_default weui-btn_primary page__bd_spacing">查看附近可还机柜</a>
                 <div class="sm_cont">
-                您很有眼光，此处拍照人多，自拍杆已被<span class="col_z">掏空</span>
+                抱歉，此处自拍杆已集齐，此机柜已满仓<span class="col_z">存满</span>
                 </div>
 
             </div>

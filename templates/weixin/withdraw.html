@@ -19,10 +19,6 @@
             <input type="hidden" id="lend" value="{{ is_lend }}">
      </div>
 
-    <div>
-        <span id="tip"></span>
-    </div>
-
     <script src="/static/js/jquery-3.2.1.js"></script>
     <script src="/static/js/relalive.js"></script>
     <script>
@@ -31,11 +27,20 @@
             if(deposit > 0)
             {
                 var is_lend = $('#lend').val();
+                var is_pay_finished = '{{ is_pay_finished }}';
                 if(is_lend == 'True')
                 {
-                    showTip("您还有正在借用的订单，在订单完成前，不能提现！");
+                    alert("您还有正在借用的订单，在订单完成前，不能提现！");
                     return
                 }
+
+                if(is_pay_finished == 'True')
+                {
+                    alert("您还有未完成支付的订单，不能提现！");
+                    return
+                }
+
+
                 $.ajax({
                      type: "POST",
                      url: "/weixin/exe_withdraw/",

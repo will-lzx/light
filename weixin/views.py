@@ -10,7 +10,6 @@ from django.utils.encoding import smart_str
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from lxml import etree
-from requests import session
 from wechatpy.events import SubscribeEvent
 from wechatpy.pay.api import WeChatRefund
 
@@ -23,7 +22,7 @@ from wechatpy.utils import check_signature
 from wechatpy.exceptions import InvalidSignatureException
 
 from lib.utils.url_request import *
-from weixin.api import Pay as PayApi
+from weixin.wx_api import Pay as PayApi
 
 
 # Create your views here.
@@ -130,6 +129,28 @@ def lend(request):
     return response
 
 
+@method_decorator(csrf_exempt)
+def generate_lendhistory(request):
+
+    cabinet_code = request.POST.get('cabinet_code', None)
+    openid = request.session.get('openid', default=None)
+
+    cabinet_id = get_cabinet_id(cabinet_code)
+
+    rule_id = get_rule_id(cabinet_code)
+
+    result = insert_lendhistory(openid, rule_id, cabinet_id)
+
+    return HttpResponse(result)
+
+
+def lend_success(request):
+    template_name = 'weixin/lend_success.html'
+
+    response = render(request, template_name)
+    return response
+
+
 def return_back(request):
     template_name = 'weixin/return.html'
 
@@ -151,12 +172,86 @@ def return_back(request):
     return response
 
 
-def output_tip(request):
-    template_name = 'weixin/output_tip.html'
-    has_opacity = False
+@method_decorator(csrf_exempt)
+def update_lendhistory(request):
+    openid = request.POST.get('openid', None)
+
+    result = update_history(openid)
+
+    return HttpResponse(result)
+
+
+def return_tip(request, has_capacity, cabinet_code):
+    template_name = 'weixin/return_tip.html'
+
+    openid = request.session.get('openid', default=None)
 
     context = {
-        'has_opacity': has_opacity
+        'has_capacity': has_capacity,
+        'cabinet_code': cabinet_code,
+        'openid': openid
+    }
+
+    response = render(request, template_name, context)
+    return response
+
+
+# def return_pay(request):
+#     template_name = 'weixin/return_pay.html'
+#
+#     code = request.GET.get('code', None)
+#
+#     if code and not request.session.get('openid', default=None):
+#         openid = get_openid(code)
+#         request.session['openid'] = openid
+#     else:
+#         openid = request.session.get('openid', default=None)
+#
+#     history = get_histories(openid)[0]
+#
+#     time_long = (history[3] - history[2]).seconds
+#     hour = time_long // 3600
+#     minute = round((time_long / 60) % 60, 0)
+#
+#     lend_time_long = str(hour) + '时' + str(minute) + '分'
+#
+#     lend_money = history[4]
+#
+#     order_id = history[0]
+#
+#     context = {
+#         'lend_time_long': lend_time_long,
+#         'lend_money': lend_money,
+#         'order_id': order_id,
+#         'return_time': history[3],
+#         'lend_time': history[2],
+#         'openid': openid,
+#         'history': history
+#     }
+#
+#     response = render(request, template_name, context)
+#     return response
+
+
+def get_pole(request):
+    cabinet_code = request.POST.get('cabinet_code', None)
+    print('cabinet_code', cabinet_code)
+    has_pole = is_has_pole(cabinet_code)
+    return HttpResponse(str(has_pole))
+
+
+def get_capacity(request):
+    cabinet_code = request.POST.get('cabinet_code', None)
+    print('cabinet_code', cabinet_code)
+    has_capacity = is_has_capacity(cabinet_code)
+    return HttpResponse(str(has_capacity))
+
+
+def output_tip(request, has_pole, cabinet_code):
+    template_name = 'weixin/output_tip.html'
+    context = {
+        'has_pole': has_pole,
+        'cabinet_code': cabinet_code
     }
     response = render(request, template_name, context)
     return response
@@ -170,7 +265,24 @@ def nearby(request):
 
 def lendhistory(request):
     template_name = 'weixin/lendhistory.html'
-    response = render(request, template_name)
+    openid = request.session.get('openid', default=None)
+
+    histories = get_histories(openid)
+
+    cabinets = get_cabinets()
+
+    spots = get_spots()
+
+    lendtime = len(histories)
+
+    context = {
+        'lendhistory': histories,
+        'lendtime': lendtime,
+        'cabinets': cabinets,
+        'spots': spots,
+    }
+
+    response = render(request, template_name, context)
     return response
 
 
@@ -182,10 +294,13 @@ def withdraw(request):
 
     is_lend = is_lend_exist(openid)
 
+    is_pay_finished(openid)
+
     context = {
         'deposit': deposit,
         'deposit_order_id': deposit_order_id,
-        'is_lend': is_lend
+        'is_lend': is_lend,
+        'is_pay_finished': is_pay_finished
     }
     response = render(request, template_name, context)
     return response
@@ -274,7 +389,7 @@ class PayView(View):
     def get(self, request, *args, **kwargs):
         try:
             price = WEIXIN_DEPOSIT
-            notify_url = WEIXIN_PAYBACK
+            notify_url = '/weixin/payback/?price=' + WEIXIN_DEPOSIT + '&is_deposit=True'
             redirect_url = '/weixin/lend/'
             openid = request.GET['openid']
         except KeyError:
@@ -299,6 +414,52 @@ class PayView(View):
         return render(request, 'weixin/pay.html', data)
 
 
+class ReturnPayView(View):
+    """
+    wechat base pay view
+    receive post data: order_id, price, title, notify_url, redirect_url
+    ..remove WxMemberView
+    """
+    def get(self, request, *args, **kwargs):
+        try:
+            openid = request.session.get('openid', default=None)
+            history = get_histories(openid)[0]
+
+            time_long = (history[3] - history[2]).seconds
+            hour = time_long // 3600
+            minute = round((time_long / 60) % 60, 0)
+
+            lend_time_long = str(hour) + '时' + str(minute) + '分'
+
+            money = get_pay_money(openid)
+            notify_url = '/weixin/payback/?price=' + str(money) + '&is_deposit=False'
+            redirect_url = '/weixin/privatecenter/'
+
+        except KeyError:
+            return HttpResponse("PARAM ERROR")
+
+        out_trade_no = str(int(time.time()))
+
+        total_fee = str(int(float(money) * 100))
+        param = {
+            'xml': {'openid': openid,
+                    'body': '租借费用支付',
+                    'out_trade_no': out_trade_no,
+                    'total_fee': total_fee,
+                    'spbill_create_ip': WEIXIN_IP,
+                    'notify_url': notify_url}}
+        pay = PayApi()
+        pay.set_prepay_id(param)
+        data = {
+            'data': pay.get_pay_data(),
+            'redirect_uri': redirect_url,
+            'lend_money': money,
+            'lend_time_long': lend_time_long,
+            'order_id': out_trade_no
+        }
+        return render(request, 'weixin/return_pay.html', data)
+
+
 class WxPayNotifyView(View):
     """
     Receive wechat service data
@@ -309,6 +470,9 @@ class WxPayNotifyView(View):
         return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        price = request.POST.get('price', None)
+        is_deposit = request.POST.get('is_deposit', None)
+        print('return pay price', price)
         pay = PayApi()
         data = request.body
         data = dict(xmltodict.parse(data)['xml'])
@@ -316,15 +480,20 @@ class WxPayNotifyView(View):
         sign = data['sign']
         del data['sign']
         if sign:
-            price = WEIXIN_DEPOSIT
             total_fee = price
             openid = data['openid']
             order_id = data['out_trade_no']
             pay_number = data['transaction_id']
-            update_deposit(openid, total_fee, order_id)
+
+            if is_deposit == 'True':
+                update_deposit(openid, total_fee, order_id)
+            else:
+                update_lendhistorystatus(openid, 2)
+
             save_order(openid, order_id, pay_number)
             result = self.handle_order(order_id, pay_number)
         else:
+            print('fail!!!!!!!!!!!!!!!!')
             result['return_code'] = 'FAIL'
             result['return_msg'] = 'ERROR'
 
