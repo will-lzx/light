@@ -8,11 +8,13 @@
 
 {% block content %}
 
-     <div class="ts_cont">
-        <span>租借时长</span><br>{{ lend_time_long }}
-        <br>
-        <span>租借费用</span><br>{{ lend_money }}
-
+     <div class="ts_cont_all">
+       <div class="cgsm">
+           <div class="fyzf_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/shichang.png' %}" alt="租借时长"></div>租借时长<br>
+           <div class="fyzf_time">{{ lend_time_long }}</div>
+           <div class="fyzf_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/feiyong.png' %}" alt="租借费用"></div>租借费用<br>
+           <div class="fyzf_fee">{{ lend_money }}</div>
+       </div>
     </div>
     <div class="nr_con">
         <a href="#" id="money"  class="weui-btn weui-btn_primary page__bd_spacing">确认支付</a>
