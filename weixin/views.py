@@ -455,7 +455,9 @@ class ReturnPayView(View):
             'redirect_uri': redirect_url,
             'lend_money': money,
             'lend_time_long': lend_time_long,
-            'order_id': out_trade_no
+            'order_id': out_trade_no,
+            'lend_time': history[2],
+            'return_time': history[3]
         }
         return render(request, 'weixin/return_pay.html', data)
 
