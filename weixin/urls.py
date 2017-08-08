@@ -35,8 +35,6 @@ urlpatterns = [
     url(r'^update_lendhistory/$', update_lendhistory, name='update_lendhistory'),
     url(r'^return_tip/(?P<has_capacity>.+)/(?P<cabinet_code>.+)/$', return_tip, name='output_tip'),
 
-    url(r'^return_pay/$', return_pay, name='return_pay'),
-
     url(r'^nearby/$', nearby, name='nearby'),
 
     url(r'^lendhistory/$', lendhistory, name='lendhistory'),
@@ -54,13 +52,13 @@ urlpatterns = [
     url(r'^use_help/how_pic/$', how_pic, name='how_pic'),
     url(r'^use_help/how_charge/$', how_charge, name='how_charge'),
 
-
-
     url(r'^about/$', about, name='about'),
 
     url(r'^privatecenter/$', privatecenter, name='privatecenter'),
 
     url(r'^pay/$', PayView.as_view(), name='pay'),
+    url(r'^return_pay/$', ReturnPayView.as_view(), name='return_pay'),
+
     url(r'^contract/$', contract, name='contract'),
 
     url(r'^wxconfig/$', wxconfig, name='wxconfig'),

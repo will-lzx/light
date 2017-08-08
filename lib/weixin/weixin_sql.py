@@ -241,6 +241,26 @@ def get_money(customer_id, time_by_seconds):
             return time_long * unit_price
 
 
+def get_pay_money(customer_id):
+    mysql = MySQL(db='management')
+    money = mysql.exec_query(
+        'select money from home_lendhistory where customer_id="{0}" order by start_time desc'.format(customer_id))[0][
+        0]
+    return money
+
+
+def update_lendhistorystatus(customer_id, status):
+    mysql = MySQL(db='management')
+
+    id = get_lendhistory_id(customer_id)
+
+    try:
+        mysql.exec_none_query('update home_lendhistory set status={0} where id={1}'.format(status, id))
+        return True
+    except:
+        print('Customer {0} pay status fail'.format(customer_id))
+        return False
+
 
 if __name__ == '__main__':
     #subcribe_save_openid('123')
