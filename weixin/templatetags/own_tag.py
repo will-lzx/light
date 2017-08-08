@@ -21,7 +21,7 @@ def get_time_long(start_time, return_time=None):
 
 
 def convert_time(old_time):
-    return old_time.strftime("%Y-%m-%d %H:%M:%S")
+    return (old_time + datetime.timedelta(hours=8)).strftime("%Y-%m-%d %H:%M:%S")
 
 register.filter('datetime_format', datetime_format)
 register.filter('get_time_long', get_time_long)

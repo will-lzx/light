@@ -432,7 +432,7 @@ class ReturnPayView(View):
             lend_time_long = str(hour) + '时' + str(minute) + '分'
 
             money = get_pay_money(openid)
-            notify_url = 'http://relalive.com/weixin/payback/?price=' + str(money) + '&is_deposit=False'
+            notify_url = WEIXIN_PAYBACK + '?price=' + str(money) + '&is_deposit=False'
             redirect_url = '/weixin/privatecenter/'
 
         except KeyError:
@@ -472,7 +472,6 @@ class WxPayNotifyView(View):
         return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        print('call payback888888888')
         price = request.POST.get('price', None)
         is_deposit = request.POST.get('is_deposit', None)
         print('return pay price', price)
