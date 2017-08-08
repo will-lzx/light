@@ -218,6 +218,12 @@ def get_lendhistory_id(customer_id):
     return id
 
 
+def get_rules():
+    mysql = MySQL(db='management')
+    rules = mysql.exec_query('select * from home_rule')
+    return rules
+
+
 def get_money(customer_id, time_by_seconds):
     mysql = MySQL(db='management')
     rule_id = mysql.exec_query('select rule_id from home_lendhistory where customer_id="{0}" order by start_time desc'.format(customer_id))[0][0]

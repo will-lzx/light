@@ -277,6 +277,8 @@ def lendhistory(request):
 
     cabinets = get_cabinets()
 
+    rules = get_rules()
+
     spots = get_spots()
 
     lendtime = len(histories)
@@ -286,6 +288,7 @@ def lendhistory(request):
         'lendtime': lendtime,
         'cabinets': cabinets,
         'spots': spots,
+        'rules': rules
     }
 
     response = render(request, template_name, context)
