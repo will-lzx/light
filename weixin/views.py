@@ -472,6 +472,7 @@ class WxPayNotifyView(View):
         return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        print('call payback888888888')
         price = request.POST.get('price', None)
         is_deposit = request.POST.get('is_deposit', None)
         print('return pay price', price)
