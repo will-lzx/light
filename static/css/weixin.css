@@ -330,6 +330,7 @@ input.weui-btn_plain-default{
 .sm_cont{width: 100%;float:left;color: #666666;line-height: 24px;font-size: 14px;}
 .sm_cont a{text-decoration: none;color: #cc0099;}
 .col_z{color: #cc0099;font-weight:bold;}
+.col_z2{color: #cc0099;font-weight:bold;font-size: 16px;}
 .tj_til{width: 100%;height: 50px;line-height: 50px;text-align: center;color: #333333;}
 .zjjl_con{width: 100%;border-top: 1px solid #e5e5e5;border-bottom: 1px solid #e5e5e5;margin-bottom: 30px;background-color: white;color: #666666;}
 .zjjl_h{padding: 10px 15px;border-bottom: 1px solid #f1f1f1;height: 28px;line-height: 28px;}
