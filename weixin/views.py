@@ -493,6 +493,7 @@ class WxPayNotifyView(View):
             save_order(openid, order_id, pay_number)
             result = self.handle_order(order_id, pay_number)
         else:
+            print('fail!!!!!!!!!!!!!!!!')
             result['return_code'] = 'FAIL'
             result['return_msg'] = 'ERROR'
 
