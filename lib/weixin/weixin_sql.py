@@ -169,6 +169,9 @@ def update_history(customer_id):
 
     money = get_money(customer_id, time_by_seconds)
 
+    if int(money) == 0:
+        status = 2
+
     try:
         mysql.exec_none_query('update home_lendhistory set return_time="{0}", status={1}, money={2} where id={3}'.format(return_time, status, money, id))
         return True

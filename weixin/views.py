@@ -178,7 +178,13 @@ def update_lendhistory(request):
 
     result = update_history(openid)
 
-    return HttpResponse(result)
+    money = get_pay_money(openid)
+
+    if int(money) == 0:
+        need_pay = 'False'
+    else:
+        need_pay = 'True'
+    return HttpResponse(str(result) + '&' + need_pay)
 
 
 def return_tip(request, has_capacity, cabinet_code):
@@ -432,7 +438,7 @@ class ReturnPayView(View):
             lend_time_long = str(hour) + '时' + str(minute) + '分'
 
             money = get_pay_money(openid)
-            notify_url = '/weixin/payback/?price=' + str(money) + '&is_deposit=False'
+            notify_url = WEIXIN_PAYBACK + '?price=' + str(money) + '&is_deposit=False'
             redirect_url = '/weixin/privatecenter/'
 
         except KeyError:
@@ -455,7 +461,9 @@ class ReturnPayView(View):
             'redirect_uri': redirect_url,
             'lend_money': money,
             'lend_time_long': lend_time_long,
-            'order_id': out_trade_no
+            'order_id': out_trade_no,
+            'lend_time': history[2],
+            'return_time': history[3]
         }
         return render(request, 'weixin/return_pay.html', data)
 
