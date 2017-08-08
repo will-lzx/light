@@ -184,7 +184,7 @@ def update_lendhistory(request):
         need_pay = 'False'
     else:
         need_pay = 'True'
-    return HttpResponse(result + '&' + need_pay)
+    return HttpResponse(str(result) + '&' + need_pay)
 
 
 def return_tip(request, has_capacity, cabinet_code):
