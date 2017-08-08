@@ -58,9 +58,20 @@
                         url:"/weixin/update_lendhistory/",
                         data:{openid:openid},
                         success:function(result){
-                            if(result == 'True')
+                            var result_list = result.split('&');
+                            var res = result_list[0];
+                            var need_pay = result_list[1];
+                            if(res == 'True')
                             {
-                                location.href = '/weixin/return_pay/';
+                                if (need_pay == 'True')
+                                {
+                                    location.href = '/weixin/return_pay/';
+                                }
+                                else
+                                {
+                                    location.href = '/weixin/privatecenter/';
+                                }
+
                             }
                             else
                             {

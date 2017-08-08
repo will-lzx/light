@@ -178,7 +178,13 @@ def update_lendhistory(request):
 
     result = update_history(openid)
 
-    return HttpResponse(result)
+    money = get_pay_money(openid)
+
+    if int(money) == 0:
+        need_pay = 'False'
+    else:
+        need_pay = 'True'
+    return HttpResponse(result + '&' + need_pay)
 
 
 def return_tip(request, has_capacity, cabinet_code):
