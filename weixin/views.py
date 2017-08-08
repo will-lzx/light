@@ -432,7 +432,7 @@ class ReturnPayView(View):
             lend_time_long = str(hour) + '时' + str(minute) + '分'
 
             money = get_pay_money(openid)
-            notify_url = '/weixin/payback/?price=' + str(money) + '&is_deposit=False'
+            notify_url = 'http://relalive.com/weixin/payback/?price=' + str(money) + '&is_deposit=False'
             redirect_url = '/weixin/privatecenter/'
 
         except KeyError:
