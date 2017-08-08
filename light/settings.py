@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'weixin',
     'wechat',
     'wechat_pay',
-    'zhifubao',
+    #'zhifubao',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
