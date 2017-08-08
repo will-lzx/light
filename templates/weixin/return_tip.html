@@ -13,8 +13,16 @@
              <div class="nr_con">
                <div class="cgsm">
                 请注意机柜状态<br><span class="col_z">机柜的入口会打开， 请正确放入自拍杆</span>
+               </div>
+
             </div>
 
+            <div class="cz_tip">
+                <span>操作提示</span><br>
+                <span>1.可能自拍杆头尾放反，请将有手扣端放在上面；</span>
+                <span>2.可能自拍杆没收纳好，请将拉出的架子／线等收好，不露出自拍杆手把外；</span>
+                <span>3.可能自拍杆没放到位，请取出后，再次放入试试。</span>
+                <input value="我知道了" id="know" onclick="hide_tip()">
             </div>
             <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
             <script src="{% static 'js/jquery-min.js' %}"></script>
@@ -46,7 +54,8 @@
                         }
                         else if(msg=='return_alert')
                         {
-                            alert('请注意自拍杆的归还位置，谢谢配合');
+                            $('div').hide();
+                            $('#cz_tip').show();
                         }
                     });
                 }
@@ -94,6 +103,12 @@
                 }
 
                 window.onload = return_back;
+
+                function hide_tip()
+                {
+                    $('div').show();
+                    $('#cz_tip').hide();
+                }
 
             </script>
 
