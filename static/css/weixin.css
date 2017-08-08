@@ -396,11 +396,11 @@ h3{font-size: 14px;font-weight: bold;}
 
 .cz_tip{width:100%;
     height:100%;
-    background:rgba(0, 0, 0, 0.5);
+    /*background:rgba(0, 0, 0, 0.5);*/
     position: fixed;
     left: 0;
     top: 0;
     z-index: 99;}
-.cz_tip_cont{width: 90%;margin: 50px 0 auto;background-color: white; text-align: left;font-weight:400;z-index: 999;}
+.cz_tip_cont{width: 90%;margin: 50px 0 auto;background-color: white; text-align: left;font-weight:400;color: #666666;z-index: 999;}
 .cz_tip_til{width: 100%;text-align: center;height: 20px;margin: 30px 30px auto;color: #cc0099;font-weight: 400;}
 .cz_tip_bot{width: 30%;}
