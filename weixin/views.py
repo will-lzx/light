@@ -422,7 +422,7 @@ class ReturnPayView(View):
     """
     def get(self, request, *args, **kwargs):
         try:
-            openid = request.GET['openid']
+            openid = request.session.get('openid', default=None)
             history = get_histories(openid)[0]
 
             time_long = (history[3] - history[2]).seconds
