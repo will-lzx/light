@@ -75,7 +75,7 @@
                 if (is_deposit == 'False')
                 {
                     alert('还没有充值，请先去充值吧？', 'danger');
-                    location.href = '/weixin/pay/?openid='+ openid + '&is_deposit=' + is_deposit +
+                    location.href = '/weixin/pay/?openid='+ openid + '&is_deposit=True' +
                         '&redrect_url=/weixin/lend/&title=押金支付&notify_url=/weixin/payback/' ;
                 }else
                 {
