@@ -380,7 +380,7 @@ class PayView(View):
     def get(self, request, *args, **kwargs):
         try:
             price = WEIXIN_DEPOSIT
-            notify_url = '/weixin/payback/?price=' + str(WEIXIN_DEPOSIT) + '&is_deposit=True'
+            notify_url = WEIXIN_PAYBACK + '?price=' + str(WEIXIN_DEPOSIT) + '&is_deposit=True'
             print('notify_url:', notify_url)
             redirect_url = '/weixin/lend/'
             openid = request.GET['openid']
@@ -464,11 +464,8 @@ class WxPayNotifyView(View):
         return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        print('heererererere')
         price = request.POST.get('price', None)
-        print('price:', price)
         is_deposit = request.POST.get('is_deposit', None)
-        print('return pay price', price)
         pay = PayApi()
         data = request.body
         data = dict(xmltodict.parse(data)['xml'])
