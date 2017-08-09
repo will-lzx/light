@@ -433,6 +433,8 @@ class ReturnPayView(View):
         out_trade_no = str(int(time.time()))
 
         total_fee = str(int(float(money) * 100))
+
+        print('taotal feii:', total_fee)
         param = {
             'xml': {'openid': openid,
                     'body': '租借费用支付',
