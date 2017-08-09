@@ -424,6 +424,7 @@ class ReturnPayView(View):
             lend_time_long = str(hour) + '时' + str(minute) + '分'
 
             money = get_pay_money(openid)
+            print('money1111:', money)
             notify_url = WEIXIN_PAYBACK + '?price=' + str(money) + '&is_deposit=False'
             redirect_url = '/weixin/privatecenter/'
 
