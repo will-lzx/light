@@ -212,6 +212,12 @@ def get_start_time(customer_id):
     return start_time
 
 
+def get_lendhistory_by_id(id):
+    mysql = MySQL(db='management')
+    history = mysql.exec_query('select * from home_lendhistory where id={0}'.format(id))[0]
+    return history
+
+
 def get_lendhistory_id(customer_id):
     mysql = MySQL(db='management')
     id = mysql.exec_query('select id from home_lendhistory where customer_id="{0}" order by start_time desc'.format(customer_id))[0][0]

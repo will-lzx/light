@@ -93,12 +93,6 @@ def create_code_img(request):
     return HttpResponse(f.getvalue())
 
 
-# def login(request):
-#     template_name = 'weixin/login.html'
-#     response = render(request, template_name)
-#     return response
-
-
 def agreement(request):
     template_name = 'weixin/agreement.html'
     response = render(request, template_name)
@@ -202,43 +196,6 @@ def return_tip(request, has_capacity, cabinet_code):
     return response
 
 
-# def return_pay(request):
-#     template_name = 'weixin/return_pay.html'
-#
-#     code = request.GET.get('code', None)
-#
-#     if code and not request.session.get('openid', default=None):
-#         openid = get_openid(code)
-#         request.session['openid'] = openid
-#     else:
-#         openid = request.session.get('openid', default=None)
-#
-#     history = get_histories(openid)[0]
-#
-#     time_long = (history[3] - history[2]).seconds
-#     hour = time_long // 3600
-#     minute = round((time_long / 60) % 60, 0)
-#
-#     lend_time_long = str(hour) + '时' + str(minute) + '分'
-#
-#     lend_money = history[4]
-#
-#     order_id = history[0]
-#
-#     context = {
-#         'lend_time_long': lend_time_long,
-#         'lend_money': lend_money,
-#         'order_id': order_id,
-#         'return_time': history[3],
-#         'lend_time': history[2],
-#         'openid': openid,
-#         'history': history
-#     }
-#
-#     response = render(request, template_name, context)
-#     return response
-
-
 def get_pole(request):
     cabinet_code = request.POST.get('cabinet_code', None)
     print('cabinet_code', cabinet_code)
@@ -333,6 +290,32 @@ def exe_withdraw(request):
     if resp['return_code'] == 'SUCCESS':
         update_deposit(openid, 0, 0)
     return HttpResponse(resp['return_code'])
+
+
+def buy_tip(request):
+    template_name = 'weixin/buy_tip.html'
+    lendhistory_id = request.GET.get('lendhistory_id', default=None)
+
+    history = get_lendhistory_by_id(lendhistory_id)
+
+    lend_date = history[2]
+
+    cabinets = get_cabinets()
+    spot_id = 0
+    for cabinet in cabinets:
+        if cabinet[0] == history[7]:
+            spot_id = cabinet[2]
+    spots = get_spots()
+    for spot in spots:
+        if spot[0] == spot_id:
+            lend_site = spot[1]
+
+    context = {
+        'lend_date': lend_date,
+        'lend_site': lend_site
+    }
+    response = render(request, template_name, context)
+    return response
 
 
 def use_help(request):

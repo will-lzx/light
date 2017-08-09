@@ -38,6 +38,8 @@ urlpatterns = [
     url(r'^nearby/$', nearby, name='nearby'),
 
     url(r'^lendhistory/$', lendhistory, name='lendhistory'),
+    url(r'^buy_tip/(?P<lendhistory_id>.+)/$', buy_tip, name='buy_tip'),
+
     url(r'^withdraw/$', withdraw, name='withdraw'),
     url(r'^exe_withdraw/$', exe_withdraw, name='exe_withdraw'),
 

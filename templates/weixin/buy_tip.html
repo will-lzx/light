@@ -1,0 +1,24 @@
+{% extends "weixin/base.html" %}
+{% load static %}
+{% block title %}购买提示{% endblock %}
+{% block head %}
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <img src="">
+    </div>
+    <div>
+        <span>自拍杆爱上您啦</span><br>
+        <span>因保留超过5天未归还，系统自动转为购买</span>
+    </div>
+    <div>
+        <span>取杆情况：{{ lend_date }} 于：{{ lend_site }}</span>
+        <span>了解自拍杆服务协议，查看<a href="">茄子自拍租借协议</a></span>
+    </div>
+
+
+    <script src="/static/js/jquery-3.2.1.js"></script>
+
+{% endblock %}
