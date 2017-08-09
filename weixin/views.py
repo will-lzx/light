@@ -292,9 +292,8 @@ def exe_withdraw(request):
     return HttpResponse(resp['return_code'])
 
 
-def buy_tip(request):
+def buy_tip(request, lendhistory_id):
     template_name = 'weixin/buy_tip.html'
-    lendhistory_id = request.GET.get('lendhistory_id', default=None)
 
     history = get_lendhistory_by_id(lendhistory_id)
 
