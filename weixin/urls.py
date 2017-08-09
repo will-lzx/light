@@ -66,7 +66,7 @@ urlpatterns = [
     url(r'^wxconfig/$', wxconfig, name='wxconfig'),
 
     url(r'^wx/$', wx, name='wx'),
-    url(r'^payback/(?P<price>.+)/(?P<is_deposit>.+)/$', WxPayNotifyView.as_view(), name='payback'),
+    url(r'^payback/$', WxPayNotifyView.as_view(), name='payback'),
 
 
 
