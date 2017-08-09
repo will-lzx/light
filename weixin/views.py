@@ -464,6 +464,7 @@ class WxPayNotifyView(View):
         return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        print('heererererere')
         price = request.POST.get('price', None)
         print('price:', price)
         is_deposit = request.POST.get('is_deposit', None)
