@@ -575,6 +575,7 @@ def wx(request):
             echostr = 'error'
         return HttpResponse(echostr, content_type="text/plain")
     if request.method == 'POST':
+        print('goto POSt')
         msg = parse_message(request.body)
         if msg.type == 'text':
             reply = create_reply('这是条文字消息', msg)
