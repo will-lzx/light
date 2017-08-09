@@ -425,7 +425,7 @@ class ReturnPayView(View):
             lend_time_long = str(hour) + '时' + str(minute) + '分'
 
             money = get_pay_money(openid)
-            notify_url = WEIXIN_PAYBACK + '?price=' + str(money) + '&is_deposit=False'
+            notify_url = WEIXIN_RETURNPAYBACK + '?price=' + str(money) + '&is_deposit=False'
             redirect_url = '/weixin/privatecenter/'
 
         except KeyError:
@@ -466,13 +466,11 @@ class WxPayNotifyView(View):
         return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        print(0)
-        price = request.POST.get('price', None)
-        print('price:',price)
-        is_deposit = request.POST.get('is_deposit', None)
+        price = WEIXIN_DEPOSIT
         pay = PayApi()
         data = request.body
         data = dict(xmltodict.parse(data)['xml'])
+        print('data:', data)
         result = {}
         sign = data['sign']
         del data['sign']
@@ -482,15 +480,50 @@ class WxPayNotifyView(View):
             order_id = data['out_trade_no']
             pay_number = data['transaction_id']
 
-            if is_deposit == 'True':
-                update_deposit(openid, total_fee, order_id)
-            else:
-                update_lendhistorystatus(openid, 2)
+            update_deposit(openid, total_fee, order_id)
 
             save_order(openid, order_id, pay_number)
             result = self.handle_order(order_id, pay_number)
         else:
-            print('fail!!!!!!!!!!!!!!!!')
+            result['return_code'] = 'FAIL'
+            result['return_msg'] = 'ERROR'
+
+        result_xml = pay.dict_to_xml(result)
+        return HttpResponse(result_xml)
+
+    def handle_order(self, order_id, pay_number):
+        """ Need user extends, for order """
+        return HttpResponse('<xml> <return_code><![CDATA[SUCCESS]]></return_code> <return_msg><![CDATA[OK]]></return_msg> </xml>')
+
+
+class WxReturnPayNotifyView(View):
+    """
+    Receive wechat service data
+    valid and send order_id, pay_number to notify_url
+    """
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        pay = PayApi()
+        data = request.body
+        data = dict(xmltodict.parse(data)['xml'])
+
+        print('data:', data)
+        result = {}
+        sign = data['sign']
+        del data['sign']
+        if sign:
+            openid = data['openid']
+            order_id = data['out_trade_no']
+            pay_number = data['transaction_id']
+
+            update_lendhistorystatus(openid, 2)
+
+            save_order(openid, order_id, pay_number)
+            result = self.handle_order(order_id, pay_number)
+        else:
             result['return_code'] = 'FAIL'
             result['return_msg'] = 'ERROR'
 

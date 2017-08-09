@@ -141,6 +141,7 @@ WEIXIN_APPID = 'wxe2d133d468969a91'
 WEIXIN_APPSECRET = '4fa59c6b06441dec0238fbf0df841c63'
 WEIXIN_DEPOSIT = 0.01
 WEIXIN_PAYBACK = 'http://relalive.com/weixin/payback/'
+WEIXIN_RETURNPAYBACK = 'http://relalive.com/weixin/returnpayback/'
 WEIXIN_IP = '106.14.151.3'
 
 
