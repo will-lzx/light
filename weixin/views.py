@@ -601,7 +601,6 @@ def wxconfig(request):
 @csrf_exempt
 def wx(request):
     if request.method == 'GET':
-        print('goto GET')
         signature = request.GET.get('signature', '')
         timestamp = request.GET.get('timestamp', '')
         nonce = request.GET.get('nonce', '')
@@ -612,7 +611,6 @@ def wx(request):
             echostr = 'error'
         return HttpResponse(echostr, content_type="text/plain")
     if request.method == 'POST':
-        print('goto POSt')
         msg = parse_message(request.body)
         if msg.type == 'text':
             reply = create_reply('这是条文字消息', msg)
