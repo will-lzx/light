@@ -381,9 +381,10 @@ class PayView(View):
         try:
             price = WEIXIN_DEPOSIT
             notify_url = WEIXIN_PAYBACK + '?price=' + str(WEIXIN_DEPOSIT) + '&is_deposit=True'
-            print('notify_url:', notify_url)
+
+            print('notify:', notify_url)
             redirect_url = '/weixin/lend/'
-            openid = request.GET['openid']
+            openid = request.session.get('openid', default=None)
         except KeyError:
             return HttpResponse("PARAM ERROR")
 
@@ -424,7 +425,6 @@ class ReturnPayView(View):
             lend_time_long = str(hour) + '时' + str(minute) + '分'
 
             money = get_pay_money(openid)
-            print('money1111:', money)
             notify_url = WEIXIN_PAYBACK + '?price=' + str(money) + '&is_deposit=False'
             redirect_url = '/weixin/privatecenter/'
 
@@ -435,7 +435,6 @@ class ReturnPayView(View):
 
         total_fee = str(int(float(money) * 100))
 
-        print('taotal feii:', total_fee)
         param = {
             'xml': {'openid': openid,
                     'body': '租借费用支付',
@@ -467,9 +466,9 @@ class WxPayNotifyView(View):
         return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        print('000000000000')
+        print(0)
         price = request.POST.get('price', None)
-        print('price:', price)
+        print(1)
         is_deposit = request.POST.get('is_deposit', None)
         pay = PayApi()
         data = request.body
