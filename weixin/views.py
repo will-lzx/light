@@ -380,7 +380,7 @@ class PayView(View):
     def get(self, request, *args, **kwargs):
         try:
             price = WEIXIN_DEPOSIT
-            notify_url = '/weixin/payback/?price=' + WEIXIN_DEPOSIT + '&is_deposit=True'
+            notify_url = '/weixin/payback/?price=' + str(WEIXIN_DEPOSIT) + '&is_deposit=True'
             redirect_url = '/weixin/lend/'
             openid = request.GET['openid']
         except KeyError:
