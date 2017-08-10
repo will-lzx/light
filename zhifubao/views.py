@@ -2,9 +2,13 @@ import hashlib
 import json
 import re
 import urllib.request
+from base64 import decodebytes
 from collections import OrderedDict
 
 import xmltodict
+from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA
+from Crypto.Signature import PKCS1_v1_5
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -52,6 +56,7 @@ def zfb(request):
         sign_type="RSA2",
         debug=False
     )
+    alipay.verify()
     res = {}
     arguments = {}
     args = request.body.decode("gb2312").split('&')
@@ -76,7 +81,7 @@ def zfb(request):
     if not check_res:
         res = 'fail'
     print('res1:', res)
-    #res = verify_from_gateway({"partner": ALIPAY_PARTNERID, "notify_id": params["notify_id"]})
+    res = verify_from_gateway({"partner": ALIPAY_PARTNERID, "notify_id": params["notify_id"]})
 
     if not res:
         res = 'fail'
@@ -88,7 +93,19 @@ def zfb(request):
 
 
 def check_ali_sign(signature, sign):
-    return signature == sign
+    with open('/root/alipay_public_key.pem') as fp:
+        alipay_public_key = RSA.importKey(fp.read())
+
+    key = alipay_public_key
+    print('key:', key)
+    signer = PKCS1_v1_5.new(key)
+    digest = SHA256.new()
+
+    digest.update(signature.encode("utf8"))
+    if signer.verify(digest, decodebytes(sign.encode("utf8"))):
+        return True
+    else:
+        return False
 
 
 def alipy_notify(request):
