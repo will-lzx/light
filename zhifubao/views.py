@@ -53,7 +53,7 @@ def zfb(request):
         debug=False
     )
     res = {}
-    args = request.body
+    args = request.body.decode("gb2312")
     print('args:', args)
     for k, v in args.items():
         args[k] = v[0]
