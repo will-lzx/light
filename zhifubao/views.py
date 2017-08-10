@@ -121,7 +121,7 @@ def string_to_dict(query):
 def params_filter(params):
     ret = {}
     for key, value in params.items():
-        if key == "sign" or key == "sign_type" or value == "":
+        if key == "sign" or value == "":
             continue
         ret[key] = value
     return ret
