@@ -56,7 +56,6 @@ def zfb(request):
         sign_type="RSA2",
         debug=False
     )
-    alipay.verify()
     res = {}
     arguments = {}
     args = request.body.decode("gb2312").split('&')
