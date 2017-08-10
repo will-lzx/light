@@ -1,6 +1,7 @@
 import hashlib
 import json
 import re
+import urllib.request
 from collections import OrderedDict
 
 import xmltodict
@@ -11,6 +12,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from alipay import AliPay
 from light.settings import *
+import requests
 
 
 def lend(request):
@@ -137,8 +139,8 @@ def verify_from_gateway(params_dict):
     notify_id = params_dict["notify_id"]
     partner = ALIPAY_PARTNERID
     ali_gateway_url = ali_gateway_url % {"partner": partner, "notify_id": notify_id}
-    cafile = 'cacert.pem'
-    res = requests.get(ali_gateway_url, verify=cafile)
+    cafile = '/root/cacert.pem'
+    res = requests.get(ali_gateway_url, cert=(cafile,))
     if res.text == "true":
         return True
     return False
