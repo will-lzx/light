@@ -53,12 +53,15 @@ def zfb(request):
         debug=False
     )
     res = {}
+    arguments = {}
     args = request.body.decode("gb2312").split('&')
     print('args:', args)
-    for k, v in args.items():
-        args[k] = v[0]
+    for item in args:
+        k = item.split('=', 1)[0]
+        v = item.split('=', 1)[1]
+        arguments[k] = v
 
-    check_sign = params_to_string(args)
+    check_sign = params_to_string(arguments)
 
     params = string_to_dict(check_sign)
 
