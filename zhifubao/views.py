@@ -54,7 +54,7 @@ def zfb(request):
     )
     res = {}
     args = request.POST
-
+    print('args:', args)
     for k, v in args.items():
         args[k] = v[0]
 
