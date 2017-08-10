@@ -71,10 +71,12 @@ def zfb(request):
 
     signature_str = params_to_verify_string(params, quotes=False, reverse=False)
 
+    print('signature_str', signature_str)
     check_res = check_ali_sign(signature_str, sign)
     if not check_res:
         res = 'fail'
-    res = verify_from_gateway({"partner": ALIPAY_PARTNERID, "notify_id": params["notify_id"]})
+    print('res1:', res)
+    #res = verify_from_gateway({"partner": ALIPAY_PARTNERID, "notify_id": params["notify_id"]})
 
     if not res:
         res = 'fail'
