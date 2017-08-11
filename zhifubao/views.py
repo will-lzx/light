@@ -56,9 +56,11 @@ def zfb(request):
         sign_type="RSA2",
         debug=False
     )
+
     res = {}
     arguments = {}
     args = request.body.decode("gb2312").split('&')
+
     print('args:', args)
     for item in args:
         k = item.split('=', 1)[0]
@@ -76,7 +78,8 @@ def zfb(request):
     signature_str = params_to_verify_string(params, quotes=False, reverse=False)
 
     print('signature_str', signature_str)
-    check_res = check_ali_sign(signature_str, sign)
+    # check_res = check_ali_sign(signature_str, sign)
+    check_res = alipay.verify(params, sign)
     if not check_res:
         res = 'fail'
     print('res1:', res)
@@ -97,11 +100,17 @@ def check_ali_sign(signature, sign):
 
     print('alipay_public_key', alipay_public_key)
 
+    from alipay import AliPay
+    alipay = AliPay()
+    alipay.verify()
+
     alipay_public_key = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhug73b3e2juIOIfxN7Ju2AMcwdOVqG4txOCea+r6nQBMyrlEIIbi1gKWFIbTCJAeKRhJPAZnApd8CCPGwSgRyxbYAUxJNF4BTIECTIHc0nXZVJASv6L0Miqnv7G2X1PFSWMlt4ijmo0f3mCnZONbk8MKcesSSN0EV5WfyJA/PUs+4rbJrEwCnoEtR6TgX+JPg+oa03/718T3jJGz4saWRH7QJD+jPFluZusy2LEMmckX+ZPusSpGZdEunqxbCoM8ywN+Ag2h9L6qOdj1VMTlzu/vweRyZDBW2ztWelbuzW7JRPrIGce0X0vomJ1ATEIPuCidaP16V6K+sguWsgNe8wIDAQAB'
     key = alipay_public_key
     print('key:', key)
     signer = PKCS1_v1_5.new(key)
     digest = SHA256.new()
+
+
 
     digest.update(signature.encode("utf8"))
     if signer.verify(digest, decodebytes(sign.encode("utf8"))):
