@@ -59,8 +59,8 @@ def zfb(request):
 
     res = {}
     arguments = {}
-    #args = request.body.decode("gb2312").split('&')
-    args = request.body.split('&')
+    args = request.body.decode("gb2312").split('&')
+
     print('args:', args)
     for item in args:
         k = item.split('=', 1)[0]
