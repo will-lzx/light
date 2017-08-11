@@ -83,7 +83,7 @@ def zfb(request):
     if not check_res:
         res = 'fail'
     print('res1:', res)
-    res = verify_from_gateway({"partner": ALIPAY_PARTNERID, "notify_id": params["notify_id"]})
+    res = verify_from_gateway({"partner": ALIPAY_PARTNERID})
 
     if not res:
         res = 'fail'
@@ -168,12 +168,12 @@ def params_to_verify_string(params, quotes=False, reverse=False):
 
 
 def verify_from_gateway(params_dict):
-    ali_gateway_url = "https://mapi.alipay.com/gateway.do?service=notify_verify&partner=%(partner)d&notify_id=%(notify_id)s"
+    ali_gateway_url = "https://openapi.alipay.com/gateway.do"
     notify_id = params_dict["notify_id"]
     partner = ALIPAY_PARTNERID
-    ali_gateway_url = ali_gateway_url % {"partner": partner, "notify_id": notify_id}
+    ali_gateway_url = ali_gateway_url % {"partner": partner}
     cafile = '/root/cacert.pem'
-    res = requests.get(ali_gateway_url, cert=(cafile,))
+    res = requests.get(ali_gateway_url)
     if res.text == "true":
         return True
     return False

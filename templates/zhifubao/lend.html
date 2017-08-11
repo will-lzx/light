@@ -22,7 +22,27 @@
 
 
     <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <script src="https://a.alipayobjects.com/g/h5-lib/alipayjsapi/3.0.5/alipayjsapi.min.js"></script>
     <script>
+
+        function ready(callback) {
+          // 如果jsbridge已经注入则直接调用
+          if (window.AlipayJSBridge) {
+            callback && callback();
+          } else {
+            // 如果没有注入则监听注入的事件
+            document.addEventListener('AlipayJSBridgeReady', callback, false);
+          }
+        }
+        ready(function(){
+          document.querySelector('#scanQRCode').onclick = function(){
+            AlipayJSBridge.call('scan', {
+              type: 'qr'
+            }, function (result) {
+              alert(JSON.stringify(result));
+            });
+          }
+        });
 
 
 
