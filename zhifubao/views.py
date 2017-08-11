@@ -95,6 +95,8 @@ def check_ali_sign(signature, sign):
     with open('/root/alipay_public_key.pem') as fp:
         alipay_public_key = RSA.importKey(fp.read())
 
+    print('alipay_public_key', alipay_public_key)
+
     key = alipay_public_key
     print('key:', key)
     signer = PKCS1_v1_5.new(key)
