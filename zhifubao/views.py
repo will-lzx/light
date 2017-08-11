@@ -79,7 +79,7 @@ def zfb(request):
 
     print('signature_str', signature_str)
     # check_res = check_ali_sign(signature_str, sign)
-    check_res = alipay.verify(signature_str, sign)
+    check_res = alipay.verify(params, sign)
     if not check_res:
         res = 'fail'
     print('res1:', res)
