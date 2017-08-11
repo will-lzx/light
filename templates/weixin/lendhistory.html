@@ -18,24 +18,9 @@
                 <div class="zjjl_con">
                    <div class="zjjl_h">
                        <div class="zjjl_dd">订单号：{{ history.0 }}</div>
-                       <div class="zjjl_zt">
-                           {% ifequal history.5 0 %}
-                               <span>借出</span>
-                           {% endifequal %}
-                           {% ifequal history.5 1 %}
-                               <span>已归还,</span><span><a href="/weixin/return_pay/">去支付</a></span>
-                           {% endifequal %}
-                           {% ifequal history.5 2 %}
-                               <span>已完成</span>
-                           {% endifequal %}
-                           {% ifequal history.5 3 %}
-                               <a href="/weixin/buy_tip/{{ history.0 }}/" onclick="show_buy()">已购买</a>
-                           {% endifequal %}
-
-                       </div>
                    </div>
                    <div class="zjjl_h">
-                       <div class="zjjl_tf">用时(分)：<span class="col_z">
+                       <div class="zjjl_tf">时长(小时)：<span class="col_z">
                            {% if history.3 %}
                                 {{ history.2 | get_time_long:history.3 }}
                            {% else %}
@@ -43,12 +28,26 @@
                            {% endif %}</span>
                        </div>
                        <div class="zjjl_tf">费用(元)：<span class="col_z">{{ history.4 }}</span></div>
+                       <div class="zjjl_zt">状态：
+                           {% ifequal history.5 0 %}
+                               <span class="zt_jxz">已借出</span>
+                           {% endifequal %}
+                           {% ifequal history.5 1 %}
+                               <span class="zt_jxz"><a href="/weixin/return_pay/">已归还,待支付</a></span>
+                           {% endifequal %}
+                           {% ifequal history.5 2 %}
+                               <span class="zt_ywc">已完成</span>
+                           {% endifequal %}
+                           {% ifequal history.5 3 %}
+                               <span class="zt_zgm"><a href="/weixin/buy_tip/{{ history.0 }}/" onclick="show_buy()">已购买</a></span>
+                           {% endifequal %}
+                       </div>
                    </div>
                     <div class="zjjl_h">
                        <div class="zjjl_gz">
                            {% for rule in rules %}
                                {% ifequal rule.0 history.6 %}
-                                计费规则：首{{ rule.1 }}小时免费，之后¥{{ rule.2 }}/小时，每天¥8封顶
+                                规则：前{{ rule.1 }}小时免费，后¥{{ rule.2 }}/小时，每天¥8封顶
                                {% endifequal %}
                            {% endfor %}
                        </div>
@@ -92,7 +91,7 @@
 
             {% endfor %}
         {% else %}
-            <div class="wk_ts">您竟然还没体验自拍神器，还等什么～<br><a href="/weixin/lend/">借自拍杆</a></div>
+            <div class="wk_ts">您竟然还没体验自拍神器，还等什么～<br><a href="/weixin/lend/">立马借一根</a></div>
         {% endif %}
 
     </div>
