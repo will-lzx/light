@@ -59,7 +59,7 @@ def zfb(request):
 
     res = {}
     arguments = {}
-    args = request.body
+    args = request.body.decode("gb2312").split('&')
 
     print('args:', args)
     for item in args:
