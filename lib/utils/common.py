@@ -36,6 +36,16 @@ def get_openid(code):
     return resp['openid']
 
 
+def get_userid(code):
+    url = 'https://openapi.alipay.com/gateway.do?grant_type={0}&code={1}'.format(
+        'authorization_code', code)
+
+    url_req = UrlRequest()
+    resp = url_req.url_request(url)
+    print('resp:', resp)
+    return resp['user_id']
+
+
 def oauth(url):
     oAuth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, url)
     return oAuth.authorize_url

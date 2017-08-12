@@ -18,6 +18,7 @@ from zhifubao.views import *
 
 urlpatterns = [
     # url(r'^$', zhifubao, name='zhifubao'),
+    url(r'^call_back/$', call_back, name='call_back'),
 
     url(r'^lend/$', lend, name='lend'),
     url(r'^return_back/$', return_back, name='return_back'),

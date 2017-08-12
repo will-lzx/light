@@ -18,6 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from alipay import AliPay
 from light.settings import *
 import requests
+from lib.utils.common import *
 
 
 def lend(request):
@@ -79,6 +80,17 @@ def lend_success(request):
 
     response = render(request, template_name)
     return response
+
+
+def call_back(request):
+    code = request.GET.get('code', None)
+
+    if code and not request.session.get('user_id', default=None):
+        print('code', code)
+        user_id = get_userid(code)
+        request.session['user_id'] = user_id
+    else:
+        user_id = request.session.get('user_id', default=None)
 
 
 
