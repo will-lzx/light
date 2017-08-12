@@ -40,7 +40,7 @@ def get_openid(code):
 def get_userid(code):
     timestamp = create_timestamp()
     app_id = ALIPAY_APPID
-    sign = ''
+    sign = 'D9G7B8UnEcXO9ORefmuWLAMABODXav2cxrGTdwrPB0taK1zfIMcejOT+8qb4aOA11SHoQsAB07qh8XQfhlU5Ob1RoDClqhehThjLSGpH47VOqRC/rBJWZv+jIvSvDoX+t3QDAjM/zA3KtoVa3Lq/mGSm6RbZ+/OSWpcnXRpB1HU+GhWK29pKaCRvi4fDyUuh1oeYTbw3JI5moD0gffc91oGennL+6xJswzOAKLDMZGf8Rvuu6qDZiZkVvbBcsMskMiUzeKGC4PIPBkILlLy+oCwKma35v6P5ojA0kXfR4tXySfTH5grS8ZA+ycgGnxhg2TeJp3RAo1Ki6Hu+E48IsA=='
 
     url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method=alipay.system.oauth.token&app_id={1}' \
           '&sign_type=RSA2&sign={2}&version=1.0&grant_type=authorization_code&code={3}'.format(timestamp, app_id, sign, code)
