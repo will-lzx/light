@@ -50,8 +50,8 @@ def get_userid(code):
     sign_type = 'RSA2'
     version = '1.0'
     grant_type = 'authorization_code'
-    #method = 'alipay.user.userinfo.share'
-    method = 'alipay.system.oauth.token'
+    method = 'alipay.user.userinfo.share'
+    #method = 'alipay.system.oauth.token'
 
     data = {'timestamp': timestamp,
             'app_id': app_id,
