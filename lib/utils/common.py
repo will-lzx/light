@@ -62,7 +62,7 @@ def get_userid(code):
 
     sign_str = sign(message.encode(encoding="utf-8"))
 
-    print('sign_str', sign_str)
+    print('sign_str', sign_str.decode())
     url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method=alipay.system.oauth.token&app_id={1}' \
           '&sign_type=RSA2&sign={2}&version=1.0&grant_type=authorization_code&code={3}'.format(timestamp, app_id, sign_str,
                                                                                                code)
