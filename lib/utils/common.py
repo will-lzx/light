@@ -65,7 +65,8 @@ def get_userid(code):
 
     private_key = RSA.importKey(open('/root/zhifubao/alipay_public_key').read())
     signer = PKCS1_v1_5.new(private_key)
-    digest = SHA256.new(message.encode(encoding='utf-8'))
+    digest = SHA256.new()
+    digest.update(message.encode("utf8"))
     sign_str = base64.b64encode(signer.sign(digest))
 
     print('sign_str', sign_str)
