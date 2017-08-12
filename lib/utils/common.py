@@ -84,9 +84,7 @@ def get_userid(code):
                                                                                                            quote(app_id),
                                                                                                            quote(sign_str),
                                                                                                            quote(code))
-    print('url:', url)
     resp = requests.get(url)
-    print('resp', resp.json)
     return resp.content
 
 
