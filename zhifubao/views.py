@@ -99,7 +99,7 @@ def get_user_id(request):
 
     if auth_code and not request.session.get('user_id', default=None):
         print('auth_code', auth_code)
-        user_id = get_userid(auth_code)
+        user_id = get_userid(auth_code)['user_id']
         print('user_id', user_id)
         request.session['user_id'] = user_id
     else:
