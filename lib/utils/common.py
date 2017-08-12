@@ -71,7 +71,7 @@ def get_userid(code):
     # digest.update(message.encode("utf8"))
     # sign_str = base64.b64encode(signer.sign(digest))
 
-    sign_str = sign(message.encode(encoding='utf-8'))
+    sign_str = sign(message.encode(encoding='utf-8')).decode()
 
     print('sign_str', sign_str)
     url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method=alipay.system.oauth.token&app_id={1}' \
