@@ -41,8 +41,9 @@ def get_userid(code):
     url = 'https://openapi.alipay.com/gateway.do?grant_type={0}&code={1}'.format(
         'authorization_code', code)
 
+    print(url)
     resp = requests.get(url)
-    print('resp', resp.json())
+    print('resp', resp.json)
     return resp['user_id']
 
 
