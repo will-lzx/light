@@ -1,3 +1,5 @@
+import base64
+
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives import serialization
 
@@ -29,7 +31,7 @@ def sign(data, private_key_file_name='/root/zhifubao/app_private_key'):
 
     # 使用私钥对数据进行签名
     # 指定填充方式为PKCS1v15
-    # 指定hash方式为sha256
+    #
     signature = private_key.sign(
         data,
         padding.PKCS1v15(),
@@ -37,7 +39,7 @@ def sign(data, private_key_file_name='/root/zhifubao/app_private_key'):
     )
 
     # 返回签名数据
-    return signature
+    return base64.b64encode(signature)
 
 
 if __name__ == '__main__':
