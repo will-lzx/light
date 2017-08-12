@@ -90,9 +90,9 @@ def get_userid(code):
     res = urllib.request.urlopen(req)
     urlResp = json.loads(res.read())
 
-    print('urlResp:', urlResp['alipay_system_oauth_token_response']['user_id'])
+    user_id = urlResp['alipay_system_oauth_token_response']['user_id']
 
-    return urlResp
+    return user_id
 
 
 def oauth(url):
@@ -106,18 +106,6 @@ def get_rule_id(cabinet_code):
         'select rule_id from home_spot where id=(select spot_id from home_cabinet where number="{0}")'.format(
             cabinet_code))[0][0]
     return rule_id
-
-
-def create_sign():
-    from alipay import AliPay
-    alipy = AliPay()
-    alipy.verify()
-
-    alipay_public_key = ''
-    key = alipay_public_key
-    signer = PKCS1_v1_5.new(key)
-    digest = SHA256.new()
-    digest.update(message.encode("utf8"))
 
 
 def ordered_data(data):
