@@ -2,6 +2,7 @@ import random
 import string
 import time
 
+import datetime
 from Crypto.Hash import SHA256
 from Crypto.Signature import PKCS1_v1_5
 from wechatpy import WeChatClient, WeChatOAuth
@@ -9,6 +10,7 @@ from light.settings import *
 from lib.utils.url_request import *
 from lib.utils.sql_help import *
 import requests
+from lib.utils.get_sign import sign
 
 
 def create_nonce_str():
@@ -32,7 +34,8 @@ def get_signature(noncestr, jsapi_ticket, timestamp, url):
 
 
 def get_openid(code):
-    url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code'.format(WEIXIN_APPID, WEIXIN_APPSECRET, code)
+    url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code'.format(
+        WEIXIN_APPID, WEIXIN_APPSECRET, code)
 
     url_req = UrlRequest()
     resp = url_req.url_request(url)
@@ -40,13 +43,27 @@ def get_openid(code):
 
 
 def get_userid(code):
-    timestamp = create_timestamp()
-    timestamp = '2016-08-12 15:30:01'
+    timestamp = datetime.datetime.now().timestamp()
     app_id = ALIPAY_APPID
-    sign = 'D9G7B8UnEcXO9ORefmuWLAMABODXav2cxrGTdwrPB0taK1zfIMcejOT+8qb4aOA11SHoQsAB07qh8XQfhlU5Ob1RoDClqhehThjLSGpH47VOqRC/rBJWZv+jIvSvDoX+t3QDAjM/zA3KtoVa3Lq/mGSm6RbZ+/OSWpcnXRpB1HU+GhWK29pKaCRvi4fDyUuh1oeYTbw3JI5moD0gffc91oGennL+6xJswzOAKLDMZGf8Rvuu6qDZiZkVvbBcsMskMiUzeKGC4PIPBkILlLy+oCwKma35v6P5ojA0kXfR4tXySfTH5grS8ZA+ycgGnxhg2TeJp3RAo1Ki6Hu+E48IsA=='
+    sign_type = 'RSA2'
+    version = '1.0'
+    grant_type = 'authorization_code'
+    method = 'alipay.system.oauth.token'
 
+    data = {'timestamp': timestamp,
+            'app_id': app_id,
+            'sign_type': sign_type,
+            'version': version,
+            'grant_type': grant_type,
+            'method': method
+            }
+    unsigned_items = ordered_data(data)
+    message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
+
+    sign_str = sign(message)
     url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method=alipay.system.oauth.token&app_id={1}' \
-          '&sign_type=RSA2&sign={2}&version=1.0&grant_type=authorization_code&code={3}'.format(timestamp, app_id, sign, code)
+          '&sign_type=RSA2&sign={2}&version=1.0&grant_type=authorization_code&code={3}'.format(timestamp, app_id, sign_str,
+                                                                                               code)
 
     print('url:', url)
     resp = requests.get(url)
@@ -61,7 +78,9 @@ def oauth(url):
 
 def get_rule_id(cabinet_code):
     mysql = MySQL(db='management')
-    rule_id = mysql.exec_query('select rule_id from home_spot where id=(select spot_id from home_cabinet where number="{0}")'.format(cabinet_code))[0][0]
+    rule_id = mysql.exec_query(
+        'select rule_id from home_spot where id=(select spot_id from home_cabinet where number="{0}")'.format(
+            cabinet_code))[0][0]
     return rule_id
 
 
@@ -70,17 +89,11 @@ def create_sign():
     alipy = AliPay()
     alipy.verify()
 
-    data = {}
-    unsigned_items = ordered_data(data)
-    message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
-
     alipay_public_key = ''
     key = alipay_public_key
     signer = PKCS1_v1_5.new(key)
     digest = SHA256.new()
     digest.update(message.encode("utf8"))
-
-
 
 
 def ordered_data(data):
