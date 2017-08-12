@@ -15,7 +15,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from alipay import AliPay
+
 from light.settings import *
 import requests
 from lib.utils.common import *
