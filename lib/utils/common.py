@@ -1,5 +1,4 @@
 import base64
-import hmac
 import random
 import string
 import time
@@ -72,9 +71,7 @@ def get_userid(code):
     # digest.update(message.encode("utf8"))
     # sign_str = base64.b64encode(signer.sign(digest))
 
-    #sign_str = sign(message.encode(encoding='utf-8')).decode()
-    private_key = 'MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCUkAy5322rUVugNE4oyzK8kOkvMjJfVwltHL5jH7wLvSxDtIxfxlve3490Q/mXBy/EXfVKyd25ZkWP4WTH4dDB5fC5+CC/jP2aDt/Ex6RfF1eutladOT1MC6Y91H+ZXKdXh9LX/ZnMjh8r5yszXG0NvKZOmuVSj7cO6xRrNG9xZxN1Lg5Vh3OUBxW/Ux6sPjJhe0bzpYqCoHQRS1+dP11nRtVczFzuBQXcfdi48lLC+KjP4IBrG34QvZYsgNPCk5VwFae00TWfiU7YSG9I1nrw/gVd7LCTA+9QZIcYMi53SLh76Q3ryMNiPYsIwC/HsV2q3p0KzVzvrf3TNPgPfqilAgMBAAECggEAYiJhdaqkTAV7C/FhK8tGIY9rqVR0N8xLmrrg/KNq2SpGAhdSnrVt3GQ646c/SMdjg0g5jwSXpS9sheVyaCK/fkXA5WeFYmLk5o4qvFbQOkw2DF/ACS1VU1Vio/cpromotMYwvaJ0pM3Aw4R5Yf0MwIU8KjJhh08NshoRK9vAPdy9iJnTUVPTyyLl76p8rXHYePppZEUQUF3pr27NCwtTTgOyssZh8kH0Rm2ImWfNQ0nD7oTe6Be0wLJ5SN5wze0QKWssNFy0q0oHTemDoKvqVBp2WnRQBnNpEcb1Ahj7o1b68JBuyH/+1bXC3xquVPFPWO5oYlpunWS02AJ4/bKb4QKBgQDr4Eu6ljyzl3onvqUIIfbZJzCCat63gMfJHyzogDxVSWm6n6dbQwHVoc5wu26gKB3lFRq7eU6PNvC0TUmOfEVKTuT6o91dLI5QojEwwBNk9eO2XpktNm6Hp4Ejf06Y/fR3soLTKFNFuvy79setJds5SHxAq7HmwxJNRD8xDN8YeQKBgQChPMPusOjaDCJi5A/vqlgntZgwycNTcHZeK04nk/0ZMttC2l/V2fE85MT/AkK16nksXF7/Ih8sK8uOzCiNzRkmCx59Ci6gDWsb36SSsA3I6Rdxmn3hW47Zh0ObvstdJvNpliCaMIc9t/kRsrOUjuFJjI37jTvBWOj0I6V/AcAejQKBgQCAAMd36UHlwAVVfjr279+Stpa3n6Ffee5xcY6gWb7kFaPf1/YtK27abSWnvb9qAHtArzRDmrAMPidf4TVSspOzoJ7YeYaOorhUf8AsEYA04M+DT1DW3VwcF8WX6uVPVzmMn34pcw/FnpS6uFBh4VJXgsOTINm5PhE3hxq31qFXGQKBgBFf0OUpnw3P/OyXEriKrJEq2kl3lFqrZbXkCLnvEnjiqAneKjGLGJmtNSUdgz7DE2eaVIo9jQpfdcHfcgdFsI4O6Kwkqr2IdKA+SyebXQDnTSVqtmHQUeZS0xA3UQaqqdQY305+KDSYXHhxvzQk6VXZlXsjzuqYwBF+vdifwaoJAoGAbX11wE0h9kjU1RocZ6MfMtZ2AZRdP8LfrQSzh8mLxlR++2iB0ttX79wcVKrmfgKwc2FRPXrNWKI109pjtM8XVBScg8O+p1uZOXlePedViEnrf62NFA6a2/9FvOFWDRm7z6YgcCYk6NvUI3f9bPO3yYfhCvwLDhCG476hhOPU6qI='
-    sign_str = hmac.new(private_key.encode(encoding='utf-8'), message.encode(encoding='utf-8')).hexdigest()
+    sign_str = sign(message.encode(encoding='utf-8')).decode()
 
     print('sign_str', sign_str)
     url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method=alipay.system.oauth.token&app_id={1}' \
