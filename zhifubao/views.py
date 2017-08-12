@@ -16,13 +16,11 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
-from light.settings import *
-import requests
 from lib.utils.common import *
 
 
 def lend(request):
-    #user_id = get_user_id(request)
+    user_id = get_user_id(request)
     # print('user_id:', user_id)
     template_name = 'zhifubao/lend.html'
     print('test:')
@@ -102,6 +100,7 @@ def get_user_id(request):
     if auth_code and not request.session.get('user_id', default=None):
         print('auth_code', auth_code)
         user_id = get_userid(auth_code)
+        print('user_id', user_id)
         request.session['user_id'] = user_id
     else:
         user_id = request.session.get('user_id', default=None)

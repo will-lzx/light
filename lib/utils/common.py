@@ -84,8 +84,13 @@ def get_userid(code):
                                                                                                            quote(app_id),
                                                                                                            quote(sign_str),
                                                                                                            quote(code))
-    resp = requests.get(url)
-    return resp
+    # resp = requests.get(url)
+
+    req = urllib.request.Request(url)
+    res = urllib.request.urlopen(req)
+    urlResp = json.loads(res.read())
+
+    return urlResp
 
 
 def oauth(url):
