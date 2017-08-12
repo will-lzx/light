@@ -44,7 +44,7 @@ def get_userid(code):
     print(url)
     resp = requests.post(url)
     print('resp', resp.json)
-    return resp['user_id']
+    return resp.json['json']
 
 
 def oauth(url):
