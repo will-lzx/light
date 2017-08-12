@@ -43,7 +43,7 @@ def get_openid(code):
 
 
 def get_userid(code):
-    timestamp = datetime.datetime.now().timestamp()
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     app_id = ALIPAY_APPID
     sign_type = 'RSA2'
     version = '1.0'
