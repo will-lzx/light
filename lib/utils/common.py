@@ -90,7 +90,7 @@ def get_userid(code):
     res = urllib.request.urlopen(req)
     urlResp = json.loads(res.read())
 
-    print('urlResp:', urlResp.get('user_id'))
+    print('urlResp:', urlResp['alipay_system_oauth_token_response']['user_id'])
 
     return urlResp
 
