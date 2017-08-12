@@ -25,8 +25,9 @@ def lend(request):
     user_id = get_user_id(request)
     # print('user_id:', user_id)
     template_name = 'zhifubao/lend.html'
-
+    print('test:')
     response = render(request, template_name)
+    print('response:', response)
     return response
 
 
