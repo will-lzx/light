@@ -23,8 +23,11 @@ urlpatterns = [
     url(r'^return_back/$', return_back, name='return_back'),
     url(r'^nearby/$', nearby, name='nearby'),
 
-    url(r'^zfb/$', zfb, name='zfb'),
-    url(r'^alipy_notify/$', alipy_notify, name='alipy_notify'),
+
+    url(r'^output_tip/(?P<has_pole>.+)/(?P<cabinet_code>.+)/$', output_tip, name='output_tip'),
+    url(r'^generate_lendhistory/$', generate_lendhistory, name='generate_lendhistory'),
+
+    url(r'^lend_success/$', lend_success, name='lend_success'),
 
     #
     # url(r'^lendhistory/$', lendhistory, name='lendhistory'),
