@@ -50,8 +50,8 @@ def get_userid(code):
     sign_type = 'RSA2'
     version = '1.0'
     grant_type = 'authorization_code'
-    method = 'alipay.user.userinfo.share'
-    #method = 'alipay.system.oauth.token'
+    #method = 'alipay.user.userinfo.share'
+    method = 'alipay.system.oauth.token'
 
     data = {'timestamp': timestamp,
             'app_id': app_id,
@@ -75,8 +75,8 @@ def get_userid(code):
     sign_str = sign(message.encode(encoding='utf-8')).decode()
 
     print('sign_str', sign_str)
-    url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method=alipay.user.userinfo.share&app_id={1}' \
-          '&sign_type=RSA2&sign={2}&version=1.0&grant_type=authorization_code&code={3}&charset=GBK'.format(timestamp, app_id, sign_str,
+    url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method={1}&app_id={2}' \
+          '&sign_type=RSA2&sign={3}&version=1.0&grant_type=authorization_code&code={4}&charset=GBK'.format(timestamp, method, app_id, sign_str,
                                                                                                code)
 
     print('url:', url)
