@@ -58,7 +58,7 @@ def get_userid(code):
             'version': version,
             'grant_type': grant_type,
             'method': method,
-            # 'charset': 'GBK',
+            'charset': 'GBK',
             'code': code
             }
     unsigned_items = ordered_data(data)
@@ -75,7 +75,7 @@ def get_userid(code):
 
     print('sign_str', sign_str)
     url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method=alipay.system.oauth.token&app_id={1}' \
-          '&sign_type=RSA2&sign={2}&version=1.0&grant_type=authorization_code&code={3}'.format(timestamp, app_id, sign_str,
+          '&sign_type=RSA2&sign={2}&version=1.0&grant_type=authorization_code&code={3}&charset=GBK'.format(timestamp, app_id, sign_str,
                                                                                                code)
 
     print('url:', url)
