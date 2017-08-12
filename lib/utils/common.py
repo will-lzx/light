@@ -85,7 +85,7 @@ def get_userid(code):
                                                                                                            quote(sign_str),
                                                                                                            quote(code))
     resp = requests.get(url)
-    return resp.content
+    return resp
 
 
 def oauth(url):
