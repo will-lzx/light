@@ -42,7 +42,7 @@ def get_userid(code):
         'authorization_code', code)
 
     print(url)
-    resp = requests.get(url)
+    resp = requests.post(url)
     print('resp', resp.json)
     return resp['user_id']
 
