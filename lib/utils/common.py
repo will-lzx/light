@@ -60,7 +60,7 @@ def get_userid(code):
     unsigned_items = ordered_data(data)
     message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
 
-    sign_str = sign(message.encode(encoding="utf-8")).decode()
+    sign_str = sign(data)
 
     print('sign_str', sign_str)
     url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method=alipay.system.oauth.token&app_id={1}' \
