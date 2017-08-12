@@ -4,6 +4,8 @@ import string
 import time
 
 import datetime
+from urllib.parse import urlencode
+
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
@@ -80,7 +82,7 @@ def get_userid(code):
                                                                                                code)
 
     print('url:', url)
-    resp = requests.get(url)
+    resp = requests.get(urlencode(url))
     print('resp', resp.json)
     return resp.content
 
