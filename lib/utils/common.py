@@ -4,6 +4,7 @@ import time
 
 import datetime
 from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5
 from wechatpy import WeChatClient, WeChatOAuth
 from light.settings import *
@@ -60,7 +61,9 @@ def get_userid(code):
     unsigned_items = ordered_data(data)
     message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
     key = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhug73b3e2juIOIfxN7Ju2AMcwdOVqG4txOCea+r6nQBMyrlEIIbi1gKWFIbTCJAeKRhJPAZnApd8CCPGwSgRyxbYAUxJNF4BTIECTIHc0nXZVJASv6L0Miqnv7G2X1PFSWMlt4ijmo0f3mCnZONbk8MKcesSSN0EV5WfyJA/PUs+4rbJrEwCnoEtR6TgX+JPg+oa03/718T3jJGz4saWRH7QJD+jPFluZusy2LEMmckX+ZPusSpGZdEunqxbCoM8ywN+Ag2h9L6qOdj1VMTlzu/vweRyZDBW2ztWelbuzW7JRPrIGce0X0vomJ1ATEIPuCidaP16V6K+sguWsgNe8wIDAQAB'
-    signer = PKCS1_v1_5.new(key)
+
+    private_key = RSA.importKey(open('/root/zhifubao/app_private_key').read())
+    signer = PKCS1_v1_5.new(private_key)
     digest = SHA256.new(message.encode(encoding='utf-8'))
     sign_str = signer.sign(digest)
 
