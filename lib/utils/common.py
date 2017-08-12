@@ -38,10 +38,14 @@ def get_openid(code):
 
 
 def get_userid(code):
-    url = 'https://openapi.alipay.com/gateway.do?grant_type={0}&code={1}'.format(
-        'authorization_code', code)
+    timestamp = create_timestamp()
+    app_id = ALIPAY_APPID
+    sign = ''
 
-    print(url)
+    url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method=alipay.system.oauth.token&app_id={1}' \
+          '&sign_type=RSA2&sign={2}&version=1.0&grant_type=authorization_code&code={3}'.format(timestamp, app_id, sign, code)
+
+    print('url:', url)
     resp = requests.get(url)
     print('resp', resp.json)
     return resp.content
