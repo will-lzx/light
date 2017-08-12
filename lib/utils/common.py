@@ -5,7 +5,7 @@ import time
 
 import datetime
 
-import urllib.parse
+from urllib.parse import quote
 
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
@@ -79,11 +79,11 @@ def get_userid(code):
 
     print('sign_str', sign_str)
     url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method={1}&app_id={2}' \
-          '&sign_type=RSA2&sign={3}&version=1.0&grant_type=authorization_code&code={4}&charset=GBK'.format(urllib.parse.urlencode(timestamp),
-                                                                                                           urllib.parse.urlencode(method),
-                                                                                                           urllib.parse.urlencode(app_id),
-                                                                                                           urllib.parse.urlencode(sign_str),
-                                                                                                           urllib.parse.urlencode(code))
+          '&sign_type=RSA2&sign={3}&version=1.0&grant_type=authorization_code&code={4}&charset=GBK'.format(quote(timestamp),
+                                                                                                           quote(method),
+                                                                                                           quote(app_id),
+                                                                                                           quote(sign_str),
+                                                                                                           quote(code))
     print('url:', url)
     resp = requests.get(url)
     print('resp', resp.json)
