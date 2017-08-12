@@ -1,3 +1,4 @@
+import base64
 import random
 import string
 import time
@@ -65,7 +66,7 @@ def get_userid(code):
     private_key = RSA.importKey(open('/root/zhifubao/app_private_key').read())
     signer = PKCS1_v1_5.new(private_key)
     digest = SHA256.new(message.encode(encoding='utf-8'))
-    sign_str = signer.sign(digest)
+    sign_str = base64.b64encode(signer.sign(digest))
 
     print('sign_str', sign_str)
     url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method=alipay.system.oauth.token&app_id={1}' \
