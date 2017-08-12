@@ -57,7 +57,8 @@ def get_userid(code):
             'sign_type': sign_type,
             'version': version,
             'grant_type': grant_type,
-            'method': method
+            'method': method,
+            'charset': 'GBK'
             }
     unsigned_items = ordered_data(data)
     message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
