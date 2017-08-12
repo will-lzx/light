@@ -90,6 +90,8 @@ def get_userid(code):
     res = urllib.request.urlopen(req)
     urlResp = json.loads(res.read())
 
+    print('urlResp:', urlResp)
+
     return urlResp
 
 
