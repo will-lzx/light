@@ -22,8 +22,8 @@ from lib.utils.common import *
 
 
 def lend(request):
-    code = request.GET.get('code', None)
-    print('code:', code)
+    user_id = request.session.get('user_id', default=None)
+    print('user_id:', user_id)
     template_name = 'zhifubao/lend.html'
 
     response = render(request, template_name)
@@ -83,7 +83,7 @@ def lend_success(request):
 
 
 def call_back(request):
-    code = request.GET.get('code', None)
+    code = request.GET.get('auth_code', None)
 
     if code and not request.session.get('user_id', default=None):
         print('code', code)
