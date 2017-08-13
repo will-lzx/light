@@ -121,12 +121,12 @@ def create_order():
         quote(charset)
     )
 
-    # quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
+    quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
 
-    # signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
+    signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
     print('url:', url)
-    req = requests.get(url)
+    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
     print('req:', req.text)
     req = urllib.request.Request(url)
     res = urllib.request.urlopen(req)
