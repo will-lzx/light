@@ -86,14 +86,13 @@ def get_userid(code):
     return user_id
 
 
-def create_order(buy_id):
+def create_order(buy_id, out_trade_no):
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     app_id = ALIPAY_APPID
     sign_type = 'RSA2'
     version = '1.0'
     method = 'alipay.trade.create'
     charset = 'GBK'
-    out_trade_no = create_timestamp()
 
     goods_detail = [{
         "goods_id": "pole-1",

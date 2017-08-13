@@ -57,11 +57,24 @@
                  AlipayJSBridge.call("tradePay", {
                       tradeNO: tradeNO
                  }, function (data) {
-                     log(JSON.stringify(data));
+                     alert(JSON.stringify(data));
                      if ("9000" == data.resultCode) {
-                         location.href = '/zhifubao/lend/';
+
+                         save_order(tradeNO);
                      }
                  });
+            });
+        }
+
+        function save_order(trade_no){
+            var out_trade_no = '{{ out_trade_no }}';
+            $.ajax({
+                type:"post",
+                url:"/zhifubao/call_save_order/",
+                data:{out_trade_no: out_trade_no, trade_no: trade_no},
+                success:function(result){
+                    location.href = '/zhifubao/lend/';
+                }
             });
         }
 

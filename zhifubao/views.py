@@ -46,8 +46,10 @@ class PayView(View):
     ..remove WxMemberView
     """
     def get(self, request, *args, **kwargs):
+        user_id = get_user_id(request)
+        out_trade_no = create_timestamp()
+        tradeNo = create_order(user_id, out_trade_no)
 
-        tradeNo = create_order()
         # alipay = AliPay(
         #     appid=ALIPAY_APPID,
         #     app_notify_url="",
@@ -65,9 +67,25 @@ class PayView(View):
         # urlResp = json.loads(res.read())
         data = {
             'deposit': DEPOSIT,
-            'tradeNo': tradeNo
+            'tradeNo': tradeNo,
+            'out_trade_no': out_trade_no
         }
         return render(request, 'zhifubao/pay.html', data)
+
+
+def call_save_order(request):
+    user_id = get_user_id(request)
+    trade_no = request.POST.get('trade_no')
+    out_trade_no = request.POST.get('out_trade_no')
+
+    update_deposit(user_id, DEPOSIT, out_trade_no)
+
+    save_order(user_id, out_trade_no, trade_no)
+
+    template_name = 'zhifubao/return.html'
+
+    response = render(request, template_name)
+    return response
 
 
 def return_back(request):
