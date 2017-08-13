@@ -19,6 +19,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from lib.utils.common import *
 from lib.weixin.weixin_sql import *
+from alipay import AliPay
 
 
 def lend(request):
@@ -46,11 +47,24 @@ class PayView(View):
     """
     def get(self, request, *args, **kwargs):
 
-        tradeNo = create_order()
+        #tradeNo = create_order()
+        alipay = AliPay(
+            appid=ALIPAY_APPID,
+            app_notify_url="",
+            app_private_key_path="/root/zhifubao/app_private_key",
+            alipay_public_key_path="/root/zhifubao/alipay_public_key",
+            sign_type="RSA2",
+            debug=False
+        )
+        out_trade_no = create_timestamp()
+        order_string = alipay.api_alipay_trade_wap_pay(subject='押金支付', out_trade_no=out_trade_no, total_amount=DEPOSIT, return_url='/zhifubao/lend/')
 
+        req = urllib.request.Request(order_string)
+        res = urllib.request.urlopen(req)
+        urlResp = json.loads(res.read())
         data = {
             'deposit': 20,
-            'tradeNo': tradeNo
+            'tradeNo': out_trade_no
         }
         return render(request, 'zhifubao/pay.html', data)
 
