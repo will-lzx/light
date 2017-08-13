@@ -115,7 +115,7 @@ def create_order():
         quote(method),
         quote(app_id),
         quote(sign_str),
-        quote(biz_content),
+        quote(str(biz_content)),
         quote(charset)
     )
 
