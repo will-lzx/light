@@ -49,7 +49,7 @@ class PayView(View):
         user_id = get_user_id(request)
         out_trade_no = create_timestamp()
         tradeNo = create_order(user_id, out_trade_no)
-
+        print('tradeNo:', tradeNo)
         # alipay = AliPay(
         #     appid=ALIPAY_APPID,
         #     app_notify_url="",
