@@ -121,7 +121,7 @@ def create_order():
 
     req = urllib.request.Request(url)
     res = urllib.request.urlopen(req)
-    print('res:', res)
+    print('res:', res.read())
     urlResp = json.loads(res.read())
 
     print('urlResp:', urlResp)
