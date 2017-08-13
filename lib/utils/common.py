@@ -121,7 +121,7 @@ def create_order():
 
     quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
 
-    signed_string = quoted_string + "&sign=" + quote_plus(sign)
+    signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
     print('signed_string:', signed_string)
     req = urllib.request.Request(url)
