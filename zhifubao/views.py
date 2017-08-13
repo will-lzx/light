@@ -14,6 +14,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 from lib.utils.common import *
@@ -35,6 +36,20 @@ def lend(request):
 
     response = render(request, template_name, context)
     return response
+
+
+class PayView(View):
+    """
+    wechat base pay view
+    receive post data: order_id, price, title, notify_url, redirect_url
+    ..remove WxMemberView
+    """
+    def get(self, request, *args, **kwargs):
+
+        data = {
+            'deposit': 20,
+        }
+        return render(request, 'zhifubao/pay.html', data)
 
 
 def return_back(request):
