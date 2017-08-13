@@ -70,11 +70,12 @@ def get_userid(code):
     sign_str = sign(message.encode(encoding='utf-8')).decode()
 
     url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method={1}&app_id={2}' \
-          '&sign_type=RSA2&sign={3}&version=1.0&grant_type=authorization_code&code={4}&charset=GBK'.format(quote(timestamp),
-                                                                                                           quote(method),
-                                                                                                           quote(app_id),
-                                                                                                           quote(sign_str),
-                                                                                                           quote(code))
+          '&sign_type=RSA2&sign={3}&version=1.0&grant_type=authorization_code&code={4}&charset=GBK'.format(
+        quote(timestamp),
+        quote(method),
+        quote(app_id),
+        quote(sign_str),
+        quote(code))
 
     req = urllib.request.Request(url)
     res = urllib.request.urlopen(req)
@@ -94,7 +95,8 @@ def create_order():
     charset = 'GBK'
     out_trade_no = create_timestamp()
 
-    biz_content = {'body': '押金支付','subject': '押金支付','out_trade_no': out_trade_no,'timeout_express': '90m','total_amount': DEPOSIT,'product_code': 'QUICK_WAP_WAY'}
+    biz_content = {'body': '押金支付', 'subject': '押金支付', 'out_trade_no': out_trade_no, 'timeout_express': '90m',
+                   'total_amount': DEPOSIT, 'product_code': 'QUICK_WAP_WAY'}
 
     data = {'timestamp': timestamp,
             'app_id': app_id,
@@ -115,15 +117,14 @@ def create_order():
         quote(method),
         quote(app_id),
         quote(sign_str),
-        quote(str(biz_content)),
+        biz_content,
         quote(charset)
     )
 
-    quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
+    # quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
 
-    signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
+    # signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
-    print('signed_string:', signed_string)
     req = urllib.request.Request(url)
     res = urllib.request.urlopen(req)
     print('res:', res.read())
