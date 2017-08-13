@@ -46,8 +46,11 @@ class PayView(View):
     """
     def get(self, request, *args, **kwargs):
 
+        tradeNo = create_order()
+
         data = {
             'deposit': 20,
+            'tradeNo': tradeNo
         }
         return render(request, 'zhifubao/pay.html', data)
 

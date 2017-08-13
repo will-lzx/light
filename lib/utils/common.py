@@ -53,7 +53,6 @@ def get_userid(code):
     sign_type = 'RSA2'
     version = '1.0'
     grant_type = 'authorization_code'
-    #method = 'alipay.user.userinfo.share'
     method = 'alipay.system.oauth.token'
 
     data = {'timestamp': timestamp,
@@ -67,24 +66,15 @@ def get_userid(code):
             }
     unsigned_items = ordered_data(data)
     message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
-    print('message:', message)
-
-    # private_key = RSA.importKey(open('/root/zhifubao/app_private_key').read())
-    # signer = PKCS1_v1_5.new(private_key)
-    # digest = SHA256.new()
-    # digest.update(message.encode("utf8"))
-    # sign_str = base64.b64encode(signer.sign(digest))
 
     sign_str = sign(message.encode(encoding='utf-8')).decode()
 
-    print('sign_str', sign_str)
     url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method={1}&app_id={2}' \
           '&sign_type=RSA2&sign={3}&version=1.0&grant_type=authorization_code&code={4}&charset=GBK'.format(quote(timestamp),
                                                                                                            quote(method),
                                                                                                            quote(app_id),
                                                                                                            quote(sign_str),
                                                                                                            quote(code))
-    # resp = requests.get(url)
 
     req = urllib.request.Request(url)
     res = urllib.request.urlopen(req)
@@ -94,6 +84,54 @@ def get_userid(code):
 
     return user_id
 
+
+def create_order():
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    app_id = ALIPAY_APPID
+    sign_type = 'RSA2'
+    version = '1.0'
+    method = 'alipay.trade.wap.pay'
+    charset = 'GBK'
+    out_trade_no = create_timestamp()
+
+    biz_content = {
+        'body': '押金支付',
+        'subject': '押金支付',
+        'out_trade_no': out_trade_no,
+        "timeout_express": "90m",
+        'total_amount': DEPOSIT,
+        'product_code': 'QUICK_WAP_WAY',
+    }
+
+    data = {'timestamp': timestamp,
+            'app_id': app_id,
+            'sign_type': sign_type,
+            'version': version,
+            'method': method,
+            'biz_content': biz_content,
+            'charset': charset
+            }
+    unsigned_items = ordered_data(data)
+    message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
+
+    sign_str = sign(message.encode(encoding='utf-8')).decode()
+
+    url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method={1}&app_id={2}' \
+          '&sign_type=RSA2&sign={3}&version=1.0&biz_content={4}&charset={5}'.format(
+        quote(timestamp),
+        quote(method),
+        quote(app_id),
+        quote(sign_str),
+        quote(biz_content),
+        quote(charset)
+    )
+
+    req = urllib.request.Request(url)
+    res = urllib.request.urlopen(req)
+    urlResp = json.loads(res.read())
+
+    print('urlResp:', urlResp)
+    return out_trade_no
 
 def oauth(url):
     oAuth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, url)
