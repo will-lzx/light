@@ -127,14 +127,14 @@ def create_order():
 
     print('url:', url)
     req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
-    print('req:', req.text)
-    req = urllib.request.Request(url)
-    res = urllib.request.urlopen(req)
-    print('res:', res.read())
-    urlResp = json.loads(res.read())
+    #print('req:', req.text)
+    #req = urllib.request.Request(url)
+    #res = urllib.request.urlopen(req)
+    #print('res:', res.read())
+    #urlResp = json.loads(res.read())
 
-    print('urlResp:', urlResp)
-    return out_trade_no
+    #print('urlResp:', urlResp)
+    return req.text
 
 
 def oauth(url):
