@@ -125,6 +125,7 @@ def create_order():
 
     # signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
+    print('url:', url)
     req = urllib.request.Request(url)
     res = urllib.request.urlopen(req)
     print('res:', res.read())
