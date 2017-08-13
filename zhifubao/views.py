@@ -64,11 +64,10 @@ class PayView(View):
         # res = urllib.request.urlopen(req)
         # urlResp = json.loads(res.read())
         data = {
-            'deposit': 20,
+            'deposit': DEPOSIT,
             'tradeNo': tradeNo
         }
-        return HttpResponse(tradeNo)
-        #return render(request, 'zhifubao/pay.html', data)
+        return render(request, 'zhifubao/pay.html', data)
 
 
 def return_back(request):

@@ -86,17 +86,31 @@ def get_userid(code):
     return user_id
 
 
-def create_order():
+def create_order(buy_id):
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     app_id = ALIPAY_APPID
     sign_type = 'RSA2'
     version = '1.0'
-    method = 'alipay.trade.wap.pay'
+    method = 'alipay.trade.create'
     charset = 'GBK'
     out_trade_no = create_timestamp()
 
-    biz_content = {'body': '押金支付', 'subject': '押金支付', 'out_trade_no': out_trade_no, 'timeout_express': '90m',
-                   'total_amount': DEPOSIT, 'product_code': 'QUICK_WAP_WAY'}
+    goods_detail = [{
+        "goods_id": "pole-1",
+        "goods_name": "自拍杆",
+        "quantity": 1,
+        "price": 49,
+    }]
+
+    biz_content = {'body': '押金支付',
+                   'subject': '押金支付',
+                   'buyer_id': buy_id,
+                   'out_trade_no': out_trade_no,
+                   'timeout_express': '90m',
+                   'total_amount': DEPOSIT,
+                   'product_code': 'QUICK_WAP_WAY',
+                   'goods_detail': goods_detail
+                   }
 
     data = {'timestamp': timestamp,
             'app_id': app_id,
@@ -111,29 +125,30 @@ def create_order():
 
     sign_str = sign(message.encode(encoding='utf-8')).decode()
 
-    url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method={1}&app_id={2}' \
-          '&sign_type=RSA2&sign={3}&version=1.0&biz_content={4}&charset={5}'.format(
-        quote(timestamp),
-        quote(method),
-        quote(app_id),
-        quote(sign_str),
-        biz_content,
-        quote(charset)
-    )
+    # url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method={1}&app_id={2}' \
+    #       '&sign_type=RSA2&sign={3}&version=1.0&biz_content={4}&charset={5}'.format(
+    #     quote(timestamp),
+    #     quote(method),
+    #     quote(app_id),
+    #     quote(sign_str),
+    #     biz_content,
+    #     quote(charset)
+    # )
 
     quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
 
     signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
-    print('url:', url)
     req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
-    #print('req:', req.text)
-    #req = urllib.request.Request(url)
-    #res = urllib.request.urlopen(req)
-    #print('res:', res.read())
-    #urlResp = json.loads(res.read())
 
-    #print('urlResp:', urlResp)
+    print('req.text:', req.text)
+    # print('req:', req.text)
+    # req = urllib.request.Request(url)
+    # res = urllib.request.urlopen(req)
+    # print('res:', res.read())
+    # urlResp = json.loads(res.read())
+
+    # print('urlResp:', urlResp)
     return req.text
 
 
