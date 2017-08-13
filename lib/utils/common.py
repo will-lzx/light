@@ -94,7 +94,7 @@ def create_order():
     charset = 'GBK'
     out_trade_no = create_timestamp()
 
-    biz_content = "{'body': '押金支付','subject': '押金支付','out_trade_no': out_trade_no,'timeout_express': '90m','total_amount': DEPOSIT,'product_code': 'QUICK_WAP_WAY'}"
+    biz_content = {'body': '押金支付','subject': '押金支付','out_trade_no': out_trade_no,'timeout_express': '90m','total_amount': DEPOSIT,'product_code': 'QUICK_WAP_WAY'}
 
     data = {'timestamp': timestamp,
             'app_id': app_id,
@@ -121,6 +121,7 @@ def create_order():
 
     req = urllib.request.Request(url)
     res = urllib.request.urlopen(req)
+    print('res:', res)
     urlResp = json.loads(res.read())
 
     print('urlResp:', urlResp)
