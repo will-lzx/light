@@ -5,7 +5,7 @@ import time
 
 import datetime
 
-from urllib.parse import quote
+from urllib.parse import quote, quote_plus
 
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
@@ -119,6 +119,11 @@ def create_order():
         quote(charset)
     )
 
+    quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
+
+    signed_string = quoted_string + "&sign=" + quote_plus(sign)
+
+    print('signed_string:', signed_string)
     req = urllib.request.Request(url)
     res = urllib.request.urlopen(req)
     print('res:', res.read())

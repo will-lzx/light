@@ -57,7 +57,7 @@ class PayView(View):
         #     debug=False
         # )
         # out_trade_no = create_timestamp()
-        # order_string = alipay.api_alipay_trade_wap_pay(subject='押金支付', out_trade_no=out_trade_no, total_amount=DEPOSIT, return_url='/zhifubao/lend/')
+        order_string = alipay.api_alipay_trade_wap_pay(subject='押金支付', out_trade_no=out_trade_no, total_amount=DEPOSIT, return_url='/zhifubao/lend/')
         #
         # url = 'https://openapi.alipay.com/gateway.do?' + order_string
         # req = urllib.request.Request(order_string)
