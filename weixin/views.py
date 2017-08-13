@@ -111,7 +111,7 @@ def lend(request):
     else:
         openid = request.session.get('openid', default=None)
 
-    is_deposit = is_deposit_exist(openid)
+    is_deposit = is_deposit_exist(openid, is_weixin=True)
     is_lend = is_lend_exist(openid)
 
     context = {

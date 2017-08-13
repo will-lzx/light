@@ -56,9 +56,13 @@ def is_weixin_usr_exist(openid):
         return False
 
 
-def is_deposit_exist(openid):
+def is_deposit_exist(openid, is_weixin=True):
     mysql = MySQL(db='management')
-    deposit = mysql.exec_query('select deposit from home_customer WHERE weixin_number="{0}"'.format(openid))[0][0]
+
+    if is_weixin:
+        deposit = mysql.exec_query('select deposit from home_customer WHERE weixin_number="{0}"'.format(openid))[0][0]
+    else:
+        deposit = mysql.exec_query('select deposit from home_customer WHERE alipay="{0}"'.format(openid))[0][0]
 
     if deposit > 0:
         return True

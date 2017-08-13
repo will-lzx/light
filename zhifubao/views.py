@@ -17,15 +17,23 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 
 from lib.utils.common import *
+from lib.weixin.weixin_sql import *
 
 
 def lend(request):
     user_id = get_user_id(request)
-    print('user_id:', user_id)
     template_name = 'zhifubao/lend.html'
-    print('test:')
-    response = render(request, template_name)
-    print('response:', response)
+
+    is_deposit = is_deposit_exist(user_id, is_weixin=False)
+    is_lend = is_lend_exist(user_id)
+
+    context = {
+        'is_deposit': is_deposit,
+        'user_id': user_id,
+        'is_lend': is_lend
+    }
+
+    response = render(request, template_name, context)
     return response
 
 
@@ -96,10 +104,6 @@ def call_back(request):
 
 def get_user_id(request):
     auth_code = request.GET.get('auth_code', None)
-
-    user_id = get_userid(auth_code)
-    print('user_id', user_id)
-    request.session['user_id'] = user_id
 
     if auth_code and not request.session.get('user_id', default=None):
         print('auth_code', auth_code)
