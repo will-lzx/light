@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^output_tip/(?P<has_pole>.+)/(?P<cabinet_code>.+)/$', output_tip, name='output_tip'),
     url(r'^generate_lendhistory/$', generate_lendhistory, name='generate_lendhistory'),
     url(r'^update_lendhistory/$', update_lendhistory, name='update_lendhistory'),
+    url(r'^get_pole/$', get_pole, name='get_pole'),
 
     url(r'^lend_success/$', lend_success, name='lend_success'),
 

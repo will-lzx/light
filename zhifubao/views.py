@@ -89,6 +89,13 @@ def call_save_order(request):
     return response
 
 
+def get_pole(request):
+    cabinet_code = request.POST.get('cabinet_code', None)
+    print('cabinet_code', cabinet_code)
+    has_pole = is_has_pole(cabinet_code)
+    return HttpResponse(str(has_pole))
+
+
 @method_decorator(csrf_exempt)
 def update_lendhistory(request):
     user_id = request.POST.get('user_id', None)
@@ -160,15 +167,15 @@ def output_tip(request, has_pole, cabinet_code):
 def generate_lendhistory(request):
 
     cabinet_code = request.POST.get('cabinet_code', None)
-    openid = request.session.get('openid', default=None)
+    user_id = request.session.get('user_id', default=None)
 
-    # cabinet_id = get_cabinet_id(cabinet_code)
-    #
-    # rule_id = get_rule_id(cabinet_code)
-    #
-    # result = insert_lendhistory(openid, rule_id, cabinet_id)
+    cabinet_id = get_cabinet_id(cabinet_code)
 
-    return HttpResponse('')
+    rule_id = get_rule_id(cabinet_code)
+
+    result = insert_lendhistory(user_id, rule_id, cabinet_id)
+
+    return HttpResponse(result)
 
 
 def lend_success(request):
