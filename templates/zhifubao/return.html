@@ -41,7 +41,7 @@
                   location.href = '/weixin/lend/';
               } else {
                   AlipayJSBridge.call('scan', {
-                      type: 'qr',
+                      type: 'qr'
                   }, function (result) {
                       alert(JSON.stringify(result));
                       var cabinet_code = '12-1213-21';
