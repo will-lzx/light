@@ -41,7 +41,7 @@ def subcribe_save_openid(openid):
 
 
 def update_deposit(openid, deposit, order_id, is_weixin=True):
-    is_usr_exist = is_weixin_usr_exist(openid, False)
+    is_usr_exist = is_weixin_usr_exist(openid, is_weixin)
     if is_usr_exist:
         mysql = MySQL(db='management')
         if is_weixin:
