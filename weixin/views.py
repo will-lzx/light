@@ -203,6 +203,7 @@ def get_pole(request):
     return HttpResponse(str(has_pole))
 
 
+@method_decorator(csrf_exempt)
 def get_capacity(request):
     cabinet_code = request.POST.get('cabinet_code', None)
     print('cabinet_code', cabinet_code)
