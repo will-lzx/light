@@ -124,19 +124,11 @@ def create_order(buy_id, out_trade_no):
 
     sign_str = sign(message.encode(encoding='utf-8')).decode()
 
-    # url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method={1}&app_id={2}' \
-    #       '&sign_type=RSA2&sign={3}&version=1.0&biz_content={4}&charset={5}'.format(
-    #     quote(timestamp),
-    #     quote(method),
-    #     quote(app_id),
-    #     quote(sign_str),
-    #     biz_content,
-    #     quote(charset)
-    # )
-
     quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
 
     signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
+
+    print('signed_string:', signed_string)
 
     req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
 
