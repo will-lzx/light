@@ -127,19 +127,9 @@ def create_order(buy_id, out_trade_no):
 
     signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
-    print('signed_string:', signed_string)
-
     req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
 
-    print('req.text:', req.text)
-    # print('req:', req.text)
-    # req = urllib.request.Request(url)
-    # res = urllib.request.urlopen(req)
-    # print('res:', res.read())
-    # urlResp = json.loads(res.read())
-
-    # print('urlResp:', urlResp)
-    return req.text
+    return req.json['alipay_trade_create_response']['trade_no']
 
 
 def oauth(url):
