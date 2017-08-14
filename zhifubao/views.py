@@ -79,7 +79,7 @@ def call_save_order(request):
     trade_no = request.POST.get('trade_no')
     out_trade_no = request.POST.get('out_trade_no')
 
-    update_deposit(user_id, DEPOSIT, out_trade_no)
+    update_deposit(user_id, DEPOSIT, out_trade_no, False)
 
     save_order(user_id, out_trade_no, trade_no)
 
