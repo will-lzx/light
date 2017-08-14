@@ -42,7 +42,6 @@
               } else {
                   AlipayJSBridge.call('scan', {
                       type: 'qr',
-                      actionType: 'route'
                   }, function (result) {
                       alert(JSON.stringify(result));
                       var cabinet_code = '12-1213-21';
