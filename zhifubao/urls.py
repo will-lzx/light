@@ -22,15 +22,19 @@ urlpatterns = [
 
     url(r'^lend/$', lend, name='lend'),
     url(r'^return_back/$', return_back, name='return_back'),
+    url(r'^return_tip/(?P<has_capacity>.+)/(?P<cabinet_code>.+)/$', return_tip, name='output_tip'),
+
     url(r'^nearby/$', nearby, name='nearby'),
 
 
     url(r'^output_tip/(?P<has_pole>.+)/(?P<cabinet_code>.+)/$', output_tip, name='output_tip'),
     url(r'^generate_lendhistory/$', generate_lendhistory, name='generate_lendhistory'),
+    url(r'^update_lendhistory/$', update_lendhistory, name='update_lendhistory'),
 
     url(r'^lend_success/$', lend_success, name='lend_success'),
 
     url(r'^pay/$', PayView.as_view(), name='pay'),
+    url(r'^call_pay/$', call_pay, name='call_pay'),
     url(r'^call_save_order/$', call_save_order, name='call_save_order'),
 
     url(r'^privatecenter/$', privatecenter, name='privatecenter'),

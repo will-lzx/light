@@ -33,7 +33,7 @@ urlpatterns = [
 
     url(r'^return_back/$', return_back, name='return_back'),
     url(r'^update_lendhistory/$', update_lendhistory, name='update_lendhistory'),
-    url(r'^return_tip/(?P<has_capacity>.+)/(?P<cabinet_code>.+)/$', return_tip, name='output_tip'),
+    url(r'^return_tip/(?P<has_capacity>.+)/(?P<cabinet_code>.+)/$', return_tip, name='return_tip'),
 
     url(r'^nearby/$', nearby, name='nearby'),
 

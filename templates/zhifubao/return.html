@@ -22,7 +22,44 @@
 
     <script src="/static/js/jquery-3.2.1.js"></script>
     <script>
+        function ready(callback) {
+          // 如果jsbridge已经注入则直接调用
+          if (window.AlipayJSBridge) {
+            callback && callback();
+          } else {
+            // 如果没有注入则监听注入的事件
+            document.addEventListener('AlipayJSBridgeReady', callback, false);
+          }
+        }
+        ready(function(){
+          document.querySelector('#scanQRCode').onclick = function() {
+              var user_id = '{{ user_id }}';
+              var is_lend = '{{ is_lend }}';
 
+              if (is_lend == 'True') {
+                  alert("您还有正在借用的订单，在订单完成前，不能再次借用");
+                  return
+              } else {
+                  AlipayJSBridge.call('scan', {
+                      type: 'qr',
+                      actionType: 'route'
+                  }, function (result) {
+                      alert(JSON.stringify(result));
+                      var cabinet_code = '12-1213-21';
+                        $.ajax({
+                            type:"post",
+                            url:"/weixin/get_capacity/",//自己填写请求地址
+                            data:{cabinet_code:cabinet_code},
+                            success:function(result){
+                                location.href = '/zhifubao/return_tip/' + result + '/' + cabinet_code + '/'
+                            }
+                        });
+
+                      {#              location.href = '/zhifubao/output_tip/' + result + '/' + cabinet_code + '/'#}
+                  });
+              }
+          }
+        });
 
     </script>
 {% endblock %}

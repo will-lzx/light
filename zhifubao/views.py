@@ -88,10 +88,47 @@ def call_save_order(request):
     return response
 
 
+@method_decorator(csrf_exempt)
+def update_lendhistory(request):
+    user_id = request.POST.get('user_id', None)
+
+    result = update_history(user_id)
+
+    money = get_pay_money(user_id)
+
+    if int(money) == 0:
+        need_pay = 'False'
+    else:
+        need_pay = 'True'
+    return HttpResponse(str(result) + '&' + need_pay)
+
+
 def return_back(request):
     template_name = 'zhifubao/return.html'
 
-    response = render(request, template_name)
+    user_id = get_user_id(request)
+    is_lend = is_lend_exist(user_id)
+    context = {
+        'user_id': user_id,
+        'is_lend': is_lend
+    }
+
+    response = render(request, template_name, context)
+    return response
+
+
+def return_tip(request, has_capacity, cabinet_code):
+    template_name = 'zhifubao/return_tip.html'
+
+    user_id = get_user_id(request)
+
+    context = {
+        'has_capacity': has_capacity,
+        'cabinet_code': cabinet_code,
+        'user_id': user_id
+    }
+
+    response = render(request, template_name, context)
     return response
 
 
