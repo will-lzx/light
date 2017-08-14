@@ -34,7 +34,6 @@ urlpatterns = [
     url(r'^lend_success/$', lend_success, name='lend_success'),
 
     url(r'^pay/$', PayView.as_view(), name='pay'),
-    url(r'^call_pay/$', call_pay, name='call_pay'),
     url(r'^call_save_order/$', call_save_order, name='call_save_order'),
 
     url(r'^privatecenter/$', privatecenter, name='privatecenter'),
