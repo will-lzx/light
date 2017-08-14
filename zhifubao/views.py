@@ -89,6 +89,7 @@ def call_save_order(request):
     return response
 
 
+@method_decorator(csrf_exempt)
 def get_pole(request):
     cabinet_code = request.POST.get('cabinet_code', None)
     print('cabinet_code', cabinet_code)
