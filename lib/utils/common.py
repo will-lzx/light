@@ -107,7 +107,6 @@ def create_order(buy_id, out_trade_no):
                    'out_trade_no': out_trade_no,
                    'timeout_express': '90m',
                    'total_amount': DEPOSIT,
-                   'product_code': 'QUICK_WAP_WAY',
                    'goods_detail': goods_detail
                    }
 
