@@ -73,6 +73,7 @@ class PayView(View):
         return render(request, 'zhifubao/pay.html', data)
 
 
+@method_decorator(csrf_exempt)
 def call_save_order(request):
     user_id = get_user_id(request)
     trade_no = request.POST.get('trade_no')
