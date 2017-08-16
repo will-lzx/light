@@ -1,0 +1,75 @@
+{% extends "weixin/base.html" %}
+{% load static %}
+{% block title %}充值押金{% endblock %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+
+     <div class="ts_cont">
+       <img class="zgjs_img" src="{% static '/images/weixin/cz.png' %}" alt="押金充值">
+    </div>
+    <div class="nr_con">
+            <a href="#" id="deposit"  class="weui-btn weui-btn_primary page__bd_spacing">充值 {{ deposit }} 元</a>
+            <div class="ts_til page__bd_spacing"><div class="ts_til_test">温馨提示</div> </div>
+            <div class="sm_cont">
+                1.归还自拍杆后，随时到个人中心退还押金<br>
+                2.充值即表示已阅读并同意茄子自拍<a href="/weixin/contract/">租借服务协议</a>
+            </div>
+     </div>
+
+    <script src="/static/js/jquery-3.2.1.js"></script>
+    <script src="/static/js/relalive.js"></script>
+    <script>
+
+        $('#deposit').click(function () {
+            var tradeNo = '{{ tradeNo }}';
+            tradePay(tradeNo);
+        });
+
+        $("#payButton").click(function() {
+           tradePay(tradeNo);
+        });
+        // 通过jsapi关闭当前窗口，仅供参考，更多jsapi请访问
+        // https://docs.open.alipay.com/54/104510/
+        $("#closeButton").click(function() {
+           AlipayJSBridge.call('closeWebview');
+        });
+
+        // 由于js的载入是异步的，所以可以通过该方法，当AlipayJSBridgeReady事件发生后，再执行callback方法
+        function ready(callback) {
+             if (window.AlipayJSBridge) {
+                 callback && callback();
+             } else {
+                 document.addEventListener('AlipayJSBridgeReady', callback, false);
+             }
+        }
+        function tradePay(tradeNO) {
+            ready(function(){
+                 // 通过传入交易号唤起快捷调用方式(注意tradeNO大小写严格)
+                 AlipayJSBridge.call("tradePay", {
+                      tradeNO: tradeNO
+                 }, function (data) {
+                     if ("9000" == data.resultCode) {
+
+                         save_order(tradeNO);
+                     }
+                 });
+            });
+        }
+
+        function save_order(trade_no){
+            var out_trade_no = '{{ out_trade_no }}';
+            $.ajax({
+                type:"post",
+                url:"/zhifubao/call_save_order/",
+                data:{out_trade_no: out_trade_no, trade_no: trade_no},
+                success:function(result){
+                    location.href = '/zhifubao/lend/';
+                }
+            });
+        }
+
+    </script>
+{% endblock %}

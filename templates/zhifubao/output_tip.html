@@ -1,0 +1,93 @@
+{% extends "weixin/base.html" %}
+{% load static %}
+{% block title %}茄子自拍{% endblock %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+        {% ifequal has_pole 'True' %}
+            <div class="ts_cont ts_cont_all">
+                  <img class="zgjs_img" src="{% static '/images/weixin/cgts.gif' %}" alt="出杆提示">
+            </div>
+             <div class="nr_con">
+               <div class="cgsm">
+                请注意机柜屏幕信息<br>自拍杆将从<span class="col_z">闪亮指示灯位置</span>吐出<br>请及时取走掏空
+            </div>
+
+            </div>
+            <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+            <script src="{% static 'js/jquery-min.js' %}"></script>
+            <script src="http://182.61.58.155:2136/socket.io/socket.io.js"></script>
+            <script>
+
+                var socket = null;
+
+                function lend(){
+                    init_socket();
+
+                    var cabinet_code = '{{ cabinet_code }}';
+
+                    sendmsg(cabinet_code + '&lend');
+
+                    logout();
+                }
+
+                function init_socket(){
+                    socket = io.connect('ws://182.61.58.155:2136');
+
+                    socket.emit('join', {username:'will'});
+
+                    socket.on('pmsg', function(from, to, msg){
+                        alert(msg);
+                        if(msg=='lend_success')
+                        {
+                            setTimeout("jump();", 2000);
+                        }
+                    });
+                }
+
+                function jump() {
+                    var cabinet_code = '{{ cabinet_code }}';
+                    alert('cabinet_code' + cabinet_code);
+                    $.ajax({
+                        type:"post",
+                        url:"/zhifubao/generate_lendhistory/",
+                        data:{cabinet_code: cabinet_code},
+                        success:function(result){
+                            location.href = '/zhifubao/lend_success/';
+                        }
+                    });
+
+                }
+
+                function logout()
+                {
+                    socket.emit('disconnect');
+                }
+
+                function sendmsg(msg){
+                    alert('send msg' + msg);
+                    socket.emit('private_message', 'will', 'will', msg);
+                }
+
+                window.onload = lend;
+
+            </script>
+
+        {% else %}
+            <div class="ts_cont">
+               <img class="zgjs_img" src="{% static '/images/weixin/tk.jpg' %}" alt="自拍杆被掏空">
+            </div>
+            <div class="nr_con">
+                <a href="/zhifubao/nearby/" id="nearby" class="weui-btn weui-btn_default weui-btn_primary page__bd_spacing">查看附近可借自拍杆</a>
+                <div class="sm_cont">
+                您很有眼光，此处拍照人多，自拍杆已被<span class="col_z">掏空</span>
+                </div>
+
+            </div>
+        {% endifequal %}
+
+
+
+{% endblock %}

@@ -111,7 +111,7 @@ def lend(request):
     else:
         openid = request.session.get('openid', default=None)
 
-    is_deposit = is_deposit_exist(openid)
+    is_deposit = is_deposit_exist(openid, is_weixin=True)
     is_lend = is_lend_exist(openid)
 
     context = {
@@ -203,6 +203,7 @@ def get_pole(request):
     return HttpResponse(str(has_pole))
 
 
+@method_decorator(csrf_exempt)
 def get_capacity(request):
     cabinet_code = request.POST.get('cabinet_code', None)
     print('cabinet_code', cabinet_code)
@@ -379,8 +380,8 @@ class PayView(View):
     """
     def get(self, request, *args, **kwargs):
         try:
-            price = WEIXIN_DEPOSIT
-            notify_url = WEIXIN_PAYBACK + '?price=' + str(WEIXIN_DEPOSIT) + '&is_deposit=True'
+            price = DEPOSIT
+            notify_url = WEIXIN_PAYBACK + '?price=' + str(DEPOSIT) + '&is_deposit=True'
 
             print('notify:', notify_url)
             redirect_url = '/weixin/lend/'
@@ -466,7 +467,7 @@ class WxPayNotifyView(View):
         return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        price = WEIXIN_DEPOSIT
+        price = DEPOSIT
         pay = PayApi()
         data = request.body
         data = dict(xmltodict.parse(data)['xml'])

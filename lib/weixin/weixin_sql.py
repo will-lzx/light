@@ -40,25 +40,35 @@ def subcribe_save_openid(openid):
         mysql.exec_none_query('insert into home_customer (id, weixin_number, mobile_number, alipay, credit_score, deposit, deposit_order_id, create_time) values({0}, "{1}", "{2}", "{3}", {4}, {5}, {6}, "{7}")'.format(id, openid, '', '', 0, 0, 0, create_time))
 
 
-def update_deposit(openid, deposit, order_id):
-    is_usr_exist = is_weixin_usr_exist(openid)
+def update_deposit(openid, deposit, order_id, is_weixin=True):
+    is_usr_exist = is_weixin_usr_exist(openid, is_weixin)
     if is_usr_exist:
         mysql = MySQL(db='management')
-        mysql.exec_none_query('update home_customer set deposit={0}, deposit_order_id="{1}" where weixin_number="{2}"'.format(deposit, order_id, openid))
+        if is_weixin:
+            mysql.exec_none_query('update home_customer set deposit={0}, deposit_order_id="{1}" where weixin_number="{2}"'.format(deposit, order_id, openid))
+        else:
+            mysql.exec_none_query('update home_customer set deposit={0}, deposit_order_id="{1}" where alipay="{2}"'.format(deposit, order_id, openid))
 
 
-def is_weixin_usr_exist(openid):
+def is_weixin_usr_exist(openid, is_weixin=True):
     mysql = MySQL(db='management')
-    results = mysql.exec_query('select weixin_number from home_customer where weixin_number="{0}"'.format(openid))
+    if is_weixin:
+        results = mysql.exec_query('select weixin_number from home_customer where weixin_number="{0}"'.format(openid))
+    else:
+        results = mysql.exec_query('select alipay from home_customer where alipay="{0}"'.format(openid))
     if results:
         return True
     else:
         return False
 
 
-def is_deposit_exist(openid):
+def is_deposit_exist(openid, is_weixin=True):
     mysql = MySQL(db='management')
-    deposit = mysql.exec_query('select deposit from home_customer WHERE weixin_number="{0}"'.format(openid))[0][0]
+
+    if is_weixin:
+        deposit = mysql.exec_query('select deposit from home_customer WHERE weixin_number="{0}"'.format(openid))[0][0]
+    else:
+        deposit = mysql.exec_query('select deposit from home_customer WHERE alipay="{0}"'.format(openid))[0][0]
 
     if deposit > 0:
         return True
@@ -292,5 +302,6 @@ if __name__ == '__main__':
     #history = get_histories('oWJUp0XapjayHP5kLqXC3uADC73w')[1]
     #money = get_money('oWJUp0XapjayHP5kLqXC3uADC73w', 14800)
 
-    result = is_pay_finished('oWJUp0XapjayHP5kLqXC3uADC73w')
+    #result = is_pay_finished('oWJUp0XapjayHP5kLqXC3uADC73w')
+    update_deposit('2088002510276700', 0.01, '1502680802', False)
     print('')

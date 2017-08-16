@@ -13,23 +13,131 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
+from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
+
+from lib.utils.common import *
+from lib.weixin.weixin_sql import *
 from alipay import AliPay
-from light.settings import *
-import requests
 
 
 def lend(request):
+    user_id = get_user_id(request)
     template_name = 'zhifubao/lend.html'
+
+    is_deposit = is_deposit_exist(user_id, is_weixin=False)
+    is_lend = is_lend_exist(user_id)
+
+    context = {
+        'is_deposit': is_deposit,
+        'user_id': user_id,
+        'is_lend': is_lend
+    }
+
+    response = render(request, template_name, context)
+    return response
+
+
+class PayView(View):
+    """
+    wechat base pay view
+    receive post data: order_id, price, title, notify_url, redirect_url
+    ..remove WxMemberView
+    """
+    def get(self, request, *args, **kwargs):
+        user_id = get_user_id(request)
+        out_trade_no = create_timestamp()
+        tradeNo = create_order(user_id, out_trade_no)
+        print('tradeNo:', tradeNo)
+        # alipay = AliPay(
+        #     appid=ALIPAY_APPID,
+        #     app_notify_url="",
+        #     app_private_key_path="/root/zhifubao/app_private_key",
+        #     alipay_public_key_path="/root/zhifubao/alipay_public_key",
+        #     sign_type="RSA2",
+        #     debug=False
+        # )
+        # out_trade_no = create_timestamp()
+        #order_string = alipay.api_alipay_trade_wap_pay(subject='押金支付', out_trade_no=out_trade_no, total_amount=DEPOSIT, return_url='/zhifubao/lend/')
+        #
+        # url = 'https://openapi.alipay.com/gateway.do?' + order_string
+        # req = urllib.request.Request(order_string)
+        # res = urllib.request.urlopen(req)
+        # urlResp = json.loads(res.read())
+        data = {
+            'deposit': DEPOSIT,
+            'tradeNo': tradeNo,
+            'out_trade_no': out_trade_no
+        }
+        return render(request, 'zhifubao/pay.html', data)
+
+
+@method_decorator(csrf_exempt)
+def call_save_order(request):
+    user_id = get_user_id(request)
+    trade_no = request.POST.get('trade_no')
+    out_trade_no = request.POST.get('out_trade_no')
+
+    update_deposit(user_id, DEPOSIT, out_trade_no, False)
+
+    save_order(user_id, out_trade_no, trade_no)
+
+    template_name = 'zhifubao/return.html'
 
     response = render(request, template_name)
     return response
 
 
+@method_decorator(csrf_exempt)
+def get_pole(request):
+    cabinet_code = request.POST.get('cabinet_code', None)
+    print('cabinet_code', cabinet_code)
+    has_pole = is_has_pole(cabinet_code)
+    return HttpResponse(str(has_pole))
+
+
+@method_decorator(csrf_exempt)
+def update_lendhistory(request):
+    user_id = request.POST.get('user_id', None)
+
+    result = update_history(user_id)
+
+    money = get_pay_money(user_id)
+
+    if int(money) == 0:
+        need_pay = 'False'
+    else:
+        need_pay = 'True'
+    return HttpResponse(str(result) + '&' + need_pay)
+
+
 def return_back(request):
     template_name = 'zhifubao/return.html'
 
-    response = render(request, template_name)
+    user_id = get_user_id(request)
+    is_lend = is_lend_exist(user_id)
+    context = {
+        'user_id': user_id,
+        'is_lend': is_lend
+    }
+
+    response = render(request, template_name, context)
+    return response
+
+
+def return_tip(request, has_capacity, cabinet_code):
+    template_name = 'zhifubao/return_tip.html'
+
+    user_id = get_user_id(request)
+
+    context = {
+        'has_capacity': has_capacity,
+        'cabinet_code': cabinet_code,
+        'user_id': user_id
+    }
+
+    response = render(request, template_name, context)
     return response
 
 
@@ -46,137 +154,71 @@ def privatecenter(request):
     return response
 
 
-@csrf_exempt
-def zfb(request):
-    alipay = AliPay(
-        appid="2017072707914385",
-        app_notify_url="http://relalive.com/zhifubao/alipy_notify/",
-        app_private_key_path="/root/zhifubao/app_private_key",
-        alipay_public_key_path="/root/zhifubao/alipay_public_key",
-        sign_type="RSA2",
-        debug=False
-    )
+def output_tip(request, has_pole, cabinet_code):
+    template_name = 'zhifubao/output_tip.html'
+    context = {
+        'has_pole': has_pole,
+        'cabinet_code': cabinet_code
+    }
+    response = render(request, template_name, context)
+    return response
 
-    res = {}
-    arguments = {}
-    args = request.body.decode("gb2312").split('&')
 
-    print('args:', args)
-    for item in args:
-        k = item.split('=', 1)[0]
-        v = item.split('=', 1)[1]
-        arguments[k] = v
+@method_decorator(csrf_exempt)
+def generate_lendhistory(request):
 
-    check_sign = params_to_string(arguments)
+    cabinet_code = request.POST.get('cabinet_code', None)
+    user_id = request.session.get('user_id', default=None)
 
-    params = string_to_dict(check_sign)
+    cabinet_id = get_cabinet_id(cabinet_code)
 
-    sign = params['sign']
+    rule_id = get_rule_id(cabinet_code)
 
-    params = params_filter(params)
+    result = insert_lendhistory(user_id, rule_id, cabinet_id)
 
-    signature_str = params_to_verify_string(params, quotes=False, reverse=False)
+    return HttpResponse(result)
 
-    print('signature_str', signature_str)
-    # check_res = check_ali_sign(signature_str, sign)
-    check_res = alipay.verify(params, sign)
-    if not check_res:
-        res = 'fail'
-    print('res1:', res)
-    res = verify_from_gateway({"partner": ALIPAY_PARTNERID, "notify_id": params["notify_id"]})
 
-    if not res:
-        res = 'fail'
+def lend_success(request):
+    template_name = 'zhifubao/lend_success.html'
 
-    if res != 'fail':
-        return 'success'
+    response = render(request, template_name)
+    return response
+
+
+def call_back(request):
+    code = request.GET.get('auth_code', None)
+
+    if code and not request.session.get('user_id', default=None):
+        print('code', code)
+        user_id = get_userid(code)
+        request.session['user_id'] = user_id
     else:
-        return res
+        user_id = request.session.get('user_id', default=None)
+
+    return user_id
 
 
-def check_ali_sign(signature, sign):
-    with open('/root/alipay_public_key.pem') as fp:
-        alipay_public_key = RSA.importKey(fp.read())
+def get_user_id(request):
+    auth_code = request.GET.get('auth_code', None)
 
-    print('alipay_public_key', alipay_public_key)
-
-    from alipay import AliPay
-    alipay = AliPay()
-    alipay.verify()
-
-    alipay_public_key = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhug73b3e2juIOIfxN7Ju2AMcwdOVqG4txOCea+r6nQBMyrlEIIbi1gKWFIbTCJAeKRhJPAZnApd8CCPGwSgRyxbYAUxJNF4BTIECTIHc0nXZVJASv6L0Miqnv7G2X1PFSWMlt4ijmo0f3mCnZONbk8MKcesSSN0EV5WfyJA/PUs+4rbJrEwCnoEtR6TgX+JPg+oa03/718T3jJGz4saWRH7QJD+jPFluZusy2LEMmckX+ZPusSpGZdEunqxbCoM8ywN+Ag2h9L6qOdj1VMTlzu/vweRyZDBW2ztWelbuzW7JRPrIGce0X0vomJ1ATEIPuCidaP16V6K+sguWsgNe8wIDAQAB'
-    key = alipay_public_key
-    print('key:', key)
-    signer = PKCS1_v1_5.new(key)
-    digest = SHA256.new()
-
-
-
-    digest.update(signature.encode("utf8"))
-    if signer.verify(digest, decodebytes(sign.encode("utf8"))):
-        return True
+    if auth_code and not request.session.get('user_id', default=None):
+        print('auth_code', auth_code)
+        user_id = get_userid(auth_code)
+        print('user_id', user_id)
+        request.session['user_id'] = user_id
     else:
-        return False
+        user_id = request.session.get('user_id', default=None)
+
+    return user_id
 
 
-def alipy_notify(request):
-    print('notify')
 
 
-def params_to_string(params, quotes=False, reverse=False):
-    query = ''
-    for key in sorted(params.keys(), reverse=reverse):
-        value = params[key]
-        if quotes:
-            query += str(key) + '=\"' + str(value) + '\"&'
-        else:
-            query += str(key) + "=" + str(value) + "&"
-    query = query[0:-1]
-    return query
 
 
-def string_to_dict(query):
-    res = {}
-    k_v_pairs = query.split('&')
-    for item in k_v_pairs:
-        sp_item = item.split('=', 1)
-        key = sp_item[0]
-        value = sp_item[1]
-        res[key] = value
-    return res
 
 
-def params_filter(params):
-    ret = {}
-    for key, value in params.items():
-        if key == "sign" or value == "":
-            continue
-        ret[key] = value
-    return ret
-
-
-def params_to_verify_string(params, quotes=False, reverse=False):
-    query = ''
-    for key in sorted(params.keys(), reverse=reverse):
-        value = params[key]
-        if quotes:
-            query += str(key) + "=\"" + str(value) + "\"&"
-        else:
-            query += str(key) + "=" + str(value) + "&"
-    query = query[0:-1]
-    return query
-
-
-def verify_from_gateway(params_dict):
-    ali_gateway_url = "https://mapi.alipay.com/gateway.do?service=notify_verify&partner=%(partner)d&notify_id=%(notify_id)s"
-    notify_id = params_dict["notify_id"]
-    partner = ALIPAY_PARTNERID
-    ali_gateway_url = ali_gateway_url % {"partner": partner, "notify_id": notify_id}
-    cafile = '/root/cacert.pem'
-    res = requests.get(ali_gateway_url, cert=(cafile,))
-    if res.text == "true":
-        return True
-    return False
 
 
 
