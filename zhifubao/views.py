@@ -140,7 +140,7 @@ def privatecenter(request):
 
     lendtime = get_lendtime(user_id)
 
-    deposit = float(get_deposit(user_id))
+    deposit = float(get_deposit(user_id, False))
 
     user = get_userinfo(access_token, auth_code)
 
