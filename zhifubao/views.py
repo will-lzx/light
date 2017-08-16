@@ -328,7 +328,7 @@ def how_charge(request):
 
 def call_back(request):
     code = request.GET.get('auth_code', None)
-
+    print('code:', code)
     if code and not request.session.get('user_id', default=None):
         print('code', code)
         user_id = get_userid(code)
