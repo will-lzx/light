@@ -146,12 +146,15 @@ def lendhistory(request):
 
     lendtime = len(histories)
 
+    deposit = float(get_deposit(user_id, False))
+
     context = {
         'lendhistory': histories,
         'lendtime': lendtime,
         'cabinets': cabinets,
         'spots': spots,
-        'rules': rules
+        'rules': rules,
+        'deposit': deposit
     }
 
     response = render(request, template_name, context)
