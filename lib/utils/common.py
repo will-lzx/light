@@ -58,6 +58,7 @@ def get_userid_access_token(code):
     urlResp = get_oauth_response(code)
     user_id = urlResp['alipay_system_oauth_token_response']['user_id']
     access_token = urlResp['alipay_system_oauth_token_response']['access_token']
+    print('access_token:', access_token)
 
     return user_id, access_token
 
