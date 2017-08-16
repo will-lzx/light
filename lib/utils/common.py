@@ -212,8 +212,9 @@ def create_withdraw(deposit, out_trade_no):
 def get_subscribe_time(user_id):
     mysql = MySQL(db='management')
     subcribe_time = mysql.exec_query(
-        'select create_time from home_customer where alipay="{0}")'.format(user_id))[0][0]
+        'select create_time from home_customer where alipay="{0}"'.format(user_id))[0][0]
     return subcribe_time
+
 
 def oauth(url):
     oAuth = WeChatOAuth(WEIXIN_APPID, WEIXIN_APPSECRET, url)
