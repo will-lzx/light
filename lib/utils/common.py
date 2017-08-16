@@ -81,24 +81,15 @@ def get_userinfo(access_token, code):
             'auth_token': access_token
             }
     unsigned_items = ordered_data(data)
-    message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
+    quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
 
-    sign_str = sign(message.encode(encoding='utf-8')).decode()
+    sign_str = sign(quoted_string.encode(encoding='utf-8')).decode()
 
-    url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method={1}&app_id={2}' \
-          '&sign_type=RSA2&sign={3}&version=1.0&grant_type=authorization_code&code={4}&charset=GBK&auth_code={5}'.format(
-        quote(timestamp),
-        quote(method),
-        quote(app_id),
-        quote(sign_str),
-        quote(code),
-        quote(access_token)
-    )
+    signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
-    req = urllib.request.Request(url)
-    res = urllib.request.urlopen(req)
-    urlResp = json.loads(res.read())
-    return urlResp['alipay_user_info_share_response']
+    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
+
+    return req['alipay_user_info_share_response']
 
 
 def get_oauth_response(code):
