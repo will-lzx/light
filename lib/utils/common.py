@@ -113,7 +113,7 @@ def get_oauth_response(code):
             'grant_type': grant_type,
             'method': method,
             'charset': 'GBK',
-            #'code': code,
+            'code': code,
             }
     unsigned_items = ordered_data(data)
     message = "&".join("{}={}".format(k, v) for k, v in unsigned_items)
