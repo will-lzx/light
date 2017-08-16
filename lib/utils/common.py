@@ -110,27 +110,21 @@ def get_oauth_response(code):
             'grant_type': grant_type,
             'method': method,
             'charset': 'GBK',
-            'code': code
+            #'code': code
+            'refresh_token': 'authusrBf29e8197274442738b78a4ffefe7cX70'
             }
     unsigned_items = ordered_data(data)
-    message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
+    quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
 
-    sign_str = sign(message.encode(encoding='utf-8')).decode()
+    print('quoted_string:', quoted_string)
 
-    url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method={1}&app_id={2}' \
-          '&sign_type=RSA2&sign={3}&version=1.0&grant_type=authorization_code&code={4}&charset=GBK'.format(
-        quote(timestamp),
-        quote(method),
-        quote(app_id),
-        quote(sign_str),
-        quote(code))
+    sign_str = sign(quoted_string.encode(encoding='utf-8')).decode()
 
-    req = urllib.request.Request(url)
-    res = urllib.request.urlopen(req)
-    urlResp = json.loads(res.read())
-    print('urlresp:', urlResp)
+    signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
-    return urlResp
+    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
+
+    return req
 
 
 def create_order(buy_id, out_trade_no):
