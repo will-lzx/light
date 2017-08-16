@@ -113,11 +113,11 @@ def get_oauth_response(code):
             'code': code
             }
     unsigned_items = ordered_data(data)
-    quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
+    message = "&".join("{}={}".format(k, v) for k, v in unsigned_items)
 
-    print('quoted_string:', quoted_string)
+    print('quoted_string:', message)
 
-    sign_str = sign(quoted_string.encode(encoding='utf-8')).decode()
+    sign_str = sign(message.encode(encoding='utf-8')).decode()
 
     quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
 
