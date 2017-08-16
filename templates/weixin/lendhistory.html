@@ -20,20 +20,20 @@
                        <div class="zjjl_dd">订单号：{{ history.0 }}</div>
                    </div>
                    <div class="zjjl_h">
-                       <div class="zjjl_tf">时长(小时)：<span class="col_z">
+                       <div class="zjjl_tf">时长(时)：<span class="col_z">
                            {% if history.3 %}
                                 {{ history.2 | get_time_long:history.3 }}
                            {% else %}
                                 {{ history.2 | get_time_long }}
                            {% endif %}</span>
                        </div>
-                       <div class="zjjl_tf">费用(元)：<span class="col_z">{{ history.4 }}</span></div>
+                       <div class="zjjl_tf zjjl_tf_mid">费用(元)：<span class="col_z">{{ history.4 }}</span></div>
                        <div class="zjjl_zt">状态：
                            {% ifequal history.5 0 %}
                                <span class="zt_jxz">已借出</span>
                            {% endifequal %}
                            {% ifequal history.5 1 %}
-                               <span class="zt_jxz"><a href="/weixin/return_pay/">已归还,待支付</a></span>
+                               <span class="zt_jxz"><a href="/weixin/return_pay/">待支付</a></span>
                            {% endifequal %}
                            {% ifequal history.5 2 %}
                                <span class="zt_ywc">已完成</span>
