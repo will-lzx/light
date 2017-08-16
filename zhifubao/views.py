@@ -146,7 +146,7 @@ def lendhistory(request):
 
     lendtime = len(histories)
 
-    deposit = float(get_deposit(user_id, False))
+    deposit = float(get_deposit(user_id, is_weixin=False))
 
     context = {
         'lendhistory': histories,
