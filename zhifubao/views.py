@@ -168,7 +168,14 @@ def privatecenter(request):
 
     deposit = float(get_deposit(user_id, False))
 
-    user = get_userinfo(access_token, auth_code)
+    try:
+        user = get_userinfo(access_token, auth_code)
+        headimgurl = user['avatar']
+        nick_name = user['nick_name']
+    except Exception as ex:
+        print('Get user info fail:', ex)
+        headimgurl = ''
+        nick_name = '亲爱的，轻拍用户'
 
     subscribe_time = get_subscribe_time(user_id)
 
@@ -176,8 +183,8 @@ def privatecenter(request):
     context = {
         'lendtime': lendtime,
         'deposit': deposit,
-        'headimgurl': user['avatar'],
-        'nickname': user['nick_name'],
+        'headimgurl': headimgurl,
+        'nickname': nick_name,
         'subscribe_time': subscribe_time,
     }
 
