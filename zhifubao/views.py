@@ -336,7 +336,7 @@ def call_back(request):
     else:
         user_id = request.session.get('user_id', default=None)
 
-    return user_id
+    return HttpResponse(user_id)
 
 
 def get_user_id(request):
