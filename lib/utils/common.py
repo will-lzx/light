@@ -77,6 +77,7 @@ def get_userinfo(access_token, code):
             'grant_type': grant_type,
             'method': method,
             'charset': 'GBK',
+            'code': code,
             'auth_token': access_token
             }
     unsigned_items = ordered_data(data)
