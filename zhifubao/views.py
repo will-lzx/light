@@ -179,7 +179,6 @@ def privatecenter(request):
 
     subscribe_time = get_subscribe_time(user_id)
 
-
     context = {
         'lendtime': lendtime,
         'deposit': deposit,
