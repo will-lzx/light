@@ -127,6 +127,7 @@ def get_oauth_response(code):
     req = urllib.request.Request(url)
     res = urllib.request.urlopen(req)
     urlResp = json.loads(res.read())
+    print('urlresp:', urlResp)
 
     return urlResp
 
