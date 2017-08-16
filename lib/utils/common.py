@@ -89,7 +89,7 @@ def get_userinfo(access_token, code):
 
     req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
 
-    print('req::', req)
+    print('req::', req.text)
 
     return req['alipay_user_info_share_response']
 
