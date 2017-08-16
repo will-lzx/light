@@ -49,22 +49,7 @@ class PayView(View):
         user_id = get_user_id(request)
         out_trade_no = create_timestamp()
         tradeNo = create_order(user_id, out_trade_no)
-        print('tradeNo:', tradeNo)
-        # alipay = AliPay(
-        #     appid=ALIPAY_APPID,
-        #     app_notify_url="",
-        #     app_private_key_path="/root/zhifubao/app_private_key",
-        #     alipay_public_key_path="/root/zhifubao/alipay_public_key",
-        #     sign_type="RSA2",
-        #     debug=False
-        # )
-        # out_trade_no = create_timestamp()
-        #order_string = alipay.api_alipay_trade_wap_pay(subject='押金支付', out_trade_no=out_trade_no, total_amount=DEPOSIT, return_url='/zhifubao/lend/')
-        #
-        # url = 'https://openapi.alipay.com/gateway.do?' + order_string
-        # req = urllib.request.Request(order_string)
-        # res = urllib.request.urlopen(req)
-        # urlResp = json.loads(res.read())
+
         data = {
             'deposit': DEPOSIT,
             'tradeNo': tradeNo,
@@ -150,8 +135,62 @@ def nearby(request):
 def privatecenter(request):
     template_name = 'zhifubao/privatecenter.html'
 
-    response = render(request, template_name)
+    auth_code = request.GET.get('auth_code', None)
+    user_id, access_token = get_userid_access_token(auth_code)
+
+    lendtime = get_lendtime(user_id)
+
+    deposit = float(get_deposit(user_id))
+
+    user = get_userinfo(access_token, auth_code)
+
+    subscribe_time = get_subscribe_time(user_id)
+
+
+    context = {
+        'lendtime': lendtime,
+        'deposit': deposit,
+        'headimgurl': user['avatar'],
+        'nickname': user['nick_name'],
+        'subscribe_time': subscribe_time,
+    }
+
+    response = render(request, template_name, context)
+
     return response
+
+
+def withdraw(request):
+    template_name = 'zhifubao/withdraw.html'
+    user_id = get_user_id(request)
+    deposit = get_deposit(user_id)
+    deposit_order_id = get_order_id(user_id)
+
+    is_lend = is_lend_exist(user_id)
+
+    is_payed = is_pay_finished(user_id)
+
+    context = {
+        'deposit': deposit,
+        'deposit_order_id': deposit_order_id,
+        'is_lend': is_lend,
+        'is_pay_finished': is_payed
+    }
+    response = render(request, template_name, context)
+    return response
+
+
+@method_decorator(csrf_exempt)
+def exe_withdraw(request):
+    deposit = str(int(float(request.POST.get('deposit')) * 100))
+    deposit_order_id = request.POST.get('deposit_order_id')
+    user_id = get_user_id(request)
+
+    resp_status = create_withdraw(deposit, deposit_order_id)
+
+    if resp_status == 'Success':
+        update_deposit(user_id, 0, 0, False)
+    return HttpResponse(resp_status)
 
 
 def output_tip(request, has_pole, cabinet_code):
@@ -182,6 +221,72 @@ def generate_lendhistory(request):
 def lend_success(request):
     template_name = 'zhifubao/lend_success.html'
 
+    response = render(request, template_name)
+    return response
+
+
+def contract(request):
+    template_name = 'zhifubao/contract.html'
+    response = render(request, template_name)
+    return response
+
+
+def about(request):
+    template_name = 'zhifubao/about.html'
+    response = render(request, template_name)
+    return response
+
+
+def use_help(request):
+    template_name = 'zhifubao/use_help.html'
+    response = render(request, template_name)
+    return response
+
+
+def deposit_question(request):
+    template_name = 'zhifubao/help/deposit_question.html'
+    response = render(request, template_name)
+    return response
+
+
+def get_fail(request):
+    template_name = 'zhifubao/help/get_fail.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_return(request):
+    template_name = 'zhifubao/help/how_return.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_use(request):
+    template_name = 'zhifubao/help/how_to_use.html'
+    response = render(request, template_name)
+    return response
+
+
+def lost(request):
+    template_name = 'zhifubao/help/lost.html'
+    response = render(request, template_name)
+    return response
+
+
+def several(request):
+    template_name = 'zhifubao/help/several.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_pic(request):
+    template_name = 'zhifubao/help/how_pic.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_charge(request):
+    template_name = 'zhifubao/help/how_charge.html'
     response = render(request, template_name)
     return response
 

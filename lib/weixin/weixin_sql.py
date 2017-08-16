@@ -13,15 +13,23 @@ def get_lendtime(customer_id):
     return lendtime
 
 
-def get_deposit(weixin_number):
+def get_deposit(openid, is_weixin=True):
     mysql = MySQL(db='management')
-    deposit = mysql.exec_query('select deposit from home_customer where weixin_number="{0}" order by create_time desc'.format(weixin_number))[0][0]
+    if is_weixin:
+        deposit = mysql.exec_query('select deposit from home_customer where weixin_number="{0}" order by create_time desc'.format(openid))[0][0]
+    else:
+        deposit = mysql.exec_query('select deposit from home_customer where alipay="{0}" order by create_time desc'.format(openid))[0][0]
+
     return deposit
 
 
-def get_order_id(weixin_number):
+def get_order_id(openid, is_weixin=True):
     mysql = MySQL(db='management')
-    order_id = mysql.exec_query('select deposit_order_id from home_customer where weixin_number="{0}" order by create_time desc'.format(weixin_number))[0][0]
+    if is_weixin:
+        order_id = mysql.exec_query('select deposit_order_id from home_customer where weixin_number="{0}" order by create_time desc'.format(openid))[0][0]
+    else:
+        order_id = mysql.exec_query('select deposit_order_id from home_customer where alipay="{0}" order by create_time desc'.format(openid))[0][0]
+
     return order_id
 
 
