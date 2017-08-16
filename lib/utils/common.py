@@ -100,7 +100,7 @@ def get_oauth_response(code):
     app_id = ALIPAY_APPID
     sign_type = 'RSA2'
     version = '1.0'
-    grant_type = 'refresh_token'
+    grant_type = 'authorization_code'
     method = 'alipay.system.oauth.token'
 
     data = {'timestamp': timestamp,
@@ -110,8 +110,7 @@ def get_oauth_response(code):
             'grant_type': grant_type,
             'method': method,
             'charset': 'GBK',
-            #'code': code,
-            'refresh_token': 'authusrB0d120cff349b47e891f3698a631f8E70'
+            'code': code,
             }
     unsigned_items = ordered_data(data)
     message = "&".join("{}={}".format(k, v) for k, v in unsigned_items)
