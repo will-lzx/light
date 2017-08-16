@@ -58,7 +58,6 @@ def get_userid_access_token(code):
     urlResp = get_oauth_response(code)
     user_id = urlResp['alipay_system_oauth_token_response']['user_id']
     access_token = urlResp['alipay_system_oauth_token_response']['access_token']
-    print('access_token:', access_token)
 
     return user_id, access_token
 
@@ -82,6 +81,8 @@ def get_userinfo(access_token, code):
             }
     unsigned_items = ordered_data(data)
     quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
+
+    print('quoted_string:', quoted_string)
 
     sign_str = sign(quoted_string.encode(encoding='utf-8')).decode()
 
