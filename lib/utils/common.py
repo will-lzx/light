@@ -70,6 +70,7 @@ def get_userinfo(access_token, code):
     grant_type = 'authorization_code'
     method = 'alipay.user.info.share'
 
+    biz_content = {}
     data = {'timestamp': timestamp,
             'app_id': app_id,
             'sign_type': sign_type,
@@ -78,7 +79,8 @@ def get_userinfo(access_token, code):
             'method': method,
             'charset': 'GBK',
             'code': code,
-            'auth_token': access_token
+            'auth_token': access_token,
+            'biz_content': biz_content
             }
     unsigned_items = ordered_data(data)
     quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
