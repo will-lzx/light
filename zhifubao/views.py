@@ -198,8 +198,8 @@ def privatecenter(request):
 def withdraw(request):
     template_name = 'zhifubao/withdraw.html'
     user_id = get_user_id(request)
-    deposit = get_deposit(user_id)
-    deposit_order_id = get_order_id(user_id)
+    deposit = get_deposit(user_id, False)
+    deposit_order_id = get_order_id(user_id, False)
 
     is_lend = is_lend_exist(user_id)
 
