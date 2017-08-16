@@ -75,12 +75,8 @@ def get_userinfo(access_token, code):
             'app_id': app_id,
             'sign_type': sign_type,
             'version': version,
-            'grant_type': grant_type,
             'method': method,
-            'charset': 'GBK',
-            'code': code,
             'auth_token': access_token,
-            'biz_content': biz_content
             }
     unsigned_items = ordered_data(data)
     quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
