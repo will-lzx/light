@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^get_pole/$', get_pole, name='get_pole'),
 
     url(r'^lend_success/$', lend_success, name='lend_success'),
+    url(r'^lendhistory/$', lendhistory, name='lendhistory'),
 
     url(r'^pay/$', PayView.as_view(), name='pay'),
     url(r'^call_save_order/$', call_save_order, name='call_save_order'),

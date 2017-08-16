@@ -132,6 +132,32 @@ def nearby(request):
     return response
 
 
+def lendhistory(request):
+    template_name = 'zhifubao/lendhistory.html'
+    user_id = get_user_id(request)
+
+    histories = get_histories(user_id)
+
+    cabinets = get_cabinets()
+
+    rules = get_rules()
+
+    spots = get_spots()
+
+    lendtime = len(histories)
+
+    context = {
+        'lendhistory': histories,
+        'lendtime': lendtime,
+        'cabinets': cabinets,
+        'spots': spots,
+        'rules': rules
+    }
+
+    response = render(request, template_name, context)
+    return response
+
+
 def privatecenter(request):
     template_name = 'zhifubao/privatecenter.html'
 
