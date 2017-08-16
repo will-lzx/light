@@ -48,7 +48,7 @@ class PayView(View):
     def get(self, request, *args, **kwargs):
         user_id = get_user_id(request)
         out_trade_no = create_timestamp()
-        tradeNo = create_order(user_id, out_trade_no)
+        tradeNo = create_order(user_id, out_trade_no, DEPOSIT, '押金支付')
 
         data = {
             'deposit': DEPOSIT,
@@ -68,10 +68,20 @@ def call_save_order(request):
 
     save_order(user_id, out_trade_no, trade_no)
 
-    template_name = 'zhifubao/return.html'
+    return HttpResponse('success')
 
-    response = render(request, template_name)
-    return response
+
+@method_decorator(csrf_exempt)
+def call_return_order(request):
+    user_id = get_user_id(request)
+    trade_no = request.POST.get('trade_no')
+    out_trade_no = request.POST.get('out_trade_no')
+
+    update_lendhistorystatus(user_id, 2)
+
+    save_order(user_id, out_trade_no, trade_no)
+
+    return HttpResponse('success')
 
 
 @method_decorator(csrf_exempt)
@@ -195,6 +205,43 @@ def privatecenter(request):
     return response
 
 
+class ReturnPayView(View):
+    """
+    wechat base pay view
+    receive post data: order_id, price, title, notify_url, redirect_url
+    ..remove WxMemberView
+    """
+    def get(self, request, *args, **kwargs):
+        try:
+            user_id = get_user_id(request)
+            history = get_histories(user_id)[0]
+
+            time_long = (history[3] - history[2]).seconds
+            hour = time_long // 3600
+            minute = round((time_long / 60) % 60, 0)
+
+            lend_time_long = str(hour) + '时' + str(minute) + '分'
+
+            money = get_pay_money(user_id)
+
+        except KeyError:
+            return HttpResponse("PARAM ERROR")
+
+        out_trade_no = create_timestamp()
+        tradeNo = create_order(user_id, out_trade_no, money, '租借费用支付')
+
+        data = {
+            'lend_money': money,
+            'lend_time_long': lend_time_long,
+            'order_id': out_trade_no,
+            'lend_time': history[2],
+            'return_time': history[3],
+            'trade_no': tradeNo,
+            'out_trade_no': out_trade_no
+        }
+        return render(request, 'weixin/return_pay.html', data)
+
+
 def withdraw(request):
     template_name = 'zhifubao/withdraw.html'
     user_id = get_user_id(request)
@@ -217,7 +264,7 @@ def withdraw(request):
 
 @method_decorator(csrf_exempt)
 def exe_withdraw(request):
-    deposit = str(int(float(request.POST.get('deposit')) * 100))
+    deposit = str(request.POST.get('deposit'))
     deposit_order_id = request.POST.get('deposit_order_id')
     user_id = get_user_id(request)
 

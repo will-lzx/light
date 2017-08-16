@@ -55,4 +55,7 @@ urlpatterns = [
     url(r'^use_help/how_charge/$', how_charge, name='how_charge'),
     url(r'^about/$', about, name='about'),
 
+    url(r'^return_pay/$', ReturnPayView.as_view(), name='return_pay'),
+    url(r'^call_return_order/$', call_return_order, name='call_return_order'),
+
 ]

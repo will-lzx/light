@@ -126,7 +126,7 @@ def get_oauth_response(code):
     return req.json()
 
 
-def create_order(buy_id, out_trade_no):
+def create_order(buy_id, out_trade_no, total_amount, subject):
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     app_id = ALIPAY_APPID
     sign_type = 'RSA2'
@@ -141,12 +141,12 @@ def create_order(buy_id, out_trade_no):
         "price": 49,
     }]
 
-    biz_content = {'body': '押金支付',
-                   'subject': '押金支付',
+    biz_content = {'body': subject,
+                   'subject': subject,
                    'buyer_id': buy_id,
                    'out_trade_no': out_trade_no,
                    'timeout_express': '90m',
-                   'total_amount': DEPOSIT,
+                   'total_amount': total_amount,
                    'goods_detail': goods_detail
                    }
 
