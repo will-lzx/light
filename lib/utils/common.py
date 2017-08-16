@@ -92,7 +92,7 @@ def get_userinfo(access_token, code):
 
     print('req::', req.text)
 
-    return req['alipay_user_info_share_response']
+    return req.json()['alipay_user_info_share_response']
 
 
 def get_oauth_response(code):
