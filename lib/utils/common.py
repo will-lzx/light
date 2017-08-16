@@ -111,7 +111,6 @@ def get_oauth_response(code):
             'method': method,
             'charset': 'GBK',
             'code': code
-            #'refresh_token': 'authusrBf29e8197274442738b78a4ffefe7cX70'
             }
     unsigned_items = ordered_data(data)
     quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
@@ -119,6 +118,8 @@ def get_oauth_response(code):
     print('quoted_string:', quoted_string)
 
     sign_str = sign(quoted_string.encode(encoding='utf-8')).decode()
+
+    quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
 
     signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
