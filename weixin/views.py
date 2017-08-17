@@ -556,14 +556,10 @@ def privatecenter(request):
 
     if is_weixin:
         user = get_user_info(openid)
+        headimgurl = user['headimgurl']
+        nick_name = user['nickname']
+        subscribe_time = user['subscribe_time']
 
-        context = {
-            'lendtime': lendtime,
-            'deposit': deposit,
-            'headimgurl': user['headimgurl'],
-            'nickname': user['nickname'],
-            'subscribe_time': user['subscribe_time'],
-        }
     else:
         headimgurl = request.session.get('avatar', default=None)
         nick_name = request.session.get('nick_name', default=None)
@@ -573,13 +569,14 @@ def privatecenter(request):
             nick_name = '亲爱的，轻拍用户'
         subscribe_time = get_subscribe_time(openid)
 
-        context = {
-            'lendtime': lendtime,
-            'deposit': deposit,
-            'headimgurl': headimgurl,
-            'nickname': nick_name,
-            'subscribe_time': subscribe_time,
-        }
+    context = {
+        'lendtime': lendtime,
+        'deposit': deposit,
+        'headimgurl': headimgurl,
+        'nickname': nick_name,
+        'subscribe_time': subscribe_time,
+        'is_weixin': is_weixin
+    }
     response = render(request, template_name, context)
     return response
 
