@@ -147,7 +147,7 @@ def create_order(buy_id, out_trade_no, total_amount, subject):
                    'out_trade_no': out_trade_no,
                    'timeout_express': '90m',
                    'total_amount': total_amount,
-                   'goods_detail': goods_detail
+                   #'goods_detail': goods_detail
                    }
 
     data = {'timestamp': timestamp,
