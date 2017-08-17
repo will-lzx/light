@@ -274,6 +274,31 @@ def exe_withdraw(request):
     return HttpResponse(resp_status)
 
 
+def buy_tip(request, lendhistory_id):
+    template_name = 'zhifubao/buy_tip.html'
+
+    history = get_lendhistory_by_id(lendhistory_id)
+
+    lend_date = history[2]
+
+    cabinets = get_cabinets()
+    spot_id = 0
+    for cabinet in cabinets:
+        if cabinet[0] == history[7]:
+            spot_id = cabinet[2]
+    spots = get_spots()
+    for spot in spots:
+        if spot[0] == spot_id:
+            lend_site = spot[1]
+
+    context = {
+        'lend_date': lend_date,
+        'lend_site': lend_site
+    }
+    response = render(request, template_name, context)
+    return response
+
+
 def output_tip(request, has_pole, cabinet_code):
     template_name = 'zhifubao/output_tip.html'
     context = {

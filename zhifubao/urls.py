@@ -58,4 +58,6 @@ urlpatterns = [
     url(r'^return_pay/$', ReturnPayView.as_view(), name='return_pay'),
     url(r'^call_return_order/$', call_return_order, name='call_return_order'),
 
+    url(r'^buy_tip/(?P<lendhistory_id>.+)/$', buy_tip, name='buy_tip'),
+
 ]
