@@ -80,7 +80,8 @@ def return_back(request):
     is_lend = is_lend_exist(openid)
     context = {
         'openid': openid,
-        'is_lend': is_lend
+        'is_lend': is_lend,
+        'is_weixin': is_weixin
     }
 
     response = render(request, template_name, context)
