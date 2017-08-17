@@ -69,6 +69,7 @@
                  AlipayJSBridge.call("tradePay", {
                       tradeNO: tradeNO
                  }, function (data) {
+                     alert(data);
                      if ("9000" == data.resultCode) {
                          save_order(tradeNO);
                      }
