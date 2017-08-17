@@ -227,7 +227,7 @@ class ReturnPayView(View):
             return HttpResponse("PARAM ERROR")
 
         out_trade_no = create_timestamp()
-        tradeNo = create_order(user_id, out_trade_no, money, '租借费用支付')
+        tradeNo = create_order(user_id, out_trade_no, 0.01, '租借费用支付')
 
         data = {
             'lend_money': money,
