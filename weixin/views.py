@@ -32,7 +32,8 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    is_weixin = is_weixin_zhifubao(request)
+    set_weixin_zhifubao(request)
+    is_weixin = get_weixin_zhifubao(request)
 
     openid = get_open_id(request, is_weixin)
 
@@ -52,7 +53,7 @@ def lend(request):
 def generate_lendhistory(request):
 
     cabinet_code = request.POST.get('cabinet_code', None)
-    is_weixin = is_weixin_zhifubao(request)
+    is_weixin = get_weixin_zhifubao(request)
     openid = get_open_id(request, is_weixin)
 
     cabinet_id = get_cabinet_id(cabinet_code)
@@ -74,7 +75,9 @@ def lend_success(request):
 def return_back(request):
     template_name = 'weixin/return.html'
 
-    is_weixin = is_weixin_zhifubao(request)
+    set_weixin_zhifubao(request)
+    is_weixin = get_weixin_zhifubao(request)
+
     openid = get_open_id(request, is_weixin)
 
     is_lend = is_lend_exist(openid)
@@ -90,7 +93,7 @@ def return_back(request):
 
 @method_decorator(csrf_exempt)
 def update_lendhistory(request):
-    is_weixin = is_weixin_zhifubao(request)
+    is_weixin = get_weixin_zhifubao(request)
     openid = get_open_id(request, is_weixin)
 
     result = update_history(openid)
@@ -107,7 +110,7 @@ def update_lendhistory(request):
 def return_tip(request, has_capacity, cabinet_code):
     template_name = 'weixin/return_tip.html'
 
-    is_weixin = is_weixin_zhifubao(request)
+    is_weixin = get_weixin_zhifubao(request)
     openid = get_open_id(request, is_weixin)
 
     context = {
@@ -147,13 +150,16 @@ def output_tip(request, has_pole, cabinet_code):
 
 def nearby(request):
     template_name = 'weixin/nearby.html'
+    set_weixin_zhifubao(request)
+    is_weixin = get_weixin_zhifubao(request)
+
     response = render(request, template_name)
     return response
 
 
 def lendhistory(request):
     template_name = 'weixin/lendhistory.html'
-    is_weixin = is_weixin_zhifubao(request)
+    is_weixin = get_weixin_zhifubao(request)
     openid = get_open_id(request, is_weixin)
 
     histories = get_histories(openid)
@@ -181,7 +187,7 @@ def lendhistory(request):
 def withdraw(request):
     template_name = 'weixin/withdraw.html'
 
-    is_weixin = is_weixin_zhifubao(request)
+    is_weixin = get_weixin_zhifubao(request)
     openid = get_open_id(request, is_weixin)
 
     deposit = get_deposit(openid)
@@ -203,7 +209,7 @@ def withdraw(request):
 
 @method_decorator(csrf_exempt)
 def exe_withdraw(request):
-    is_weixin = is_weixin_zhifubao(request)
+    is_weixin = get_weixin_zhifubao(request)
     openid = get_open_id(request, is_weixin)
 
     deposit_order_id = request.POST.get('deposit_order_id')
@@ -319,7 +325,7 @@ class PayView(View):
     ..remove WxMemberView
     """
     def get(self, request, *args, **kwargs):
-        is_weixin = is_weixin_zhifubao(request)
+        is_weixin = get_weixin_zhifubao(request)
         openid = get_open_id(request, is_weixin)
         if is_weixin:
             try:
@@ -368,7 +374,7 @@ class ReturnPayView(View):
     """
     def get(self, request, *args, **kwargs):
 
-        is_weixin = is_weixin_zhifubao(request)
+        is_weixin = get_weixin_zhifubao(request)
         openid = get_open_id(request, is_weixin)
         if is_weixin:
             try:
@@ -534,7 +540,9 @@ def about(request):
 def privatecenter(request):
     template_name = 'weixin/privatecenter.html'
 
-    is_weixin = is_weixin_zhifubao(request)
+    set_weixin_zhifubao(request)
+    is_weixin = get_weixin_zhifubao(request)
+
     openid = get_open_id(request, is_weixin)
 
     lendtime = get_lendtime(openid)
@@ -643,13 +651,17 @@ def oauth_user(request):
     res = urllib.request.urlopen(req)
 
 
-def is_weixin_zhifubao(request):
+def set_weixin_zhifubao(request):
+
     code = request.GET.get('code', None)
     if code:
-        is_weixin = True
+        request.session['is_weixin'] = True
     else:
-        is_weixin = False
-    return is_weixin
+        request.session['is_weixin'] = False
+
+
+def get_weixin_zhifubao(request):
+    return request.session.get('is_weixin', default=None)
 
 
 def get_open_id(request, is_weixin):
