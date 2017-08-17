@@ -33,7 +33,6 @@
 
         $(document).ready(function () {
             var is_weixin = '{{ is_weixin }}';
-            alert(is_weixin);
             if (is_weixin === 'True')
             {
                 $.ajax({
@@ -87,8 +86,8 @@
                                 alert("您还有正在借用的订单，在订单完成前，不能再次借用");
                                 return
                             }
-
-                            if(is_pay_finished === 'True')
+                            alert(is_pay_finished);
+                            if(is_pay_finished === 'False')
                             {
                                 alert("您还有未完成支付的订单，不能再次借用！");
                                 return
