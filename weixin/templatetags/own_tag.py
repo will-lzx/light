@@ -40,7 +40,7 @@ def get_tmp_money(history_id):
     if history[4] != 0:
         money = history[4]
     else:
-        money = get_money(history_id[1], time_by_seconds)
+        money = get_money(history[1], time_by_seconds)
 
     return money
 
