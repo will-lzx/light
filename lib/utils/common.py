@@ -135,7 +135,7 @@ def create_order(buy_id, out_trade_no, total_amount, subject):
     charset = 'GBK'
 
     goods_detail = [{
-        "goods_id": "pole-1",
+        "goods_id": "pole-2",
         "goods_name": "自拍杆",
         "quantity": 1,
         "price": 49,
