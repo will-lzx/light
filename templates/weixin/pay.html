@@ -22,11 +22,14 @@
     <script src="/static/js/jquery-3.2.1.js"></script>
     <script src="/static/js/relalive.js"></script>
     <script>
+
         function jsApiCall()
         {
             WeixinJSBridge.invoke(
             'getBrandWCPayRequest', {{ data | safe }},
             function(res){
+              WeixinJSBridge.log('will'+res.err_msg);
+              //alert(res.err_code+res.err_desc+res.err_msg);
               window.location.href="{{ redirect_uri }}";
             }
             );
@@ -47,12 +50,9 @@
         }
 
         $('#deposit').click(function () {
-            alert('000');
-            var is_weixin = '{{ is_weixin }}';
-            alert(is_weixin);
+
             if(is_weixin === 'True')
             {
-                alert('callpay');
                 callpay();
             }
             else
@@ -98,12 +98,12 @@
             var out_trade_no = '{{ out_trade_no }}';
             $.ajax({
                 type:"post",
-                url:"/weixin/call_save_order/",
+                url:"/zhifubao/call_save_order/",
                 data:{out_trade_no: out_trade_no, trade_no: trade_no},
                 success:function(result){
                     if(result === 'success')
                     {
-                        location.href = '/weixin/lend/';
+                        location.href = '/zhifubao/lend/';
                     }
                     else
                     {
