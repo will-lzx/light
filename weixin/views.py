@@ -354,6 +354,7 @@ class PayView(View):
             pay.set_prepay_id(param)
             data = {
                 'data': pay.get_pay_data(),
+                'is_weixin': is_weixin,
                 'redirect_uri': redirect_url,
                 'deposit': price,
             }
@@ -363,6 +364,7 @@ class PayView(View):
 
             data = {
                 'deposit': DEPOSIT,
+                'is_weixin': is_weixin,
                 'tradeNo': tradeNo,
                 'out_trade_no': out_trade_no
             }
