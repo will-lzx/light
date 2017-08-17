@@ -141,8 +141,8 @@ def create_order(buy_id, out_trade_no, total_amount, subject):
         "price": 49,
     }]
 
-    biz_content = {'body': subject,
-                   'subject': subject,
+    biz_content = {'body': 'test',
+                   'subject': 'test',
                    'buyer_id': buy_id,
                    'out_trade_no': out_trade_no,
                    'timeout_express': '90m',
