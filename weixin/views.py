@@ -327,6 +327,7 @@ class PayView(View):
     def get(self, request, *args, **kwargs):
         is_weixin = get_weixin_zhifubao(request)
         openid = get_open_id(request, is_weixin)
+        print('is_weixin', is_weixin)
         if is_weixin:
             try:
                 price = DEPOSIT
