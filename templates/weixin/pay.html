@@ -25,14 +25,14 @@
 
         $('#deposit').click(function () {
             var is_weixin = '{{ is_weixin }}';
+            alert("123");
             if(is_weixin === 'True')
             {
-                callpay();
+                alert('0');
             }
             else
             {
-                var tradeNo = '{{ tradeNo }}';
-                tradePay(tradeNo);
+                alert('1');
             }
 
         });
