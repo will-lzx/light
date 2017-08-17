@@ -161,6 +161,8 @@ def create_order(buy_id, out_trade_no, total_amount, subject):
     unsigned_items = ordered_data(data)
     message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
 
+    print('message', message)
+
     sign_str = sign(message.encode(encoding='utf-8')).decode()
 
     quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
