@@ -30,7 +30,7 @@ def convert_time(old_time):
 
 def get_tmp_money(history_id):
     mysql = MySQL(db='management')
-    history = mysql.exec_query('select * from home_lendhistory where id={0}'.format(id))[0]
+    history = mysql.exec_query('select * from home_lendhistory where id={0}'.format(history_id))[0]
 
     if history[3] is None:
         time_by_seconds = (datetime.datetime.now() - history[2]).seconds
