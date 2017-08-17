@@ -366,7 +366,7 @@ class PayView(View):
                 'tradeNo': tradeNo,
                 'out_trade_no': out_trade_no
             }
-        return render(request, 'zhifubao/pay.html', data)
+        return render(request, 'weixin/pay.html', data)
 
 
 class ReturnPayView(View):
