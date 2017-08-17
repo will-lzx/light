@@ -23,6 +23,20 @@
     <script src="/static/js/relalive.js"></script>
     <script>
 
+        $('#deposit').click(function () {
+            var is_weixin = '{{ is_weixin }}';
+            if(is_weixin === 'True')
+            {
+                callpay();
+            }
+            else
+            {
+                var tradeNo = '{{ tradeNo }}';
+                tradePay(tradeNo);
+            }
+
+        });
+
         function jsApiCall()
         {
             WeixinJSBridge.invoke(
@@ -30,7 +44,7 @@
             function(res){
               WeixinJSBridge.log('will'+res.err_msg);
               window.location.href="{{ redirect_uri }}";
-            }
+              }
             );
         }
 
@@ -48,25 +62,10 @@
             }
         }
 
-        $('#deposit').click(function () {
-            var is_weixin = '{{ is_weixin }}';
-            if(is_weixin === 'True')
-            {
-                callpay();
-            }
-            else
-            {
-                var tradeNo = '{{ tradeNo }}';
-                tradePay(tradeNo);
-            }
-
-        });
-
         $("#payButton").click(function() {
            tradePay(tradeNo);
         });
         // 通过jsapi关闭当前窗口，仅供参考，更多jsapi请访问
-        // https://docs.open.alipay.com/54/104510/
         $("#closeButton").click(function() {
            AlipayJSBridge.call('closeWebview');
         });
@@ -85,8 +84,8 @@
                  AlipayJSBridge.call("tradePay", {
                       tradeNO: tradeNO
                  }, function (data) {
+                     alert(data);
                      if ("9000" == data.resultCode) {
-
                          save_order(tradeNO);
                      }
                  });
