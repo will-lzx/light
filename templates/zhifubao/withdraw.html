@@ -1,0 +1,68 @@
+{% extends "weixin/base.html" %}
+{% load static %}
+{% block title %}押金提现{% endblock %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="ts_cont">
+       <img class="zgjs_img" src="{% static '/images/weixin/txsq.jpg' %}" alt="发起提现">
+    </div>
+    <div class="nr_con">
+            <a href="#"  id='withdraw' class="weui-btn weui-btn_primary page__bd_spacing" onclick="withdraw({{ deposit }}, {{ deposit_order_id }})">立即提现{{ deposit }}元</a>
+            <div class="ts_til page__bd_spacing"><div class="ts_til_test">温馨提示</div> </div>
+            <div class="sm_cont">
+                申请成功后，预计0-5个工作日退还至您原支付账户
+            </div>
+     </div>
+
+    <script src="/static/js/jquery-3.2.1.js"></script>
+    <script src="/static/js/relalive.js"></script>
+    <script>
+        function withdraw(deposit, deposit_order_id)
+        {
+            if(deposit > 0)
+            {
+                var is_lend = '{{ is_lend }}';
+                var is_pay_finished = '{{ is_pay_finished }}';
+                if(is_lend === 'True')
+                {
+                    alert("您还有正在借用的订单，在订单完成前，不能提现！");
+                    return
+                }
+
+                if(is_pay_finished === 'False')
+                {
+                    alert("您还有未完成支付的订单，不能提现！");
+                    return
+                }
+
+
+                $.ajax({
+                     type: "POST",
+                     url: "/zhifubao/exe_withdraw/",
+                     data: {deposit:deposit, deposit_order_id:deposit_order_id},
+                     dataType: "html",
+                     success: function(data){
+                         if (data === 'Success')
+                         {
+                             alert('退款成功');
+                             location.href = '/zhifubao/privatecenter/'
+                         }
+                         else{
+                             alert('退款失败，请联系客服');
+                         }
+                      }
+                 });
+            }
+            else
+            {
+                alert('还没有充值，无法提现');
+                return
+            }
+
+        }
+    </script>
+{% endblock %}

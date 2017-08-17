@@ -36,7 +36,7 @@
               var user_id = '{{ user_id }}';
               var is_lend = '{{ is_lend }}';
 
-              if (is_lend == 'False') {
+              if (is_lend === 'False') {
                   alert("还没有租自拍杆，先去租一个");
                   location.href = '/zhifubao/lend/';
               } else {

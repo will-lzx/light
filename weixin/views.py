@@ -261,13 +261,13 @@ def withdraw(request):
 
     is_lend = is_lend_exist(openid)
 
-    is_pay_finished(openid)
+    is_payed = is_pay_finished(openid)
 
     context = {
         'deposit': deposit,
         'deposit_order_id': deposit_order_id,
         'is_lend': is_lend,
-        'is_pay_finished': is_pay_finished
+        'is_pay_finished': is_payed
     }
     response = render(request, template_name, context)
     return response

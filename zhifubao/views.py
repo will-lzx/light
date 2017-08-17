@@ -48,23 +48,8 @@ class PayView(View):
     def get(self, request, *args, **kwargs):
         user_id = get_user_id(request)
         out_trade_no = create_timestamp()
-        tradeNo = create_order(user_id, out_trade_no)
-        print('tradeNo:', tradeNo)
-        # alipay = AliPay(
-        #     appid=ALIPAY_APPID,
-        #     app_notify_url="",
-        #     app_private_key_path="/root/zhifubao/app_private_key",
-        #     alipay_public_key_path="/root/zhifubao/alipay_public_key",
-        #     sign_type="RSA2",
-        #     debug=False
-        # )
-        # out_trade_no = create_timestamp()
-        #order_string = alipay.api_alipay_trade_wap_pay(subject='押金支付', out_trade_no=out_trade_no, total_amount=DEPOSIT, return_url='/zhifubao/lend/')
-        #
-        # url = 'https://openapi.alipay.com/gateway.do?' + order_string
-        # req = urllib.request.Request(order_string)
-        # res = urllib.request.urlopen(req)
-        # urlResp = json.loads(res.read())
+        tradeNo = create_order(user_id, out_trade_no, DEPOSIT, '押金支付')
+
         data = {
             'deposit': DEPOSIT,
             'tradeNo': tradeNo,
@@ -83,10 +68,20 @@ def call_save_order(request):
 
     save_order(user_id, out_trade_no, trade_no)
 
-    template_name = 'zhifubao/return.html'
+    return HttpResponse('success')
 
-    response = render(request, template_name)
-    return response
+
+@method_decorator(csrf_exempt)
+def call_return_order(request):
+    user_id = get_user_id(request)
+    trade_no = request.POST.get('trade_no')
+    out_trade_no = request.POST.get('out_trade_no')
+
+    update_lendhistorystatus(user_id, 2)
+
+    save_order(user_id, out_trade_no, trade_no)
+
+    return HttpResponse('success')
 
 
 @method_decorator(csrf_exempt)
@@ -147,10 +142,160 @@ def nearby(request):
     return response
 
 
+def lendhistory(request):
+    template_name = 'zhifubao/lendhistory.html'
+    user_id = get_user_id(request)
+
+    histories = get_histories(user_id)
+
+    cabinets = get_cabinets()
+
+    rules = get_rules()
+
+    spots = get_spots()
+
+    lendtime = len(histories)
+
+    deposit = float(get_deposit(user_id, is_weixin=False))
+
+    context = {
+        'lendhistory': histories,
+        'lendtime': lendtime,
+        'cabinets': cabinets,
+        'spots': spots,
+        'rules': rules,
+        'deposit': deposit
+    }
+
+    response = render(request, template_name, context)
+    return response
+
+
 def privatecenter(request):
     template_name = 'zhifubao/privatecenter.html'
 
-    response = render(request, template_name)
+    #user_id, access_token = get_userid_access_token(auth_code)
+
+    user_id = get_user_id(request)
+
+    lendtime = get_lendtime(user_id)
+
+    deposit = float(get_deposit(user_id, False))
+    # user = get_userinfo(access_token, auth_code)
+
+    headimgurl = request.session.get('avatar', default=None)
+    nick_name = request.session.get('nick_name', default=None)
+
+    if not headimgurl:
+        headimgurl = ''
+        nick_name = '亲爱的，轻拍用户'
+    subscribe_time = get_subscribe_time(user_id)
+
+    context = {
+        'lendtime': lendtime,
+        'deposit': deposit,
+        'headimgurl': headimgurl,
+        'nickname': nick_name,
+        'subscribe_time': subscribe_time,
+    }
+
+    response = render(request, template_name, context)
+
+    return response
+
+
+class ReturnPayView(View):
+    """
+    wechat base pay view
+    receive post data: order_id, price, title, notify_url, redirect_url
+    ..remove WxMemberView
+    """
+    def get(self, request, *args, **kwargs):
+        try:
+            user_id = get_user_id(request)
+            history = get_histories(user_id)[0]
+
+            time_long = (history[3] - history[2]).seconds
+            hour = time_long // 3600
+            minute = round((time_long / 60) % 60, 0)
+
+            lend_time_long = str(hour) + '时' + str(minute) + '分'
+
+            money = get_pay_money(user_id)
+
+        except KeyError:
+            return HttpResponse("PARAM ERROR")
+
+        out_trade_no = create_timestamp()
+        tradeNo = create_order(user_id, out_trade_no, money, '租借费用支付')
+
+        data = {
+            'lend_money': money,
+            'lend_time_long': lend_time_long,
+            'order_id': out_trade_no,
+            'lend_time': history[2],
+            'return_time': history[3],
+            'trade_no': tradeNo,
+            'out_trade_no': out_trade_no
+        }
+        return render(request, 'zhifubao/return_pay.html', data)
+
+
+def withdraw(request):
+    template_name = 'zhifubao/withdraw.html'
+    user_id = get_user_id(request)
+    deposit = get_deposit(user_id, False)
+    deposit_order_id = get_order_id(user_id, False)
+
+    is_lend = is_lend_exist(user_id)
+
+    is_payed = is_pay_finished(user_id)
+
+    context = {
+        'deposit': deposit,
+        'deposit_order_id': deposit_order_id,
+        'is_lend': is_lend,
+        'is_pay_finished': is_payed
+    }
+    response = render(request, template_name, context)
+    return response
+
+
+@method_decorator(csrf_exempt)
+def exe_withdraw(request):
+    deposit = str(request.POST.get('deposit'))
+    deposit_order_id = request.POST.get('deposit_order_id')
+    user_id = get_user_id(request)
+
+    resp_status = create_withdraw(deposit, deposit_order_id)
+
+    if resp_status == 'Success':
+        update_deposit(user_id, 0, 0, False)
+    return HttpResponse(resp_status)
+
+
+def buy_tip(request, lendhistory_id):
+    template_name = 'zhifubao/buy_tip.html'
+
+    history = get_lendhistory_by_id(lendhistory_id)
+
+    lend_date = history[2]
+
+    cabinets = get_cabinets()
+    spot_id = 0
+    for cabinet in cabinets:
+        if cabinet[0] == history[7]:
+            spot_id = cabinet[2]
+    spots = get_spots()
+    for spot in spots:
+        if spot[0] == spot_id:
+            lend_site = spot[1]
+
+    context = {
+        'lend_date': lend_date,
+        'lend_site': lend_site
+    }
+    response = render(request, template_name, context)
     return response
 
 
@@ -186,9 +331,75 @@ def lend_success(request):
     return response
 
 
+def contract(request):
+    template_name = 'zhifubao/contract.html'
+    response = render(request, template_name)
+    return response
+
+
+def about(request):
+    template_name = 'zhifubao/about.html'
+    response = render(request, template_name)
+    return response
+
+
+def use_help(request):
+    template_name = 'zhifubao/use_help.html'
+    response = render(request, template_name)
+    return response
+
+
+def deposit_question(request):
+    template_name = 'zhifubao/help/deposit_question.html'
+    response = render(request, template_name)
+    return response
+
+
+def get_fail(request):
+    template_name = 'zhifubao/help/get_fail.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_return(request):
+    template_name = 'zhifubao/help/how_return.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_use(request):
+    template_name = 'zhifubao/help/how_to_use.html'
+    response = render(request, template_name)
+    return response
+
+
+def lost(request):
+    template_name = 'zhifubao/help/lost.html'
+    response = render(request, template_name)
+    return response
+
+
+def several(request):
+    template_name = 'zhifubao/help/several.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_pic(request):
+    template_name = 'zhifubao/help/how_pic.html'
+    response = render(request, template_name)
+    return response
+
+
+def how_charge(request):
+    template_name = 'zhifubao/help/how_charge.html'
+    response = render(request, template_name)
+    return response
+
+
 def call_back(request):
     code = request.GET.get('auth_code', None)
-
+    print('code:', code)
     if code and not request.session.get('user_id', default=None):
         print('code', code)
         user_id = get_userid(code)
@@ -196,7 +407,7 @@ def call_back(request):
     else:
         user_id = request.session.get('user_id', default=None)
 
-    return user_id
+    return HttpResponse(user_id)
 
 
 def get_user_id(request):

@@ -48,6 +48,53 @@ def get_openid(code):
 
 
 def get_userid(code):
+    urlResp = get_oauth_response(code)
+    user_id = urlResp['alipay_system_oauth_token_response']['user_id']
+
+    return user_id
+
+
+def get_userid_access_token(code):
+    urlResp = get_oauth_response(code)
+    user_id = urlResp['alipay_system_oauth_token_response']['user_id']
+    access_token = urlResp['alipay_system_oauth_token_response']['access_token']
+
+    return user_id, access_token
+
+
+def get_userinfo(access_token, code):
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    app_id = ALIPAY_APPID
+    sign_type = 'RSA2'
+    version = '1.0'
+    grant_type = 'authorization_code'
+    method = 'alipay.user.info.share'
+
+    biz_content = {}
+    data = {'timestamp': timestamp,
+            'app_id': app_id,
+            'sign_type': sign_type,
+            'version': version,
+            'method': method,
+            'auth_token': access_token,
+            }
+    unsigned_items = ordered_data(data)
+    quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
+
+    print('quoted_string:', quoted_string)
+
+    sign_str = sign(quoted_string.encode(encoding='utf-8')).decode()
+
+    signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
+
+    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
+
+    print('req::', req.text)
+
+    return req.json()['alipay_user_info_share_response']
+
+
+def get_oauth_response(code):
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     app_id = ALIPAY_APPID
     sign_type = 'RSA2'
@@ -62,31 +109,24 @@ def get_userid(code):
             'grant_type': grant_type,
             'method': method,
             'charset': 'GBK',
-            'code': code
+            'code': code,
             }
     unsigned_items = ordered_data(data)
-    message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
+    message = "&".join("{}={}".format(k, v) for k, v in unsigned_items)
 
     sign_str = sign(message.encode(encoding='utf-8')).decode()
 
-    url = 'https://openapi.alipay.com/gateway.do?timestamp={0}&method={1}&app_id={2}' \
-          '&sign_type=RSA2&sign={3}&version=1.0&grant_type=authorization_code&code={4}&charset=GBK'.format(
-        quote(timestamp),
-        quote(method),
-        quote(app_id),
-        quote(sign_str),
-        quote(code))
+    quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
 
-    req = urllib.request.Request(url)
-    res = urllib.request.urlopen(req)
-    urlResp = json.loads(res.read())
+    signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
-    user_id = urlResp['alipay_system_oauth_token_response']['user_id']
+    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
+    print('reqqqqq:', req.json())
 
-    return user_id
+    return req.json()
 
 
-def create_order(buy_id, out_trade_no):
+def create_order(buy_id, out_trade_no, total_amount, subject):
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     app_id = ALIPAY_APPID
     sign_type = 'RSA2'
@@ -101,12 +141,12 @@ def create_order(buy_id, out_trade_no):
         "price": 49,
     }]
 
-    biz_content = {'body': '押金支付',
-                   'subject': '押金支付',
+    biz_content = {'body': subject,
+                   'subject': subject,
                    'buyer_id': buy_id,
                    'out_trade_no': out_trade_no,
                    'timeout_express': '90m',
-                   'total_amount': DEPOSIT,
+                   'total_amount': total_amount,
                    'goods_detail': goods_detail
                    }
 
@@ -130,6 +170,47 @@ def create_order(buy_id, out_trade_no):
     req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
 
     return req.json()['alipay_trade_create_response']['trade_no']
+
+
+def create_withdraw(deposit, out_trade_no):
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    app_id = ALIPAY_APPID
+    sign_type = 'RSA2'
+    version = '1.0'
+    method = 'alipay.trade.refund'
+    charset = 'GBK'
+
+    biz_content = {'out_trade_no': out_trade_no,
+                   'refund_amount': deposit
+                   }
+
+    data = {'timestamp': timestamp,
+            'app_id': app_id,
+            'sign_type': sign_type,
+            'version': version,
+            'method': method,
+            'biz_content': biz_content,
+            'charset': charset
+            }
+    unsigned_items = ordered_data(data)
+    message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
+
+    sign_str = sign(message.encode(encoding='utf-8')).decode()
+
+    quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
+
+    signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
+
+    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
+
+    return req.json()['alipay_trade_refund_response']['msg']
+
+
+def get_subscribe_time(user_id):
+    mysql = MySQL(db='management')
+    subcribe_time = mysql.exec_query(
+        'select create_time from home_customer where alipay="{0}"'.format(user_id))[0][0]
+    return subcribe_time
 
 
 def oauth(url):
