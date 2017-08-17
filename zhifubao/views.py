@@ -238,7 +238,7 @@ class ReturnPayView(View):
             'trade_no': tradeNo,
             'out_trade_no': out_trade_no
         }
-        return render(request, 'weixin/return_pay.html', data)
+        return render(request, 'zhifubao/return_pay.html', data)
 
 
 def withdraw(request):
