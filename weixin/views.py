@@ -419,7 +419,8 @@ class ReturnPayView(View):
                 'lend_time_long': lend_time_long,
                 'order_id': out_trade_no,
                 'lend_time': history[2],
-                'return_time': history[3]
+                'return_time': history[3],
+                'is_weixin': is_weixin,
             }
         else:
             try:
@@ -446,7 +447,8 @@ class ReturnPayView(View):
                 'lend_time': history[2],
                 'return_time': history[3],
                 'trade_no': tradeNo,
-                'out_trade_no': out_trade_no
+                'out_trade_no': out_trade_no,
+                'is_weixin': is_weixin,
             }
         return render(request, 'weixin/return_pay.html', data)
 
