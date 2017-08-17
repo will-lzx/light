@@ -135,7 +135,7 @@ def is_pay_finished(openid):
     mysql = MySQL(db='management')
     status = mysql.exec_query('select status from home_lendhistory WHERE customer_id="{0}" order by start_time desc'.format(openid))[0][0]
 
-    if status == 2:
+    if status >= 2:
         return True
     else:
         return False
