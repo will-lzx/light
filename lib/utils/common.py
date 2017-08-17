@@ -135,19 +135,19 @@ def create_order(buy_id, out_trade_no, total_amount, subject):
     charset = 'GBK'
 
     goods_detail = [{
-        "goods_id": "pole-2",
+        "goods_id": "pole-1",
         "goods_name": "自拍杆",
         "quantity": 1,
         "price": 49,
     }]
 
-    biz_content = {'body': 'test',
-                   'subject': 'test',
+    biz_content = {'body': subject,
+                   'subject': subject,
                    'buyer_id': buy_id,
                    'out_trade_no': out_trade_no,
                    'timeout_express': '90m',
                    'total_amount': total_amount,
-                   #'goods_detail': goods_detail
+                   'goods_detail': goods_detail
                    }
 
     data = {'timestamp': timestamp,
@@ -161,8 +161,6 @@ def create_order(buy_id, out_trade_no, total_amount, subject):
     unsigned_items = ordered_data(data)
     message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
 
-    print('message', message)
-
     sign_str = sign(message.encode(encoding='utf-8')).decode()
 
     quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
@@ -171,7 +169,6 @@ def create_order(buy_id, out_trade_no, total_amount, subject):
 
     req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
 
-    print('return-rwq:', req.json())
     return req.json()['alipay_trade_create_response']['trade_no']
 
 
