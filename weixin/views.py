@@ -471,7 +471,6 @@ class WxPayNotifyView(View):
         return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        is_weixin = get_weixin_zhifubao(request)
         print('is_weixin', is_weixin)
         price = DEPOSIT
         pay = PayApi()
@@ -487,7 +486,7 @@ class WxPayNotifyView(View):
             order_id = data['out_trade_no']
             pay_number = data['transaction_id']
 
-            update_deposit(openid, total_fee, order_id, is_weixin)
+            update_deposit(openid, total_fee, order_id, True)
 
             save_order(openid, order_id, pay_number)
             result = self.handle_order(order_id, pay_number)
