@@ -74,16 +74,23 @@
                         var is_deposit = $('#deposit').val();
                         var openid = $('#openid').val();
                         var is_lend = $('#lend').val();
+                        var is_pay_finished = '{{ is_pay_finished }}';
 
-                        if (is_deposit == 'False')
+                        if (is_deposit === 'False')
                         {
                             alert('还没有充值，请先去充值吧？', 'danger');
                             location.href = '/weixin/pay/?openid='+ openid ;
                         }else
                         {
-                            if(is_lend == 'True')
+                            if(is_lend === 'True')
                             {
                                 alert("您还有正在借用的订单，在订单完成前，不能再次借用");
+                                return
+                            }
+
+                            if(is_pay_finished === 'True')
+                            {
+                                alert("您还有未完成支付的订单，不能提现！");
                                 return
                             }
                             wx.scanQRCode({
