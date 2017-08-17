@@ -88,30 +88,31 @@
                  }, function (data) {
                      alert(data);
                      if ("9000" == data.resultCode) {
-                         save_order(tradeNO);
+{#                         save_order(tradeNO);#}
+                         alert('12');
                      }
                  });
             });
         }
 
-        function save_order(trade_no){
-            var out_trade_no = '{{ out_trade_no }}';
-            $.ajax({
-                type:"post",
-                url:"/weixin/call_save_order/",
-                data:{out_trade_no: out_trade_no, trade_no: trade_no},
-                success:function(result){
-                    if(result === 'success')
-                    {
-                        location.href = '/weixin/lend/';
-                    }
-                    else
-                    {
-                        alert('保存租借订单失败，请联系客服');
-                    }
-                }
-            });
-        }
+{#        function save_order(trade_no){#}
+{#            var out_trade_no = '{{ out_trade_no }}';#}
+{#            $.ajax({#}
+{#                type:"post",#}
+{#                url:"/weixin/call_save_order/",#}
+{#                data:{out_trade_no: out_trade_no, trade_no: trade_no},#}
+{#                success:function(result){#}
+{#                    if(result === 'success')#}
+{#                    {#}
+{#                        location.href = '/weixin/lend/';#}
+{#                    }#}
+{#                    else#}
+{#                    {#}
+{#                        alert('保存租借订单失败，请联系客服');#}
+{#                    }#}
+{#                }#}
+{#            });#}
+{#        }#}
 
     </script>
 {% endblock %}
