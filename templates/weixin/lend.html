@@ -33,6 +33,11 @@
 
         $(document).ready(function () {
             var is_weixin = '{{ is_weixin }}';
+            var is_deposit = $('#deposit').val();
+            var openid = $('#openid').val();
+            var is_lend = $('#lend').val();
+            var is_pay_finished = '{{ is_pay_finished }}';
+
             if (is_weixin === 'True')
             {
                 $.ajax({
@@ -70,10 +75,7 @@
 
                     //点击按钮扫描二维码
                     document.querySelector('#scanQRCode').onclick = function () {
-                        var is_deposit = $('#deposit').val();
-                        var openid = $('#openid').val();
-                        var is_lend = $('#lend').val();
-                        var is_pay_finished = '{{ is_pay_finished }}';
+
 
                         if (is_deposit === 'False')
                         {
@@ -119,9 +121,7 @@
             else
             {
                 document.querySelector('#scanQRCode').onclick = function() {
-                  var is_deposit = '{{ is_deposit }}';
-                  var user_id = '{{ user_id }}';
-                  var is_lend = '{{ is_lend }}';
+
 
                   if (is_deposit === 'False') {
                       alert('还没有充值，请先去充值吧？', 'danger');
@@ -131,6 +131,12 @@
                           alert("您还有正在借用的订单，在订单完成前，不能再次借用");
                           return
                       }
+                      if(is_pay_finished === 'False')
+                      {
+                          alert("您还有未完成支付的订单，不能再次借用！");
+                          return
+                      }
+
                       AlipayJSBridge.call('scan', {
                           type: 'qr'
                       }, function (result) {
