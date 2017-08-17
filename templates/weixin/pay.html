@@ -28,7 +28,6 @@
             'getBrandWCPayRequest', {{ data | safe }},
             function(res){
               WeixinJSBridge.log('will'+res.err_msg);
-              //alert(res.err_code+res.err_desc+res.err_msg);
               window.location.href="{{ redirect_uri }}";
             }
             );
@@ -97,12 +96,12 @@
             var out_trade_no = '{{ out_trade_no }}';
             $.ajax({
                 type:"post",
-                url:"/zhifubao/call_save_order/",
+                url:"/weixin/call_save_order/",
                 data:{out_trade_no: out_trade_no, trade_no: trade_no},
                 success:function(result){
                     if(result === 'success')
                     {
-                        location.href = '/zhifubao/lend/';
+                        location.href = '/weixin/lend/';
                     }
                     else
                     {

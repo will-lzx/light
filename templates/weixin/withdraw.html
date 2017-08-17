@@ -28,13 +28,13 @@
             {
                 var is_lend = $('#lend').val();
                 var is_pay_finished = '{{ is_pay_finished }}';
-                if(is_lend == 'True')
+                if(is_lend === 'True')
                 {
                     alert("您还有正在借用的订单，在订单完成前，不能提现！");
                     return
                 }
 
-                if(is_pay_finished == 'False')
+                if(is_pay_finished === 'False')
                 {
                     alert("您还有未完成支付的订单，不能提现！");
                     return
@@ -47,7 +47,7 @@
                      data: {deposit:deposit, deposit_order_id:deposit_order_id},
                      dataType: "html",
                      success: function(data){
-                         if (data == 'SUCCESS')
+                         if (data === 'SUCCESS')
                          {
                              alert('退款成功');
                              location.href = '/weixin/privatecenter/'
