@@ -269,9 +269,18 @@ def get_money(customer_id, time_by_seconds):
         return 0
     else:
         if minute > 0:
-            return (time_long + 1) * unit_price
+            money = (time_long + 1) * unit_price
         else:
-            return time_long * unit_price
+            money = time_long * unit_price
+
+        day = hour // 24
+
+        if day == 0 and money > 8:
+            money = 8
+        elif day > 0:
+            money = day * 8
+
+    return money
 
 
 def get_pay_money(customer_id):
