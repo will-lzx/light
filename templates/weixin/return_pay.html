@@ -24,12 +24,33 @@
         <div class="zjjl_zj">
             <div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/hr.png' %}" alt="归还"></div>
 
-            <span>还：{{ return_time | convert_time }}<br></span>
+            <span>还：{{ return_time | convert_time }}<br>
+                {% for cabinet in cabinets %}
+                    {% ifequal cabinet.0 cabinet_id %}
+                        {% for spot in spots %}
+                            {% ifequal spot.0 cabinet.2 %}
+                                {{ spot.1 }}
+                            {% endifequal %}
+                        {% endfor %}
+                    {% endifequal %}
+                {% endfor %}
+            </span>
+
 
         </div>
         <div class="zjjl_zj">
             <div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/jc.png' %}" alt="借出"></div>
-            <span>租：{{ lend_time | convert_time }}<br></span>
+            <span>租：{{ lend_time | convert_time }}<br>
+                {% for cabinet in cabinets %}
+                    {% ifequal cabinet.0 cabinet_id %}
+                        {% for spot in spots %}
+                            {% ifequal spot.0 cabinet.2 %}
+                                {{ spot.1 }}
+                            {% endifequal %}
+                        {% endfor %}
+                    {% endifequal %}
+                {% endfor %}
+            </span>
         </div>
 
 

@@ -1,6 +1,3 @@
-import hashlib
-from io import BytesIO
-
 import xmltodict
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -381,6 +378,10 @@ class ReturnPayView(View):
 
         is_weixin = get_weixin_zhifubao(request)
         openid = get_open_id(request, is_weixin)
+
+        cabinets = get_cabinets()
+
+        spots = get_spots()
         if is_weixin:
             try:
 
@@ -421,6 +422,9 @@ class ReturnPayView(View):
                 'lend_time': history[2],
                 'return_time': history[3],
                 'is_weixin': is_weixin,
+                'cabinet_id': history[7],
+                'cabinets': cabinets,
+                'spots': spots
             }
         else:
             try:
@@ -449,6 +453,9 @@ class ReturnPayView(View):
                 'trade_no': tradeNo,
                 'out_trade_no': out_trade_no,
                 'is_weixin': is_weixin,
+                'cabinet_id': history[7],
+                'cabinets': cabinets,
+                'spots': spots
             }
         return render(request, 'weixin/return_pay.html', data)
 
