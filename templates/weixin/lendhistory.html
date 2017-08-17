@@ -27,7 +27,7 @@
                                 {{ history.2 | get_time_long }}
                            {% endif %}</span>
                        </div>
-                       <div class="zjjl_tf zjjl_tf_mid">费用(元)：<span class="col_z">{{ history.4 }}</span></div>
+                       <div class="zjjl_tf zjjl_tf_mid">费用(元)：<span class="col_z">{{ history.0 | get_tmp_money }}</span></div>
                        <div class="zjjl_zt">状态：
                            {% ifequal history.5 0 %}
                                <span class="zt_jxz">已借出</span>
