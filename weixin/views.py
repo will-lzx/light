@@ -471,7 +471,6 @@ class WxPayNotifyView(View):
         return super(WxPayNotifyView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        print('is_weixin', is_weixin)
         price = DEPOSIT
         pay = PayApi()
         data = request.body
