@@ -544,6 +544,8 @@ def privatecenter(request):
     set_weixin_zhifubao(request)
     is_weixin = get_weixin_zhifubao(request)
 
+    print('is_weixin', is_weixin)
+
     openid = get_open_id(request, is_weixin)
 
     lendtime = get_lendtime(openid)
