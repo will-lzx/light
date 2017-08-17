@@ -43,7 +43,8 @@ def lend(request):
     context = {
         'is_deposit': is_deposit,
         'openid': openid,
-        'is_lend': is_lend
+        'is_lend': is_lend,
+        'is_weixin': is_weixin
     }
     response = render(request, template_name, context)
     return response
