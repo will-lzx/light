@@ -33,13 +33,13 @@
                                <span class="zt_jxz">已借出</span>
                            {% endifequal %}
                            {% ifequal history.5 1 %}
-                               <span class="zt_jxz"><a href="/weixin/return_pay/">待支付</a></span>
+                               <span class="zt_jxz"><a href="/zhifubao/return_pay/">待支付</a></span>
                            {% endifequal %}
                            {% ifequal history.5 2 %}
                                <span class="zt_ywc">已完成</span>
                            {% endifequal %}
                            {% ifequal history.5 3 %}
-                               <span class="zt_zgm"><a href="/weixin/buy_tip/{{ history.0 }}/" onclick="show_buy()">已购买</a></span>
+                               <span class="zt_zgm"><a href="/zhifubao/buy_tip/{{ history.0 }}/" onclick="show_buy()">已购买</a></span>
                            {% endifequal %}
                        </div>
                    </div>
