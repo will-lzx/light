@@ -174,22 +174,21 @@ def lendhistory(request):
 def privatecenter(request):
     template_name = 'zhifubao/privatecenter.html'
 
-    auth_code = request.GET.get('auth_code', None)
-    user_id, access_token = get_userid_access_token(auth_code)
+    #user_id, access_token = get_userid_access_token(auth_code)
+
+    user_id = get_user_id(request)
 
     lendtime = get_lendtime(user_id)
 
     deposit = float(get_deposit(user_id, False))
+    # user = get_userinfo(access_token, auth_code)
 
-    try:
-        user = get_userinfo(access_token, auth_code)
-        headimgurl = user['avatar']
-        nick_name = user['nick_name']
-    except Exception as ex:
-        print('Get user info fail:', ex)
+    headimgurl = request.session.get('avatar', default=None)
+    nick_name = request.session.get('nick_name', default=None)
+
+    if not headimgurl:
         headimgurl = ''
         nick_name = '亲爱的，轻拍用户'
-
     subscribe_time = get_subscribe_time(user_id)
 
     context = {
