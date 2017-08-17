@@ -359,6 +359,7 @@ class PayView(View):
         else:
             out_trade_no = create_timestamp()
             tradeNo = create_order(openid, out_trade_no, DEPOSIT, '押金支付')
+            print('tradeNo:', tradeNo)
 
             data = {
                 'deposit': DEPOSIT,
