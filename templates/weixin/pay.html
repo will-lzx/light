@@ -27,7 +27,6 @@
             WeixinJSBridge.invoke(
             'getBrandWCPayRequest', {{ data | safe }},
             function(res){
-              WeixinJSBridge.log('will'+res.err_msg);
               window.location.href="{{ redirect_uri }}";
             }
             );
@@ -51,6 +50,7 @@
             var is_weixin = '{{ is_weixin }}';
             if(is_weixin === 'True')
             {
+                alert('callpay');
                 callpay();
             }
             else
