@@ -31,39 +31,72 @@
             csrfmiddlewaretoken: '{{ csrf_token }}'
         }});
          $(document).ready(function () {
-            $.ajax({
-                type:"post",
-                url:"/weixin/wxconfig/",//自己填写请求地址
-                data:{url: location.href},
-                success:function(result){
-                    wx.config({
-                        // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                        debug: false,
-                        // 必填，公众号的唯一标识
-                        appId: result.appid,
-                        // 必填，生成签名的时间戳
-                        timestamp:result.timestamp,
-                        // 必填，生成签名的随机串
-                        nonceStr:result.noncestr,
-                         // 必填，签名，见附录1
-                         signature:result.signature,
-                         // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-                         jsApiList : [ 'checkJsApi', 'scanQRCode' ]
-                     });
+             var is_weixin = '{{ is_weixin }}';
+             if(is_weixin)
+             {
+                 $.ajax({
+                    type:"post",
+                    url:"/weixin/wxconfig/",//自己填写请求地址
+                    data:{url: location.href},
+                    success:function(result){
+                        wx.config({
+                            // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                            debug: false,
+                            // 必填，公众号的唯一标识
+                            appId: result.appid,
+                            // 必填，生成签名的时间戳
+                            timestamp:result.timestamp,
+                            // 必填，生成签名的随机串
+                            nonceStr:result.noncestr,
+                             // 必填，签名，见附录1
+                             signature:result.signature,
+                             // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                             jsApiList : [ 'checkJsApi', 'scanQRCode' ]
+                         });
+                      }
+                });
+             }
+             else
+             {
+                 document.querySelector('#scanQRCode').onclick = function() {
+                      var user_id = '{{ user_id }}';
+                      var is_lend = '{{ is_lend }}';
+
+                      if (is_lend === 'False') {
+                          alert("还没有租自拍杆，先去租一个");
+                          location.href = '/zhifubao/lend/';
+                      } else {
+                          AlipayJSBridge.call('scan', {
+                              type: 'qr'
+                          }, function (result) {
+                              alert(JSON.stringify(result));
+                              var cabinet_code = '12-1213-21';
+                                $.ajax({
+                                    type:"post",
+                                    url:"/weixin/get_capacity/",//自己填写请求地址
+                                    data:{cabinet_code:cabinet_code},
+                                    success:function(result){
+                                        location.href = '/zhifubao/return_tip/' + result + '/' + cabinet_code + '/'
+                                    }
+                                });
+
+                          });
+                      }
                   }
-            });
+             }
+
         });
 
          wx.error(function(res) {
             alert("出错了：" + res.errMsg);//这个地方的好处就是wx.config配置错误，会弹出窗口哪里错误，然后根据微信文档查询即可。
-        });
+         });
 
          wx.ready(function() {
             wx.checkJsApi({  
-         jsApiList : ['scanQRCode'],  
-         success:function(res) {
-         }  
-      }); 
+             jsApiList : ['scanQRCode'],  
+             success:function(res) {
+             }  
+        }); 
 
             //点击按钮扫描二维码
             document.querySelector('#scanQRCode').onclick = function () {

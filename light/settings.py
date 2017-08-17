@@ -143,8 +143,6 @@ WEIXIN_RETURNPAYBACK = 'http://relalive.com/weixin/returnpayback/'
 WEIXIN_IP = '106.14.151.3'
 DEPOSIT = 0.01
 
-
-
 APPEND_SLASH = False
 
 tmp_pwd = 'Password'

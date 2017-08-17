@@ -38,20 +38,24 @@ def get_signature(noncestr, jsapi_ticket, timestamp, url):
     return signature
 
 
-def get_openid(code):
-    url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code'.format(
-        WEIXIN_APPID, WEIXIN_APPSECRET, code)
+def get_openid(code, is_weixin):
+    if is_weixin:
+        url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code'.format(
+            WEIXIN_APPID, WEIXIN_APPSECRET, code)
 
-    url_req = UrlRequest()
-    resp = url_req.url_request(url)
-    return resp['openid']
+        url_req = UrlRequest()
+        resp = url_req.url_request(url)
+        return resp['openid']
+    else:
+        urlResp = get_oauth_response(code)
+        return urlResp['alipay_system_oauth_token_response']['user_id']
+
 
 
 def get_userid(code):
-    urlResp = get_oauth_response(code)
-    user_id = urlResp['alipay_system_oauth_token_response']['user_id']
 
-    return user_id
+
+    return ''
 
 
 def get_userid_access_token(code):

@@ -17,8 +17,6 @@ from django.conf.urls import url
 from .views import *
 
 urlpatterns = [
-    url(r'^$', weixin, name='weixin'),
-    url(r'^create_code_img/', create_code_img, name='create_code_img'),
     url(r'^agreement/', agreement, name='agreement'),
 
     url(r'^lend/$', lend, name='lend'),

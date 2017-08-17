@@ -2,18 +2,13 @@ import hashlib
 from io import BytesIO
 
 import xmltodict
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
-from django.utils.encoding import smart_str
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from lxml import etree
 from wechatpy.events import SubscribeEvent
 from wechatpy.pay.api import WeChatRefund
-
-from lib.utils import check_code
 from lib.weixin.weixin_sql import *
 
 from lib.utils.common import *
@@ -27,71 +22,6 @@ from weixin.wx_api import Pay as PayApi
 
 # Create your views here.
 
-_letter_cases = "abcdefghjkmnpqrstuvwxy"
-_upper_cases = _letter_cases.upper()
-_numbers = ''.join(map(str, range(3, 10)))
-init_chars = ''.join((_letter_cases, _upper_cases, _numbers))
-
-
-@csrf_exempt
-def weixin(request):
-    if request.method == 'GET':
-        signature = request.GET.get('signature', None)
-        timestamp = request.GET.get('timestamp', None)
-        nonce = request.GET.get('nonce', None)
-        echostr = request.GET.get('echostr', None)
-
-        # 这里的token需要自己设定，主要是和微信的服务器完成验证使用
-        token = WECHAT_TOKEN
-
-        # 把token，timestamp, nonce放在一个序列中，并且按字符排序
-        hashlist = [token, str(timestamp), str(nonce)]
-        hashlist.sort()
-
-        # 将上面的序列合成一个字符串
-        hashstr = ''.join([s for s in hashlist])
-
-        # 通过python标准库中的sha1加密算法，处理上面的字符串，形成新的字符串。
-        hashstr = hashlib.sha1(hashstr.encode(encoding='utf-8')).hexdigest()
-
-        # 把我们生成的字符串和微信服务器发送过来的字符串比较，
-        # 如果相同，就把服务器发过来的echostr字符串返回去
-        if hashstr == signature:
-            return HttpResponse(echostr)
-
-    if request.method == 'POST':
-        # 将程序中字符输出到非 Unicode 环境（比如 HTTP 协议数据）时可以使用 smart_str 方法
-        data = smart_str(request.body)
-        # 将接收到数据字符串转成xml
-        xml = etree.fromstring(data)
-
-        # 从xml中读取我们需要的数据。注意这里使用了from接收的to，使用to接收了from，
-        # 这是因为一会我们还要用这些数据来返回消息，这样一会使用看起来更符合逻辑关系
-        fromUser = xml.find('ToUserName').text
-        toUser = xml.find('FromUserName').text
-        content = xml.find('Content').text
-
-        # 这里获取当前时间的秒数，time.time()取得的数字是浮点数，所以有了下面的操作
-        nowtime = str(int(time.time()))
-
-        # 加载text.xml模板,参见render()调用render_to_string()并将结果馈送到 HttpResponse适合从视图返回的快捷方式 。
-        rendered = render_to_string('weixin/text.xml',
-                                    {'toUser': toUser, 'fromUser': fromUser, 'nowtime': nowtime, 'content': '微信功能正在开发中...'})
-        return HttpResponse(rendered)
-
-
-def create_code_img(request):
-    # 直接在内存开辟一点空间存放临时生成的图片
-    f = BytesIO()
-    # 调用check_code生成照片和验证码
-    img, code = check_code.create_validate_code()
-    # 将验证码存在服务器的session中，用于校验
-    request.session['check_code'] = code
-    # 生成的图片放置于开辟的内存中
-    img.save(f, 'PNG')
-    # 将内存的数据读取出来，并以HttpResponse返回
-    return HttpResponse(f.getvalue())
-
 
 def agreement(request):
     template_name = 'weixin/agreement.html'
@@ -102,16 +32,11 @@ def agreement(request):
 def lend(request):
     template_name = 'weixin/lend.html'
 
-    code = request.GET.get('code', None)
+    is_weixin = is_weixin_zhifubao(request)
 
-    if code and not request.session.get('openid', default=None):
-        print('code', code)
-        openid = get_openid(code)
-        request.session['openid'] = openid
-    else:
-        openid = request.session.get('openid', default=None)
+    openid = get_open_id(request, is_weixin)
 
-    is_deposit = is_deposit_exist(openid, is_weixin=True)
+    is_deposit = is_deposit_exist(openid, is_weixin)
     is_lend = is_lend_exist(openid)
 
     context = {
@@ -127,7 +52,8 @@ def lend(request):
 def generate_lendhistory(request):
 
     cabinet_code = request.POST.get('cabinet_code', None)
-    openid = request.session.get('openid', default=None)
+    is_weixin = is_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
 
     cabinet_id = get_cabinet_id(cabinet_code)
 
@@ -148,13 +74,8 @@ def lend_success(request):
 def return_back(request):
     template_name = 'weixin/return.html'
 
-    code = request.GET.get('code', None)
-
-    if code and not request.session.get('openid', default=None):
-        openid = get_openid(code)
-        request.session['openid'] = openid
-    else:
-        openid = request.session.get('openid', default=None)
+    is_weixin = is_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
 
     is_lend = is_lend_exist(openid)
     context = {
@@ -168,7 +89,8 @@ def return_back(request):
 
 @method_decorator(csrf_exempt)
 def update_lendhistory(request):
-    openid = request.POST.get('openid', None)
+    is_weixin = is_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
 
     result = update_history(openid)
 
@@ -184,7 +106,8 @@ def update_lendhistory(request):
 def return_tip(request, has_capacity, cabinet_code):
     template_name = 'weixin/return_tip.html'
 
-    openid = request.session.get('openid', default=None)
+    is_weixin = is_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
 
     context = {
         'has_capacity': has_capacity,
@@ -229,7 +152,8 @@ def nearby(request):
 
 def lendhistory(request):
     template_name = 'weixin/lendhistory.html'
-    openid = request.session.get('openid', default=None)
+    is_weixin = is_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
 
     histories = get_histories(openid)
 
@@ -255,7 +179,10 @@ def lendhistory(request):
 
 def withdraw(request):
     template_name = 'weixin/withdraw.html'
-    openid = request.session.get('openid', default=None)
+
+    is_weixin = is_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
+
     deposit = get_deposit(openid)
     deposit_order_id = get_order_id(openid)
 
@@ -275,22 +202,34 @@ def withdraw(request):
 
 @method_decorator(csrf_exempt)
 def exe_withdraw(request):
-    deposit = str(int(float(request.POST.get('deposit')) * 100))
+    is_weixin = is_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
+
     deposit_order_id = request.POST.get('deposit_order_id')
-    openid = request.session.get('openid', default=None)
-    refund_no = str(create_timestamp())
-    wechatPay = WeChatPay(WEIXIN_APPID,
-                          WECHAT[0]['key'],
-                          WECHAT[0]['mch_id'],
-                          mch_cert='/root/cert/apiclient_cert.pem',
-                          mch_key='/root/cert/apiclient_key.pem')
+    if is_weixin:
+        deposit = str(int(float(request.POST.get('deposit')) * 100))
 
-    refund = WeChatRefund(wechatPay)
+        refund_no = str(create_timestamp())
+        wechatPay = WeChatPay(WEIXIN_APPID,
+                              WECHAT[0]['key'],
+                              WECHAT[0]['mch_id'],
+                              mch_cert='/root/cert/apiclient_cert.pem',
+                              mch_key='/root/cert/apiclient_key.pem')
 
-    resp = refund.apply(deposit, deposit, out_trade_no=deposit_order_id, out_refund_no=refund_no, op_user_id=WECHAT[0]['mch_id'])
-    if resp['return_code'] == 'SUCCESS':
-        update_deposit(openid, 0, 0)
-    return HttpResponse(resp['return_code'])
+        refund = WeChatRefund(wechatPay)
+
+        resp = refund.apply(deposit, deposit, out_trade_no=deposit_order_id, out_refund_no=refund_no, op_user_id=WECHAT[0]['mch_id'])
+        if resp['return_code'] == 'SUCCESS':
+            update_deposit(openid, 0, 0, is_weixin)
+        return HttpResponse(resp['return_code'])
+    else:
+        deposit = str(request.POST.get('deposit'))
+
+        resp_status = create_withdraw(deposit, deposit_order_id)
+
+        if resp_status == 'Success':
+            update_deposit(openid, 0, 0, is_weixin)
+        return HttpResponse(resp_status)
 
 
 def buy_tip(request, lendhistory_id):
@@ -379,33 +318,45 @@ class PayView(View):
     ..remove WxMemberView
     """
     def get(self, request, *args, **kwargs):
-        try:
-            price = DEPOSIT
-            notify_url = WEIXIN_PAYBACK + '?price=' + str(DEPOSIT) + '&is_deposit=True'
+        is_weixin = is_weixin_zhifubao(request)
+        openid = get_open_id(request, is_weixin)
+        if is_weixin:
+            try:
+                price = DEPOSIT
+                notify_url = WEIXIN_PAYBACK + '?price=' + str(DEPOSIT) + '&is_deposit=True'
 
-            print('notify:', notify_url)
-            redirect_url = '/weixin/lend/'
-            openid = request.session.get('openid', default=None)
-        except KeyError:
-            return HttpResponse("PARAM ERROR")
+                print('notify:', notify_url)
+                redirect_url = '/weixin/lend/'
 
-        out_trade_no = str(int(time.time()))
-        total_fee = str(int(float(price) * 100))
-        param = {
-            'xml': {'openid': openid,
-                    'body': WECHAT[0]['body'],
-                    'out_trade_no': out_trade_no,
-                    'total_fee': total_fee,
-                    'spbill_create_ip': WEIXIN_IP,
-                    'notify_url': notify_url}}
-        pay = PayApi()
-        pay.set_prepay_id(param)
-        data = {
-            'data': pay.get_pay_data(),
-            'redirect_uri': redirect_url,
-            'deposit': price,
-        }
-        return render(request, 'weixin/pay.html', data)
+            except KeyError:
+                return HttpResponse("PARAM ERROR")
+
+            out_trade_no = str(int(time.time()))
+            total_fee = str(int(float(price) * 100))
+            param = {
+                'xml': {'openid': openid,
+                        'body': WECHAT[0]['body'],
+                        'out_trade_no': out_trade_no,
+                        'total_fee': total_fee,
+                        'spbill_create_ip': WEIXIN_IP,
+                        'notify_url': notify_url}}
+            pay = PayApi()
+            pay.set_prepay_id(param)
+            data = {
+                'data': pay.get_pay_data(),
+                'redirect_uri': redirect_url,
+                'deposit': price,
+            }
+        else:
+            out_trade_no = create_timestamp()
+            tradeNo = create_order(openid, out_trade_no, DEPOSIT, '押金支付')
+
+            data = {
+                'deposit': DEPOSIT,
+                'tradeNo': tradeNo,
+                'out_trade_no': out_trade_no
+            }
+        return render(request, 'zhifubao/pay.html', data)
 
 
 class ReturnPayView(View):
@@ -415,45 +366,76 @@ class ReturnPayView(View):
     ..remove WxMemberView
     """
     def get(self, request, *args, **kwargs):
-        try:
-            openid = request.session.get('openid', default=None)
-            history = get_histories(openid)[0]
 
-            time_long = (history[3] - history[2]).seconds
-            hour = time_long // 3600
-            minute = round((time_long / 60) % 60, 0)
+        is_weixin = is_weixin_zhifubao(request)
+        openid = get_open_id(request, is_weixin)
+        if is_weixin:
+            try:
 
-            lend_time_long = str(hour) + '时' + str(minute) + '分'
+                history = get_histories(openid)[0]
 
-            money = get_pay_money(openid)
-            notify_url = WEIXIN_RETURNPAYBACK + '?price=' + str(money) + '&is_deposit=False'
-            redirect_url = '/weixin/privatecenter/'
+                time_long = (history[3] - history[2]).seconds
+                hour = time_long // 3600
+                minute = round((time_long / 60) % 60, 0)
 
-        except KeyError:
-            return HttpResponse("PARAM ERROR")
+                lend_time_long = str(hour) + '时' + str(minute) + '分'
 
-        out_trade_no = str(int(time.time()))
+                money = get_pay_money(openid)
+                notify_url = WEIXIN_RETURNPAYBACK + '?price=' + str(money) + '&is_deposit=False'
+                redirect_url = '/weixin/privatecenter/'
 
-        total_fee = str(int(float(money) * 100))
+            except KeyError:
+                return HttpResponse("PARAM ERROR")
 
-        param = {
-            'xml': {'openid': openid,
-                    'body': '租借费用支付',
-                    'out_trade_no': out_trade_no,
-                    'total_fee': total_fee,
-                    'spbill_create_ip': WEIXIN_IP,
-                    'notify_url': notify_url}}
-        pay = PayApi()
-        pay.set_prepay_id(param)
-        data = {
-            'data': pay.get_pay_data(),
-            'redirect_uri': redirect_url,
-            'lend_money': money,
-            'lend_time_long': lend_time_long,
-            'order_id': out_trade_no,
-            'lend_time': history[2],
-            'return_time': history[3]
-        }
+            out_trade_no = str(int(time.time()))
+
+            total_fee = str(int(float(money) * 100))
+
+            param = {
+                'xml': {'openid': openid,
+                        'body': '租借费用支付',
+                        'out_trade_no': out_trade_no,
+                        'total_fee': total_fee,
+                        'spbill_create_ip': WEIXIN_IP,
+                        'notify_url': notify_url}}
+            pay = PayApi()
+            pay.set_prepay_id(param)
+            data = {
+                'data': pay.get_pay_data(),
+                'redirect_uri': redirect_url,
+                'lend_money': money,
+                'lend_time_long': lend_time_long,
+                'order_id': out_trade_no,
+                'lend_time': history[2],
+                'return_time': history[3]
+            }
+        else:
+            try:
+                history = get_histories(openid)[0]
+
+                time_long = (history[3] - history[2]).seconds
+                hour = time_long // 3600
+                minute = round((time_long / 60) % 60, 0)
+
+                lend_time_long = str(hour) + '时' + str(minute) + '分'
+
+                money = get_pay_money(openid)
+
+            except KeyError:
+                return HttpResponse("PARAM ERROR")
+
+            out_trade_no = create_timestamp()
+            tradeNo = create_order(openid, out_trade_no, money, '租借费用支付')
+
+            data = {
+                'lend_money': money,
+                'lend_time_long': lend_time_long,
+                'order_id': out_trade_no,
+                'lend_time': history[2],
+                'return_time': history[3],
+                'trade_no': tradeNo,
+                'out_trade_no': out_trade_no
+            }
         return render(request, 'weixin/return_pay.html', data)
 
 
@@ -551,28 +533,39 @@ def about(request):
 def privatecenter(request):
     template_name = 'weixin/privatecenter.html'
 
-    code = request.GET.get('code', None)
-
-    if code and not request.session.get('openid', default=None):
-        print('code', code)
-        openid = get_openid(code)
-        request.session['openid'] = openid
-    else:
-        openid = request.session.get('openid', default=None)
+    is_weixin = is_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
 
     lendtime = get_lendtime(openid)
 
-    deposit = float(get_deposit(openid))
+    deposit = float(get_deposit(openid, is_weixin))
 
-    user = get_user_info(openid)
+    if is_weixin:
+        user = get_user_info(openid)
 
-    context = {
-        'lendtime': lendtime,
-        'deposit': deposit,
-        'headimgurl': user['headimgurl'],
-        'nickname': user['nickname'],
-        'subscribe_time': user['subscribe_time'],
-    }
+        context = {
+            'lendtime': lendtime,
+            'deposit': deposit,
+            'headimgurl': user['headimgurl'],
+            'nickname': user['nickname'],
+            'subscribe_time': user['subscribe_time'],
+        }
+    else:
+        headimgurl = request.session.get('avatar', default=None)
+        nick_name = request.session.get('nick_name', default=None)
+
+        if not headimgurl:
+            headimgurl = ''
+            nick_name = '亲爱的，轻拍用户'
+        subscribe_time = get_subscribe_time(openid)
+
+        context = {
+            'lendtime': lendtime,
+            'deposit': deposit,
+            'headimgurl': headimgurl,
+            'nickname': nick_name,
+            'subscribe_time': subscribe_time,
+        }
     response = render(request, template_name, context)
     return response
 
@@ -647,6 +640,31 @@ def oauth_user(request):
     req = urllib.request.Request(oauth_url)
     req.add_header('Content-Type', 'application/json')
     res = urllib.request.urlopen(req)
+
+
+def is_weixin_zhifubao(request):
+    code = request.GET.get('code', None)
+    if code:
+        is_weixin = True
+    else:
+        is_weixin = False
+    return is_weixin
+
+
+def get_open_id(request, is_weixin):
+    if is_weixin:
+        code = request.GET.get('code', None)
+    else:
+        code = request.GET.get('auth_code', None)
+
+    if code and not request.session.get('openid', default=None):
+        openid = get_openid(code, is_weixin)
+        request.session['openid'] = openid
+    else:
+        openid = request.session.get('openid', default=None)
+
+    return openid
+
 
 
 
