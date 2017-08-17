@@ -660,10 +660,10 @@ def set_weixin_zhifubao(request):
 
     code = request.GET.get('code', None)
     if code:
-        if request.session['is_weixin'] is None:
+        if request.session.get('is_weixin', None) is None:
             request.session['is_weixin'] = True
     else:
-        if request.session['is_weixin'] is None:
+        if request.session.get('is_weixin', None) is None:
             request.session['is_weixin'] = False
 
 
