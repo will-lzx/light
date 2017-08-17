@@ -124,11 +124,11 @@
                   var user_id = '{{ user_id }}';
                   var is_lend = '{{ is_lend }}';
 
-                  if (is_deposit == 'False') {
+                  if (is_deposit === 'False') {
                       alert('还没有充值，请先去充值吧？', 'danger');
                       location.href = '/weixin/pay/?user_id=' + user_id;
                   } else {
-                      if (is_lend == 'True') {
+                      if (is_lend === 'True') {
                           alert("您还有正在借用的订单，在订单完成前，不能再次借用");
                           return
                       }
@@ -136,7 +136,6 @@
                           type: 'qr'
                       }, function (result) {
                           alert(JSON.stringify(result));
-                          {#              location.href = '/zhifubao/output_tip/' + result + '/' + cabinet_code + '/'#}
                           var cabinet_code = '12-1213-21';
                             $.ajax({
                                 type:"post",
