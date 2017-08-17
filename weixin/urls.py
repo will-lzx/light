@@ -58,6 +58,7 @@ urlpatterns = [
 
     url(r'^pay/$', PayView.as_view(), name='pay'),
     url(r'^return_pay/$', ReturnPayView.as_view(), name='return_pay'),
+    url(r'^call_save_order/$', call_save_order, name='call_save_order'),
 
     url(r'^contract/$', contract, name='contract'),
 

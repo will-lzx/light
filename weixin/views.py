@@ -327,7 +327,6 @@ class PayView(View):
     def get(self, request, *args, **kwargs):
         is_weixin = get_weixin_zhifubao(request)
         openid = get_open_id(request, is_weixin)
-        print('is_weixin', is_weixin)
         if is_weixin:
             try:
                 price = DEPOSIT
@@ -359,7 +358,6 @@ class PayView(View):
         else:
             out_trade_no = create_timestamp()
             tradeNo = create_order(openid, out_trade_no, DEPOSIT, '押金支付')
-            print('tradeNo:', tradeNo)
 
             data = {
                 'deposit': DEPOSIT,
@@ -539,6 +537,21 @@ class WxReturnPayNotifyView(View):
     def handle_order(self, order_id, pay_number):
         """ Need user extends, for order """
         return HttpResponse('<xml> <return_code><![CDATA[SUCCESS]]></return_code> <return_msg><![CDATA[OK]]></return_msg> </xml>')
+
+
+@method_decorator(csrf_exempt)
+def call_save_order(request):
+    is_weixin = get_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
+
+    trade_no = request.POST.get('trade_no')
+    out_trade_no = request.POST.get('out_trade_no')
+
+    update_deposit(openid, DEPOSIT, out_trade_no, is_weixin)
+
+    save_order(openid, out_trade_no, trade_no)
+
+    return HttpResponse('success')
 
 
 def contract(request):
