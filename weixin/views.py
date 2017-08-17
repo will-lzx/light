@@ -193,8 +193,8 @@ def withdraw(request):
     is_weixin = get_weixin_zhifubao(request)
     openid = get_open_id(request, is_weixin)
 
-    deposit = get_deposit(openid)
-    deposit_order_id = get_order_id(openid)
+    deposit = get_deposit(openid, is_weixin)
+    deposit_order_id = get_order_id(openid, is_weixin)
 
     is_lend = is_lend_exist(openid)
 
