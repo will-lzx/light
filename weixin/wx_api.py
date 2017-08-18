@@ -31,7 +31,6 @@ class Pay(Base):
         message = self.dict_to_xml(data)
         result = self.get_data(url, message, 'string')
         data = dict(xmltodict.parse(result))
-        print('data===========', data)
         self.prepay_id = data['xml']['prepay_id']
 
     def get_pay_data(self):

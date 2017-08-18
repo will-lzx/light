@@ -74,8 +74,6 @@ class UrlRequest:
         req.add_header('encoding', 'utf-8')
         res = urllib.request.urlopen(req, data.encode())
         urlResp = json.loads(res.read())
-        print(urlResp)
-
 
 if __name__ == '__main__':
     url_request = UrlRequest()

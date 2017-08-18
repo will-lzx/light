@@ -85,15 +85,11 @@ def get_userinfo(access_token, code):
     unsigned_items = ordered_data(data)
     quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
 
-    print('quoted_string:', quoted_string)
-
     sign_str = sign(quoted_string.encode(encoding='utf-8')).decode()
 
     signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
     req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
-
-    print('req::', req.text)
 
     return req.json()['alipay_user_info_share_response']
 
@@ -125,7 +121,6 @@ def get_oauth_response(code):
     signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
     req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
-    print('reqqqqq:', req.json())
 
     return req.json()
 

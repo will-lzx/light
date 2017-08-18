@@ -125,7 +125,6 @@ def return_tip(request, has_capacity, cabinet_code):
 
 def get_pole(request):
     cabinet_code = request.POST.get('cabinet_code', None)
-    print('cabinet_code', cabinet_code)
     has_pole = is_has_pole(cabinet_code)
     return HttpResponse(str(has_pole))
 
@@ -133,7 +132,6 @@ def get_pole(request):
 @method_decorator(csrf_exempt)
 def get_capacity(request):
     cabinet_code = request.POST.get('cabinet_code', None)
-    print('cabinet_code', cabinet_code)
     has_capacity = is_has_capacity(cabinet_code)
     return HttpResponse(str(has_capacity))
 
@@ -332,7 +330,6 @@ class PayView(View):
                 price = DEPOSIT
                 notify_url = WEIXIN_PAYBACK + '?price=' + str(DEPOSIT) + '&is_deposit=True'
 
-                print('notify:', notify_url)
                 redirect_url = '/weixin/lend/'
 
             except KeyError:
@@ -479,7 +476,6 @@ class WxPayNotifyView(View):
         pay = PayApi()
         data = request.body
         data = dict(xmltodict.parse(data)['xml'])
-        print('data:', data)
         result = {}
         sign = data['sign']
         del data['sign']
@@ -519,7 +515,6 @@ class WxReturnPayNotifyView(View):
         data = request.body
         data = dict(xmltodict.parse(data)['xml'])
 
-        print('data:', data)
         result = {}
         sign = data['sign']
         del data['sign']
@@ -576,8 +571,6 @@ def privatecenter(request):
 
     set_weixin_zhifubao(request)
     is_weixin = get_weixin_zhifubao(request)
-
-    print('is_weixin', is_weixin)
 
     openid = get_open_id(request, is_weixin)
 

@@ -87,7 +87,6 @@ def call_return_order(request):
 @method_decorator(csrf_exempt)
 def get_pole(request):
     cabinet_code = request.POST.get('cabinet_code', None)
-    print('cabinet_code', cabinet_code)
     has_pole = is_has_pole(cabinet_code)
     return HttpResponse(str(has_pole))
 
@@ -399,9 +398,7 @@ def how_charge(request):
 
 def call_back(request):
     code = request.GET.get('auth_code', None)
-    print('code:', code)
     if code and not request.session.get('user_id', default=None):
-        print('code', code)
         user_id = get_userid(code)
         request.session['user_id'] = user_id
     else:
@@ -414,9 +411,7 @@ def get_user_id(request):
     auth_code = request.GET.get('auth_code', None)
 
     if auth_code and not request.session.get('user_id', default=None):
-        print('auth_code', auth_code)
         user_id = get_userid(auth_code)
-        print('user_id', user_id)
         request.session['user_id'] = user_id
     else:
         user_id = request.session.get('user_id', default=None)
