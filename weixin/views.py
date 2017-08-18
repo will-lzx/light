@@ -365,6 +365,7 @@ class PayView(View):
                 'tradeNo': tradeNo,
                 'out_trade_no': out_trade_no
             }
+            print('data:', data)
         return render(request, 'weixin/pay.html', data)
 
 
