@@ -75,14 +75,25 @@
 
         // 由于js的载入是异步的，所以可以通过该方法，当AlipayJSBridgeReady事件发生后，再执行callback方法
         function ready(callback) {
-             if (window.AlipayJSBridge) {
-                 callback && callback();
-             } else {
-                 document.addEventListener('AlipayJSBridgeReady', callback, false);
-             }
+          // 如果jsbridge已经注入则直接调用
+          if (window.AlipayJSBridge) {
+            callback && callback();
+          } else {
+            // 如果没有注入则监听注入的事件
+            document.addEventListener('AlipayJSBridgeReady', callback, false);
+          }
         }
         function tradePay(tradeNO) {
-            alert('mm');
+            ready(function(){
+                 // 通过传入交易号唤起快捷调用方式(注意tradeNO大小写严格)
+                 AlipayJSBridge.call("tradePay", {
+                      tradeNO: tradeNO
+                 }, function (data) {
+                     if ("9000" == data.resultCode) {
+                         save_order(tradeNO);
+                     }
+                 });
+            });
         }
 
         function save_order(trade_no){
