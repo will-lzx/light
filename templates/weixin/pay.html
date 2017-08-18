@@ -82,16 +82,7 @@
              }
         }
         function tradePay(tradeNO) {
-            ready(function(){
-                 // 通过传入交易号唤起快捷调用方式(注意tradeNO大小写严格)
-                 AlipayJSBridge.call("tradePay", {
-                      tradeNO: tradeNO
-                 }, function (data) {
-                     if ("9000" == data.resultCode) {
-                         save_order(tradeNO);
-                     }
-                 });
-            });
+            alert('mm');
         }
 
         function save_order(trade_no){
