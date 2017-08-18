@@ -30,13 +30,21 @@
             if(is_weixin === 'True')
             {
                 callpay();
+            }
+            else
+            {
+                alert(0);
+                var tradeNo = '{{ tradeNo }}';
+                tradePay(tradeNo);
+            }
 
-                function jsApiCall()
+        });
+
+        function jsApiCall()
         {
             WeixinJSBridge.invoke(
             'getBrandWCPayRequest', {{ data | safe }},
             function(res){
-              WeixinJSBridge.log('will'+res.err_msg);
               window.location.href="{{ redirect_uri }}";
               }
             );
@@ -55,17 +63,6 @@
                 jsApiCall();
             }
         }
-            }
-            else
-            {
-                alert(0);
-                var tradeNo = '{{ tradeNo }}';
-                tradePay(tradeNo);
-            }
-
-        });
-
-
 
         $("#payButton").click(function() {
            tradePay(tradeNo);
