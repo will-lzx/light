@@ -363,7 +363,9 @@ class PayView(View):
                 'deposit': DEPOSIT,
                 'is_weixin': is_weixin,
                 'tradeNo': tradeNo,
-                'out_trade_no': out_trade_no
+                'out_trade_no': out_trade_no,
+                'data': '',
+                'redirect_uri': ''
             }
         return render(request, 'weixin/pay.html', data)
 
