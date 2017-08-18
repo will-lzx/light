@@ -40,29 +40,7 @@
 
         });
 
-        function jsApiCall()
-        {
-            WeixinJSBridge.invoke(
-            'getBrandWCPayRequest', {{ data | safe }},
-            function(res){
-              window.location.href="{{ redirect_uri }}";
-              }
-            );
-        }
 
-        function callpay()
-        {
-            if (typeof WeixinJSBridge == "undefined"){
-                if( document.addEventListener ){
-                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
-                }else if (document.attachEvent){
-                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
-                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
-                }
-            }else{
-                jsApiCall();
-            }
-        }
 
         $("#payButton").click(function() {
            tradePay(tradeNo);
