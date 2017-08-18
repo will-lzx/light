@@ -47,7 +47,7 @@
                      data: {deposit:deposit, deposit_order_id:deposit_order_id},
                      dataType: "html",
                      success: function(data){
-                         if (data === 'SUCCESS')
+                         if (data.toLocaleLowerCase() === 'success')
                          {
                              alert('退款成功');
                              location.href = '/weixin/privatecenter/'
