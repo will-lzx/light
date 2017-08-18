@@ -1,0 +1,94 @@
+{% extends "weixin/base.html" %}
+{% load static %}
+{% load own_tag %}
+{% block title %}费用支付{% endblock %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+
+     <div class="ts_cont_all">
+       <div class="fyzf">
+           <div class="fyzf_h"><div class="fyzf_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/shichang.png' %}" alt="租借时长"></div>租借时长</div>
+           <div class="fyzf_time">{{ lend_time_long }}</div>
+           <div class="fyzf_h"><div class="fyzf_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/feiyong.png' %}" alt="租借费用"></div>租借费用</div>
+           <div class="fyzf_fee">{{ lend_money }}</div>
+       </div>
+    </div>
+    <div class="nr_con">
+        <a href="#" id="money"  class="weui-btn weui-btn_primary page__bd_spacing">确认支付</a>
+
+        <div class="fyzf_dd">订单号：{{ order_id }}</div>
+
+        <div class="zjjl_zj">
+            <div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/hr.png' %}" alt="归还"></div>
+
+            <span>还：{{ return_time | convert_time }}<br>
+                {% for cabinet in cabinets %}
+                    {% ifequal cabinet.0 cabinet_id %}
+                        {% for spot in spots %}
+                            {% ifequal spot.0 cabinet.2 %}
+                                {{ spot.1 }}
+                            {% endifequal %}
+                        {% endfor %}
+                    {% endifequal %}
+                {% endfor %}
+            </span>
+
+
+        </div>
+        <div class="zjjl_zj">
+            <div class="zjjl_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/jc.png' %}" alt="借出"></div>
+            <span>租：{{ lend_time | convert_time }}<br>
+                {% for cabinet in cabinets %}
+                    {% ifequal cabinet.0 cabinet_id %}
+                        {% for spot in spots %}
+                            {% ifequal spot.0 cabinet.2 %}
+                                {{ spot.1 }}
+                            {% endifequal %}
+                        {% endfor %}
+                    {% endifequal %}
+                {% endfor %}
+            </span>
+        </div>
+
+    </div>
+
+    <script src="/static/js/jquery-3.2.1.js"></script>
+    <script src="/static/js/relalive.js"></script>
+    <script>
+        $('#money').click(function () {
+            callpay();
+        });
+
+        function jsApiCall()
+        {
+            WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', {{ data | safe }},
+            function(res){
+              WeixinJSBridge.log('will'+res.err_msg);
+              window.location.href="{{ redirect_uri }}";
+              }
+            );
+        }
+
+        function callpay()
+        {
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+            }else{
+                jsApiCall();
+            }
+        }
+
+
+
+
+    </script>
+{% endblock %}

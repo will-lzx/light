@@ -429,6 +429,7 @@ class ReturnPayView(View):
                 'cabinets': cabinets,
                 'spots': spots
             }
+            template_name = 'weixin/weixin_return_pay.html'
         else:
             try:
                 history = get_histories(openid)[0]
@@ -460,7 +461,8 @@ class ReturnPayView(View):
                 'cabinets': cabinets,
                 'spots': spots
             }
-        return render(request, 'weixin/return_pay.html', data)
+            template_name = 'weixin/zhifubao_return_pay.html'
+        return render(request, template_name, data)
 
 
 class WxPayNotifyView(View):
