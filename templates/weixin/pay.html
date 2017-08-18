@@ -43,7 +43,7 @@
         function jsApiCall()
         {
             WeixinJSBridge.invoke(
-            'getBrandWCPayRequest', '{{ data | safe }}',
+            'getBrandWCPayRequest', {{ data | safe }},
             function(res){
               window.location.href="{{ redirect_uri }}";
               }
