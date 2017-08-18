@@ -58,7 +58,7 @@ urlpatterns = [
 
     url(r'^pay/$', PayView.as_view(), name='pay'),
     url(r'^return_pay/$', ReturnPayView.as_view(), name='return_pay'),
-    url(r'^call_save_order/$', call_save_order, name='call_save_order'),
+    url(r'^call_save_order/$', call_save_order, name='contract'),
 
     url(r'^contract/$', contract, name='contract'),
 
@@ -67,8 +67,6 @@ urlpatterns = [
     url(r'^wx/$', wx, name='wx'),
     url(r'^payback/$', WxPayNotifyView.as_view(), name='payback'),
     url(r'^returnpayback/$', WxReturnPayNotifyView.as_view(), name='returnpayback'),
-
-
-
+    url(r'^call_return_order/$', call_return_order, name='call_return_order'),
 
 ]

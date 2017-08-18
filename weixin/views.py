@@ -554,6 +554,20 @@ def call_save_order(request):
     return HttpResponse('success')
 
 
+@method_decorator(csrf_exempt)
+def call_return_order(request):
+    is_weixin = get_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
+    trade_no = request.POST.get('trade_no')
+    out_trade_no = request.POST.get('out_trade_no')
+
+    update_lendhistorystatus(openid, 2)
+
+    save_order(openid, out_trade_no, trade_no)
+
+    return HttpResponse('success')
+
+
 def contract(request):
     template_name = 'weixin/contract.html'
     response = render(request, template_name)
