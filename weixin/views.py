@@ -355,6 +355,7 @@ class PayView(View):
                 'redirect_uri': redirect_url,
                 'deposit': price,
             }
+            template_name = 'weixin/weixin_pay.html'
         else:
             out_trade_no = create_timestamp()
             tradeNo = create_order(openid, out_trade_no, DEPOSIT, '押金支付')
@@ -365,7 +366,9 @@ class PayView(View):
                 'tradeNo': tradeNo,
                 'out_trade_no': out_trade_no,
             }
-        return render(request, 'weixin/pay.html', data)
+            template_name = 'weixin/zhifubao_pay.html'
+
+        return render(request, template_name, data)
 
 
 class ReturnPayView(View):

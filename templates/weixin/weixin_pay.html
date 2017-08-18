@@ -1,0 +1,54 @@
+{% extends "weixin/base.html" %}
+{% load static %}
+{% block title %}充值押金{% endblock %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+
+     <div class="ts_cont">
+       <img class="zgjs_img" src="{% static '/images/weixin/cz.png' %}" alt="押金充值">
+    </div>
+    <div class="nr_con">
+            <a href="#" id="deposit"  class="weui-btn weui-btn_primary page__bd_spacing">充值 {{ deposit }} 元</a>
+            <div class="ts_til page__bd_spacing"><div class="ts_til_test">温馨提示</div> </div>
+            <div class="sm_cont">
+                1.归还自拍杆后，随时到个人中心退还押金<br>
+                2.充值即表示已阅读并同意茄子自拍<a href="/weixin/contract/">租借服务协议</a>
+            </div>
+     </div>
+
+    <script src="/static/js/jquery-3.2.1.js"></script>
+    <script src="/static/js/relalive.js"></script>
+    <script>
+
+        $('#deposit').click(function () {
+            callpay();
+        });
+
+        function jsApiCall()
+        {
+            WeixinJSBridge.invoke(
+            'getBrandWCPayRequest', {{ data | safe }},
+            function(res){
+              window.location.href="{{ redirect_uri }}";
+              }
+            );
+        }
+
+        function callpay()
+        {
+            if (typeof WeixinJSBridge == "undefined"){
+                if( document.addEventListener ){
+                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                }else if (document.attachEvent){
+                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+            }else{
+                jsApiCall();
+            }
+        }
+    </script>
+{% endblock %}
