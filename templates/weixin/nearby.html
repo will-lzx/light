@@ -25,7 +25,7 @@
 
     <script src="/static/js/jquery-3.2.1.js"></script>
     <script src="/static/js/relalive.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wehOqBhUt4qXTDzQ2V9HvVKbTGHKnqsd"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
     <script>
         function initMap(){
             createMap();
@@ -35,7 +35,8 @@
 
         function createMap(){
             var map = new BMap.Map("dituContent");
-            var point = new BMap.Point(113.116257,27.822879);
+            /*var point = new BMap.Point(113.116257,27.822879);*/
+            var point = new BMap.Point({{ lat }}, {{ lon }});
             map.centerAndZoom(point,17);
             window.map = map;
         }

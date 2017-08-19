@@ -150,6 +150,10 @@ def nearby(request):
     template_name = 'weixin/nearby.html'
     set_weixin_zhifubao(request)
     is_weixin = get_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
+
+    wechat
+
 
     response = render(request, template_name)
     return response
@@ -668,6 +672,7 @@ def wx(request):
                 openid = msg.source
                 subcribe_save_openid(openid)
             else:
+                print('subcribe_event', subcribe_event)
                 return 'success'
         else:
             return 'success'
