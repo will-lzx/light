@@ -692,6 +692,8 @@ def wx(request):
                 try:
                     print('data', data)
                     lat = data['Latitude']
+
+                    print('lat----', lat)
                     lon = data['Longitude']
                     request.session['lat'] = lat
                     request.session['lon'] = lon
