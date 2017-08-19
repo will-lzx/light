@@ -152,10 +152,20 @@ def nearby(request):
     is_weixin = get_weixin_zhifubao(request)
     openid = get_open_id(request, is_weixin)
 
-    wechat
+    lon = request.session.get('lon', None)
 
+    if lon is None:
+        lon = DEFAULT_LON
 
-    response = render(request, template_name)
+    lat = request.session.get('lon', None)
+    if lat is None:
+        lat = DEFAULT_LAT
+
+    context = {
+        'lon': lon,
+        'lat': lat
+    }
+    response = render(request, template_name, context)
     return response
 
 
@@ -673,11 +683,14 @@ def wx(request):
                 openid = msg.source
                 subcribe_save_openid(openid)
             elif msg.event == location_event.event:
-                lat = msg.event.Latitude
-                print('lat', lat)
-                lon = msg.Longitude
+                lat = location_event.latitude
 
-                print('lon', lon)
+                request.session['lat'] = lat
+
+                lon = location_event.longitude
+
+                request.session['lon'] = lon
+
                 return 'success'
         else:
             return 'success'
