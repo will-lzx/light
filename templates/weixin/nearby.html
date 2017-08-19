@@ -83,15 +83,8 @@
             var p = e.target;
             alert(p.getLabel().content);
             var cabinet_id = 19;
-            var can_lend = '';
-            {% for cabinet in cabinets %}
-                {% ifequal cabinet.0 cabinet_id %}
-                    can_lend = '{{ cabinet.4 }}';
-                {% endifequal %}
-            {% endfor %}
-            alert('123');
-            var can_return = 30;
-            var content = '<span>name</span><br><span>可借：' + can_lend + '</span><span>可还：</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
+
+            var content = '<span>name</span><br><span>可借：' + {% for cabinet in cabinets %}{% ifequal cabinet.0 cabinet_id %}'{{ cabinet.4 }}'{% endifequal %}{% endfor %} + '</span><span>可还：</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
             $('.cabinet_info').html(content);
         }
 
