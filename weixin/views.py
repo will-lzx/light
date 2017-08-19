@@ -166,7 +166,6 @@ def nearby(request):
         'lat': lat
     }
 
-    print(context)
     response = render(request, template_name, context)
     return response
 
@@ -686,12 +685,15 @@ def wx(request):
                 subcribe_save_openid(openid)
             elif msg.event == location_event.event:
                 data = dict(xmltodict.parse(request.body)['xml'])
+                try:
+                    lat = data['Latitude']
+                    lon = data['Longitude']
+                    request.session['lat'] = lat
+                    request.session['lon'] = lon
+                except:
+                    request.session['lat'] = None
+                    request.session['lon'] = None
 
-                request.session['lat'] = data['Latitude']
-
-                lon = data['Longitude']
-
-                request.session['lon'] = lon
                 return 'success'
             else:
                 return 'success'
