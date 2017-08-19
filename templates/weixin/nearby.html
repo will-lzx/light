@@ -41,7 +41,7 @@
                 var lat = {{ cabinet.6 }};
                 var lon = {{ cabinet.7 }};
                 var tmp_point = new BMap.Point(lon, lat);
-                var label = new BMap.Label('{{ cabinet.1 }}', {offset:new BMap.Size(20,-10)});
+                var label = new BMap.Label('{{ cabinet.0 }}', {offset:new BMap.Size(20,-10)});
                 addMarker(map, tmp_point, label);
             {% endfor %}
 
@@ -75,7 +75,9 @@
             alert(0);
             var p = e.target;
             alert(p.getLabel().content);
-            $('.cabinet_info').html('<span>name</span><br><span>可借：10</span><span>可还：40</span><a href="#">View</a>');
+            var cabinet_id = 4;
+            var content = '<span>name</span><br><span>可借：10</span><span>可还：40</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
+            $('.cabinet_info').html(content);
         }
 
         initMap();
