@@ -70,7 +70,9 @@
           marker.addEventListener("click",get_attribute);
 
           function get_attribute() {
-            alert('0');
+            var p = marker.getPosition();
+            alert("marker的位置是" + p.lng + "," + p.lat);
+
             }
         }
         
