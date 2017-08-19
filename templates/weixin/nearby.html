@@ -68,11 +68,13 @@
           var marker = new BMap.Marker(point);
           map.addOverlay(marker);
           marker.addEventListener("click",get_attribute);
+
+          function get_attribute() {
+            alert('0');
+            }
         }
         
-        function get_attribute() {
-            alert('0');
-        }
+
 
         initMap();
     </script>
