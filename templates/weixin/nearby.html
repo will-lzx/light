@@ -78,8 +78,8 @@
             var cabinet_id = 19;
             {% for cabinet in cabinets %}
                 {% ifequal cabinet.0 cabinet_id %}
-                    var can_lend = {{ cabinet.4 }};
-                    var can_return = 50 - {{ cabinet.4 }};
+                    var can_lend = '{{ cabinet.4 }}';
+                    var can_return = 50 - parseInt('{{ cabinet.4 }}');
                 {% endifequal %}
             {% endfor %}
             var content = '<span>name</span><br><span>可借：' + can_lend + '</span><span>可还：' + can_return + '</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
