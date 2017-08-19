@@ -691,17 +691,15 @@ def wx(request):
                 subcribe_save_openid(openid)
             elif msg.event == location_event.event:
                 data = dict(xmltodict.parse(request.body)['xml'])
+                openid = msg.source
                 lat = data['Latitude']
 
                 lon = data['Longitude']
-                del_session(request, 'lat')
-                del_session(request, 'lon')
 
-                request.session['lat'] = lat
-                print('lon:::', lon)
-                request.session['lon'] = lon
-
-                print('session:', request.session['lon'])
+                if is_exist_customer_site(openid):
+                    update_customer_site(openid, lat, lon)
+                else:
+                    insert_customer_site(openid, lat, lon)
 
                 return 'success'
             else:

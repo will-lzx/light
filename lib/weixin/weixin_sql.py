@@ -212,6 +212,44 @@ def get_cabinet_id(cabinet_code):
     return id
 
 
+def insert_customer_site(customer_id, lat, lon):
+    mysql = MySQL(db='management')
+    update_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    try:
+        mysql.exec_none_query('insert into home_customer_site (customer_id, lat, lon, update_time) '
+                          'values("{0}", {1}, {2}, {3})'.format(customer_id, lat, lon, update_time))
+        return True
+    except:
+        print('Customer {0} site save fail'.format(customer_id))
+        return False
+
+
+def update_customer_site(customer_id, lat, lon):
+
+    mysql = MySQL(db='management')
+
+    update_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    try:
+        mysql.exec_none_query('update home_customer_site set lat={0}, lon={1}, update_time="{2}" where customer_id="{3}"'.format(lat, lon, update_time, customer_id))
+        return True
+    except:
+        print('Customer {0} pay status fail'.format(customer_id))
+        return False
+
+
+def is_exist_customer_site(customer_id):
+    mysql = MySQL(db='management')
+
+    customer_sites = mysql.exec_query('select * from home_customer_site where customer_id="{0}"'.format(customer_id))
+
+    if len(customer_sites) > 0:
+        return True
+    else:
+        return False
+
+
 def get_cabinets():
     mysql = MySQL(db='management')
     cabinets = mysql.exec_query('select * from home_cabinet')
