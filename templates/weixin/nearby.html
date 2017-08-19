@@ -20,10 +20,6 @@
     <div class="cabinet_info">
 
     </div>
-    <div>
-        <input type="hidden" id="lend" value="{% for cabinet in cabinets %}{% ifequal cabinet.0 19 %}{{ cabinet.4 }}{% endifequal %}{% endfor %}">
-    </div>
-
 
     <script src="/static/js/jquery-3.2.1.js"></script>
     <script src="/static/js/relalive.js"></script>
@@ -68,7 +64,7 @@
 
         function addMarker(map, point, cabinet_id){
           var marker = new BMap.Marker(point);
-          marker.title = '{{ cabinet_id }}';
+          marker.setTitle('{{ cabinet_id }}');
           marker.addEventListener("click",get_attribute);
           map.addOverlay(marker);
 
@@ -76,7 +72,7 @@
         function get_attribute(e) {
             alert(0);
             var p = e.target;
-            alert(p.getTitle().title);
+            alert(p.getTitle());
             var cabinet_id = 19;
 
             {% for cabinet in cabinets %}
