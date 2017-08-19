@@ -72,11 +72,10 @@
         }
         function get_attribute(e) {
             var p = e.target;
-            alert(p.getTitle());
-            var cabinet_id = 19;
+            var cabinet_id = p.getTitle();
 
             {% for cabinet in cabinets %}
-            {% ifequal cabinet.0 19 %}
+            {% ifequal cabinet.0 cabinet_id %}
                 var name = '{{ cabinet.1 }}';
                 var can_lend = '{{ cabinet.4 }}';
                 var can_return = 50 - parseInt('{{ cabinet.4 }}');
