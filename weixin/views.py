@@ -168,7 +168,7 @@ def nearby(request):
 
 def cabinet_info(request, cabinet_id):
     template_name = 'weixin/cabinet_info.html'
-    cabinet = get_cabinets(cabinet_id)
+    cabinet = get_cabinets_by_id(cabinet_id)
 
     if cabinet:
         can_lend = cabinet[0][4]
