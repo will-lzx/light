@@ -686,6 +686,7 @@ def wx(request):
                 data = dict(xmltodict.parse(request.body)['xml'])
 
                 print('lat', data['Latitude'])
+                print('msg', msg)
                 request.session['lat'] = data['Latitude']
 
                 lon = data['Longtitude']
