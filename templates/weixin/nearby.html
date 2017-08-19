@@ -67,10 +67,10 @@
         function addMarker(map, point){
           var marker = new BMap.Marker(point);
           map.addOverlay(marker);
-          marker.addEventListener("click",get_attribute);
+          marker.addEventListener("click",get_attribute(marker));
         }
         
-        function get_attribute() {
+        function get_attribute(marker) {
             alert('0');
             var p = marker.getPosition();
             alert("marker的位置是" + p.lng + "," + p.lat);
