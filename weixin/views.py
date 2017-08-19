@@ -155,6 +155,7 @@ def nearby(request):
     cabinets = get_cabinets()
 
     lon = request.session.get('lon', None)
+    print('lon::::', lon)
 
     if lon is None:
         lon = DEFAULT_LON
