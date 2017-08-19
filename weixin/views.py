@@ -686,9 +686,6 @@ def wx(request):
                 print(location_event)
                 print(msg.Latitude)
                 lat = location_event.latitude
-
-
-
                 print('lat', lat)
                 request.session['lat'] = ''
 
