@@ -690,6 +690,7 @@ def wx(request):
                 lon = data['Longitude']
 
                 request.session['lon'] = lon
+                return 'success'
             else:
                 return 'success'
         else:
