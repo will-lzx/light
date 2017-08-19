@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from wechatpy.events import SubscribeEvent
+from wechatpy.events import SubscribeEvent, LocationEvent
 from wechatpy.pay.api import WeChatRefund
 from lib.weixin.weixin_sql import *
 
@@ -667,12 +667,16 @@ def wx(request):
             reply = create_reply('这是条语音消息', msg)
         elif msg.type == 'event':
             subcribe_event = SubscribeEvent(msg)
+            location_event = LocationEvent(msg)
             if msg.event == subcribe_event.event:
                 reply = create_reply('欢迎您关注轻拍科技公众号', msg)
                 openid = msg.source
                 subcribe_save_openid(openid)
-            else:
-                print('subcribe_event', subcribe_event)
+            elif msg.event == location_event.event:
+                lat = msg.Latitude
+                lon = msg.Longitude
+                print('lat', lat)
+                print('lon', lon)
                 return 'success'
         else:
             return 'success'
