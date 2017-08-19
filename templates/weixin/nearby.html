@@ -67,7 +67,8 @@
         }
 
         function addMarker(map, point, cabinet_id){
-          var marker = new BMap.Marker(point, title=cabinet_id);
+          var marker = new BMap.Marker(point);
+          marker.title = '{{ cabinet_id }}';
           marker.addEventListener("click",get_attribute);
           map.addOverlay(marker);
 
