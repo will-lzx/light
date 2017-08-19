@@ -154,12 +154,12 @@ def nearby(request):
 
     cabinets = get_cabinets()
 
-    lon = request.session.get('lon', default=None)
+    lon = request.session['lon']
 
     if lon is None:
         lon = DEFAULT_LON
 
-    lat = request.session.get('lat', default=None)
+    lat = request.session['lat']
     if lat is None:
         lat = DEFAULT_LAT
 
