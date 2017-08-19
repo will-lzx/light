@@ -69,11 +69,16 @@
           map.addOverlay(marker);
           marker.addEventListener("click",get_attribute);
 
-          function get_attribute() {
-            var p = marker.getPosition();
-            alert("marker的位置是" + p.lng + "," + p.lat);
 
+        }
+        function get_attribute(e) {
+            var p = e.target;
+            if(p instanceof BMap.Marker)
+            {
+                alert("marker的位置是" + p.getPosition().lng + "," + p.getPosition().lat);
             }
+
+
         }
         
 
