@@ -689,6 +689,7 @@ def wx(request):
             elif msg.event == location_event.event:
                 data = dict(xmltodict.parse(request.body)['xml'])
                 try:
+                    print('data', data)
                     lat = data['Latitude']
                     lon = data['Longitude']
                     request.session['lat'] = lat
