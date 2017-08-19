@@ -690,7 +690,7 @@ def wx(request):
                 lon = location_event.longitude
 
                 request.session['lon'] = lon
-
+            else:
                 return 'success'
         else:
             return 'success'
