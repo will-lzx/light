@@ -696,6 +696,7 @@ def wx(request):
                 del_session(request, 'lon')
 
                 request.session['lat'] = lat
+                print('lon:::', lon)
                 request.session['lon'] = lon
 
                 return 'success'
