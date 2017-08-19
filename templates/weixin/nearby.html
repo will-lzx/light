@@ -42,7 +42,7 @@
                 var lat = {{ cabinet.6 }};
                 var lon = {{ cabinet.7 }};
                 var tmp_point = new BMap.Point(lon, lat);
-                var label = new BMap.Lable('{{ cabinet.1 }}');
+                var label = new BMap.Lable('{{ cabinet.1 }}', {offset:new BMap.Size(20,-10)});
                 addMarker(map, point, label);
             {% endfor %}
 
