@@ -55,6 +55,7 @@ urlpatterns = [
     url(r'^about/$', about, name='about'),
 
     url(r'^privatecenter/$', privatecenter, name='privatecenter'),
+    url(r'^cabinet_info/(?P<cabinet_id>.+)/$', cabinet_info, name='cabinet_info'),
 
     url(r'^pay/$', PayView.as_view(), name='pay'),
     url(r'^return_pay/$', ReturnPayView.as_view(), name='return_pay'),

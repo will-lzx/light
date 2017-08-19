@@ -9,7 +9,6 @@
     </style>
     <div class="weixin-title">
         <div class="div-back"><a href="/weixin/privatecenter/"></a></div>
-        <span></span>
     </div>
 
 {% endblock %}
@@ -18,8 +17,8 @@
     <div class="div-content">
         <div style="width:697px;height:550px;border:#ccc solid 1px;" id="dituContent"></div>
     </div>
-    <div>
-        <span id="tip"></span>
+    <div class="cabinet_info">
+
     </div>
 
 
@@ -76,9 +75,8 @@
             alert(0);
             var p = e.target;
             alert(p.getLabel().content);
+            $('.cabinet_info').val = '<span>name</span><br><span>可借：10</span><span>可还：40</span><a href="#">View</a>';
         }
-        
-
 
         initMap();
     </script>

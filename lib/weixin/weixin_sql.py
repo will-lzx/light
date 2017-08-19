@@ -265,6 +265,12 @@ def get_cabinets():
     return cabinets
 
 
+def get_cabinets(cabinet_id):
+    mysql = MySQL(db='management')
+    cabinets = mysql.exec_query('select * from home_cabinet where id={0}'.format(cabinet_id))
+    return cabinets
+
+
 def get_spots():
     mysql = MySQL(db='management')
     spots = mysql.exec_query('select * from home_spot')

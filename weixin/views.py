@@ -166,6 +166,21 @@ def nearby(request):
     return response
 
 
+def cabinet_info(request, cabinet_id):
+    template_name = 'weixin/cabinet_info.html'
+    cabinet = get_cabinets(cabinet_id)
+
+    if cabinet:
+        can_lend = cabinet[0][4]
+        can_return = int(CABINET_CAPACITY) - cabinet[0][4]
+    context = {
+        'can_lend': can_lend,
+        'can_return': can_return
+    }
+    response = render(request, template_name, context)
+    return response
+
+
 def lendhistory(request):
     template_name = 'weixin/lendhistory.html'
     is_weixin = get_weixin_zhifubao(request)
@@ -688,8 +703,6 @@ def wx(request):
                 except:
                     lat = DEFAULT_LAT
                     lon = DEFAULT_LON
-
-                print('get_lat', lat, lon)
 
                 if is_exist_customer_site(openid):
                     update_customer_site(openid, lat, lon)
