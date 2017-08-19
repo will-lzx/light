@@ -16,7 +16,7 @@
 
 {% block content %}
     <div class="div-content">
-        <div id="dituContent"></div>
+        <div style="width:697px;height:550px;border:#ccc solid 1px;" id="dituContent"></div>
     </div>
     <div>
         <span id="tip"></span>
@@ -27,12 +27,34 @@
     <script src="/static/js/relalive.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
     <script>
-        var map = new BMap.Map("allmap");            // 创建Map实例
-        map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
-        var local = new BMap.LocalSearch(map, {
-          renderOptions:{map: map, autoViewport:true}
-        });
-        local.searchNearby("小吃", "前门");
+        function initMap(){
+            createMap();
+            setMapEvent();
+            addMapControl();
+        }
+
+        function createMap(){
+            var map = new BMap.Map("dituContent");
+            var point = new BMap.Point(113.116257,27.822879);
+            map.centerAndZoom(point,17);
+            window.map = map;
+        }
+
+        function setMapEvent(){
+            map.enableDragging();
+            map.enableScrollWheelZoom();
+            map.enableDoubleClickZoom();
+            map.enableKeyboard();
+        }
+
+        function addMapControl(){
+            var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+            map.addControl(ctrl_nav);
+            var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+            map.addControl(ctrl_ove);
+            var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+            map.addControl(ctrl_sca);
+        }
 
         initMap();
     </script>
