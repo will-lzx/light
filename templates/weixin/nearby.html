@@ -65,8 +65,9 @@
 
         function addMarker(map, lat, lon){
           var marker = new BMap.Marker(new BMap.Point(lon, lat));
-          map.addOverlay(marker);
           marker.addEventListener("click",get_attribute);
+          map.addOverlay(marker);
+
 
 
         }
