@@ -41,8 +41,7 @@
             {% for cabinet in cabinets %}
                 var lat = {{ cabinet.6 }};
                 var lon = {{ cabinet.7 }};
-                var tmp_point = new BMap.Point(lon, lat);
-                addMarker(map, tmp_point);
+                addMarker(map, lat, lon);
             {% endfor %}
 
             window.map = map;
@@ -64,8 +63,8 @@
             map.addControl(ctrl_sca);
         }
 
-        function addMarker(map, point){
-          var marker = new BMap.Marker(point);
+        function addMarker(map, lat, lon){
+          var marker = new BMap.Marker(new BMap.Point(lon, lat));
           map.addOverlay(marker);
           marker.addEventListener("click",get_attribute);
 
