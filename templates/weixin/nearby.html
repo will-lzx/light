@@ -83,9 +83,10 @@
             var p = e.target;
             alert(p.getLabel().content);
             var cabinet_id = 19;
+            var can_lend = '';
             {% for cabinet in cabinets %}
                 {% ifequal cabinet.0 cabinet_id %}
-                    var can_lend = {{ cabinet.4 }};
+                    can_lend = '{{ cabinet.4 }}';
                 {% endifequal %}
             {% endfor %}
             alert('123');
