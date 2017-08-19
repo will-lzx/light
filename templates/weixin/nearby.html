@@ -76,7 +76,13 @@
             var p = e.target;
             alert(p.getLabel().content);
             var cabinet_id = 4;
-            var content = '<span>name</span><br><span>可借：10</span><span>可还：40</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
+            {% for cabinet in cabinets %}
+                {% ifequal cabinet.0 cabinet_id %}
+                    var can_lend = {{ cabinet.4 }};
+                    var can_return = 50 - {{ cabinet.4 }};
+                {% endifequal %}
+            {% endfor %}
+            var content = '<span>name</span><br><span>可借：' + can_lend + '</span><span>可还：' + can_return + '</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
             $('.cabinet_info').html(content);
         }
 
