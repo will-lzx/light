@@ -155,7 +155,6 @@ def nearby(request):
     cabinets = get_cabinets()
 
     lon = request.session.get('lon', default=None)
-    print(request.session)
 
     if lon is None:
         lon = DEFAULT_LON
@@ -690,11 +689,12 @@ def wx(request):
             elif msg.event == location_event.event:
                 data = dict(xmltodict.parse(request.body)['xml'])
                 try:
-                    print('data', data)
                     lat = data['Latitude']
 
-                    print('lat----', lat)
                     lon = data['Longitude']
+                    del_session(request, 'lat')
+                    del_session(request, 'lon')
+
                     request.session['lat'] = lat
                     request.session['lon'] = lon
                 except:
@@ -754,6 +754,13 @@ def get_open_id(request, is_weixin):
         openid = request.session.get('openid', default=None)
 
     return openid
+
+
+def del_session(request, key):
+    try:
+        del request.session[key]
+    except KeyError:
+        pass
 
 
 
