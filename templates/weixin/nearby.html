@@ -85,7 +85,7 @@
             var cabinet_id = 19;
             {% for cabinet in cabinets %}
                 {% ifequal cabinet.0 cabinet_id %}
-                    var can_lend = '{{ cabinet.4 }}';
+                    var can_lend = {{ cabinet.4 }};
                 {% endifequal %}
             {% endfor %}
             alert('123');
