@@ -90,7 +90,7 @@
             {% endfor %}
             alert('123');
             var can_return = 30;
-            var content = '<span>name</span><br><span>可借：</span><span>可还：</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
+            var content = '<span>name</span><br><span>可借：' + can_lend + '</span><span>可还：</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
             $('.cabinet_info').html(content);
         }
 
