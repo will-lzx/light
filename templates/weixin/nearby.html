@@ -72,7 +72,7 @@
         }
         function get_attribute(e) {
             var p = e.target;
-            var cabinet_id = p.getTitle();
+            var cabinet_id = parseInt(p.getTitle());
 
             {% for cabinet in cabinets %}
             {% ifequal cabinet.0 cabinet_id %}
