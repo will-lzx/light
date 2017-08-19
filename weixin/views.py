@@ -152,6 +152,8 @@ def nearby(request):
     is_weixin = get_weixin_zhifubao(request)
     openid = get_open_id(request, is_weixin)
 
+    cabinets = get_cabinets()
+
     lon = request.session.get('lon', None)
 
     if lon is None:
@@ -163,7 +165,8 @@ def nearby(request):
 
     context = {
         'lon': lon,
-        'lat': lat
+        'lat': lat,
+        'cabinets': cabinets
     }
 
     response = render(request, template_name, context)

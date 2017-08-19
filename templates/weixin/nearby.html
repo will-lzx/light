@@ -37,6 +37,14 @@
             var map = new BMap.Map("dituContent");
             var point = new BMap.Point({{ lon }}, {{ lat }});
             map.centerAndZoom(point,19);
+
+            {% for cabinet in cabinets %}
+                var lat = {{ cabinet.6 }};
+                var lon = {{ cabinet.7 }};
+                var tmp_point = new BMap.Point(lon, lat);
+                addMarker(map, tmp_point);
+            {% endfor %}
+
             window.map = map;
         }
 
@@ -54,6 +62,11 @@
             map.addControl(ctrl_ove);
             var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
             map.addControl(ctrl_sca);
+        }
+
+        function addMarker(map, point){
+          var marker = new BMap.Marker(point);
+          map.addOverlay(marker);
         }
 
         initMap();
