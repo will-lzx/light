@@ -77,6 +77,7 @@
             alert(p.getLabel().content);
             var cabinet_id = 19;
             {% for cabinet in cabinets %}
+                alert(cabinet);
                 {% ifequal cabinet.0 cabinet_id %}
                     var can_lend = '{{ cabinet.4 }}';
                     alert(can_lend);
