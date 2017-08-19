@@ -218,7 +218,7 @@ def insert_customer_site(customer_id, lat, lon):
 
     try:
         mysql.exec_none_query('insert into home_customer_site (customer_id, lat, lon, update_time) '
-                          'values("{0}", {1}, {2}, {3})'.format(customer_id, lat, lon, update_time))
+                          'values("{0}", {1}, {2}, "{3}")'.format(customer_id, lat, lon, update_time))
         return True
     except:
         print('Customer {0} site save fail'.format(customer_id))
@@ -253,10 +253,10 @@ def is_exist_customer_site(customer_id):
 def get_lat_lon(customer_id):
     mysql = MySQL(db='management')
 
-    lat_lon = mysql.exec_query('select lat, lon from home_customer_site where customer_id="{0}"'.format(customer_id))[0]
-
-    print('lat-lon:', lat_lon[0], lat_lon[1])
-    return lat_lon[0], lat_lon[1]
+    lat_lon = mysql.exec_query('select lat, lon from home_customer_site where customer_id="{0}"'.format(customer_id))
+    if len(lat_lon) > 0:
+        print('lat-lon:', lat_lon[0][0], lat_lon[0][1])
+        return lat_lon[0][0], lat_lon[0][1]
 
 
 def get_cabinets():
@@ -367,5 +367,6 @@ if __name__ == '__main__':
     #money = get_money('oWJUp0XapjayHP5kLqXC3uADC73w', 14800)
 
     #result = is_pay_finished('oWJUp0XapjayHP5kLqXC3uADC73w')
-    update_deposit('2088002510276700', 0.01, '1502680802', False)
+    #update_deposit('2088002510276700', 0.01, '1502680802', False)
+    exist = is_exist_customer_site('2088002510276700')
     print('')
