@@ -76,7 +76,7 @@
         function get_attribute(e) {
             alert(0);
             var p = e.target;
-            alert(p.title);
+            alert(p.getTitle().content);
             var cabinet_id = 19;
 
             {% for cabinet in cabinets %}
