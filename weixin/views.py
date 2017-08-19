@@ -157,7 +157,7 @@ def nearby(request):
     if lon is None:
         lon = DEFAULT_LON
 
-    lat = request.session.get('lon', None)
+    lat = request.session.get('lat', None)
     if lat is None:
         lat = DEFAULT_LAT
 
@@ -165,6 +165,8 @@ def nearby(request):
         'lon': lon,
         'lat': lat
     }
+
+    print(context)
     response = render(request, template_name, context)
     return response
 
