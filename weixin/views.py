@@ -156,6 +156,8 @@ def nearby(request):
 
     lon = request.session['lon']
 
+    print('lon222', lon)
+
     if lon is None:
         lon = DEFAULT_LON
 
