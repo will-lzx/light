@@ -689,6 +689,8 @@ def wx(request):
                     lat = DEFAULT_LAT
                     lon = DEFAULT_LON
 
+                print('get_lat', lat, lon)
+
                 if is_exist_customer_site(openid):
                     update_customer_site(openid, lat, lon)
                 else:
