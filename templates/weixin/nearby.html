@@ -83,6 +83,7 @@
                     var can_return = 50 - parseInt('{{ cabinet.4 }}');
                 {% endifequal %}
             {% endfor %}
+            alert('123');
             var content = '<span>name</span><br><span>可借：' + can_lend + '</span><span>可还：' + can_return + '</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
             $('.cabinet_info').html(content);
         }
