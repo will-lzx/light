@@ -689,18 +689,14 @@ def wx(request):
                 subcribe_save_openid(openid)
             elif msg.event == location_event.event:
                 data = dict(xmltodict.parse(request.body)['xml'])
-                try:
-                    lat = data['Latitude']
+                lat = data['Latitude']
 
-                    lon = data['Longitude']
-                    del_session(request, 'lat')
-                    del_session(request, 'lon')
+                lon = data['Longitude']
+                del_session(request, 'lat')
+                del_session(request, 'lon')
 
-                    request.session['lat'] = lat
-                    request.session['lon'] = lon
-                except:
-                    request.session['lat'] = None
-                    request.session['lon'] = None
+                request.session['lat'] = lat
+                request.session['lon'] = lon
 
                 return 'success'
             else:
