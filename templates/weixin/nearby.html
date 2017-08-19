@@ -87,7 +87,7 @@
             {% endfor %}
             alert(can_return);
 
-            var content = '<span>name</span><br><span>可借：' + '{% for cabinet in cabinets %}{% ifequal cabinet.0 19 %}{{ cabinet.4 }}{% endifequal %}{% endfor %}' + '</span><span>可还：</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
+            var content = '<span>name</span><br><span>可借：' + '{% for cabinet in cabinets %}{% ifequal cabinet.0 19 %}{{ cabinet.4 }}{% endifequal %}{% endfor %}' + '</span><span>可还：' + can_return + '</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
             $('.cabinet_info').html(content);
         }
 
