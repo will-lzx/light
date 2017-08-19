@@ -42,7 +42,7 @@
                 var lat = {{ cabinet.6 }};
                 var lon = {{ cabinet.7 }};
                 var tmp_point = new BMap.Point(lon, lat);
-                addMarker(map, tmp_point, {{ cabinet.1 }});
+                addMarker(map, tmp_point);
             {% endfor %}
 
             window.map = map;
@@ -64,10 +64,15 @@
             map.addControl(ctrl_sca);
         }
 
-        function addMarker(map, point, name){
-          var myCompOverlay = new ComplexCustomOverlay(point, name, name);
-          map.addOverlay(myCompOverlay);
-          marker.addEventListener("click",getAttr);
+        function addMarker(map, point){
+          var marker = new BMap.Marker(point);
+          map.addOverlay(marker);
+          marker.addEventListener("click",get_attribute);
+        }
+        
+        function get_attribute() {
+            var p = marker.getPosition();
+            alert("marker的位置是" + p.lng + "," + p.lat);
         }
 
         initMap();
