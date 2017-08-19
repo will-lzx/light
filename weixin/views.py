@@ -699,6 +699,8 @@ def wx(request):
                 print('lon:::', lon)
                 request.session['lon'] = lon
 
+                print('session:', request.session['lon'])
+
                 return 'success'
             else:
                 return 'success'
