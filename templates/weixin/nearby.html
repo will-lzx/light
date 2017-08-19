@@ -84,6 +84,8 @@
                 {% endifequal %}
             {% endfor %}
             alert('123');
+            alert(can_lend);
+            alert(can_return);
             var content = '<span>name</span><br><span>可借：' + can_lend + '</span><span>可还：' + can_return + '</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
             $('.cabinet_info').html(content);
         }
