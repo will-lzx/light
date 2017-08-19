@@ -250,6 +250,15 @@ def is_exist_customer_site(customer_id):
         return False
 
 
+def get_lat_lon(customer_id):
+    mysql = MySQL(db='management')
+
+    lat_lon = mysql.exec_query('select lat, lon from home_customer_site where customer_id="{0}"'.format(customer_id))[0]
+
+    print('lat-lon:', lat_lon[0], lat_lon[1])
+    return lat_lon[0], lat_lon[1]
+
+
 def get_cabinets():
     mysql = MySQL(db='management')
     cabinets = mysql.exec_query('select * from home_cabinet')

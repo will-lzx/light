@@ -154,23 +154,13 @@ def nearby(request):
 
     cabinets = get_cabinets()
 
-    lon = request.session['lon']
-
-    print('lon222', lon)
-
-    if lon is None:
-        lon = DEFAULT_LON
-
-    lat = request.session['lat']
-    if lat is None:
-        lat = DEFAULT_LAT
+    lat, lon = get_lat_lon(openid)
 
     context = {
         'lon': lon,
         'lat': lat,
         'cabinets': cabinets
     }
-    print('context:', context)
 
     response = render(request, template_name, context)
     return response
@@ -692,9 +682,12 @@ def wx(request):
             elif msg.event == location_event.event:
                 data = dict(xmltodict.parse(request.body)['xml'])
                 openid = msg.source
-                lat = data['Latitude']
-
-                lon = data['Longitude']
+                try:
+                    lat = data['Latitude']
+                    lon = data['Longitude']
+                except:
+                    lat = DEFAULT_LAT
+                    lon = DEFAULT_LON
 
                 if is_exist_customer_site(openid):
                     update_customer_site(openid, lat, lon)
