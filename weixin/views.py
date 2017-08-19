@@ -673,7 +673,7 @@ def wx(request):
                 openid = msg.source
                 subcribe_save_openid(openid)
             elif msg.event == location_event.event:
-                lat = msg.Latitude
+                lat = msg['Latitude']
                 lon = msg.Longitude
                 print('lat', lat)
                 print('lon', lon)
