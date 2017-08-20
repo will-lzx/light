@@ -36,6 +36,8 @@
             var point = new BMap.Point({{ lon }}, {{ lat }});
             map.centerAndZoom(point,19);
 
+            addMarker(map, point, '{{ cabinet_id }}');
+
             window.map = map;
         }
 
@@ -54,6 +56,20 @@
             var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
             map.addControl(ctrl_sca);
         }
+
+        function addMarker(map, point, cabinet_id){
+          var marker = new BMap.Marker(point);
+
+          marker.setTitle(cabinet_id);
+          marker.addEventListener("click",get_attribute);
+          map.addOverlay(marker);
+
+        }
+
+        function get_attribute() {
+            alert('navigate');
+        }
+
 
         initMap();
     </script>
