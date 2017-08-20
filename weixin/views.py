@@ -181,6 +181,7 @@ def cabinet_info(request, cabinet_id):
     return response
 
 
+@method_decorator(csrf_exempt)
 def get_cabinet_info(request):
     cabinet_id = request.POST.get('cabinet_id')
     cabinet = get_cabinets_by_id(cabinet_id)
