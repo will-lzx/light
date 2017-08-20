@@ -155,7 +155,6 @@ def nearby(request):
 
     cabinets = get_cabinets()
     if is_weixin:
-        print('openid:', openid)
         lat, lon = get_lat_lon(openid)
     else:
         lat, lon = get_customer_location(openid)
