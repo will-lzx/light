@@ -89,7 +89,7 @@ def get_userinfo(access_token, code):
 
     signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
-    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
+    req = requests.get(ALIPAY_GATEWAY + signed_string)
 
     return req.json()['alipay_user_info_share_response']
 
@@ -120,7 +120,7 @@ def get_oauth_response(code):
 
     signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
-    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
+    req = requests.get(ALIPAY_GATEWAY + signed_string)
 
     return req.json()
 
@@ -166,7 +166,7 @@ def create_order(buy_id, out_trade_no, total_amount, subject):
 
     signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
-    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
+    req = requests.get(ALIPAY_GATEWAY + signed_string)
 
     return req.json()['alipay_trade_create_response']['trade_no']
 
@@ -200,7 +200,7 @@ def create_withdraw(deposit, out_trade_no):
 
     signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
-    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
+    req = requests.get(ALIPAY_GATEWAY + signed_string)
 
     return req.json()['alipay_trade_refund_response']['msg']
 
@@ -232,7 +232,7 @@ def get_customer_location(user_id):
 
     signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
 
-    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
+    req = requests.get(ALIPAY_GATEWAY + signed_string)
 
     try:
         lat = req.json()['alipay_open_public_gis_query_response']['latitude']
