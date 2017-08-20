@@ -1,0 +1,61 @@
+{% extends "weixin/base.html" %}
+{% load static %}
+
+{% block head %}
+    <style type="text/css">
+        html,body{margin:0;padding:0;}
+        .iw_poi_title {color:#CC5522;font-size:14px;font-weight:bold;overflow:hidden;padding-right:13px;white-space:nowrap}
+        .iw_poi_content {font:12px arial,sans-serif;overflow:visible;padding-top:4px;white-space:-moz-pre-wrap;word-wrap:break-word}
+    </style>
+    <div class="weixin-title">
+        <div class="div-back"><a href="/weixin/privatecenter/"></a></div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+    <div class="div-content">
+        <div style="width:697px;height:550px;border:#ccc solid 1px;" id="dituContent"></div>
+    </div>
+    <div class="cabinet_info">
+
+    </div>
+
+    <script src="/static/js/jquery-3.2.1.js"></script>
+    <script src="/static/js/relalive.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.2&services=true"></script>
+    <script>
+        function initMap(){
+            createMap();
+            setMapEvent();
+            addMapControl();
+        }
+
+        function createMap(){
+            var map = new BMap.Map("dituContent");
+            var point = new BMap.Point({{ lon }}, {{ lat }});
+            map.centerAndZoom(point,19);
+
+            window.map = map;
+        }
+
+        function setMapEvent(){
+            map.enableDragging();
+            map.enableScrollWheelZoom();
+            map.enableDoubleClickZoom();
+            map.enableKeyboard();
+        }
+
+        function addMapControl(){
+            var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+            map.addControl(ctrl_nav);
+            var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+            map.addControl(ctrl_ove);
+            var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+            map.addControl(ctrl_sca);
+        }
+
+        initMap();
+    </script>
+
+{% endblock %}

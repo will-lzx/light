@@ -178,7 +178,24 @@ def cabinet_info(request, cabinet_id):
         can_return = int(CABINET_CAPACITY) - cabinet[0][4]
     context = {
         'can_lend': can_lend,
-        'can_return': can_return
+        'can_return': can_return,
+        'cabinet_id': cabinet_id
+    }
+    response = render(request, template_name, context)
+    return response
+
+
+def goto_cabinet(request, cabinet_id):
+    template_name = 'weixin/goto_cabinet.html'
+    cabinet = get_cabinets_by_id(cabinet_id)
+
+    if cabinet:
+        lat = cabinet[0][6]
+        lon = cabinet[0][7]
+    context = {
+        'lat': lat,
+        'lon': lon,
+        'cabinet_id': cabinet_id
     }
     response = render(request, template_name, context)
     return response
