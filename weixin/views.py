@@ -181,6 +181,18 @@ def cabinet_info(request, cabinet_id):
     return response
 
 
+def get_cabinet_info(request, cabinet_id):
+    cabinet = get_cabinets_by_id(cabinet_id)
+
+    if cabinet:
+        can_lend = cabinet[0][4]
+        can_return = int(CABINET_CAPACITY) - cabinet[0][4]
+
+    content = '<span>' + cabinet[0][1] +'</span><br><span>可借：' + str(can_lend) + '</span><span>可还：' + str(can_return) + '</span><a href="/weixin/cabinet_info/' + str(cabinet[0][1]) + '/">View</a>';
+
+    return HttpResponse(content)
+
+
 def lendhistory(request):
     template_name = 'weixin/lendhistory.html'
     is_weixin = get_weixin_zhifubao(request)

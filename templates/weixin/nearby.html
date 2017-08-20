@@ -73,17 +73,15 @@
         function get_attribute(e) {
             var p = e.target;
             var cabinet_id = parseInt(p.getTitle());
-            alert(cabinet_id);
-            {% for cabinet in cabinets %}
-            {% ifequal cabinet.0 cabinet_id %}
-                var name = '{{ cabinet.1 }}';
-                var can_lend = '{{ cabinet.4 }}';
-                var can_return = 50 - parseInt('{{ cabinet.4 }}');
-            {% endifequal %}
-            {% endfor %}
 
-            var content = '<span>' + name +'</span><br><span>可借：' + can_lend + '</span><span>可还：' + can_return + '</span><a href="/weixin/cabinet_info/' + cabinet_id + '/">View</a>';
-            $('.cabinet_info').html(content);
+            $.ajax({
+                type:"post",
+                url:"/weixin/get_cabinet_info/",//自己填写请求地址
+                data:{cabinet_id:cabinet_id},
+                success:function(result){
+                    $('.cabinet_info').html(result);
+                }
+            });
         }
 
         initMap();
