@@ -190,7 +190,7 @@ def get_cabinet_info(request):
         can_lend = cabinet[0][4]
         can_return = int(CABINET_CAPACITY) - cabinet[0][4]
 
-    content = '<span>' + cabinet[0][1] +'</span><br><span>可借：' + str(can_lend) + '</span><span>可还：' + str(can_return) + '</span><a href="/weixin/cabinet_info/' + str(cabinet[0][1]) + '/">View</a>';
+    content = '<span>' + cabinet[0][1] +'</span><br><span>可借：' + str(can_lend) + '</span><span>可还：' + str(can_return) + '</span><a href="/weixin/cabinet_info/' + str(cabinet[0][0]) + '/">View</a>';
 
     return HttpResponse(content)
 
