@@ -205,6 +205,44 @@ def create_withdraw(deposit, out_trade_no):
     return req.json()['alipay_trade_refund_response']['msg']
 
 
+def get_customer_location(user_id):
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    app_id = ALIPAY_APPID
+    sign_type = 'RSA2'
+    version = '1.0'
+    method = 'alipay.open.public.gis.query'
+    charset = 'GBK'
+
+    biz_content = {'user_id': user_id}
+
+    data = {'timestamp': timestamp,
+            'app_id': app_id,
+            'sign_type': sign_type,
+            'version': version,
+            'method': method,
+            'biz_content': biz_content,
+            'charset': charset
+            }
+    unsigned_items = ordered_data(data)
+    message = "&".join(u"{}={}".format(k, v) for k, v in unsigned_items)
+
+    sign_str = sign(message.encode(encoding='utf-8')).decode()
+
+    quoted_string = "&".join("{}={}".format(k, quote_plus(v)) for k, v in unsigned_items)
+
+    signed_string = quoted_string + "&sign=" + quote_plus(sign_str)
+
+    req = requests.get('https://openapi.alipay.com/gateway.do?' + signed_string)
+
+    try:
+        lat = req.json()['alipay_open_public_gis_query_response']['latitude']
+        lon = req.json()['alipay_open_public_gis_query_response']['longitude']
+    except:
+        lat = DEFAULT_LAT
+        lon = DEFAULT_LON
+    return lat, lon
+
+
 def get_subscribe_time(user_id):
     mysql = MySQL(db='management')
     subcribe_time = mysql.exec_query(

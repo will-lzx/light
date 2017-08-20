@@ -150,11 +150,14 @@ def nearby(request):
     template_name = 'weixin/nearby.html'
     set_weixin_zhifubao(request)
     is_weixin = get_weixin_zhifubao(request)
+
     openid = get_open_id(request, is_weixin)
 
     cabinets = get_cabinets()
-
-    lat, lon = get_lat_lon(openid)
+    if is_weixin:
+        lat, lon = get_lat_lon(openid)
+    else:
+        lat, lon = get_customer_location(openid)
 
     context = {
         'lon': lon,
