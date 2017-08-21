@@ -21,9 +21,9 @@ body {margin:0 auto; padding:0 auto; height: 100%;}
 .zl_text{text-align: left; line-height: 30px;padding-top: 10px;padding-bottom: 50px;}
 .zclh_l{width: 45%;float: left;margin-right: 10%;text-align: left;font-size: 14px; font-weight: 200;line-height: 30px;color: #666666;}
 .zclh_tw{width: 100%;height: 100px;float: left;color: #333333;margin-bottom: 50px;}
-.zclh_img{float: left;width:30%;border: none;}
+.zclh_img{float: left;width:25%;margin-top: 5px;}
 .img_zc{width: 80px;height: auto;border: none;}
-.zclh_gy{float: left;width:70%; text-align: left;line-height: 22px;color: #333333;font-weight: normal;}
+.zclh_gy{float: left;width:75%; text-align: left;line-height: 22px;color: #333333;font-weight: normal;}
 
 
 
