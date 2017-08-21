@@ -56,14 +56,13 @@
                         zoom: 16,
                         center: [{{ lon }},{{ lat }}]
                     });
-
-                    var tool = new AMap.ToolBar({
-                        visible: true
+                    var toolBar;
+                    map.plugin(["AMap.ToolBar"],function(){   //在地图中添加ToolBar插件
+                        toolBar = new AMap.ToolBar();
+                        map.addControl(toolBar);
                     });
 
-                    map.addControl(tool);
-
-                    tool.show();
+                    toolBar.show();
 
 
                     {% for cabinet in cabinets %}
