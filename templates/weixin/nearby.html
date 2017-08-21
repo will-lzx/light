@@ -38,21 +38,40 @@
                     zoom:13                                                 // 地图的中心地理坐标。
                 });
 
-                var anchor = new qq.maps.Point(6, 6),
-                    size = new qq.maps.Size(24, 24),
-                    origin = new qq.maps.Point(0, 0),
-                    icon = new qq.maps.MarkerImage('/static/images/getheadimg.png', size, origin, anchor);
-                var marker = new qq.maps.Marker({
-                    icon: icon,
-                    map: map,
-                    position:map.getCenter()});
+                 {% for cabinet in cabinets %}
+                    var lat = {{ cabinet.6 }};
+                    var lon = {{ cabinet.7 }};
+                    var tmp_point = new BMap.Point(lat, lon);
+                    addMarker(map, tmp_point, '{{ cabinet.0 }}');
+                {% endfor %}
+
             }
 
             //调用初始化函数地图
             init();
-
-
+        };
+        
+        function addMarker(map, point, cabinet_id) {
+            var marker = new qq.maps.Marker({
+                position: point,
+                map: map
+            });
+            qq.maps.event.addListener(marker,"click",function(){
+                get_attribute(cabinet_id);
+            });
         }
+
+        function get_attribute(cabinet_id) {
+            $.ajax({
+                type:"post",
+                url:"/weixin/get_cabinet_info/",//自己填写请求地址
+                data:{cabinet_id:cabinet_id},
+                success:function(result){
+                    $('.cabinet_info').html(result);
+                }
+            });
+        }
+
     </script>
 {#    <script>#}
 {#        function initMap(){#}
