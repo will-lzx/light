@@ -162,7 +162,8 @@ def nearby(request):
     context = {
         'lon': lon,
         'lat': lat,
-        'cabinets': cabinets
+        'cabinets': cabinets,
+        'is_weixin': is_weixin
     }
 
     response = render(request, template_name, context)
