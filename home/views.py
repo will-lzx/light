@@ -15,6 +15,12 @@ def ownpic(request):
     return response
 
 
+def cooperation(request):
+    template_name = 'home/cooperation.html'
+    response = render(request, template_name)
+    return response
+
+
 def about(request):
     template_name = 'home/about.html'
     response = render(request, template_name)

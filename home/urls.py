@@ -19,5 +19,8 @@ from home.views import *
 urlpatterns = [
     url(r'^$', home, name='home'),
     url(r'^ownpic/$', ownpic, name='ownpic'),
+    url(r'^cooperation/$', cooperation, name='cooperation'),
     url(r'^about/$', about, name='about'),
+
+
 ]
