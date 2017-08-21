@@ -63,6 +63,12 @@
                         center: [{{ lon }},{{ lat }}]
                     });
 
+                    var toolBar = new AMap.ToolBar({
+                        visible: false
+                    });
+
+                    map.addControl(toolBar);
+
                     {% for cabinet in cabinets %}
                         var lat = {{ cabinet.6 }};
                         var lon = {{ cabinet.7 }};
