@@ -755,6 +755,12 @@ def wx(request):
         print('error')
 
 
+def cooperation(request):
+    template_name = 'weixin/cooperation.html'
+    response = render(request, template_name)
+    return response
+
+
 def oauth_user(request):
     from wechatpy import WeChatClient
     from wechatpy.oauth import WeChatOAuth

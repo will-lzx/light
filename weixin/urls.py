@@ -72,4 +72,6 @@ urlpatterns = [
     url(r'^returnpayback/$', WxReturnPayNotifyView.as_view(), name='returnpayback'),
     url(r'^call_return_order/$', call_return_order, name='call_return_order'),
 
+    url(r'^cooperation/$', cooperation, name='cooperation'),
+
 ]
