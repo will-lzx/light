@@ -39,22 +39,12 @@
                      }
                 });
 
-                 var anchor = new qq.maps.Point(0, 20),
-                size = new qq.maps.Size(42, 68),
-                origin = new qq.maps.Point(0, 0),
-                icon = new qq.maps.MarkerImage(
-                    "/static/images/getheadimg.png",
-                    size,
-                    origin,
-                    anchor
-                );
-
 
                  {% for cabinet in cabinets %}
                     var lat = {{ cabinet.6 }};
                     var lon = {{ cabinet.7 }};
                     var tmp_point = new qq.maps.LatLng(lat,lon);
-                    addMarker(map, tmp_point, '{{ cabinet.0 }}', icon);
+                    addMarker(map, tmp_point, '{{ cabinet.0 }}');
                 {% endfor %}
 
             }
@@ -75,7 +65,7 @@
             });
         };
         
-        function addMarker(map, point, cabinet_id, icon) {
+        function addMarker(map, point, cabinet_id) {
             var marker = new qq.maps.Marker({
                 position: point,
                 map: map
@@ -83,7 +73,6 @@
             qq.maps.event.addListener(marker,"click",function(){
                 get_attribute(cabinet_id);
             });
-            marker.setIcon(icon);
         }
 
         function get_attribute(cabinet_id) {
