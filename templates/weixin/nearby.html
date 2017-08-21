@@ -63,74 +63,11 @@
                 url:"/weixin/get_cabinet_info/",//自己填写请求地址
                 data:{cabinet_id:cabinet_id},
                 success:function(result){
-                    alert(result);
                     $('.cabinet_info').html(result);
                 }
             });
         }
 
     </script>
-{#    <script>#}
-{#        function initMap(){#}
-{#            createMap();#}
-{#            setMapEvent();#}
-{#            addMapControl();#}
-{#        }#}
-{##}
-{#        function createMap(){#}
-{#            var map = new BMap.Map("dituContent");#}
-{#            var point = new BMap.Point({{ lon }}, {{ lat }});#}
-{#            map.centerAndZoom(point,19);#}
-{##}
-{#            {% for cabinet in cabinets %}#}
-{#                var lat = {{ cabinet.6 }};#}
-{#                var lon = {{ cabinet.7 }};#}
-{#                var tmp_point = new BMap.Point(lon, lat);#}
-{#                addMarker(map, tmp_point, '{{ cabinet.0 }}');#}
-{#            {% endfor %}#}
-{##}
-{#            window.map = map;#}
-{#        }#}
-{##}
-{#        function setMapEvent(){#}
-{#            map.enableDragging();#}
-{#            map.enableScrollWheelZoom();#}
-{#            map.enableDoubleClickZoom();#}
-{#            map.enableKeyboard();#}
-{#        }#}
-{##}
-{#        function addMapControl(){#}
-{#            var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});#}
-{#            map.addControl(ctrl_nav);#}
-{#            var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});#}
-{#            map.addControl(ctrl_ove);#}
-{#            var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});#}
-{#            map.addControl(ctrl_sca);#}
-{#        }#}
-{##}
-{#        function addMarker(map, point, cabinet_id){#}
-{#          var marker = new BMap.Marker(point);#}
-{##}
-{#          marker.setTitle(cabinet_id);#}
-{#          marker.addEventListener("click",get_attribute);#}
-{#          map.addOverlay(marker);#}
-{##}
-{#        }#}
-{#        function get_attribute(e) {#}
-{#            var p = e.target;#}
-{#            var cabinet_id = parseInt(p.getTitle());#}
-{##}
-{#            $.ajax({#}
-{#                type:"post",#}
-{#                url:"/weixin/get_cabinet_info/",//自己填写请求地址#}
-{#                data:{cabinet_id:cabinet_id},#}
-{#                success:function(result){#}
-{#                    $('.cabinet_info').html(result);#}
-{#                }#}
-{#            });#}
-{#        }#}
-{##}
-{#        initMap();#}
-{#    </script>#}
 
 {% endblock %}
