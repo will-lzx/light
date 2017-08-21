@@ -716,7 +716,6 @@ def wx(request):
     if request.method == 'POST':
         msg = parse_message(request.body)
         if msg.type == 'text' or msg.type == 'image' or msg.type == 'voice':
-            reply = create_reply('这是条文字消息', msg)
             reply = '<xml><ToUserName><![CDATA[' + msg.source + ']]></ToUserName><FromUserName><![CDATA[' + msg.target + \
                     ']]></FromUserName><CreateTime>' + str(create_timestamp()) + '</CreateTime><MsgType><![CDATA[transfer_customer_service]]></MsgType></xml>'
             return HttpResponse(reply, content_type="application/xml")
