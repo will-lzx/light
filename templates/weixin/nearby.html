@@ -63,10 +63,14 @@
                         center: [{{ lon }},{{ lat }}]
                     });
 
-                    AMap.plugin(['AMap.ToolBar'],
-                        function(){
-                            map.addControl(new AMap.ToolBar());
-                    });
+                    AMap.plugin(['AMap.ToolBar','AMap.Scale','AMap.OverView'],
+    function(){
+        map.addControl(new AMap.ToolBar());
+
+        map.addControl(new AMap.Scale());
+
+        map.addControl(new AMap.OverView({isOpen:true}));
+});
 
                     {% for cabinet in cabinets %}
                         var lat = {{ cabinet.6 }};
