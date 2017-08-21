@@ -61,6 +61,18 @@
 
             //调用初始化函数地图
             init();
+
+            $(function(){
+                $("#mapcon").bind("DOMNodeInserted",function(e){
+                        var tempCount = 0;
+                    $("#mapcon .smnoprint").siblings().each(function(){
+                        tempCount++;
+                        if(tempCount==2||tempCount==3){
+                            $(this).remove();
+                        }
+                    });
+                });
+            });
         };
         
         function addMarker(map, point, cabinet_id, icon) {
