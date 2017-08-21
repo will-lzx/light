@@ -715,12 +715,10 @@ def wx(request):
         return HttpResponse(echostr, content_type="text/plain")
     if request.method == 'POST':
         msg = parse_message(request.body)
-        if msg.type == 'text':
-            reply = create_reply('这是条文字消息', msg)
-        elif msg.type == 'image':
-            reply = create_reply('这是条图片消息', msg)
-        elif msg.type == 'voice':
-            reply = create_reply('这是条语音消息', msg)
+        if msg.type == 'text' or msg.type == 'image' or msg.type == 'voice':
+            reply = '<xml><ToUserName><![CDATA[' + msg.source + ']]></ToUserName><FromUserName><![CDATA[' + msg.target + \
+                    ']]></FromUserName><CreateTime>' + str(create_timestamp()) + '</CreateTime><MsgType><![CDATA[transfer_customer_service]]></MsgType></xml>'
+
         elif msg.type == 'event':
             subcribe_event = SubscribeEvent(msg)
             location_event = LocationEvent(msg)
