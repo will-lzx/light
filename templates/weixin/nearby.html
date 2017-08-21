@@ -64,13 +64,9 @@
                         center: [{{ lon }},{{ lat }}]
                     });
 
-                    map.plugin(['AMap.ToolBar','AMap.Scale','AMap.OverView'],
-                        function(){
-                            map.addControl(new AMap.ToolBar());
-
-                            map.addControl(new AMap.Scale());
-
-                            map.addControl(new AMap.OverView({isOpen:true}));
+                    map.plugin(["AMap.ToolBar"],function(){   //在地图中添加ToolBar插件
+                        toolBar = new AMap.ToolBar();
+                        map.addControl(toolBar);
                     });
 
                     {% for cabinet in cabinets %}
