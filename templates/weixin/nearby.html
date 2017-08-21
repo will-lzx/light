@@ -65,10 +65,6 @@
                         center: [{{ lon }},{{ lat }}]
                     });
 
-                    map.plugin(["AMap.ToolBar"],function(){   //在地图中添加ToolBar插件
-                        var toolBar = new AMap.ToolBar();
-                        map.addControl(toolBar);
-                    });
 
                     {% for cabinet in cabinets %}
                         var lat = {{ cabinet.6 }};
