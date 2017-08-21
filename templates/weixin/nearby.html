@@ -26,10 +26,6 @@
     <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
     <script>
         window.onload = function(){
-
-        //直接加载地图
-
-
             //初始化地图函数  自定义函数名init
             function init() {
                 //定义map变量 调用 qq.maps.Map() 构造函数   获取地图显示容器
@@ -41,7 +37,7 @@
                  {% for cabinet in cabinets %}
                     var lat = {{ cabinet.6 }};
                     var lon = {{ cabinet.7 }};
-                    var tmp_point = new BMap.Point(lat, lon);
+                    var tmp_point = new qq.maps.LatLng(lat,lon);
                     addMarker(map, tmp_point, '{{ cabinet.0 }}');
                 {% endfor %}
 
