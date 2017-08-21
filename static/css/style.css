@@ -18,7 +18,7 @@ body {margin:0 auto; padding:0 auto; height: 100%;}
 .zl_right{margin-right: 0px;}
 .zl_t{width: 120px;height:auto;margin: 10px auto;}
 .icon_img_zl{width: 120px;height: auto;overflow: hidden;}
-.zl_text{text-align: left;}
+.zl_text{text-align: left; line-height: 30px;padding-top: 10px;}
 
 
 .wm_content{ width:100%;height: 400px;background-size:100% 100%; background: url("/static/images/about/wm_bg.jpg") center no-repeat;background-color: #b21d70; }
