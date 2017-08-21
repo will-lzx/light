@@ -19,7 +19,9 @@ body {margin:0 auto; padding:0 auto; height: 100%;}
 .zl_t{width: 120px;height:auto;margin: 10px auto;}
 .icon_img_zl{width: 120px;height: auto;overflow: hidden;}
 .zl_text{text-align: left; line-height: 30px;padding-top: 10px;padding-bottom: 50px;}
-.zclh_l{width: 45%;float: left;margin-right: 10%;text-align: left;font-size: 14px; font-weight: 200;line-height: 30px;color: #666666;}
+.zclh_l{width: 45%;float: left;margin-right: 10%;text-align: left;font-size: 12px; font-weight: 200;line-height: 30px;color: #666666;}
+.zclh_l a{text-decoration: none;color: #cc0099;}
+.zclh_l a:hover{text-decoration: none;color: #cc0099;font-weight: bold;}
 .zclh_tw{width: 100%;float: left;color: #333333;margin-bottom: 30px;}
 .zclh_img{float: left;width:24%;margin-top: 5px;}
 .img_zc{width: 80px;height: auto;border: none;}
