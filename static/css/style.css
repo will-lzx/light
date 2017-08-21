@@ -14,11 +14,11 @@ body {margin:0 auto; padding:0 auto; height: 100%;}
 .hzjm_slogn{width: 80%;color: white;text-align: center;margin: 100px auto;}
 .hzjm_top{margin-top: 10px;}
 .zl_cont{width: 900px;margin:50px auto;text-align: center;}
-.zl{width: 22%;margin-right:4% float: left;font-size: 14px;line-height: 22px;color: #666666;font-weight: 100;text-align: center;}
+.zl{width: 22%;margin-right:4%; float: left;font-size: 14px;line-height: 22px;color: #666666;font-weight: 100;text-align: center;}
 .zl_right{margin-right: 0px;}
 .zl_t{width: 120px;height:auto;margin: 10px auto;}
 .icon_img_zl{width: 120px;height: auto;overflow: hidden;}
-.zl_text{text-align: left;padding: 10px;}
+.zl_text{text-align: left;}
 
 
 .wm_content{ width:100%;height: 400px;background-size:100% 100%; background: url("/static/images/about/wm_bg.jpg") center no-repeat;background-color: #b21d70; }
