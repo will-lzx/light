@@ -26,10 +26,10 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.2&services=true"></script>
     <script>
         var map = new BMap.Map("dituContent");
-        map.centerAndZoom(new BMap.Point(116.404, 39.915), 15);
+        map.centerAndZoom(new BMap.Point({{ default_lon }}, {{ default_lat }}), 15);
 
-        var myP1 = new BMap.Point(116.380967,39.913285);    //起点
-        var myP2 = new BMap.Point(116.424374,39.914668);    //终点
+        var myP1 = new BMap.Point({{ default_lon }},{{ default_lat }});    //起点
+        var myP2 = new BMap.Point({{ cabinet_lon }},{{ cabinet_lat }});    //终点
         var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/Mario.png", new BMap.Size(32, 70), {    //小车图片
             //offset: new BMap.Size(0, -5),    //相当于CSS精灵
             imageOffset: new BMap.Size(0, 0)    //图片的偏移量。为了是图片底部中心对准坐标点。

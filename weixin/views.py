@@ -190,12 +190,21 @@ def goto_cabinet(request, cabinet_id):
     template_name = 'weixin/goto_cabinet.html'
     cabinet = get_cabinets_by_id(cabinet_id)
 
+    is_weixin = get_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
+    if is_weixin:
+        default_lat, default_lon = get_lat_lon(openid)
+    else:
+        default_lat, default_lon = get_customer_location(openid)
+
     if cabinet:
-        lat = cabinet[0][6]
-        lon = cabinet[0][7]
+        cabinet_lat = cabinet[0][6]
+        cabinet_lon = cabinet[0][7]
     context = {
-        'lat': lat,
-        'lon': lon,
+        'default_lat': default_lat,
+        'default_lon': default_lon,
+        'cabinet_lat': cabinet_lat,
+        'cabinet_lon': cabinet_lon,
         'cabinet_id': cabinet_id
     }
     response = render(request, template_name, context)
