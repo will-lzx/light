@@ -36,7 +36,7 @@
     <script>
         var map = new AMap.Map("container", {
             resizeEnable: true,
-            center: [{{ default_lon }}, default_lat],//地图中心点
+            center: [{{ default_lon }}, {{ default_lat }}],//地图中心点
             zoom: 13 //地图显示的缩放级别
         });
         //步行导航
