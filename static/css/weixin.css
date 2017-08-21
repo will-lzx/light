@@ -336,10 +336,10 @@ input.weui-btn_plain-default{
 .zjjl_h{padding: 10px 15px;border-bottom: 1px solid #f1f1f1;height: 28px;line-height: 28px;}
 .zjjl_h_zc{height: 50px;border-bottom: none;}
 .zjjl_h_hr{height: 110px;border-bottom: none;}
-.zjjl_dd{width: 100%;float:left;text-align: left;}
-.zjjl_zt{width: 33%;float:left;text-align: right;color: #333333;}
+.zjjl_dd{width: 60%;float:left;text-align: left;}
+.zjjl_zt{width: 40%;float:left;text-align: right;color: #333333;}
 .zjjl_gz{width: 100%;float:left;text-align: left;}
-.zjjl_tf{width: 33%;float: left;color: #333333;text-align: left;font-weight: bold;}
+.zjjl_tf{width: 45%;float: left;color: #333333;text-align: left;font-weight: bold;}
 .zjjl_tf_mid{text-align: center;}
 .zjjl_zj{width: 100%;float:left;line-height: 24px;text-align: left;height: 60px;}
 .zjjl_icon{width: 20px;height:60px;float: left;margin:4px 10px 0 0;}
