@@ -62,6 +62,12 @@
                         zoom: 10,
                         center: [{{ lon }},{{ lat }}]
                     });
+                    var toolBar = new AMap.ToolBar({
+                        visible: true
+                    });
+
+                    map.addControl(toolBar);
+
 
                     {% for cabinet in cabinets %}
                         var lat = {{ cabinet.6 }};
