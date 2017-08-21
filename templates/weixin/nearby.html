@@ -60,13 +60,13 @@
                         center: [{{ lon }},{{ lat }}]
                     });
 
-                    var toolBar = new AMap.ToolBar({
+                    var tool = new AMap.ToolBar({
                         visible: true
                     });
 
-                    map.addControl(toolBar);
+                    map.addControl(tool);
 
-                    toolBar.show();
+                    tool.show();
 
 
                     {% for cabinet in cabinets %}
