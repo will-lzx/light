@@ -30,7 +30,7 @@ body {margin:0 auto; padding:0 auto; height: 100%;}
 .hzjm_ys_right{width:25%;height:auto;border-right:none;float: left;}
 .hzjm_ys_sm{float: left;width: 100%;font-size: 14px;line-height: 22px;color: #666666;font-weight: 100;}
 .hzjm_ys_img{float:left;width: 100%;overflow: hidden;margin-bottom: 10px;}
-.hzjm_lx{float: left;width: 150px;height: 26px;font-size: 14px;border: 1px dashed #cc0099;line-height: 26px;text-align: center;}
+.hzjm_lx{float: left;width: 150px;height: 26px;font-size: 14px;border: 1px dashed #cc0099;line-height: 26px;text-align: center;margin-bottom: 20px;}
 .hzjm_lx a{text-decoration: none;color: #cc0099;}
 .hzjm_lx a:hover{text-decoration: none;font-weight: bold;}
 
