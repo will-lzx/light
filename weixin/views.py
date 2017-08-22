@@ -162,7 +162,8 @@ def nearby(request):
     context = {
         'lon': lon,
         'lat': lat,
-        'cabinets': cabinets
+        'cabinets': cabinets,
+        'is_weixin': is_weixin
     }
 
     response = render(request, template_name, context)
@@ -189,12 +190,21 @@ def goto_cabinet(request, cabinet_id):
     template_name = 'weixin/goto_cabinet.html'
     cabinet = get_cabinets_by_id(cabinet_id)
 
+    is_weixin = get_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
+    if is_weixin:
+        default_lat, default_lon = get_lat_lon(openid)
+    else:
+        default_lat, default_lon = get_customer_location(openid)
+
     if cabinet:
-        lat = cabinet[0][6]
-        lon = cabinet[0][7]
+        cabinet_lat = cabinet[0][6]
+        cabinet_lon = cabinet[0][7]
     context = {
-        'lat': lat,
-        'lon': lon,
+        'default_lat': default_lat,
+        'default_lon': default_lon,
+        'cabinet_lat': cabinet_lat,
+        'cabinet_lon': cabinet_lon,
         'cabinet_id': cabinet_id
     }
     response = render(request, template_name, context)
@@ -715,12 +725,10 @@ def wx(request):
         return HttpResponse(echostr, content_type="text/plain")
     if request.method == 'POST':
         msg = parse_message(request.body)
-        if msg.type == 'text':
-            reply = create_reply('这是条文字消息', msg)
-        elif msg.type == 'image':
-            reply = create_reply('这是条图片消息', msg)
-        elif msg.type == 'voice':
-            reply = create_reply('这是条语音消息', msg)
+        if msg.type == 'text' or msg.type == 'image' or msg.type == 'voice':
+            reply = '<xml><ToUserName><![CDATA[' + msg.source + ']]></ToUserName><FromUserName><![CDATA[' + msg.target + \
+                    ']]></FromUserName><CreateTime>' + str(create_timestamp()) + '</CreateTime><MsgType><![CDATA[transfer_customer_service]]></MsgType></xml>'
+            return HttpResponse(reply, content_type="application/xml")
         elif msg.type == 'event':
             subcribe_event = SubscribeEvent(msg)
             location_event = LocationEvent(msg)
@@ -753,6 +761,12 @@ def wx(request):
         return response
     else:
         print('error')
+
+
+def cooperation(request):
+    template_name = 'weixin/cooperation.html'
+    response = render(request, template_name)
+    return response
 
 
 def oauth_user(request):
