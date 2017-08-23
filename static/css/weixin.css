@@ -320,7 +320,7 @@ input.weui-btn_plain-default{
   font-size:13px;
 }
 
-.ts_cont{width: 100%;height: auto;float: left;text-align: center;margin: 50px auto;}
+.ts_cont{width: 100%;height: auto;float: left;text-align: center;margin-bottom: 30px;}
 .ts_cont_all{background-color: #f8f8f8;width: 100%;height: auto;float: left;text-align: center;margin-bottom: 30px;}
 .zgjs_img{width: 45%;height: auto;}
 .nr_con{padding: 0 15px;font-weight: 200;}
