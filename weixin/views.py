@@ -400,7 +400,7 @@ class PayView(View):
                 price = DEPOSIT
                 notify_url = WEIXIN_PAYBACK + '?price=' + str(DEPOSIT) + '&is_deposit=True'
 
-                redirect_url = '/weixin/lend/'
+                redirect_url = '/weixin/lend/?openid=' + openid
 
             except KeyError:
                 return HttpResponse("PARAM ERROR")
