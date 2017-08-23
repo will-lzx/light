@@ -316,7 +316,7 @@ def get_money(customer_id, time_by_seconds):
 
     time_long = hour - start_time_long
 
-    minute = (time_by_seconds / 60) % 60
+    minute = (time_by_seconds // 60) % 60
 
     if time_long < 0:
         return 0
