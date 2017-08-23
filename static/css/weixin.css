@@ -321,7 +321,7 @@ input.weui-btn_plain-default{
 }
 
 .ts_cont{width: 100%;height: auto;float: left;text-align: center;margin: 50px auto;}
-.ts_cont_all{background-color: #f8f8f8; margin-bottom: 30px;padding: 50px; width: 100%;height: auto;float: left;text-align: center;}
+.ts_cont_all{background-color: #f8f8f8; margin-bottom: 30px;margin: 50px auto; width: 100%;height: auto;float: left;text-align: center;}
 .zgjs_img{width: 45%;height: auto;}
 .nr_con{padding: 0 15px;font-weight: 200;}
 .nr_con_all{padding: 0;background-color:#f8f8f8;height: 100%;}
