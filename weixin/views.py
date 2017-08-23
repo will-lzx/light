@@ -459,7 +459,7 @@ class ReturnPayView(View):
 
                 time_long = (history[3] - history[2]).seconds
                 hour = time_long // 3600
-                minute = round((time_long / 60) % 60, 0)
+                minute = (time_long // 60) % 60
 
                 lend_time_long = str(hour) + '时' + str(minute) + '分'
 
