@@ -9,12 +9,12 @@
 {% block content %}
 
      <div class="ts_cont_pay">
-       <div class="fyzf">
-           <div class="fyzf_h"><div class="fyzf_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/shichang.png' %}" alt="租借时长"></div><div class="fyzf_h_con">租借时长</div></div>
-           <div class="fyzf_time">{{ lend_time_long }}</div>
-           <div class="fyzf_h"><div class="fyzf_icon"><img class="zjjl_icon_img" src="{% static '/images/weixin/feiyong.png' %}" alt="租借费用"></div><div class="fyzf_h_con">租借费用</div></div>
-           <div class="fyzf_fee">{{ lend_money }}</div>
-       </div>
+
+           <div class="fyzf_h30"><div class="fyzf_h30_icon"><img class="img_fyzf" src="{% static '/images/weixin/shichang.png' %}" alt="租借时长"></div><div class="fyzf_h30_con">租借时长</div></div>
+           <div class="fyzf_h60">{{ lend_time_long }}</div>
+           <div class="fyzf_h30"><div class="fyzf_h30_icon"><img class="img_fyzf" src="{% static '/images/weixin/feiyong.png' %}" alt="租借费用"></div><div class="fyzf_h30_con">租借费用</div></div>
+           <div class="fyzf_h60">{{ lend_money }}</div>
+
     </div>
     <div class="nr_con">
         <a href="#" id="money"  class="weui-btn weui-btn_primary page__bd_spacing">确认支付</a>
