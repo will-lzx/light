@@ -325,6 +325,7 @@ input.weui-btn_plain-default{
 .zgjs_img{width: 45%;height: auto;}
 .nr_con{padding: 0 15px;font-weight: 200;}
 .nr_con_all{padding: 0;background-color:#f8f8f8;height:auto;}
+.nr_con_all_pr{padding: 0;background-color:#f8f8f8;height:100%;}
 .ts_til{width: 100%;margin: 20px auto;border-bottom: 1px dashed #ececec;color:#999999;text-align: center;font-size: 14px;}
 .ts_til_test{width: 80px;text-align: center;margin-bottom: -18px;margin-left:auto;margin-right:auto;position: relative;padding: 5px;background-color: white;}
 .sm_cont{width: 100%;float:left;color: #666666;line-height: 24px;font-size: 14px;}
