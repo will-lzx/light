@@ -20,6 +20,9 @@
     <div class="div-content">
         <div style="min-width:600px;min-height:500px" id="container"></div>
     </div>
+    <div>
+        <img src="/static/images/location.png" onclick="goto_location()">
+    </div>
     <div class="cabinet_info">
 
     </div>
@@ -117,6 +120,10 @@
                     $('.cabinet_info').html(result);
                 }
             });
+        }
+
+        function goto_location() {
+            location.href = '/weixin/nearby/'
         }
 
     </script>

@@ -734,8 +734,7 @@ def wx(request):
             location_event = LocationEvent(msg)
             if msg.event == subcribe_event.event:
                 reply_msg = 'Hi~我是智能共享自拍神器 轻拍科技，我恭候您多时了。\n' \
-                            '当您出游自拍留念合影时，我可助你一臂之力，让你尽情自拍；\n' \
-                            '当您拍照没电时，我可为您补充能量，因为我们自带充电宝；\n' \
+                            '当您出游自拍留影时，我可助您一臂之力；当您拍照没电时，我可为您补充电力～\n' \
                             '作为一款时尚的共享自拍杆，希望与您一起记录旅游的精彩，助您轻松旅行，快乐自拍～\n\n' \
                             '全球的时尚自拍达人都在用共享自拍杆，快来一起玩吧！'
                 reply = create_reply(reply_msg, msg)
