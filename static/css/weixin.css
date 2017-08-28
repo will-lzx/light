@@ -433,7 +433,7 @@ h3{font-size: 14px;font-weight: bold;}
 .dt_hd_con a{text-decoration: none;color: #cc0099;}
 .dt_hd_con_t{float: left;width: 40px;text-align: center;}
 .dt_hd_con_w{float: left;width: 60px;text-align: center;font-size: 14px;}
-.img_loca{width: 30px; height: auto;border: none;}
+.img_loca{width: 20px; height: auto;border: none;margin-top: 5px;}
 .cabinet_info{position: absolute;width: 100%;top: 3px;height:100px;background-color: white;z-index: 30;}
 .dt_info_til{padding: 10px 15px;font-size: 16px;font-weight: 400;color: #cc0099;}
 .dt_info_con{width: 50%;float: left;text-align: center;height: 30px;border-top: 1px solid #f8f8f8;font-size: 14px;line-height: 30px;}
