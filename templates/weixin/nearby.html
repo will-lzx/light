@@ -101,6 +101,7 @@
                 map: map
             });
             qq.maps.event.addListener(marker,"click",function(){
+                $('.cabinet_info').show();
                 get_attribute(cabinet_id);
             });
         }
