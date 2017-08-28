@@ -429,15 +429,15 @@ h3{font-size: 14px;font-weight: bold;}
 
 .dt_con{min-width: 100%;min-height: 100%;position: absolute;margin: 0;z-index: 10;}
 .dt_hd{position: absolute;top:90%; width: 100%;height: 30px; text-align: center;z-index: 20;}
-.dt_hd_con{width: 110px;height:40px;background:white;-moz-border-radius:6px; -webkit-border-radius:6px;border-radius: 6px;text-align: center;color: #cc0099;margin: 0 auto;border: 1px solid #f8f8f8;}
+.dt_hd_con{width: 110px;height:40px;background:white;-moz-border-radius:6px; -webkit-border-radius:6px;border-radius: 6px;text-align: center;color: #cc0099;margin: 0 auto;border: 1px solid #cc0099;}
 .dt_hd_con a{text-decoration: none;color: #cc0099;}
 .dt_hd_con_t{float: left;width: 30px;text-align: right;}
 .dt_hd_con_w{float: left;width: 80px;text-align: center;font-size: 16px;line-height: 40px;}
 .img_loca{width: 20px; height: auto;border: none;margin-top: 10px;}
-.cabinet_info{position: absolute;width: 90%;top: 5px;height:75px;background-color: white;z-index: 30;border-bottom: 1px solid #f8f8f8;-moz-border-radius:8px; -webkit-border-radius:8px;border-radius: 8px;}
+.cabinet_info{position: absolute;width: 95%;height:75px;background-color: white;z-index: 30;border-bottom: 1px solid #f8f8f8;-moz-border-radius:8px; -webkit-border-radius:8px;border-radius: 8px;margin: 5px auto;}
 .cabinet_info_left{width: 70%;float: left;height: 60px;}
 .cabinet_info_right{width: 20%;float: right;text-align:right;}
-.right_more{width: 18px;height: auto;margin-top: 31px;border: none;
+.right_more{width: 18px;height: auto;margin-top: 29px;border: none;
   padding:3px 30px;border-left: 1px solid #f8f8f8;}
 .right_more a{border: none;}
 .dt_info_til{padding:0 15px;font-size: 16px;font-weight: 400;color: #cc0099;line-height: 40px;}
