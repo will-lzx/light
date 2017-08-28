@@ -220,7 +220,7 @@ def get_cabinet_info(request):
         can_lend = cabinet[0][4]
         can_return = int(CABINET_CAPACITY) - cabinet[0][4]
 
-    content = '<span>' + cabinet[0][1] +'</span><br><span>可借：' + str(can_lend) + '</span><span>可还：' + str(can_return) + '</span><a href="/weixin/cabinet_info/' + str(cabinet[0][0]) + '/">View</a>';
+    content = '<div class="dt_info_til">' + cabinet[0][1] +'</div><div class="dt_info_con">可借：' + str(can_lend) + '</div><div class="dt_info_con">可还：' + str(can_return) + '</div><div class="dt_info_a"><a href="/weixin/cabinet_info/' + str(cabinet[0][0]) + '/">查看详情 ></a></div>';
 
     return HttpResponse(content)
 
@@ -733,9 +733,9 @@ def wx(request):
             subcribe_event = SubscribeEvent(msg)
             location_event = LocationEvent(msg)
             if msg.event == subcribe_event.event:
-                reply_msg = 'Hi~我是智能共享自拍神器 轻拍科技，我恭候您多时了。\n' \
-                            '当您出游自拍留影时，我可助您一臂之力；当您拍照没电时，我可为您补充电力～\n' \
-                            '作为一款时尚的共享自拍杆，希望与您一起记录旅游的精彩，助您轻松旅行，快乐自拍～\n\n' \
+                reply_msg = 'Hi~我是智能自拍神器-轻拍科技，我已恭候您多时～\n' \
+                            '当您自拍留影时，我可助您一臂之力；当您拍照没电时，我可为您补充电力～\n' \
+                            '作为时尚的共享自拍杆，希望与您一起记录旅游的精彩，助您轻松旅行，快乐自拍～\n\n' \
                             '全球的时尚自拍达人都在用共享自拍杆，快来一起玩吧！'
                 reply = create_reply(reply_msg, msg)
                 openid = msg.source
