@@ -428,9 +428,9 @@ h3{font-size: 14px;font-weight: bold;}
 .ts_cont_bot{background-color: #f8f8f8; padding:15px; float: left;text-align:left;line-height: 30px;margin-top: 30px;}
 
 .dt_con{min-width: 100%;min-height: 100%;position: absolute;margin: 0;z-index: 10;}
-.dt_hd{position: absolute;top:90%; width: 100%;height: 30px; text-align: center;z-index: 20;}
+.dt_hd{position: absolute;top:95%; width: 100%;height: 30px; text-align: center;z-index: 20;}
 .img_loca{width: 30px; height: auto;border: none;}
-.cabinet_info{position: absolute;width: 100%;top: 10px;height: 60px;background-color: white;z-index: 30;}
+.cabinet_info{position: absolute;width: 100%;top: 5px;height: 60px;background-color: white;z-index: 30;}
 .dt_info_til{padding: 10px 15px;font-size: 16px;font-weight: 400;color: #cc0099;}
 .dt_info_con{width: 50%;float: left;text-align: center;height: 30px;border-top: 1px solid #f8f8f8;font-size: 14px;}
 .dt_info_a{width: 100%;float:left;height: 30px;text-align: center;color: #cc0099;}
