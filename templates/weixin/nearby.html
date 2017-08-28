@@ -61,6 +61,17 @@
                         $('.cabinet_info').hide();
                     });
 
+                     var middleControl = document.createElement("div");
+            middleControl.style.left="435px";
+            middleControl.style.top="470px";
+			middleControl.style.position="relative";
+			middleControl.style.width="36px";
+            middleControl.style.height="36px";
+			middleControl.style.zIndex="100000";
+           middleControl.innerHTML ='<img src="https://www.cdlhome.com.sg/mobile_assets/images/icon-location.png" />';
+		   document.getElementById("container").appendChild(middleControl);
+
+
 
                      {% for cabinet in cabinets %}
                         var lat = {{ cabinet.6 }};
@@ -98,8 +109,6 @@
         };
         
         function addMarker(map, point, cabinet_id) {
-
-
             var anchor = new qq.maps.Point(0, 50),
             size = new qq.maps.Size(50, 75),
             origin = new qq.maps.Point(0, 0),
@@ -109,7 +118,6 @@
                 position: point,
                 map: map
             });
-
 
             qq.maps.event.addListener(marker,"click",function(){
                 $('.cabinet_info').show();
