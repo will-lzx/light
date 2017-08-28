@@ -60,6 +60,10 @@
                          }
                     });
 
+                     qq.maps.event.addListener(map,"click",function(){
+                        $('.cabinet_info').hide();
+                    });
+
 
                      {% for cabinet in cabinets %}
                         var lat = {{ cabinet.6 }};
