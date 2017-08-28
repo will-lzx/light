@@ -21,6 +21,7 @@
 
 {% block content %}
     <div class="dt_con" id="container"></div>
+    <div id="centerDiv"></div>
     <div class="dt_hd">
       <div class="dt_hd_con" onclick="goto_location()">
           <div class="dt_hd_con_t"><img class="img_loca" src="/static/images/location.png" ></div>
@@ -50,23 +51,50 @@
                 if(is_weixin === 'True')
                 {
                     //定义map变量 调用 qq.maps.Map() 构造函数   获取地图显示容器
-                     var map = new qq.maps.Map(document.getElementById("container"), {
-                         center: new qq.maps.LatLng({{ lat }},{{ lon }}),      // 地图的中心地理坐标。
-                         disableDefaultUI: true,
-                         zoom:13
-                    });
+{#                     var map = new qq.maps.Map(document.getElementById("container"), {#}
+{#                         center: new qq.maps.LatLng({{ lat }},{{ lon }}),      // 地图的中心地理坐标。#}
+{#                         disableDefaultUI: true,#}
+{#                         zoom:13#}
+{#                    });#}
+{##}
+{#                     qq.maps.event.addListener(map,"click",function(){#}
+{#                        $('.cabinet_info').hide();#}
+{#                    });#}
+{##}
+{##}
+{#                     {% for cabinet in cabinets %}#}
+{#                        var lat = {{ cabinet.6 }};#}
+{#                        var lon = {{ cabinet.7 }};#}
+{#                        var tmp_point = new qq.maps.LatLng(lat,lon);#}
+{#                        addMarker(map, tmp_point, '{{ cabinet.0 }}');#}
+{#                    {% endfor %}#}
 
-                     qq.maps.event.addListener(map,"click",function(){
-                        $('.cabinet_info').hide();
-                    });
+                    var container = document.getElementById("container");
+            var centerDiv = document.getElementById("centerDiv");
 
+            //初始化地图
+            var map = new qq.maps.Map(container, {
+                // 地图的中心地理坐标
+                center: new qq.maps.LatLng(39.916527, 116.397128),
+                zoom: 13
+            });
+          //创建自定义控件
 
-                     {% for cabinet in cabinets %}
-                        var lat = {{ cabinet.6 }};
-                        var lon = {{ cabinet.7 }};
-                        var tmp_point = new qq.maps.LatLng(lat,lon);
-                        addMarker(map, tmp_point, '{{ cabinet.0 }}');
-                    {% endfor %}
+           var middleControl = document.createElement("div");
+            middleControl.style.left="435px";
+            middleControl.style.top="470px";
+			middleControl.style.position="relative";
+			middleControl.style.width="36px";
+            middleControl.style.height="36px";
+			middleControl.style.zIndex="100000";
+           middleControl.innerHTML ='<img src="https://www.cdlhome.com.sg/mobile_assets/images/icon-location.png" />';
+		   document.getElementById("container").appendChild(middleControl);
+            //返回地图当前中心点地理坐标
+            centerDiv.innerHTML = "latlng:" + map.getCenter();
+            //当地图中心属性更改时触发事件
+            qq.maps.event.addListener(map, 'center_changed', function() {
+                centerDiv.innerHTML = "latlng:" + map.getCenter();
+            });
 
                 }
                 else
