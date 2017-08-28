@@ -3,12 +3,22 @@
 {% block title %}茄子自拍{% endblock %}
 {% block head %}
 
+    <style type="text/css">
+    .amap-logo {
+            display: none;
+     }
+   .amap-copyright {
+          bottom:-100px;
+           display: none;
+    }
+</style>
+
 {% endblock %}
 
 {% block content %}
-    <div class="dt_con">
-        <div id="container"></div>
-    </div>
+
+        <div class="dt_con" id="container"></div>
+
     <div class="dt_hd">
         <img class="img_loca" src="/static/images/location.png" onclick="goto_location()">
     </div>
