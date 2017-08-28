@@ -429,17 +429,18 @@ h3{font-size: 14px;font-weight: bold;}
 
 .dt_con{min-width: 100%;min-height: 100%;position: absolute;margin: 0;z-index: 10;}
 .dt_hd{position: absolute;top:90%; width: 100%;height: 30px; text-align: center;z-index: 20;}
-.dt_hd_con{width: 100px;height:40px;background:#eeeeee;-moz-border-radius:6px; -webkit-border-radius:6px;border-radius: 6px;text-align: center;color: #cc0099;}
+.dt_hd_con{width: 100px;height:32px;background:#f8f8f8;-moz-border-radius:6px; -webkit-border-radius:6px;border-radius: 6px;text-align: center;color: #cc0099;margin: 0 auto;}
 .dt_hd_con a{text-decoration: none;color: #cc0099;}
-.dt_hd_con_t{float: left;width: 40px;text-align: center;}
-.dt_hd_con_w{float: left;width: 60px;text-align: center;font-size: 14px;}
-.img_loca{width: 20px; height: auto;border: none;margin-top: 5px;}
-.cabinet_info{position: absolute;width: 100%;top: 3px;height:60px;background-color: white;z-index: 30;}
-.cabinet_info_left{width: 80%;float: left;height: 60px;}
-.cabinet_info_right{width: 20%;float: left;text-align: center;border-left: 1px solid #f8f8f8;}
-.right_more{width: 30px;height: auto;margin-top: 30px;border: none;}
+.dt_hd_con_t{float: left;width: 30px;text-align: center;}
+.dt_hd_con_w{float: left;width: 70px;text-align: center;font-size: 14px;line-height: 32px;}
+.img_loca{width: 16px; height: auto;border: none;margin-top: 8px;}
+.cabinet_info{position: absolute;width: 100%;top: 3px;height:75px;background-color: white;z-index: 30;border-bottom: 1px solid #666666;}
+.cabinet_info_left{width: 70%;float: left;height: 60px;}
+.cabinet_info_right{width: 20%;float: left;text-align: center;}
+.right_more{width: 18px;height: auto;margin-top: 31px;border: none;
+  padding:3px 0 3px 20px;border-left: 1px solid #f8f8f8;}
 .right_more a{border: none;}
-.dt_info_til{padding:0 15px;font-size: 16px;font-weight: 400;color: #cc0099;}
-.dt_info_con{width: 33%;float: left;text-align: center;height: 30px;border-top: 1px solid #f8f8f8;font-size: 14px;line-height: 30px;}
+.dt_info_til{padding:0 15px;font-size: 16px;font-weight: 400;color: #cc0099;line-height: 40px;}
+.dt_info_con{padding:0 0 0 15px;float: left;text-align:left;height: 30px;font-size: 14px;}
 .dt_info_a{width: 100%;float:left;height: 30px;text-align: center;color: #cc0099;border-top: 1px solid #f8f8f8;line-height: 30px;}
 .dt_info_a a{text-decoration: none;color: #cc0099;}
