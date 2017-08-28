@@ -57,7 +57,8 @@
                              style: qq.maps.ZoomControlStyle.DEFAULT
                          }
                     });
-                    qq_center_init(map);
+                     var centerDiv = document.getElementById("centerDiv");
+                    qq_center_init(map, centerDiv);
 
                      {% for cabinet in cabinets %}
                         var lat = {{ cabinet.6 }};
@@ -93,7 +94,7 @@
             init();
         };
 
-        function qq_center_init(map) {
+        function qq_center_init(map, centerDiv) {
             var middleControl = document.createElement("div");
             middleControl.style.left="435px";
             middleControl.style.top="470px";
