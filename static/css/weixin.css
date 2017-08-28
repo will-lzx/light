@@ -434,7 +434,7 @@ h3{font-size: 14px;font-weight: bold;}
 .dt_hd_con_t{float: left;width: 30px;text-align: right;}
 .dt_hd_con_w{float: left;width: 80px;text-align: center;font-size: 16px;line-height: 40px;}
 .img_loca{width: 20px; height: auto;border: none;margin-top: 10px;}
-.cabinet_info{position: absolute;width: 95%;height:75px;background-color: white;z-index: 30;border-bottom: 1px solid #f8f8f8;-moz-border-radius:8px; -webkit-border-radius:8px;border-radius: 8px;margin: 10px auto;}
+.cabinet_info{position: absolute;width: 94%;height:75px;background-color: white;z-index: 30;border-bottom: 1px solid #f8f8f8;-moz-border-radius:8px; -webkit-border-radius:8px;border-radius: 8px;top: 10px;left: 3%;}
 .cabinet_info_left{width: 70%;float: left;height: 60px;}
 .cabinet_info_right{width: 20%;float: right;text-align:right;}
 .right_more{width: 18px;height: auto;margin-top: 29px;border: none;
