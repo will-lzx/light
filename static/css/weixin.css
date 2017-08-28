@@ -436,7 +436,7 @@ h3{font-size: 14px;font-weight: bold;}
 .img_loca{width: 20px; height: auto;border: none;margin-top: 10px;}
 .cabinet_info{position: absolute;width: 100%;top: 3px;height:75px;background-color: white;z-index: 30;border-bottom: 1px solid #f8f8f8;}
 .cabinet_info_left{width: 70%;float: left;height: 60px;}
-.cabinet_info_right{width: 20%;float: left;text-align:right;}
+.cabinet_info_right{width: 20%;float: right;text-align:right;}
 .right_more{width: 18px;height: auto;margin-top: 31px;border: none;
   padding:3px 20px;border-left: 1px solid #f8f8f8;}
 .right_more a{border: none;}
