@@ -53,11 +53,6 @@
                      var map = new qq.maps.Map(document.getElementById("container"), {
                          center: new qq.maps.LatLng({{ lat }},{{ lon }}),      // 地图的中心地理坐标。
                          zoom:13,
-                         scaleControl: true,
-                         zoomControlOptions:{
-                             position: qq.maps.ControlPosition.TOP_LEFT,
-                             style: qq.maps.ZoomControlStyle.DEFAULT
-                         }
                     });
 
                      qq.maps.event.addListener(map,"click",function(){
