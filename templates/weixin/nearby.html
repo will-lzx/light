@@ -68,20 +68,6 @@
                         addMarker(map, tmp_point, '{{ cabinet.0 }}');
                     {% endfor %}
 
-                    $(function(){
-                        alert('1');
-                        $("#mapcon").bind("DOMNodeInserted",function(e){
-                                var tempCount = 0;
-                                alert('0');
-                            $("#mapcon .smnoprint").siblings().each(function(){
-                                tempCount++;
-                                if(tempCount==2||tempCount==3){
-                                    $(this).remove();
-                                }
-                            });
-                        });
-                    });
-
                 }
                 else
                 {
