@@ -436,10 +436,10 @@ h3{font-size: 14px;font-weight: bold;}
 .img_loca{width: 20px; height: auto;border: none;margin-top: 5px;}
 .cabinet_info{position: absolute;width: 100%;top: 3px;height:60px;background-color: white;z-index: 30;}
 .cabinet_info_left{width: 80%;float: left;height: 60px;}
-.cabinet_info_right{width: 20%;float: left;text-align: center;}
+.cabinet_info_right{width: 20%;float: left;text-align: center;border-left: 1px solid #f8f8f8;}
 .right_more{width: 30px;height: auto;margin-top: 30px;border: none;}
 .right_more a{border: none;}
-.dt_info_til{padding: 10px 15px;font-size: 16px;font-weight: 400;color: #cc0099;}
-.dt_info_con{width: 50%;float: left;text-align: center;height: 30px;border-top: 1px solid #f8f8f8;font-size: 14px;line-height: 30px;}
+.dt_info_til{padding:0 15px;font-size: 16px;font-weight: 400;color: #cc0099;}
+.dt_info_con{width: 33%;float: left;text-align: center;height: 30px;border-top: 1px solid #f8f8f8;font-size: 14px;line-height: 30px;}
 .dt_info_a{width: 100%;float:left;height: 30px;text-align: center;color: #cc0099;border-top: 1px solid #f8f8f8;line-height: 30px;}
 .dt_info_a a{text-decoration: none;color: #cc0099;}
