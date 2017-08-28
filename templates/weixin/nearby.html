@@ -20,6 +20,9 @@
     <div class="div-content">
         <div style="min-width:600px;min-height:500px" id="container"></div>
     </div>
+    <div id="centerDiv">
+
+    </div>
     <div>
         <img src="/static/images/location.png" onclick="goto_location()">
     </div>
@@ -54,7 +57,7 @@
                              style: qq.maps.ZoomControlStyle.DEFAULT
                          }
                     });
-
+                    qq_center_init(map);
 
                      {% for cabinet in cabinets %}
                         var lat = {{ cabinet.6 }};
@@ -89,6 +92,35 @@
             //调用初始化函数地图
             init();
         };
+
+        function qq_center_init(map) {
+            var middleControl = document.createElement("div");
+            middleControl.style.left="435px";
+            middleControl.style.top="470px";
+			middleControl.style.position="relative";
+			middleControl.style.width="36px";
+            middleControl.style.height="36px";
+			middleControl.style.zIndex="100000";
+           middleControl.innerHTML ='<img src="https://www.cdlhome.com.sg/mobile_assets/images/icon-location.png" />';
+		   document.getElementById("container").appendChild(middleControl);
+            //返回地图当前中心点地理坐标
+            centerDiv.innerHTML = "latlng:" + map.getCenter();
+            //当地图中心属性更改时触发事件
+            qq.maps.event.addListener(map, 'center_changed', function() {
+                centerDiv.innerHTML = "latlng:" + map.getCenter();
+            });
+
+        }
+
+        function addCenterMarker(map, point) {
+            var marker = new qq.maps.Marker({
+                position: point,
+                map: map
+            });
+            qq.maps.event.addListener(marker,"click",function(){
+                get_attribute(cabinet_id);
+            });
+        }
         
         function addMarker(map, point, cabinet_id) {
             var marker = new qq.maps.Marker({
