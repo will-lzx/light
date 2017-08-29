@@ -128,7 +128,12 @@
 
         function add_centerMarker(map, point)
         {
-            var icon = get_icon('/static/images/weixin/zhongxin.png');
+            var icon_path = '/static/images/weixin/zhongxin.png';
+
+            var anchor = new qq.maps.Point(0, 32),
+            size = new qq.maps.Size(32, 32),
+            origin = new qq.maps.Point(0, 0),
+            icon = new qq.maps.MarkerImage(icon_path, size, origin, anchor);
 
             var marker = new qq.maps.Marker({
                 icon: icon,
