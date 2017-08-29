@@ -448,7 +448,7 @@ h3{font-size: 14px;font-weight: bold;}
 .jgxq_t{width: 100%;height: 300px;z-index: 10;background: url("/static/images/weixin/jdmr.jpg") no-repeat;position: absolute;}
 .img_jd{width:auto;height:300px;overflow: hidden;border: none;}
 .jdxq_logo{width: 100%;height: 80px;text-align: center;top:250px;}
-.img_logo{width: 80px;height: auto;border: none;}
+.img_jd_logo{width: 80px;height: auto;border: none;}
 .jd_tag{width: 100%;text-align: center;height: 50px;line-height: 50px;font-size: 14px;border-bottom: 1px solid #f8f8f8;}
 .jdxq_h{padding: 10px 15px;border-bottom: 1px solid #f8f8f8;font-size: 14px;font-weight: 200;line-height: 30px;}
 .jdxq_h a{text-decoration: none;color: #333333;}
@@ -456,4 +456,4 @@ h3{font-size: 14px;font-weight: bold;}
 .jd_jh_t{width: 30px;height: auto;float: left;text-align: center;}
 .img_jd_t{width: 16px;height: auto;border: none;}
 .jd_jh_w{width: 60px;height: 30px;text-align:left;font-size: 14px;color: #666666;}
-
+.jd_an{width: 50%;float: left;text-align: center;}
