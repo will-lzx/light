@@ -46,6 +46,7 @@
         window.onload = function(){
             //初始化地图函数  自定义函数名init
             var is_weixin = '{{ is_weixin }}';
+            var markerArrary = [];
 
             function init() {
                 if(is_weixin === 'True')
@@ -57,8 +58,10 @@
                          zoom:13
                     });
 
+
                      qq.maps.event.addListener(map,"click",function(){
                         $('.cabinet_info').hide();
+                        clearMarkerArrar();
                     });
 
                      var middleControl = document.createElement("div");
@@ -115,6 +118,7 @@
                 position: point,
                 map: map
             });
+            markerArray.push(marker);
 
             qq.maps.event.addListener(marker,"click",function(){
                 $('.cabinet_info').show();
@@ -122,6 +126,21 @@
                 marker.setIcon(icon);
                 get_attribute(cabinet_id);
             });
+        }
+
+        function clearMarkerArrar(){
+            var markerImage;
+            if (markersArray) {
+                for (i in markersArray) {
+
+                     markerImage = markersArray[i].getIcon();
+                     if(markerImage.url == '/static/images/weixin/weizhi2.png')
+                     {
+                         var icon = get_icon('/static/images/weixin/weizhi2.png');
+                         markersArray[i].setIcon(icon);
+                     }
+                }
+            }
         }
 
         function get_icon(icon_path)
@@ -139,6 +158,7 @@
                 title: cabinet_id,
                 map: map
             });
+            markerArray.push(marker);
             AMap.event.addListener(marker, 'click', function () {
                 get_attribute(cabinet_id);
             });
