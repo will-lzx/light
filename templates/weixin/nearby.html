@@ -52,30 +52,20 @@
             function init() {
                 if(is_weixin === 'True')
                 {
+                    var center_point = new qq.maps.LatLng({{ lat }},{{ lon }});
                     //定义map变量 调用 qq.maps.Map() 构造函数   获取地图显示容器
                      var map = new qq.maps.Map(document.getElementById("container"), {
-                         center: new qq.maps.LatLng({{ lat }},{{ lon }}),      // 地图的中心地理坐标。
+                         center: center_point,      // 地图的中心地理坐标。
                          disableDefaultUI: true,
                          zoom:13
                     });
 
+                     add_centerMarker(map, center_point);
 
                      qq.maps.event.addListener(map,"click",function(){
                         $('.cabinet_info').hide();
                         clearMarkerArray();
                     });
-
-                     var middleControl = document.createElement("div");
-            middleControl.style.left="435px";
-            middleControl.style.top="470px";
-			middleControl.style.position="relative";
-			middleControl.style.width="36px";
-            middleControl.style.height="36px";
-			middleControl.style.zIndex="6";
-           middleControl.innerHTML ='<img src="/static/images/weixin/zhongxin.png" />';
-		   document.getElementById("container").appendChild(middleControl);
-
-
 
                      {% for cabinet in cabinets %}
                         var lat = {{ cabinet.6 }};
@@ -127,6 +117,17 @@
                 icon = get_icon('/static/images/weixin/weizhi2.png');
                 marker.setIcon(icon);
                 get_attribute(cabinet_id);
+            });
+        }
+
+        function add_centerMarker(map, point)
+        {
+            var icon = get_icon('/static/images/weixin/zhongxin.png');
+
+            var marker = new qq.maps.Marker({
+                icon: icon,
+                position: point,
+                map: map
             });
         }
 
