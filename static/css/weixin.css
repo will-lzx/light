@@ -438,7 +438,7 @@ h3{font-size: 14px;font-weight: bold;}
 .cabinet_info_left{width: 70%;float: left;height: 60px;}
 .cabinet_info_right{width: 20%;float: right;text-align:right;}
 .right_more{width: 18px;height: auto;margin-top: 29px;border: none;
-  padding:3px 30px;border-left: 1px dotted #999999;}
+  padding:3px 30px;border-left: 1px solid #999999;}
 .right_more a{border: none;}
 .dt_info_til{padding:0 15px;font-size: 16px;font-weight: 400;color: #cc0099;line-height: 40px;}
 .dt_info_con{padding:0 0 0 15px;float: left;text-align:left;height: 30px;font-size: 14px;}
