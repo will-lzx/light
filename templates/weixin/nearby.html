@@ -109,10 +109,7 @@
         };
         
         function addMarker(map, point, cabinet_id) {
-            var anchor = new qq.maps.Point(0, 50),
-            size = new qq.maps.Size(38, 54),
-            origin = new qq.maps.Point(0, 0),
-            icon = new qq.maps.MarkerImage('/static/images/weixin/weizhi.png', size, origin, anchor);
+            var icon = get_icon('/static/images/weixin/weizhi.png');
             var marker = new qq.maps.Marker({
                 icon: icon,
                 position: point,
@@ -121,8 +118,19 @@
 
             qq.maps.event.addListener(marker,"click",function(){
                 $('.cabinet_info').show();
+                icon = get_icon('/static/images/weixin/weizhi2.png');
+                marker.setIcon(icon);
                 get_attribute(cabinet_id);
             });
+        }
+
+        function get_icon(icon_path)
+        {
+            var anchor = new qq.maps.Point(0, 50),
+            size = new qq.maps.Size(38, 54),
+            origin = new qq.maps.Point(0, 0),
+            icon = new qq.maps.MarkerImage(icon_path, size, origin, anchor);
+            return icon;
         }
 
         function addMarker_zhifubao(map, lat, lon, cabinet_id) {
