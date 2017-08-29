@@ -434,11 +434,11 @@ h3{font-size: 14px;font-weight: bold;}
 .dt_hd_con_t{float: left;width: 30px;text-align: right;}
 .dt_hd_con_w{float: left;width: 80px;text-align: center;font-size: 16px;line-height: 40px;}
 .img_loca{width: 20px; height: auto;border: none;margin-top: 10px;}
-.cabinet_info{position: absolute;width: 94%;height:75px;background-color: white;z-index: 30;border: 1px solid #999999;-moz-border-radius:8px; -webkit-border-radius:8px;border-radius: 8px;top: 10px;left: 3%;}
+.cabinet_info{position: absolute;width: 94%;height:75px;background-color: white;z-index: 30;border: 1px solid #f8f8f8;-moz-border-radius:8px; -webkit-border-radius:8px;border-radius: 8px;top: 10px;left: 3%;box-shadow: #666666 0px 0px 10px;}
 .cabinet_info_left{width: 70%;float: left;height: 60px;}
 .cabinet_info_right{width: 20%;float: right;text-align:right;}
 .right_more{width: 18px;height: auto;margin-top: 29px;border: none;
-  padding:3px 30px;border-left: 1px solid #999999;}
+  padding:3px 30px;border-left: 1px dotted #999999;}
 .right_more a{border: none;}
 .dt_info_til{padding:0 15px;font-size: 16px;font-weight: 400;color: #cc0099;line-height: 40px;}
 .dt_info_con{padding:0 0 0 15px;float: left;text-align:left;height: 30px;font-size: 14px;}
