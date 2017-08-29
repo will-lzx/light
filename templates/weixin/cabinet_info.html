@@ -9,7 +9,7 @@
 {% block content %}
     <div class="jdxq_t"><img class="img_jd" src="{% static '/images/weixin/jdmr.jpg' %}" alt="景点照片"></div>
     <div class="jdxq_logo"><img class="img_jd_logo" src="{% static '/images/weixin/jd_logo.png' %}" alt="景点详情LOGO"></div>
-    <h2>西江千户苗寨_北一售票厅</h2>
+    <h2 class="jd_top">西江千户苗寨_北一售票厅</h2>
     <div class="jd_tag">景色好&nbsp;&nbsp;&nbsp;人流多&nbsp;&nbsp;&nbsp;有自拍杆</div>
     <div class="jdxq_h">地址：西江景区花园路18号路口</div>
     <div class="jdxq_h">距离：780m</div>
@@ -17,9 +17,9 @@
     <div class="jdxq_h">电话：0855-89006688</div>
     <div class="jdxq_jh">
         <div class="jd_jh_t"><img class="img_jd_t" src="{% static '/images/weixin/jc.png' %}" alt="可借自拍杆"></div>
-        <div class="jd_jh_w">可借：{{ can_lend }}</div>
+        <div class="jd_jh_w">可借：<span class="col_j">{{ can_lend }}</span></div>
         <div class="jd_jh_t"><img class="img_jd_t" src="{% static '/images/weixin/hr.png' %}" alt="可还自拍杆"></div>
-        <div class="jd_jh_w">可还：{{ can_return }}</div>
+        <div class="jd_jh_w">可还：<span class="col_h">{{ can_return }}</span></div>
     </div>
 
     <div class="jd_an_left"><a href="#" id="scanQRCode" class="weui-btn weui-btn_primary page__bd_spacing">借杆</a></div>
