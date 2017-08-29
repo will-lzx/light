@@ -222,7 +222,7 @@ def get_cabinet_info(request):
 
     content ='<div class="cabinet_info_left"><div class="dt_info_til">' + \
              cabinet[0][1] +'</div><div class="dt_info_con">距离：<span class="jd_jl">' + str(can_lend) + \
-             '</span></div><div class="dt_info_con">可借：<span class="col_j">' + str(can_lend) + '</span></div><div class="dt_info_con">可还：<span class="col_j">' + \
+             '</span></div><div class="dt_info_con">可借：<span class="col_j">' + str(can_lend) + '</span></div><div class="dt_info_con">可还：<span class="col_h">' + \
              str(can_return) + '</span></div></div><div class="cabinet_info_right"><a href="/weixin/cabinet_info/' + \
              str(cabinet[0][0]) + '/"><img class="right_more" src="/static/images/weixin/more.png" ></a></div>'
 
