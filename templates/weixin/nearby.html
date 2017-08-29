@@ -29,8 +29,6 @@
       </div>
 
     </div>
-    <div id="centerDiv"></div>
-
     <div class="cabinet_info">
 
     </div>
@@ -62,22 +60,17 @@
                          zoom:13
                     });
 
-                    var centerDiv = document.getElementById("centerDiv");
-
-                    var middleControl = document.createElement("div");
-            middleControl.style.left="435px";
-            middleControl.style.top="470px";
-			middleControl.style.position="relative";
-			middleControl.style.width="36px";
-            middleControl.style.height="36px";
-			middleControl.style.zIndex="100000";
-           middleControl.innerHTML ='<img src="/static/images/weixin/zhongxin.png" />';
-		   document.getElementById("container").appendChild(middleControl);
-
+                     var center_marker = add_centerMarker(map, center_point);
 
                      qq.maps.event.addListener(map,"click",function(){
                         $('.cabinet_info').hide();
                         clearMarkerArray();
+                    });
+
+                     qq.maps.event.addListener(map, 'center_changed', function() {
+                         center_marker.setMap(null);
+
+                         center_marker = add_centerMarker(map, map.getCenter());
                     });
 
                      {% for cabinet in cabinets %}
@@ -142,6 +135,7 @@
                 position: point,
                 map: map
             });
+            return marker;
         }
 
         function clearMarkerArray(){
