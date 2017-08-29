@@ -29,6 +29,8 @@
       </div>
 
     </div>
+    <div id="centerDiv"></div>
+
     <div class="cabinet_info">
 
     </div>
@@ -60,7 +62,18 @@
                          zoom:13
                     });
 
-                     add_centerMarker(map, center_point);
+                    var centerDiv = document.getElementById("centerDiv");
+
+                    var middleControl = document.createElement("div");
+            middleControl.style.left="435px";
+            middleControl.style.top="470px";
+			middleControl.style.position="relative";
+			middleControl.style.width="36px";
+            middleControl.style.height="36px";
+			middleControl.style.zIndex="100000";
+           middleControl.innerHTML ='<img src="/static/images/weixin/zhongxin.png" />';
+		   document.getElementById("container").appendChild(middleControl);
+
 
                      qq.maps.event.addListener(map,"click",function(){
                         $('.cabinet_info').hide();
