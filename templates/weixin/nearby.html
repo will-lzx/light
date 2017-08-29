@@ -43,9 +43,11 @@
         <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
     {% endifequal %}
     <script>
+    var markersArray = [];
         window.onload = function(){
             //初始化地图函数  自定义函数名init
             var is_weixin = '{{ is_weixin }}';
+
 
             function init() {
                 if(is_weixin === 'True')
@@ -57,8 +59,10 @@
                          zoom:13
                     });
 
+
                      qq.maps.event.addListener(map,"click",function(){
                         $('.cabinet_info').hide();
+                        clearMarkerArray();
                     });
 
                      var middleControl = document.createElement("div");
@@ -67,8 +71,8 @@
 			middleControl.style.position="relative";
 			middleControl.style.width="36px";
             middleControl.style.height="36px";
-			middleControl.style.zIndex="1000000000000";
-           middleControl.innerHTML ='<img src="/static/images/weixin/weizhi.png" />';
+			middleControl.style.zIndex="6";
+           middleControl.innerHTML ='<img src="/static/images/weixin/zhongxin.png" />';
 		   document.getElementById("container").appendChild(middleControl);
 
 
@@ -109,20 +113,45 @@
         };
         
         function addMarker(map, point, cabinet_id) {
-            var anchor = new qq.maps.Point(0, 50),
-            size = new qq.maps.Size(38, 54),
-            origin = new qq.maps.Point(0, 0),
-            icon = new qq.maps.MarkerImage('/static/images/weixin/weizhi.png', size, origin, anchor);
+            var icon = get_icon('/static/images/weixin/weizhi.png');
             var marker = new qq.maps.Marker({
                 icon: icon,
                 position: point,
                 map: map
             });
+            markersArray.push(marker);
 
             qq.maps.event.addListener(marker,"click",function(){
+                clearMarkerArray();
                 $('.cabinet_info').show();
+                icon = get_icon('/static/images/weixin/weizhi2.png');
+                marker.setIcon(icon);
                 get_attribute(cabinet_id);
             });
+        }
+
+        function clearMarkerArray(){
+            var markerImage;
+            if (markersArray) {
+                for (i in markersArray) {
+
+                     markerImage = markersArray[i].getIcon();
+                     if(markerImage.url === '/static/images/weixin/weizhi2.png')
+                     {
+                         var icon = get_icon('/static/images/weixin/weizhi.png');
+                         markersArray[i].setIcon(icon);
+                     }
+                }
+            }
+        }
+
+        function get_icon(icon_path)
+        {
+            var anchor = new qq.maps.Point(0, 50),
+            size = new qq.maps.Size(38, 54),
+            origin = new qq.maps.Point(0, 0),
+            icon = new qq.maps.MarkerImage(icon_path, size, origin, anchor);
+            return icon;
         }
 
         function addMarker_zhifubao(map, lat, lon, cabinet_id) {
@@ -131,6 +160,7 @@
                 title: cabinet_id,
                 map: map
             });
+            markersArray.push(marker);
             AMap.event.addListener(marker, 'click', function () {
                 get_attribute(cabinet_id);
             });
