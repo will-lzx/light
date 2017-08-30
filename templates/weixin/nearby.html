@@ -48,7 +48,6 @@
             //初始化地图函数  自定义函数名init
             var is_weixin = '{{ is_weixin }}';
 
-
             function init() {
                 if(is_weixin === 'True')
                 {
@@ -64,7 +63,7 @@
 
                      qq.maps.event.addListener(map,"click",function(){
                         $('.cabinet_info').hide();
-                        clearMarkerArray();
+                        clearMarkerArray(is_weixin);
                     });
 
                      qq.maps.event.addListener(map, 'center_changed', function() {
@@ -88,11 +87,12 @@
                         zoom: 16,
                         center: [{{ lon }},{{ lat }}]
                     });
-                    var toolBar;
-                    map.plugin(["AMap.ToolBar"],function(){   //在地图中添加ToolBar插件
-                        toolBar = new AMap.ToolBar();
-                        map.addControl(toolBar);
+
+                    map.on('click', function () {
+                        $('.cabinet_info').hide();
+                        clearMarkerArray(is_weixin);
                     });
+
 
                     {% for cabinet in cabinets %}
                         var lat = {{ cabinet.6 }};
@@ -119,10 +119,10 @@
 
             qq.maps.event.addListener(marker,"click",function(){
                 clearMarkerArray();
-                $('.cabinet_info').show();
                 icon = get_icon('/static/images/weixin/weizhi2.png');
                 marker.setIcon(icon);
                 get_attribute(cabinet_id);
+                $('.cabinet_info').show();
             });
         }
 
@@ -143,17 +143,48 @@
             return marker;
         }
 
-        function clearMarkerArray(){
+        function add_centerMarker_zhifubao(map, point)
+        {
+            var icon_path = '/static/images/weixin/zhongxin.png';
+
+            var icon = new AMap.Icon({
+                size: new AMap.Size(38, 32),  //图标大小
+                image: icon_path,
+                imageOffset: new AMap.Pixel(0, 32)
+            });
+
+            var marker = new qq.maps.Marker({
+                icon: icon,
+                position: point,
+                map: map
+            });
+            return marker;
+        }
+
+        function clearMarkerArray(is_weixin){
             var markerImage;
             if (markersArray) {
                 for (i in markersArray) {
 
                      markerImage = markersArray[i].getIcon();
-                     if(markerImage.url === '/static/images/weixin/weizhi2.png')
+                     if(is_weixin === 'True')
                      {
-                         var icon = get_icon('/static/images/weixin/weizhi.png');
-                         markersArray[i].setIcon(icon);
+                         if(markerImage.url === '/static/images/weixin/weizhi2.png')
+                         {
+                             var icon = get_icon('/static/images/weixin/weizhi.png');
+                             markersArray[i].setIcon(icon);
+                         }
                      }
+                     else
+                     {
+                         if(markerImage.image === '/static/images/weixin/weizhi2.png')
+                         {
+                             var icon = get_icon_zhifubao('/static/images/weixin/weizhi.png');
+                             markersArray[i].setIcon(icon);
+                         }
+                     }
+
+
                 }
             }
         }
@@ -167,15 +198,29 @@
             return icon;
         }
 
+        function get_icon_zhifubao(icon_path)
+        {
+            var icon = new AMap.Icon({
+                size: new AMap.Size(38, 54),  //图标大小
+                image: icon_path,
+                imageOffset: new AMap.Pixel(0, 50)
+            });
+            return icon;
+        }
+
+
         function addMarker_zhifubao(map, lat, lon, cabinet_id) {
+            var icon = get_icon_zhifubao('/static/images/weixin/weizhi.png');
             var marker = new AMap.Marker({
                 position: [lon, lat],
                 title: cabinet_id,
-                map: map
+                map: map,
+                icon: icon
             });
             markersArray.push(marker);
-            AMap.event.addListener(marker, 'click', function () {
+            marker.on('click', function () {
                 get_attribute(cabinet_id);
+                $('.cabinet_info').show();
             });
         }
 
