@@ -35,15 +35,18 @@
 
                 function init_socket(){
                     socket = io.connect('ws://182.61.58.155:2136');
-
-                    socket.emit('join', {username:'will'});
+                    var username = '{{ openid }}';
+                    socket.emit('join', {username:username});
 
                     socket.on('pmsg', function(from, to, msg){
-                        alert(msg);
-                        if(msg=='lend_success')
+                        if(to === username)
                         {
-                            setTimeout("jump();", 2000);
+                            if(msg=='lend_success')
+                            {
+                                setTimeout("jump();", 2000);
+                            }
                         }
+
                     });
                 }
 
@@ -68,7 +71,8 @@
 
                 function sendmsg(msg){
                     alert('send msg' + msg);
-                    socket.emit('private_message', 'will', 'will', msg);
+                    var to = '{{ openid }}';
+                    socket.emit('private_message', 'will', to, msg);
                 }
 
                 window.onload = lend;

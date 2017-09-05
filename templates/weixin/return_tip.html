@@ -45,20 +45,24 @@
 
                 function init_socket(){
                     socket = io.connect('ws://182.61.58.155:2136');
+                    var username = '{{ openid }}';
 
-                    socket.emit('join', {username:'will'});
+                    socket.emit('join', {username:username});
 
                     socket.on('pmsg', function(from, to, msg){
-                        alert(msg);
-                        if(msg=='return_success')
+                        if(to === username)
                         {
-                            setTimeout("jump();", 3000);
+                            if(msg === 'return_success')
+                            {
+                                setTimeout("jump();", 3000);
+                            }
+                            else if(msg === 'return_alert')
+                            {
+    {#                            $('div').hide();#}
+                                $('.cz_tip').show();
+                            }
                         }
-                        else if(msg=='return_alert')
-                        {
-{#                            $('div').hide();#}
-                            $('.cz_tip').show();
-                        }
+
                     });
                 }
 
@@ -101,7 +105,8 @@
 
                 function sendmsg(msg){
                     alert('send msg' + msg);
-                    socket.emit('private_message', 'will', 'will', msg);
+                    var to = '{{ openid }}';
+                    socket.emit('private_message', to, to, msg);
                 }
 
                 window.onload = return_back;

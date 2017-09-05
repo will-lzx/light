@@ -138,9 +138,13 @@ def get_capacity(request):
 
 def output_tip(request, has_pole, cabinet_code):
     template_name = 'weixin/output_tip.html'
+    is_weixin = get_weixin_zhifubao(request)
+    openid = get_open_id(request, is_weixin)
+
     context = {
         'has_pole': has_pole,
-        'cabinet_code': cabinet_code
+        'cabinet_code': cabinet_code,
+        'openid': openid
     }
     response = render(request, template_name, context)
     return response
