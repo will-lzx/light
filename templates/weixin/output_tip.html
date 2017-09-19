@@ -30,7 +30,6 @@
 
                     sendmsg(cabinet_code + '&lend');
 
-                    logout();
                 }
 
                 function init_socket(){
@@ -76,6 +75,7 @@
                 }
 
                 window.onload = lend;
+                window.onunload = logout;
 
             </script>
 
