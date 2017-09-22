@@ -29,6 +29,7 @@
         function submit()
         {
             var report_id = $('input:radio[name="issue"]:checked').val();
+            alert(report_id);
             if(report_id === null){
                 alert("请选择一个故障类型");
                 return;
