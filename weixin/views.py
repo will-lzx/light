@@ -781,6 +781,7 @@ def cooperation(request):
 
 
 def report(request):
+    set_weixin_zhifubao(request)
     template_name = 'weixin/report.html'
     issues = get_issues()
     context = {
