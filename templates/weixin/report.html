@@ -1,0 +1,58 @@
+{% extends "weixin/base.html" %}
+{% load static %}
+{% block title %}故障报修{% endblock %}
+{% block head %}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <span>故障类型：</span><br>
+        {% for issue in issues %}
+            <input type="radio" name="issue" value="{{ issue.0 }}"><span>{{ issue.1 }}</span>
+        {% endfor %}
+
+        <br>
+
+        <span>补充说明（选填）</span>
+        <br>
+        <span>问题描述：</span>
+        <br>
+        <div>
+            <input type="text" id="description">
+        </div>
+
+
+        <input type="button" name="submit" value="立即反馈" onclick="submit()">
+    </div>
+    <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
+    <script>
+        function submit()
+        {
+            var report_id = $('input:radio[name="issue"]:checked').val();
+            if(report_id === null){
+                alert("请选择一个故障类型");
+                return;
+            }
+            var description = $('#description').val();
+
+            $.ajax({
+                type:"post",
+                url:"/weixin/save_report/", // save report
+                data:{report_id:report_id, description: description},
+                success:function(result){
+                    var result_list = result.split('&');
+                    if(result_list[0].toLowerCase() === 'success')
+                    {
+                        location.href = '/weixin/privatecenter/';
+                    }
+                    else
+                    {
+                        alert('系统繁忙，请稍后再提交故障报修');
+                    }
+                }
+            });
+        }
+    </script>
+
+
+{% endblock %}

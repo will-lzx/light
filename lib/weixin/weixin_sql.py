@@ -13,6 +13,19 @@ def get_lendtime(customer_id):
     return lendtime
 
 
+def get_issues():
+    mysql = MySQL(db='management')
+    issues = mysql.exec_query('select id, name from home_report_type')
+    return issues
+
+
+def insert_report(report_id, description):
+    mysql = MySQL(db='management')
+    create_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    mysql.exec_none_query(
+        'insert into home_report (type, description, create_time) values({0}, "{1}", "{2}")'.format(report_id, description, create_time))
+
+
 def get_deposit(openid, is_weixin=True):
     mysql = MySQL(db='management')
     if is_weixin:
@@ -374,5 +387,5 @@ if __name__ == '__main__':
 
     #result = is_pay_finished('oWJUp0XapjayHP5kLqXC3uADC73w')
     #update_deposit('2088002510276700', 0.01, '1502680802', False)
-    exist = is_exist_customer_site('2088002510276700')
+    insert_report(4, 'test')
     print('')

@@ -74,4 +74,7 @@ urlpatterns = [
 
     url(r'^cooperation/$', cooperation, name='cooperation'),
 
+    url(r'^report/$', report, name='report'),
+    url(r'^save_report/$', save_report, name='save_report'),
+
 ]

@@ -780,6 +780,28 @@ def cooperation(request):
     return response
 
 
+def report(request):
+    template_name = 'weixin/report.html'
+    issues = get_issues()
+    context = {
+        'issues': issues
+    }
+    response = render(request, template_name, context)
+    return response
+
+
+@method_decorator(csrf_exempt)
+def save_report(request):
+    report_id = request.POST.get('report_id')
+    description = request.POST.get('description')
+
+    try:
+        insert_report(report_id, description)
+        return HttpResponse('Success')
+    except Exception as ex:
+        return HttpResponse('Fail&{0}'.format(ex))
+
+
 def oauth_user(request):
     from wechatpy import WeChatClient
     from wechatpy.oauth import WeChatOAuth
