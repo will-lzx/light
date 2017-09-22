@@ -19,11 +19,11 @@ def get_issues():
     return issues
 
 
-def insert_report(report_id, description):
+def insert_report(report_id, description, openid):
     mysql = MySQL(db='management')
     create_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     mysql.exec_none_query(
-        'insert into home_report (type, description, create_time) values({0}, "{1}", "{2}")'.format(report_id, description, create_time))
+        'insert into home_report (type, description, openid, create_time) values({0}, "{1}", "{2}", "{3}")'.format(report_id, description, openid, create_time))
 
 
 def get_deposit(openid, is_weixin=True):

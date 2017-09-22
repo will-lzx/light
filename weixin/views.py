@@ -782,10 +782,15 @@ def cooperation(request):
 
 def report(request):
     set_weixin_zhifubao(request)
+    is_weixin = get_weixin_zhifubao(request)
+
+    openid = get_open_id(request, is_weixin)
+
     template_name = 'weixin/report.html'
     issues = get_issues()
     context = {
-        'issues': issues
+        'issues': issues,
+        'openid': openid
     }
     response = render(request, template_name, context)
     return response
@@ -795,9 +800,10 @@ def report(request):
 def save_report(request):
     report_id = request.POST.get('report_id')
     description = request.POST.get('description')
+    openid = request.POST.get('openid')
 
     try:
-        insert_report(report_id, description)
+        insert_report(report_id, description, openid)
         return HttpResponse('Success')
     except Exception as ex:
         return HttpResponse('Fail&{0}'.format(ex))
