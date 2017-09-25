@@ -15,7 +15,7 @@
     <h2>故障类型：</h2>
 
         {% for issue in issues %}
-            <input type="radio" class="bx_type" name="issue" value="{{ issue.0 }}"><span>{{ issue.1 }}</span>
+            <div class="bx_type"><input type="radio"  name="issue" value="{{ issue.0 }}"><span>{{ issue.1 }}</span></div>
         {% endfor %}
 
         <br>
