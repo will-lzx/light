@@ -12,7 +12,7 @@
 
 
     <div class="ab_txt">
-    <h2>故障类型：</h2>
+    <h2_2>故障类型</h2_2>
 
         {% for issue in issues %}
             <div class="bx_type"><input type="radio"  name="issue" value="{{ issue.0 }}"><span>{{ issue.1 }}</span></div>
@@ -20,7 +20,7 @@
 
         <br>
 
-     <h2>问题描述（选填）</h2>
+     <h2_2>问题描述（选填）</h2_2>
         <div>
             <input class="bx_input" type="text" id="description">
         </div>
