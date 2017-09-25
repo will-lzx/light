@@ -5,24 +5,28 @@
 {% endblock %}
 
 {% block content %}
-    <div>
-        <span>故障类型：</span><br>
+    <div class="ab_top">
+        <h1>感谢反馈 共享共建美好出游生活</h1>
+      再次感谢您的反馈，我们将第一时间处理。您也可反馈到景区售票处。
+    </div>
+
+
+    <div class="ab_txt">
+    <h2>故障类型：</h2>
+
         {% for issue in issues %}
-            <input type="radio" name="issue" value="{{ issue.0 }}"><span>{{ issue.1 }}</span>
+            <input type="radio" class="bx_type" name="issue" value="{{ issue.0 }}"><span>{{ issue.1 }}</span>
         {% endfor %}
 
         <br>
 
-        <span>补充说明（选填）</span>
-        <br>
-        <span>问题描述：</span>
-        <br>
+     <h2>问题描述（选填）</h2>
         <div>
-            <input type="text" id="description">
+            <input class="bx_input" type="text" id="description">
         </div>
 
-
-        <input type="button" name="submit" value="立即反馈" onclick="submit()">
+       <a href="#" id="scanQRCode" class="weui-btn weui-btn_primary page__bd_spacing">立即反馈</a>
+       <br> <input type="button" name="submit" value="立即反馈" onclick="submit()">
     </div>
     <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
     <script>
